@@ -47,7 +47,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AssetRate.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderFilled.cs" />
+    <Compile Include="Models\OrderFilledMatch.cs" />
+    <Compile Include="Models\OrderLeg.cs" />
+    <Compile Include="Models\TokenAccountHolder.cs" />
+    <Compile Include="Models\TokenAccount.cs" />
+    <Compile Include="Models\Asset.cs" />
+    <Compile Include="Models\AssetAccount.cs" />
+    <Compile Include="Models\RateProvider.cs" />
+    <Compile Include="Models\AssetTransfer.cs" />
+    <Compile Include="Models\Custodian.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\AssetTokenFlow.cs" />
+    <Compile Include="Models\TradeTokenFlow.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\Trust.cs" />
+    <Compile Include="Models\ClientAuthentication.cs" />
+    <Compile Include="Models\ClientLogin.cs" />
+    <Compile Include="Models\ClientRegistration.cs" />
+    <Compile Include="Models\ClientKYC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\Client.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
