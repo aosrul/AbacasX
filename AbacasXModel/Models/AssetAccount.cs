@@ -14,13 +14,13 @@ namespace AbacasXModel.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssetAccountId { get; set; }
 
+        public int CustodianId { get; set; }
+
         [MaxLength(40)]
         [Required]
         public string AccountNumber { get; set; }
 
-
-        public int CustodianId { get; set; }
-
+        
         [MaxLength(35)]
         [Required]
         public string AssetCode { get; set; }

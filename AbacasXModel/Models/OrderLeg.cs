@@ -14,6 +14,7 @@ namespace AbacasXModel.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderLegID { get; set; }
 
+        // Foreign Key to Order
         public int OrderID { get; set; }
         
         public DateTime OrderLegCreatedDateTime { get; set; }
@@ -26,9 +27,7 @@ namespace AbacasXModel.Models
         [MaxLength(35)]
         [Required]
         public string Token1Id { get; set; }
-
         public int Token1AccountId { get; set; }
-
         public decimal Token1Amount { get; set; }
         public decimal Token1AmountFilled { get; set; }
 
@@ -37,7 +36,6 @@ namespace AbacasXModel.Models
         public string Token2Id { get; set; }
         public decimal Token2Amount { get; set; }
         public int Token2AccountId { get; set; }
-
 
         public decimal OrderPrice { get; set; }
         public OrderPriceTermsEnum OrderPriceTerms { get; set; }

@@ -14,13 +14,15 @@ namespace AbacasXModel.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TransferId { get; set; }
 
-        public TransferStatusEnum TransferStatus {get; set;}
-
         public int AccountId { get; set; }
 
+        
         public TransferTypeEnum TransferType { get; set; }
 
         public decimal Amount { get; set; }
+
+        public TransferStatusEnum TransferStatus { get; set; }
+
 
         [MaxLength(75)]
         public string ForAccountOf { get; set; }

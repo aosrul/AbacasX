@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class RateProvider
+    class AssetRateProvider
     {
         [System.ComponentModel.DataAnnotations.Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class AssetTokenFlow
+    class AssetTransferTokenFlow
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -19,12 +19,10 @@ namespace AbacasXModel.Models
 
         // Foreign Key to Token
         [MaxLength(35)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string TokenId { get; set; }
 
         // Foreign Key to BaseAssetTransfer
         public int AssetTransferId { get; set; }
-
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }

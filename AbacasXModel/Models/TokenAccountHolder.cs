@@ -12,16 +12,18 @@ namespace AbacasXModel
     class TokenAccountHolder
     {
         [Key, Column(Order=1)]
-        public int UserId { get; set; }
+        public int ClientId { get; set; }
 
         [Key, Column(Order = 2)]
-        public int AccountId { get; set; }
+        public int TokenAccountId { get; set; }
+
         public AccountHolderTypeEnum AccountHolderType { get; set; }
+
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
-        public virtual Client User { get; set; }
+        public virtual Client Client { get; set; }
         public virtual TokenAccount TokenAccount { get; set; }
     }
 

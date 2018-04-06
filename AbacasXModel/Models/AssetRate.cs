@@ -12,7 +12,7 @@ namespace AbacasXModel.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RateID { get; set; }
+        public int RateId { get; set; }
 
         [MaxLength(35)]
         [Required]
@@ -23,10 +23,10 @@ namespace AbacasXModel.Models
         public string PriceCurrency { get; set; }
 
         [Required]
-        public int ProviderID { get; set; }
+        public int RateProviderId { get; set; }
 
         [MaxLength(30)]
-        public string ProviderRateID { get; set; }
+        public string RateProviderCode { get; set; }
 
         // Rate Terms from the Provider
         public RateTermsEnum RateTerms { get; set; }
@@ -44,7 +44,7 @@ namespace AbacasXModel.Models
         public Byte[] Timestamp { get; set; }
 
         public virtual Asset Asset { get; set; }
-        public virtual RateProvider RateProvider { get; set; }
+        public virtual AssetRateProvider RateProvider { get; set; }
     }
 
     public enum RateTermsEnum

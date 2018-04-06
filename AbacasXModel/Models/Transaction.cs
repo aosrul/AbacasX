@@ -12,15 +12,15 @@ namespace AbacasXModel.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TransactionID { get; set; }
+        public int TransactionId { get; set; }
 
-        public int ClientID { get; set; }       // Who entered the order
-        public int OrderLegID { get; set; }    
+        public int ClientId { get; set; }       // Who entered the order
+        public int OrderLegId { get; set; }    
 
         public TransactionSourceEnum TransactionSource { get; set; }
 
         [MaxLength(35)]
-        public string ExternalTransactionID { get; set; }
+        public string ExternalReferenceId { get; set; }
 
         public TransactionBuySellTypeEnum BuySellType { get; set; }
         [MaxLength(35)]

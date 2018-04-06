@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class TradeTokenFlow
+    class TransactionTokenFlow
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TradeTokenFlowId { get; set; }
 
-        public int TransactionID { get; set; }
+        public int TransactionId { get; set; }
         public string TokenId { get; set; }
         public TokenFlowTypeEnum TokenFlowType { get; set; }
         public decimal Amount { get; set; }

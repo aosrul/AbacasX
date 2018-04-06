@@ -47,7 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201804060318128_Initial.cs" />
+    <Compile Include="Migrations\201804060318128_Initial.Designer.cs">
+      <DependentUpon>201804060318128_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AssetRate.cs" />
+    <Compile Include="Models\Data\AbacasXDbContext.cs" />
+    <Compile Include="Models\Data\AbacasXDbInitializer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderFilled.cs" />
     <Compile Include="Models\OrderFilledMatch.cs" />
@@ -56,12 +63,12 @@
     <Compile Include="Models\TokenAccount.cs" />
     <Compile Include="Models\Asset.cs" />
     <Compile Include="Models\AssetAccount.cs" />
-    <Compile Include="Models\RateProvider.cs" />
+    <Compile Include="Models\AssetRateProvider.cs" />
     <Compile Include="Models\AssetTransfer.cs" />
     <Compile Include="Models\Custodian.cs" />
     <Compile Include="Models\Token.cs" />
-    <Compile Include="Models\AssetTokenFlow.cs" />
-    <Compile Include="Models\TradeTokenFlow.cs" />
+    <Compile Include="Models\AssetTransferTokenFlow.cs" />
+    <Compile Include="Models\TransactionTokenFlow.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Trust.cs" />
     <Compile Include="Models\ClientAuthentication.cs" />
@@ -74,6 +81,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804060318128_Initial.resx">
+      <DependentUpon>201804060318128_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -32,6 +32,6 @@ namespace AbacasXModel.Models
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
-        public virtual OrderLeg AbacasOrderLeg { get; set; }
+        public virtual OrderLeg OrderLeg { get; set; }
     }
 }
