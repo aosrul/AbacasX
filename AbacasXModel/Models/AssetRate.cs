@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class AssetRate
+    public class AssetRate
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,15 +16,17 @@ namespace AbacasXModel.Models
 
         [MaxLength(35)]
         [Required]
-        public string AssetCode { get; set; }
+        public string AssetId { get; set; }
+
+        [Required]
+        public int RateProviderId { get; set; }
+
 
         [MaxLength(10)]
         [Required]
         public string PriceCurrency { get; set; }
 
-        [Required]
-        public int RateProviderId { get; set; }
-
+      
         [MaxLength(30)]
         public string RateProviderCode { get; set; }
 

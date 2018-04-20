@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 namespace AbacasXModel.Models
 {
    
-    class ClientRegistration
+    public class ClientRegistration
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ClientRegistrationId { get; set; }
+
         public int ClientId { get; set; }
 
         public RegistrationStatusEnum RegistrationStatus { get; set; }
@@ -28,5 +30,7 @@ namespace AbacasXModel.Models
         Pending,
         InProgress,
         Completed,
+        Canceled,
+        Failed
     }
 }

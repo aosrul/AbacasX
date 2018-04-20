@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class OrderLeg
+    public class OrderLeg
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -21,6 +21,8 @@ namespace AbacasXModel.Models
 
         public OrderLegTypeEnum OrderLegType { get; set; }
         public OrderLegStatusEnum OrderLegStatus { get; set; }
+
+        // Buy/Sell Type applies to Token1
         public OrderLegBuySellEnum BuySellType { get; set; }
         public OrderLegFillStatusEnum OrderLegFillStatus { get; set; }
 

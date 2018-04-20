@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class Transaction
+    public class TokenTrade
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TransactionId { get; set; }
+        public int TradeId { get; set; }
 
         public int ClientId { get; set; }       // Who entered the order
         public int OrderLegId { get; set; }    

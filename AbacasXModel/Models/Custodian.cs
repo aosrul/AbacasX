@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class Custodian
+    public class Custodian
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class Asset
+    public class Asset
     {
         [Key]
         [MaxLength(35)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string AssetCode { get; set; }
+        public string AssetId { get; set; }
 
-        [MaxLength(35)]
+        [MaxLength(50)]
         [Required]
         public string AssetName { get; set; }
+
         public AssetTypeEnum AssetType { get; set; }
 
         [Timestamp]

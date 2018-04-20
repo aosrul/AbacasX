@@ -8,27 +8,43 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class AssetTransfer
+    /// <summary>
+    /// An Asset Transfer is either an incoming deposit, or an outgoing withdrawal.
+    /// A deposit will generate an AssetTransferTokenFlow credit to a TokenAccount
+    /// A withdrawal will generate an AssetTransferTokenFlow debit from a TokenAccount
+    /// A withdrawal will only be completed when the AssetTransferTokenFlow is processed.
+    /// </summary>
+    public class AssetTransfer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TransferId { get; set; }
+        public int AssetTransferId { get; set; }
 
-        public int AccountId { get; set; }
+        public int AssetAccountId { get; set; }
+        public int CustodianId { get; set; }
 
-        
-        public TransferTypeEnum TransferType { get; set; }
+        // A completed Transfer will have a corresponding TokenConversion Record
+        public int? TokenConversionId { get; set; }
 
+        [MaxLength(35)]
+        [Required]
+        public string AssetId { get; set; }
+                
         public decimal Amount { get; set; }
-
         public TransferStatusEnum TransferStatus { get; set; }
 
+        public TransferTypeEnum TransferType { get; set; }
+
+        // Deposit Fields
 
         [MaxLength(75)]
+        [Required]
         public string ForAccountOf { get; set; }
 
         [MaxLength(50)]
+        [Required]
         public string ReferenceCode { get; set; }
+        
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }
@@ -37,17 +53,19 @@ namespace AbacasXModel.Models
     }
 }
 
-public enum TransferStatusEnum
-{
-    InProgress,
-    Completed,
-    Canceled
-}
 
 public enum TransferTypeEnum
 {
-    TransferIn,
-    TransferOut,
-    AdjustmentCredit,
-    AdjustmentDebit
+    Deposit,
+    Withdrawal
 }
+
+public enum TransferStatusEnum
+{
+    Requested,
+    InProgress,
+    Completed,
+    Canceled,
+    Failed
+}
+

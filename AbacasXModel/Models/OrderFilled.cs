@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class OrderFilled
+    public class OrderFilled
     {
         [Key, Column(Order = 0)]
         public int OrderLegID { get; set; }

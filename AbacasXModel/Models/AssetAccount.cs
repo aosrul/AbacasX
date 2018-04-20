@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class AssetAccount
+    public class AssetAccount
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssetAccountId { get; set; }
 
+        // Foreign Keys
+        [MaxLength(35)]
+        public string AssetId { get; set; }
+
         public int CustodianId { get; set; }
 
+
+        // Custodian Account Number
         [MaxLength(40)]
         [Required]
         public string AccountNumber { get; set; }
 
-        
-        [MaxLength(35)]
-        [Required]
-        public string AssetCode { get; set; }
         public decimal Balance { get; set; }
         public decimal AvailableBalance { get; set; }
 
-        
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 

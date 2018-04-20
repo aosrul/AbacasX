@@ -8,27 +8,29 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class AssetTransferTokenFlow
+    /// <summary>
+    /// This is the Token Flow (Tokens) either created, or liquidated based on either a deposit
+    /// or withdrawal of the base asset. 
+    /// </summary>
+    public class TokenConversion
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AssetTokenFlowId { get; set; }
+        public int TokenConversionId { get; set; }
 
-        // Foreign Key to Token Account
-        public int AccountId { get; set; }
-
-        // Foreign Key to Token
+        // A Transfer creates the conversion
+        public int AssetTransferId { get; set; }
+        
         [MaxLength(35)]
         public string TokenId { get; set; }
 
-        // Foreign Key to BaseAssetTransfer
-        public int AssetTransferId { get; set; }
+        public int TokenAccountId { get; set; }
+       
+        public decimal TokenAmount { get; set; }
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
-
-        public virtual Token Token { get; set; }
         public virtual TokenAccount TokenAccount { get; set; }
         public virtual AssetTransfer AssetTransfer { get; set; }
     }

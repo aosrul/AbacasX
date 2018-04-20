@@ -6,10 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AbacasXModel
+namespace AbacasXModel.Models
 {
-    
-
     public class Client
     {
         [Key]
@@ -17,7 +15,7 @@ namespace AbacasXModel
         public int ClientId { get; set; }
 
         [Required]
-        public UserTypeEnum UserType { get; set; }
+        public ClientTypeEnum ClientType { get; set; }
 
         [MaxLength(50)]
         [Required]
@@ -32,9 +30,9 @@ namespace AbacasXModel
         public Byte[] Timestamp { get; set; }
     }
 
-    public enum UserTypeEnum
+    public enum ClientTypeEnum
     {
-        Standard,
+        Investor,
         Broker
     }
 }

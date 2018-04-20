@@ -8,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class ClientKYC
+    public class ClientKYC
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ClientId { get; set; }
-
+        public int ClientRegistrationId { get; set; }
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
-        public virtual Client Client { get; set; }
+        public virtual ClientRegistration ClientRegistration { get; set; }
     }
 }

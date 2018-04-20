@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AbacasXModel.Models
 
 {
-    class ClientLogin
+    public class ClientLogin
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

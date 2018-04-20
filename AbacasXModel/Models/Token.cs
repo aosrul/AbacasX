@@ -8,17 +8,21 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class Token
+    public class Token
     {
         [Key]
         [MaxLength(35)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string TokenId { get; set; }
+
+        public int AssetId { get; set; }
+        public int AssetAccountId { get; set; }
+        public int CustodianId { get; set; }
+        public int TrustId { get; set; }
 
         [MaxLength(35)]
         [Required]
         public string Name { get; set; }
-        
+
 
         [MaxLength(35)]
         [Required]
@@ -27,7 +31,7 @@ namespace AbacasXModel.Models
         [Required]
         public int Multiplier { get; set; }
 
-      
+
         public TokenPriceTermsEnum PriceTerms { get; set; }
 
         public TokenStatusEnum TokenStatus { get; set; }
@@ -38,8 +42,11 @@ namespace AbacasXModel.Models
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
-        
-        public virtual Asset BaseAsset { get; set; }
+
+        public virtual Asset Asset { get; set; }
+        public virtual AssetAccount AssetAccount { get; set; }
+        public virtual Trust Trust { get; set; }
+        public virtual Custodian Custodian { get; set; }
     }
     
     public enum TokenStatusEnum

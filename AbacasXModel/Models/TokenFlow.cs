@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class TransactionTokenFlow
+    public class TokenFlow
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int TradeTokenFlowId { get; set; }
+        public int TokenFlowId { get; set; }
 
-        public int TransactionId { get; set; }
+        public int TradeId { get; set; }
         public string TokenId { get; set; }
         public TokenFlowTypeEnum TokenFlowType { get; set; }
         public decimal Amount { get; set; }
-        public decimal AmountOffset { get; set; } // How much has been offset for G/L purposes.
 
         public int TokenAccountId { get; set; }
 
@@ -32,7 +31,8 @@ namespace AbacasXModel.Models
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
-        public virtual Transaction Transaction { get; set; }
+        public virtual TokenTrade TokenTrade { get; set; }
+        public virtual TokenAccount TokenAccount { get; set; }
     }
 
     

@@ -8,17 +8,27 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    public class AssetRateProvider
+    public class ClientAccount
     {
-        [System.ComponentModel.DataAnnotations.Key]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RateProviderId { get; set; }
-        
+        public int ClientAccountId { get; set; }
+
+        // Primary Account Holder
+        public int ClientId { get; set; }
+
         [MaxLength(40)]
         [Required]
-        public string ProviderName { get; set; }
+        public string AccountName { get; set; }
+
+        [MaxLength(30)]
+        [Required]
+        public string AccountNumber { get; set; }
+        public AccountStatusType AccountStatus { get; set; }
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }
+
+        public virtual Client Client { get; set; }
     }
 }

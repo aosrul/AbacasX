@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class Trust
+    public class Trust
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

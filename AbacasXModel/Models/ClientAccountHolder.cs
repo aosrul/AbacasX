@@ -6,16 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AbacasXModel
+namespace AbacasXModel.Models
 {
-
-    class TokenAccountHolder
+    public class ClientAccountHolder
     {
-        [Key, Column(Order=1)]
+        [Key, Column(Order = 1)]
         public int ClientId { get; set; }
 
         [Key, Column(Order = 2)]
-        public int TokenAccountId { get; set; }
+        public int ClientAccountId { get; set; }
 
         public AccountHolderTypeEnum AccountHolderType { get; set; }
 
@@ -24,9 +23,8 @@ namespace AbacasXModel
         public Byte[] Timestamp { get; set; }
 
         public virtual Client Client { get; set; }
-        public virtual TokenAccount TokenAccount { get; set; }
+        public virtual ClientAccount ClientAccount { get; set; }
     }
-
 
     public enum AccountHolderTypeEnum
     {

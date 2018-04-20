@@ -7,13 +7,13 @@ namespace AbacasXModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class Initial19042018003 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial19042018003));
         
         string IMigrationMetadata.Id
         {
-            get { return "201804060318128_Initial"; }
+            get { return "201804192247298_Initial 19042018-003"; }
         }
         
         string IMigrationMetadata.Source

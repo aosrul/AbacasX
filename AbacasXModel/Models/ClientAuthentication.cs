@@ -8,15 +8,26 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class ClientAuthentication
+    public class ClientAuthentication
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ClientAuthenticationId { get; set; }
+
         public int ClientId { get; set; }
+
+        public AuthenticationTypeEnum AuthenticationType { get; set; }
 
         [Timestamp]
         public Byte[] Timestamp { get; set; }
 
         public virtual Client User { get; set; }
+    }
+
+    public enum AuthenticationTypeEnum
+    {
+        Password,
+        Text,
+        Email
     }
 }
