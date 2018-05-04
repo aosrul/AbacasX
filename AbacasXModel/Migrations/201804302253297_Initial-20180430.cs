@@ -3,7 +3,7 @@ namespace AbacasXModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial19042018003 : DbMigration
+    public partial class Initial20180430 : DbMigration
     {
         public override void Up()
         {

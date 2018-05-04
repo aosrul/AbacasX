@@ -47,16 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201804192247298_Initial 19042018-003.cs" />
-    <Compile Include="Migrations\201804192247298_Initial 19042018-003.Designer.cs">
-      <DependentUpon>201804192247298_Initial 19042018-003.cs</DependentUpon>
+    <Compile Include="Migrations\201804302253297_Initial-20180430.cs" />
+    <Compile Include="Migrations\201804302253297_Initial-20180430.Designer.cs">
+      <DependentUpon>201804302253297_Initial-20180430.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="modelBuilder\Entity.cs" />
     <Compile Include="Models\AssetRate.cs" />
     <Compile Include="Models\ClientAccount.cs" />
     <Compile Include="Models\ClientAccountHolder.cs" />
     <Compile Include="Models\Data\AbacasXDbContext.cs" />
     <Compile Include="Models\Data\AbacasXDbInitializer.cs" />
+    <Compile Include="Models\Data\TokenConfiguration.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderFilled.cs" />
     <Compile Include="Models\OrderFilledMatch.cs" />
@@ -86,8 +88,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804192247298_Initial 19042018-003.resx">
-      <DependentUpon>201804192247298_Initial 19042018-003.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804302253297_Initial-20180430.resx">
+      <DependentUpon>201804302253297_Initial-20180430.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

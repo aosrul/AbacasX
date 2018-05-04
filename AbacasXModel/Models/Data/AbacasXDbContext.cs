@@ -22,11 +22,14 @@ namespace AbacasXModel.Models.Data
             modelBuilder.Properties<decimal>()
             .Configure(prop => prop.HasPrecision(18, 6));
 
+            modelBuilder.Configurations.Add(new TokenConfiguration());
+            /*
             modelBuilder.Entity<Token>()
                 .HasRequired(n => n.Custodian)
                 .WithMany()
                 .HasForeignKey(n => n.CustodianId)
                 .WillCascadeOnDelete(false);
+                */
 
             modelBuilder.Entity<TokenAccount>()
                 .HasRequired(n => n.Token)
@@ -66,7 +69,9 @@ namespace AbacasXModel.Models.Data
         public DbSet<AssetRate> AssetRate { get; set; }
         public DbSet<AssetRateProvider> AssetRateProvider { get; set; }
         public DbSet<AssetTransfer> AssetTransfer { get; set; }
+
         public DbSet<BlockChainTokenFlow> BlockChainTokenFlow { get; set; }
+
         public DbSet<Client> Client { get; set; }
         public DbSet<ClientAccount> ClientAccount { get; set; }
         public DbSet<ClientAccountHolder> ClientAccountHolder { get; set; }
@@ -76,6 +81,7 @@ namespace AbacasXModel.Models.Data
         public DbSet<ClientRegistration> ClientRegistration { get; set; }
 
         public DbSet<Custodian> Custodian { get; set; }
+
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderFilled> OrderFilled { get; set; }
         public DbSet<OrderFilledMatch> OrderFilledMatch { get; set; }

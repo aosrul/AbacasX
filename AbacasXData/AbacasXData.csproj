@@ -47,11 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetRepository.cs" />
+    <Compile Include="EFRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AbacasXContracts\AbacasXData.Contracts.csproj">
+      <Project>{F48D9BA6-689C-4416-B5FE-DF9B232485AC}</Project>
+      <Name>AbacasXData.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AbacasXModel\AbacasXModel.csproj">
+      <Project>{57F16DBD-1E6A-421B-BB7B-F1B151E7FC6B}</Project>
+      <Name>AbacasXModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
