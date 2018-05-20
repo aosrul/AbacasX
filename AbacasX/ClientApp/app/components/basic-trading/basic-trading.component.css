@@ -1,0 +1,15 @@
+﻿.panel {
+    margin: 0
+}
+
+.panel-body {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.well {
+    background-color: #fafafa;
+    margin-bottom: 5px;
+}

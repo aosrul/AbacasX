@@ -23,16 +23,8 @@ namespace AbacasXModel.Models
         [Required]
         public string Name { get; set; }
 
-
-        [MaxLength(35)]
-        [Required]
-        public string Denomination { get; set; }
-
         [Required]
         public int Multiplier { get; set; }
-
-
-        public TokenPriceTermsEnum PriceTerms { get; set; }
 
         public TokenStatusEnum TokenStatus { get; set; }
 

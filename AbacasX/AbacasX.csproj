@@ -21,12 +21,32 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\accounts\accounts.component.ts" />
+    <None Remove="ClientApp\app\components\advanced-trading\advanced-trading.component.ts" />
+    <None Remove="ClientApp\app\components\basic-trading\basic-trading.component.ts" />
+    <None Remove="ClientApp\app\components\blockchain\blockchain.component.ts" />
+    <None Remove="ClientApp\app\components\blockchain\blockchaintransactions.ts" />
+    <None Remove="ClientApp\app\components\line-chart\line-chart.component.ts" />
+    <None Remove="ClientApp\app\components\orders\orders.component.ts" />
+    <None Remove="ClientApp\app\components\portfolio\portfolio.component.ts" />
+    <None Remove="ClientApp\app\components\reporting\reporting.component.ts" />
+    <None Remove="ClientApp\app\components\Settings\settings.component.ts" />
     <None Remove="ClientApp\app\components\telerik-button\telerik-button.component.ts" />
     <None Remove="ClientApp\app\components\telerik-grid\products.ts" />
     <None Remove="ClientApp\app\components\telerik-grid\telerik-grid.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\accounts\accounts.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\advanced-trading\advanced-trading.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\basic-trading\basic-trading.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchaintransactions.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\line-chart\line-chart.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\orders\orders.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\portfolio\portfolio.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\reporting\reporting.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\Settings\settings.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\telerik-button\telerik-button.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\telerik-grid\products.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\telerik-grid\telerik-grid.component.ts" />

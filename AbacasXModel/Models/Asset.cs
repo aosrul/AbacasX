@@ -21,9 +21,26 @@ namespace AbacasXModel.Models
 
         public AssetTypeEnum AssetType { get; set; }
 
+        [MaxLength(10)]
+        [Required]
+        public string PriceCurrency { get; set; }
+
+        public AssetPriceTermsEnum  PriceTerms {get;set;}
+
+        [MaxLength(35)]
+        [Required]
+        public string Denomination { get; set; }
+
+
         [Timestamp]
         public Byte[] Timestamp { get; set; }
     }
+}
+
+public enum AssetPriceTermsEnum
+{
+    CurrencyPerAsset,
+    AssetPerCurrency
 }
 
 public enum AssetTypeEnum

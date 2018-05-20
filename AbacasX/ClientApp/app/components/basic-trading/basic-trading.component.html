@@ -1,0 +1,59 @@
+﻿<div class="page-header">
+    <h3> Quick Order Entry </h3>
+</div>
+
+
+<div class="row" style="margin-top:20px; margin-bottom:10px; height:40px">
+
+    <form class="form-inline form-group-sm">
+        <div class="form-group">
+            <div class="btn-group btn-group-sm">
+                <a class="btn btn-primary">Buy</a>
+                <a class="btn btn-danger">Sell</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <input class="form-control" style="width:15em; padding-right:0px;" type="text" name="amount" tabindex="1" placeholder="Amount" autocomplete="off" value="" />
+            <button style="padding-left:2px; border-left:2px" type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                @AAPL
+                <span class="caret"></span>
+            </button>
+        </div>
+        <div class="form-group" style="margin-left:5px; margin-right:5px">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <input class="form-control" style="width:15em" type="text" name="amount" tabindex="1" placeholder="Price" autocomplete="off" value="" />
+            <button class="btn btn-sm">@GOOG</button>
+        </div>
+        <div class="form-group">
+            <div style="margin-left:10px" class="btn-group btn-group-sm">
+                <a class="btn btn-primary">Market</a>
+                <a class="btn btn-danger">Limit</a>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left:5px; margin-right:5px">
+            <span style="font-size:x-large">=</span>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" style="width:15em" type="text" name="amount" tabindex="1" placeholder="Total" autocomplete="off" value="" />
+            <button class="btn btn-sm">@GOOG</button>
+        </div>
+    </form>
+</div>
+<div class="row" style="height:30px">
+
+</div>
+<div class="row col-sm-offset-6" style="margin-bottom:5em">
+    <button type="button" class="btn  btn-success">Buy @AAPL with @GOOG</button>
+    <button type="button" class="btn ">Cancel</button>
+</div>
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li><a class="active" data-toggle="tab">Charts</a></li>
+        <li><a data-toggle="tab">Portfolio</a></li>
+        <li><a>Orders</a></li>
+        <li><a>Order Book</a></li>
+    </ul>
+</div>
