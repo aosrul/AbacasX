@@ -12,10 +12,10 @@ namespace AbacasXModel.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OrderID { get; set; }
+        public int OrderId { get; set; }
 
         public int TokenAccountId { get; set; }
-        public int? ChildOrderID { get; set; }       
+        public int? ChildOrderId { get; set; }       
         public int ClientId { get; set; }       // Who entered the order
 
         public OrderTypeEnum OrderType { get; set; }

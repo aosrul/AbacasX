@@ -11,7 +11,7 @@ namespace AbacasXModel.Models
     public class OrderFilled
     {
         [Key, Column(Order = 0)]
-        public int OrderLegID { get; set; }
+        public int OrderLegId { get; set; }
 
         [Key, Column(Order = 1)]
         public int TransactionId { get; set; }

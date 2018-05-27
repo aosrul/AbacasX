@@ -12,10 +12,10 @@ namespace AbacasXModel.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OrderLegID { get; set; }
+        public int OrderLegId { get; set; }
 
         // Foreign Key to Order
-        public int OrderID { get; set; }
+        public int OrderId { get; set; }
         
         public DateTime OrderLegCreatedDateTime { get; set; }
 

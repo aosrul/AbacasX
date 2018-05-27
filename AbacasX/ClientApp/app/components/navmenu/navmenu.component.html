@@ -9,64 +9,68 @@
             </button>
             <a class='navbar-brand' [routerLink]="['/home']"> <span style="color:cornflowerblue">Abacas</span><span style="color:gold; font-size:larger">X</span><span style="color:darkseagreen">Change</span></a>
         </div>
-        <div class='clearfix'></div>
+        <!--<div class='clearfix'>  </div>-->
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
-                        <span class='glyphicon glyphicon-home'></span> Home
+                        Home
                     </a>
                 </li>
-
                 <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/all-trading']">
+                        Trading
+                    </a>
+                </li>
+                <!--<li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/basic-trading']">
-                        <span class='glyphicon glyphicon-transfer'></span>Quick Trade
+                        Quick Trade
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/trading']">
-                        <span class='glyphicon glyphicon-transfer'></span>Trading (Standard)
+                        Trading (Standard)
                     </a>
                 </li>
 
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/advanced-trading']">
-                        <span class='glyphicon glyphicon-transfer'></span>Trading (Advanced)
+                        Trading (Advanced)
                     </a>
-                </li>
+                </li>-->
 
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/orders']">
-                        <span class='glyphicon glyphicon-th-list'></span> Orders
+                        Orders
                     </a>
                 </li>
 
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/portfolio']">
-                        <span class='glyphicon glyphicon-th-list'></span> Portfolio
+                        Portfolio
                     </a>
                 </li>
 
 
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/telerik-grid']">
-                        <span class='glyphicon glyphicon-th-list'></span> Reporting
+                    <a [routerLink]="['/reporting']">
+                        Reporting
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/accounts']">
-                        <span class='glyphicon glyphicon-th-list'></span> Accounts
+                        Accounts
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/blockchain']">
-                        <span class='glyphicon glyphicon-th-list'></span> Blockchain
+                        Blockchain
                     </a>
                 </li>
 
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/settings']">
-                        <span class='glyphicon glyphicon-wrench'></span> Settings
+                        Settings
                     </a>
                 </li>
             </ul>
