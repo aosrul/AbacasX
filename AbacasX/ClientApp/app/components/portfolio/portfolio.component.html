@@ -1,8 +1,10 @@
-﻿<kendo-grid>
-    <kendo-grid-column field="tokenId" title="Token ID" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tokenAmount" title="Amount" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tokenValue" title="Value" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tokenValueAgainst" title="Value In" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tokenAverageRate" title="Rate" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tokenGainLoss" title="Gain/(Loss)" width="150"></kendo-grid-column>
+﻿<kendo-grid [data]="gridData">
+    <kendo-grid-column field="TokenId" title="Token ID" width="150"></kendo-grid-column>
+    <kendo-grid-column field="TokenAmount" title="Amount" width="150" format="{0:n}"></kendo-grid-column>
+
+    <kendo-grid-column field="TokenRate" title="Rate" width="150" format="{0:n6}"></kendo-grid-column>
+    <kendo-grid-column field="TokenRateIn" title="Rate In" width="150"></kendo-grid-column>
+
+    <kendo-grid-column field="TokenValue" title="Value" width="150" format="{0:n2}"></kendo-grid-column>
+    <kendo-grid-column field="TokenGainLoss" title="Gain/Loss" width="150" format="{0:n2}"></kendo-grid-column>
 </kendo-grid>

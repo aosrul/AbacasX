@@ -40,5 +40,15 @@ namespace AbacasX.Controllers
                 }
             }
         }
+
+        public class Position
+        {
+            public string TokenId { get; set; }
+            public decimal TokenAmount { get; set; }
+            public decimal TokenRate { get; set; }
+            public string TokenRateIn { get; set; }
+            public decimal TokenValue { get; set; }
+            public decimal TokenGainLoss { get; set; }
+        }
     }
 }

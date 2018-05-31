@@ -1,79 +1,66 @@
-<div class="main-nav">
-    <div class='navbar navbar-default'>
-        <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-            </button>
-            <a class='navbar-brand' [routerLink]="['/home']"> <span style="color:cornflowerblue">Abacas</span><span style="color:gold; font-size:larger">X</span><span style="color:darkseagreen">Change</span></a>
-        </div>
-        <!--<div class='clearfix'>  </div>-->
-        <div class='navbar-collapse collapse'>
-            <ul class='nav navbar-nav'>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/home']">
-                        Home
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/all-trading']">
-                        Trading
-                    </a>
-                </li>
-                <!--<li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/basic-trading']">
-                        Quick Trade
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/trading']">
-                        Trading (Standard)
-                    </a>
-                </li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class='navbar-brand' [routerLink]="['/home']"> <span style="color:cornflowerblue">Abacas</span><span style="color:gold; font-size:larger">X</span><span style="color:darkseagreen">Change</span></a>
+    <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor01" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor01">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/advanced-trading']">
-                        Trading (Advanced)
-                    </a>
-                </li>-->
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav">
 
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/orders']">
-                        Orders
-                    </a>
-                </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/home']">
+                    Home
+                </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/all-trading']">
+                    Trading
+                </a>
+            </li>
 
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/portfolio']">
-                        Portfolio
-                    </a>
-                </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/orders']">
+                    Orders
+                </a>
+            </li>
+
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/portfolio']">
+                    Portfolio
+                </a>
+            </li>
 
 
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/reporting']">
-                        Reporting
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/accounts']">
-                        Accounts
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/blockchain']">
-                        Blockchain
-                    </a>
-                </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/reporting']">
+                    Reporting
+                </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/accounts']">
+                    Accounts
+                </a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/blockchain']">
+                    Blockchain
+                </a>
+            </li>
 
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/settings']">
-                        Settings
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link" [routerLink]="['/settings']">
+                    Settings
+                </a>
+            </li>
+        </ul>
+
+        <form style="margin-left:15em" class="form-inline my-2 my-lg-0">
+            <div class="input-group">
+                <label style="font-size:large; color:white; margin-right:7px" for="LoginID">Login</label>
+                <input name="LoginID" class="form-control mr-sm-2" type="text" placeholder="Vince Small">
+                <button class="btn btn-danger my-2 my-sm-0" type="submit">Log Out</button>
+            </div>
+        </form>
     </div>
-</div>
+</nav>
+

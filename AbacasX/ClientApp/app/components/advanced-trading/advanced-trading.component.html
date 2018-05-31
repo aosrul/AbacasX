@@ -1,283 +1,71 @@
-﻿<div class="row" style="margin-left:5%; margin-top:2%; margin-bottom:10px">
-    <form class="form-inline form-group-sm" style="margin-left:10px">
-        <div class="row" style="margin-top:5px; margin-bottom:5px">
-            <div class="col-sm-2">
-                <label style="font-size:medium">Order</label>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <div name="BSButton" class="btn-group btn-group-sm">
-                        <a class="btn button-selected">Buy</a>
-                        <a class="btn button-not-selected">Sell</a>
-                    </div>
+﻿
+<form style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
+    <div class="form-row" style="margin-top:5px; margin-bottom:3em">
+        <div class="col-auto" style="margin-top:5px">
+            <div class="input-group">
+                <div class="btn-group">
+                    <button name="Token1Buy" type="button" class="btn button-selected">Buy</button>
+                    <button name="Token1Sell" type="button" class="btn button-not-selected">Sell</button>
                 </div>
-                <div class="form-group">
-                    <button style="margin-left:5px; padding-left:5px; border-left:2px" type="button" class="btn btn-sm token-label" data-toggle="dropdown">
-                        @AAPL with @GOOG
-                        <span class="caret"></span>
-                    </button>
-                </div>
+                <input class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="Token1Amount" tabindex="1" placeholder="Amount" autocomplete="off" value="" />
+                <button style="width:7em" class="btn token-label">
+                    @AAPL
+                </button>
+                <span style="font-size:large">&nbsp; X &nbsp;</span>
             </div>
         </div>
-        <div class="row" style="margin-top:5px; margin-bottom:5px">
-            <div class="col-sm-2">
-                <label style="font-size:medium">Amount</label>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <input class="form-control" style="width:15em; padding-right:0px;" type="text" name="amount" tabindex="1" placeholder="Amount" autocomplete="off" value="" />
-                    <button class="btn btn-sm token-label" style="width:7em">@AAPL</button>
+
+        <div class="col-auto" style="margin-top:5px">
+            <div class="input-group">
+                <div class="btn-group">
+                    <button type="button" class="btn button-selected">Market</button>
+                    <button type="button" class="btn button-not-selected">Limit</button>
                 </div>
-            </div>
-            <div class="col-sm-1">
-                <label style="font-size:medium">Start</label>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <input class="form-control" style="width:15em" type="text" placeholder="Now" autocomplete="off" value="" />
-                </div>
+
+                <input class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="amount" tabindex="1" placeholder="Price" autocomplete="off" value="" />
+                <button style="width:7em" class="btn token-label">@GOOG</button>
+                <span style="font-size:large">&nbsp; = &nbsp; </span>
             </div>
         </div>
-        <div class="row" style="margin-top:5px; margin-bottom:5px">
-            <div class="col-sm-2">
-                <label style="font-size:medium">Order Type</label>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <input class="form-control" style="width:15em" type="text" name="amount" tabindex="1" placeholder="Price" autocomplete="off" value="" />
-                    <button class="btn btn-sm token-label" style="width:10em">@USD for @AAPL</button>
-                </div>
-                <div class="form-group">
-                    <div style="margin-left:10px" class="btn-group btn-group-sm">
-                        <a class="btn button-selected">Market</a>
-                        <a class="btn button-not-selected">Limit</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-1">
-                <label style="font-size:medium">Expires</label>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <input class="form-control" style="width:15em" type="text" placeholder="Expiration" autocomplete="off" value="" />
-                </div>
+
+        <div class="col-auto" style="margin-top:5px">
+            <div class="input-group">
+                <input class="form-control" style="width:15em; margin-right:5px" type="text" name="total" placeholder="Total" autocomplete="off" value="" />
+                <button style="width:7em" class="btn token-label">@GOOG</button>
             </div>
         </div>
-        <div class="row" style="margin-top:5px; margin-bottom:5px">
+    </div>
 
-            <div class="col-sm-offset-2 col-sm-5">
-                <div class="form-group">
-                    <input class="form-control" style="width:15em" type="text" name="amount" tabindex="1" placeholder="Price" autocomplete="off" value="" />
-                    <button class="btn btn-sm token-label" style="width:10em">@USD for @GOOG</button>
-                </div>
-                <div class="form-group">
-                    <div style="margin-left:10px" class="btn-group btn-group-sm">
-                        <a class="btn button-selected">Market</a>
-                        <a class="btn button-not-selected">Limit</a>
-                    </div>
-                </div>
-            </div>
+    <div class="form-row">
+        <div class="col-auto">
+            <button type="button" class="btn button-selected">Buy @AAPL with @GOOG</button>
+            <button type="button" class="btn btn-danger ">Cancel</button>
         </div>
-        <div class="row" style="margin-top:5px; margin-bottom:5px">
-            <div class="col-sm-2">
-                <label style="font-size:medium">Total</label>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <input class="form-control" style="width:15em" type="text" name="total" tabindex="1" placeholder="Total" autocomplete="off" value="" />
-                    <button class="btn btn-sm token-label" style="width:7em">@GOOG</button>
-                </div>
-            </div>
-        </div>
-        <div class="row col-sm-offset-8">
-            <button type="button" class="btn  button-selected">Buy @AAPL with @GOOG</button>
-            <button type="button" class="btn  btn-danger">Cancel</button>
-        </div>
-    </form>
-</div>
+    </div>
 
-<div class="row">
-    <ul class="nav nav-tabs">
-        <li><a class="active" href="#details3" data-toggle="tab">Details</a></li>
-        <li><a href="#charts3" data-toggle="tab">Charts</a></li>
-        <li><a href="#portfolio3" data-toggle="tab">Portfolio</a></li>
-        <li><a href="#orders3" data-toggle="tab">Orders</a></li>
-        <li><a href="#orderbook3" data-toggle="tab">Order Book</a></li>
-
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade active in" id="details3" style="margin-right:5em">
-            <div class="row" style="margin-top:20px; margin-bottom:10px; height:250px">
-                <div class="col-sm-3 col-sm-offset-1" style="padding-right:0">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="background-color:black; color:cornflowerblue">Token 1</div>
-                        <div class="panel-body">
-                            <form>
-                                <div class="form-group-sm">
-                                    <select name="Token1BS" style="height:20px; margin-bottom:3px" class="form-control-sm">
-                                        <option selected="selected">Buy</option>
-                                        <option>Sell</option>
-                                    </select>
-                                    <div class="form-group-sm">
-                                        <input name="Token1Amt" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" value="10" />
-                                    </div>
-                                    <select name="Token1ID" style="height:20px; margin-bottom:3px" class="form-control-sm">
-                                        <option selected="selected">@AAPL</option>
-                                        <option>@BNP</option>
-                                    </select>
-                                    <div class="form-group-sm">
-                                        <input name="Token1MarketRate" value="183.83" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <input name="Token1MarketRateTerms" value="AAPL-USD" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                    <select name="Token1OrderType" style="height:20px; margin-bottom:3px" class="form-control-sm">
-                                        <option selected="selected">Limit</option>
-                                        <option>Market (Protected)</option>
-                                    </select>
-                                    <div class="form-group-sm">
-                                        <div class="input-group">
-                                            <input name="Token1Price" value="180.00" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                            <span> <= </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <input name="Token1FXRate" value="0.1282" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                        <span> <= </span>
-                                    </div>
-                                    <div class="form-group-sm">
-                                        N/A
-                                    </div>
-
-                                    <div class="form-group-sm">
-                                        <input name="Token1ExchangeRate" value="2.307692308" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                        <span> <= </span>
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <input name="Token1ExchangeRateTerms" value="@BNP Per @AAPL" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-2" style="padding-left:1px; padding-right:1px">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="text-align:center; background-color:black; color:gold">Description</div>
-                        <div class="panel-body">
-
-                            <form style="font-style:normal">
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Buy/Sell</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Amount</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Token</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Market Rate</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Rate Terms</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Order Type</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Price</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>FX Rate</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Cost</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Exchange Rate</label>
-                                </div>
-                                <div class="form-group-sm" style="text-align:center; height:20px; margin-bottom:3px">
-                                    <label>Rate Terms</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3" style="padding-left:0">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" style="background-color:black; color:darkseagreen">Token 2</div>
-                        <div class="panel-body">
-                            <form>
-                                <div class="form-group-sm">
-                                    <select name="Token2BS" style="height:20px; margin-bottom:3px" class="form-control-sm">
-                                        <option>Buy</option>
-                                        <option selected="selected">Sell</option>
-                                    </select>
-                                    <div class="form-group-sm">
-                                        <input name="Token2Amt" value="23.07692308" style="background-color:darkgreen; color:gold; height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                    <select name="Token2ID" style="height:20px; margin-bottom:3px" class="form-control-sm">
-                                        <option>@AAPL</option>
-                                        <option selected="selected">@BNP</option>
-                                    </select>
-                                    <div class="form-group-sm">
-                                        <input name="Token2MarketRate" value="62.34" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <input name="Token2MarketRateTerms" value="BNP-EUR" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                    <select name="Token2OrderType" style="height:20px; margin-bottom:3px" class="form-control-sm">
-                                        <option selected="selected">Limit</option>
-                                        <option>Market (Protected)</option>
-                                    </select>
-                                    <div class="form-group-sm">
-                                        <div class="input-group">
-                                            <span> >= </span>
-                                            <input name="Token2Price" value="65.00" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <div class="input-group">
-                                            <span> >= </span>
-                                            <input name="Token2FXRate" value="1.20" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <div class="input-group">
-                                            <span> >= </span>
-                                            <input name="Token2Cost" value="78.00" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                            <span> USD </span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group-sm">
-                                        <input name="Token2ExchangeRate" value="0.433333333" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                    <div class="form-group-sm">
-                                        <input name="Token2ExchangeRateTerms" value="@AAPL Per @BNP" style="height:20px; margin-bottom:3px" class="form-control-sm" type="text" />
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+</form>
 
 
-        </div>
-        <div class="tab-pane fade in" id="charts3" style="margin-right:5em">
-            <line-chart style="margin-top:20px"></line-chart>
-        </div>
-        <div class="tab-pane fade in" id="portfolio3" style="margin-right:5em">
-            <portfolio></portfolio>
-        </div>
-        <div class="tab-pane fade in" id="orders3" style="margin-right:5em">
-            <orders></orders>
-        </div>
-        <div class="tab-pane fade in" id="orderbook3" style="margin-right:5em">
-            <order-book></order-book>
-        </div>
+
+<ul style="margin-top:5em" class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link active" href="#charts-a" data-toggle="tab">Charts</a></li>
+    <li class="nav-item"><a class="nav-link" href="#portfolio-a" data-toggle="tab">Portfolio</a></li>
+    <li class="nav-item"><a class="nav-link" href="#orders-a" data-toggle="tab">Orders</a></li>
+    <li class="nav-item"><a class="nav-link" href="#orderbook-a" data-toggle="tab">Order Book</a></li>
+
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade active show" id="charts-a" style="margin-right:5em">
+        <line-chart style="margin-top:10px"></line-chart>
+    </div>
+    <div class="tab-pane fade" id="portfolio-a" style="margin-right:5em">
+        <portfolio></portfolio>
+    </div>
+    <div class="tab-pane fade" id="orders-a" style="margin-right:5em">
+        <orders></orders>
+    </div>
+    <div class="tab-pane fade" id="orderbook-a" style="margin-right:5em">
+        <order-book></order-book>
     </div>
 </div>
 

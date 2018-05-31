@@ -30,6 +30,7 @@
     <None Remove="ClientApp\app\components\order-book\order-book.component.ts" />
     <None Remove="ClientApp\app\components\orders\orders.component.ts" />
     <None Remove="ClientApp\app\components\portfolio\portfolio.component.ts" />
+    <None Remove="ClientApp\app\components\portfolio\positions.ts" />
     <None Remove="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <None Remove="ClientApp\app\components\reporting\reporting.component.ts" />
     <None Remove="ClientApp\app\components\Settings\settings.component.ts" />
@@ -43,6 +44,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\accounts\accounts.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\advanced-trading\advanced-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\all-trading\all-trading.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\portfolio\positions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchaintransactions.ts" />
