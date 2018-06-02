@@ -5,23 +5,23 @@
 
             <div class="input-group">
                 <label class="col-form-label" for="AssetPairSelect" style="font-size:large; margin-right:10px">Token Pair</label>
-                <select name="AssetPairSelect" class="form-control">
-                    <option selected="selected">@AAPL - @GOOG</option>
-                    <option selected="selected">@AAPL - @MSFT</option>
-                    <option selected="selected">@AAPL - @GOLD</option>
-                    <option selected="selected">@AAPL - @BTC</option>
+                <select (change)="assetPairChange($event.target.value)" [(ngModel)] ="selectedAssetPair"  name="AssetPairSelect" class="form-control">
+                    <option>@AAPL - @GOOG</option>
+                    <option>@AAPL - @MSFT</option>
+                    <option>@AAPL - @GOLD</option>
+                    <option>@AAPL - @BTC</option>
                 </select>
             </div>
         </div>
 
         <div class="col-auto">
             <div class="input-group">
-                <input readonly class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="Token1Amount" tabindex="1" placeholder="Bid Rate" autocomplete="off" value="" />
+                <input readonly [(ngModel)]="TokenExchangeBid" class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Bid" placeholder="Bid Rate" autocomplete="off" value="" />
             </div>
         </div>
         <div class="col-auto">
             <div class="input-group">
-                <input readonly class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="Token1Amount" tabindex="1" placeholder="Ask Rate" autocomplete="off" value="" />
+                <input readonly [(ngModel)]="TokenExchangeAsk" class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Ask"  placeholder="Ask Rate" autocomplete="off" value="" />
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
 
 <div class="tab-content" id="tradeTabContent">
     <div class="tab-pane fade show active" id="quick" role="tabpanel" style="margin-right:5em">
-        <quick-trading></quick-trading>
+        <quick-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></quick-trading>
     </div>
     <div class="tab-pane fade show" id="standard" role="tabpanel" style="margin-right:5em">
         <standard-trading></standard-trading>

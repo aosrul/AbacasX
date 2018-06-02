@@ -4,12 +4,12 @@
         <div class="col-auto" style="margin-top:5px">
             <div class="input-group">
                 <div class="btn-group">
-                    <button name="Token1Buy" type="button" class="btn button-selected">Buy</button>
-                    <button name="Token1Sell" type="button" class="btn button-not-selected">Sell</button>
+                    <button (click)="BuyToken1Clicked()" name="Token1Buy" type="button" [ngClass]="{'btn button-selected': IsBuyOrder == true}">Buy</button>
+                    <button (click)="SellToken1Clicked()" name="Token1Sell" type="button" [ngClass]="{'btn button-selected': IsBuyOrder == false}">Sell</button>
                 </div>
-                <input class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="Token1Amount" tabindex="1" placeholder="Amount" autocomplete="off" value="" />
+                <input class="form-control" [ngModel]="quickOrder.Token1Amount" (ngModelChange)="updateToken1Amount($event)" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Amount" placeholder="Amount" autocomplete="off" value="0"/>
                 <button style="width:7em" class="btn token-label">
-                    @AAPL
+                    {{quickOrder.Token1Id}}
                 </button>
                 <span style="font-size:large">&nbsp; X &nbsp;</span>
             </div>
@@ -18,32 +18,36 @@
         <div class="col-auto" style="margin-top:5px">
             <div class="input-group">
                 <div class="btn-group">
-                    <button type="button" class="btn button-selected">Market</button>
-                    <button type="button" class="btn button-not-selected">Limit</button>
+                    <button type="button" (click)="MarketOrderClicked()" name="MarketOrderButton" [ngClass]="{'btn button-selected': IsMarketOrder == true}">Market</button>
+                    <button type="button" (click)="LimitOrderClicked()" name="LimitOrderButton" [ngClass]="{'btn button-selected': IsMarketOrder == false}">Limit</button>
                 </div>
 
-                <input class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="amount" tabindex="1" placeholder="Price" autocomplete="off" value="" />
-                <button style="width:7em" class="btn token-label">@GOOG</button>
+                <input class="form-control" [readonly]="IsMarketOrder" [ngModel]="quickOrder.OrderPrice" (ngModelChange)="updateOrderPrice($event)" style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="OrderPrice" placeholder=" Order Price" autocomplete="off" value="0" />
+                <button style="width:7em" class="btn token-label">{{quickOrder.Token2Id}}</button>
                 <span style="font-size:large">&nbsp; = &nbsp; </span>
             </div>
         </div>
 
         <div class="col-auto" style="margin-top:5px">
             <div class="input-group">
-                <input class="form-control" style="width:15em; margin-right:5px" type="text" name="total" placeholder="Total" autocomplete="off" value="" />
-                <button style="width:7em" class="btn token-label">@GOOG</button>
+                <input class="form-control" readonly style="text-align:right; width:15em; margin-right:5px" type="text" name="total" placeholder="Total" autocomplete="off" value="{{quickOrder.Token2Amount | number: '1.6-6'}}" />
+                <button style="width:7em" class="btn token-label">{{quickOrder.Token2Id}}</button>
             </div>
         </div>
     </div>
 
     <div class="form-row">
         <div class="col-auto">
-            <button type="button" class="btn button-selected">Buy @AAPL with @GOOG</button>
-            <button type="button" class="btn btn-danger ">Cancel</button>
+            <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+            <button type="button" name="CancelOrder"  class="btn btn-danger ">Cancel</button>
         </div>
     </div>
-
 </form>
+
+<!--<h4>Change log:</h4>
+<ul>
+    <li *ngFor="let change of changeLog">{{change}}</li>
+</ul>-->
 
 
 
@@ -58,7 +62,7 @@
     <div class="tab-pane fade active show" id="charts" style="margin-right:5em">
         <line-chart style="margin-top:10px"></line-chart>
     </div>
-    <div class="tab-pane fade" id="portfolio" style="margin-right:5em">
+    <div class="tab-pane fade" id="portfolio" style="margin-right:5em; margin-top:2em">
         <portfolio></portfolio>
     </div>
     <div class="tab-pane fade" id="orders" style="margin-right:5em">
@@ -68,4 +72,6 @@
         <order-book></order-book>
     </div>
 </div>
+
+
 

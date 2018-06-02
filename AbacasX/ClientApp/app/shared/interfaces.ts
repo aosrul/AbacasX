@@ -11,6 +11,7 @@ export interface IQuickOrder {
     Token1Amount: number;
 
     Token2Id: string;
+    Token2Amount: number;
     OrderPrice: number;
     OrderPriceTerms: OrderPriceTermsEnum;
 
