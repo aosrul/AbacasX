@@ -1,44 +1,92 @@
-﻿
-<form style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
-    <div class="form-row" style="margin-top:5px; margin-bottom:3em">
-        <div class="col-auto" style="margin-top:5px">
-            <div class="input-group">
-                <div class="btn-group">
+﻿<form class="form-control-sm" style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
+    <div class="d-inline-flex" style="margin-top:5px; margin-bottom:3em">
+
+        <div class="d-flex flex-column" style="margin-top:5px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Order</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Amount</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Order Type</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Total</label>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column" style="margin-left:30px; align-items:flex-start">
+
+            <div class="d-inline-flex" style="margin-top:5px;padding-left:5px">
+                <div class="btn-group" name="BSButtonGroup">
                     <button name="Token1Buy" type="button" class="btn button-selected">Buy</button>
                     <button name="Token1Sell" type="button" class="btn button-not-selected">Sell</button>
                 </div>
-                <input class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="text" name="Token1Amount" tabindex="1" placeholder="Amount" autocomplete="off" value="" />
+                <button style="width:12em; margin-left:5px" class="btn token-label">
+                    @AAPL with @GOOG
+                </button>
+            </div>
+
+            <div class="d-inline-flex" style="margin-top:5px">
+                <input class="form-control" name="Token1Amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number"  placeholder="Amount" autocomplete="off" />
                 <button style="width:7em" class="btn token-label">
                     @AAPL
                 </button>
-                <span style="font-size:large">&nbsp; X &nbsp;</span>
+            </div>
+
+            <div class="d-inline-flex" style="margin-top:3px;">
+                <input class="form-control" name="OrderPrice"  select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Price" autocomplete="off" />
+                <button style="width:12em" class="btn token-label">
+                    @GOOG for @AAPL
+                </button>
+
+                <div class="btn-group" style="margin-left:5px">
+                    <button type="button" name="MarketOrderButton" class="btn button-selected">Market</button>
+                    <button type="button" name="LimitOrderButton" class="btn button-not-selected">Limit</button>
+                </div>
+            </div>
+
+            <div class="d-inline-flex" style="margin-top:3px;">
+                <input class="form-control" name="Token2Amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Total" autocomplete="off" />
+                <button style="width:7em" class="btn token-label">
+                    @GOOG
+                </button>
             </div>
         </div>
-        <div class="col-auto" style="margin-top:5px">
-            <div class="row">
-                <div class="col-2">
-                    <label>Expiration</label>
 
-                </div>
-                <div class="col-auto">
-                    <input type="date" class="form-control" style="width:auto" />
-                </div>
+        <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Start</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Expires</label>
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <input class="form-control" name="OrderStart" select style="width:15em; margin-left:5px; margin-right:5px" type="text"  placeholder="Now" autocomplete="off" />
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <input class="form-control" name="OrderEnd" select style="width:15em; margin-left:5px; margin-right:5px" type="text"  placeholder="Expiration" autocomplete="off" />
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
             </div>
         </div>
     </div>
-
-    <div class="form-row">
-        <div class="col-auto">
-            <button type="button" class="btn button-selected">Buy @AAPL with @GOOG</button>
-            <button type="button" class="btn btn-danger ">Cancel</button>
-        </div>
-    </div>
-
 </form>
 
 
-
-<ul style="margin-top:5em" class="nav nav-tabs">
+<ul style="margin-top:1em" class="nav nav-tabs">
     <li class="nav-item"><a class="nav-link active" href="#charts-s" data-toggle="tab">Charts</a></li>
     <li class="nav-item"><a class="nav-link" href="#portfolio-s" data-toggle="tab">Portfolio</a></li>
     <li class="nav-item"><a class="nav-link" href="#orders-s" data-toggle="tab">Orders</a></li>
@@ -49,7 +97,7 @@
     <div class="tab-pane fade active show" id="charts-s" style="margin-right:5em">
         <line-chart style="margin-top:10px"></line-chart>
     </div>
-    <div class="tab-pane fade" id="portfolio-s" style="margin-right:5em">
+    <div class="tab-pane fade" id="portfolio-s" style="margin-right:5em; margin-top:2em">
         <portfolio></portfolio>
     </div>
     <div class="tab-pane fade" id="orders-s" style="margin-right:5em">
@@ -59,8 +107,3 @@
         <order-book></order-book>
     </div>
 </div>
-
-
-
-
-
