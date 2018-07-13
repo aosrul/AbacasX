@@ -27,6 +27,7 @@ import { ReportingComponent } from './components/reporting/reporting.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { OrderBookComponent } from './components/order-book/order-book.component';
 import { AllTradingComponent } from './components/all-trading/all-trading.component';
+import { RateService } from './components/rate-service/rate.service';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { AllTradingComponent } from './components/all-trading/all-trading.compon
         OrderBookComponent,
         AllTradingComponent
     ],
+    providers:[RateService],
     imports: [
         CommonModule,
         HttpModule,

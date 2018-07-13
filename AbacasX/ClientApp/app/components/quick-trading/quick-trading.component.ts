@@ -100,10 +100,20 @@ export class QuickTradingComponent implements OnInit, OnChanges {
             this.quickOrder.Token2Id = "@BTC";
         }
 
+        if (this.selectedAssetPair == "@AAPL - @USD") {
+            this.quickOrder.Token1Id = "@AAPL";
+            this.quickOrder.Token2Id = "@USD";
+        }
+
+        if (this.selectedAssetPair == "@AAPL - @BNP") {
+            this.quickOrder.Token1Id = "@AAPL";
+            this.quickOrder.Token2Id = "@BNP";
+        }
+
         if (this.IsBuyOrder)
-            this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+            this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
         else
-            this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+            this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
     }
 
 
@@ -130,7 +140,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
     BuyToken1Clicked() {
         this.quickOrder.BuySellType = BuySellTypeEnum.Buy;
         this.IsBuyOrder = true;
-        this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+        this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
         this.quickOrder.OrderPrice = this.TokenExchangeAsk;
         this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
     }
@@ -138,7 +148,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
     SellToken1Clicked() {
         this.quickOrder.BuySellType = BuySellTypeEnum.Sell;
         this.IsBuyOrder = false;
-        this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+        this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
         this.quickOrder.OrderPrice = this.TokenExchangeBid;
         this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
     }

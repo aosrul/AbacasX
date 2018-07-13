@@ -5,11 +5,13 @@
 
             <div class="input-group">
                 <label class="col-form-label" for="AssetPairSelect" style="font-size:large; margin-right:10px">Token Pair</label>
-                <select (change)="assetPairChange($event.target.value)" [(ngModel)] ="selectedAssetPair"  name="AssetPairSelect" class="form-control">
+                <select (change)="assetPairChange($event.target.value)" [(ngModel)]="selectedAssetPair" name="AssetPairSelect" class="form-control">
                     <option>@AAPL - @GOOG</option>
                     <option>@AAPL - @MSFT</option>
                     <option>@AAPL - @GOLD</option>
                     <option>@AAPL - @BTC</option>
+                    <option>@AAPL - @USD</option>
+                    <option>@AAPL - @BNP</option>
                 </select>
             </div>
         </div>
@@ -39,9 +41,9 @@
         <quick-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></quick-trading>
     </div>
     <div class="tab-pane fade show" id="standard" role="tabpanel" style="margin-right:5em">
-        <standard-trading></standard-trading>
+        <standard-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></standard-trading>
     </div>
     <div class="tab-pane fade show" id="advanced" role="tabpanel" style="margin-right:5em">
-        <advanced-trading></advanced-trading>
+        <advanced-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk" [IsCrossCurrency]="IsCrossCurrency" [Token1PriceCurrency] ="Token1PriceCurrency" [Token2PriceCurrency] ="Token2PriceCurrency"></advanced-trading>
     </div>
 </div>

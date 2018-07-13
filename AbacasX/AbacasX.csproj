@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.app" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,12 +27,14 @@
     <None Remove="ClientApp\app\components\all-trading\all-trading.component.ts" />
     <None Remove="ClientApp\app\components\blockchain\blockchain.component.ts" />
     <None Remove="ClientApp\app\components\blockchain\blockchaintransactions.ts" />
+    <None Remove="ClientApp\app\components\chart-data\chart-data.service.ts" />
     <None Remove="ClientApp\app\components\line-chart\line-chart.component.ts" />
     <None Remove="ClientApp\app\components\order-book\order-book.component.ts" />
     <None Remove="ClientApp\app\components\orders\orders.component.ts" />
     <None Remove="ClientApp\app\components\portfolio\portfolio.component.ts" />
     <None Remove="ClientApp\app\components\portfolio\positions.ts" />
     <None Remove="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
+    <None Remove="ClientApp\app\components\rate-service\rate.service.ts" />
     <None Remove="ClientApp\app\components\reporting\reporting.component.ts" />
     <None Remove="ClientApp\app\components\Settings\settings.component.ts" />
     <None Remove="ClientApp\app\components\telerik-button\telerik-button.component.ts" />
@@ -44,6 +47,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\accounts\accounts.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\advanced-trading\advanced-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\all-trading\all-trading.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\chart-data\chart-data.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\portfolio\positions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.component.ts" />
@@ -52,6 +56,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\order-book\order-book.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\orders\orders.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\portfolio\portfolio.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\rate-service\rate.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\reporting\reporting.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\Settings\settings.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\telerik-button\telerik-button.component.ts" />
