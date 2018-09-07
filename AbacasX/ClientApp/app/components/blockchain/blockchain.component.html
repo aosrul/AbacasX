@@ -1,12 +1,11 @@
-﻿<h1>Blockchain</h1>
+﻿
+<ul class="nav nav-tabs" style="margin-top:2em" role="tablist">
+    <li class="nav-item"> <a class="active nav-link" href="#blockchainDetail" role="tab" data-toggle="tab">Blockchain Transactions</a></li>
+</ul>
 
-<kendo-grid>
-    <kendo-grid-column field="dateFormatted" title="Date"></kendo-grid-column>
-    <kendo-grid-column field="transactionId" title="Trade Number" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tradePayReceive" title="Pay/Receive" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tradeTokenId" title="Token" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tradeTokenAmount" title="TokenAmount" width="150"></kendo-grid-column>
-    <kendo-grid-column field="tradeTokenValue" title="TokenValue" width="150"></kendo-grid-column>
-    <kendo-grid-column field="blockchainAddress" title="Address" width="150"></kendo-grid-column>
-    <kendo-grid-column field="blockchainBlockNumber" title="Block" width="150"></kendo-grid-column>
-</kendo-grid>
+<div class="tab-content" id="blockchainDetailTab">
+    <div class="tab-pane fade show active" id="blockchainDetail" role="tabpanel" style="margin-right:5em">
+        <blockchain-detail></blockchain-detail>
+    </div>
+</div>
+

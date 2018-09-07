@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAssetRepository.cs" />
+    <Compile Include="IAbacasXUow.cs" />
+    <Compile Include="IClientAccountHolderRepository.cs" />
+    <Compile Include="IOrderFilledMatchRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,11 +1,39 @@
-﻿<div class="row" style="margin-top:10px">
-    <kendo-grid>
+﻿<!--<div class="row" style="margin-top:10px">
+    <kendo-grid [data]="orders">
+
         <kendo-grid-column field="orderId" title="Order ID" width="150"></kendo-grid-column>
-        <kendo-grid-column field="orderTokenPair" title="Token Pair" width="150"></kendo-grid-column>
-        <kendo-grid-column field="orderAmount" title="Amount" width="150"></kendo-grid-column>
-        <kendo-grid-column field="orderAmountOutstanding" title="Outstanding" width="150"></kendo-grid-column>
-        <kendo-grid-column field="orderType" title="Type" width="150"></kendo-grid-column>
-        <kendo-grid-column field="orderRate" title="Price" width="150"></kendo-grid-column>
-        <kendo-grid-column field="orderStatus" title="Status" width="150"></kendo-grid-column>
+        <kendo-grid-column field="buySellType" title="Buy/Sell" width="150"></kendo-grid-column>
+        <kendo-grid-column field="token1Id" title="Token Id" width="150"></kendo-grid-column>
+        <kendo-grid-column field="token1Amount" title="Amount" width="150"></kendo-grid-column>
+        <kendo-grid-column field="orderPrice" title="Rate" width="150"></kendo-grid-column>
+        <kendo-grid-column field="orderPriceTerms" title="Rate Terms" width="150"></kendo-grid-column>
+        <kendo-grid-column field="token2Id" title="Token2 Id" width="150"></kendo-grid-column>
+        <kendo-grid-column field="token2Amount" title="Token2 Amount" width="150"></kendo-grid-column>
+        <kendo-grid-column field="orderType" title="Order Type" width="150"></kendo-grid-column>
+
     </kendo-grid>
+</div>-->
+
+
+<ul class="nav nav-tabs" style="margin-top:2em" role="tablist">
+    <li class="nav-item"> <a class="active nav-link" href="#openOrders" role="tab" data-toggle="tab">Open Orders</a></li>
+</ul>
+
+<div class="tab-content" id="openOrderTabContent">
+    <div class="tab-pane fade show active" id="openOrders" role="tabpanel" style="margin-right:5em">
+        <open-orders></open-orders>
+    </div>
+</div>
+
+<br />
+<br />
+
+<ul class="nav nav-tabs" style="margin-top:2em" role="tablist">
+    <li class="nav-item"> <a class="active nav-link" href="#orderHistory" role="tab" data-toggle="tab">Order History</a></li>
+</ul>
+
+<div class="tab-content" id="orderHistoryTabContent">
+    <div class="tab-pane fade show active" id="orderHistory" role="tabpanel" style="margin-right:5em">
+        <order-history></order-history>
+    </div>
 </div>

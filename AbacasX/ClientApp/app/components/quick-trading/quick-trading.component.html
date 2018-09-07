@@ -1,17 +1,23 @@
 ﻿
-<form style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
+<form (ngSubmit)="submit()" #quickTradeForm="ngForm" style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
     <div class="form-row" style="margin-top:5px; margin-bottom:3em">
         <div class="col-auto" style="margin-top:5px">
-            <div class="input-group">
-                <div class="btn-group">
-                    <button (click)="BuyToken1Clicked()" name="Token1Buy" type="button" [ngClass]  ="{'btn':true, 'button-selected' : IsBuyOrder == true , 'button-not-selected': IsBuyOrder == false}">Buy</button>
-                    <button (click)="SellToken1Clicked()" name="Token1Sell" type="button" [ngClass]="{'btn':true, 'button-selected' : IsBuyOrder == false, 'button-not-selected': IsBuyOrder == true}">Sell</button>
+
+            <div class="form-group row">
+                <div class="input-group">
+                    <div class="btn-group">
+                        <button (click)="BuyToken1Clicked()" name="Token1Buy" type="button" [ngClass]="{'btn':true, 'button-selected' : IsBuyOrder == true , 'button-not-selected': IsBuyOrder == false}">Buy</button>
+                        <button (click)="SellToken1Clicked()" name="Token1Sell" type="button" [ngClass]="{'btn':true, 'button-selected' : IsBuyOrder == false, 'button-not-selected': IsBuyOrder == true}">Sell</button>
+                    </div>
+
+                    <input class="form-control"
+                           [ngModel]="quickOrder.token1Amount" (ngModelChange)="updateToken1Amount($event)" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" #modelToken1Amount="ngModel" name="Token1Amount" placeholder="Amount" autocomplete="off" value="0" required />
+
+                    <button style="width:7em" class="btn token-label">
+                        {{quickOrder.token1Id}}
+                    </button>
+                    <span style="font-size:large">&nbsp; X &nbsp;</span>
                 </div>
-                <input class="form-control" [ngModel]="quickOrder.Token1Amount" (ngModelChange)="updateToken1Amount($event)" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Amount" placeholder="Amount" autocomplete="off" value="0"/>
-                <button style="width:7em" class="btn token-label">
-                    {{quickOrder.Token1Id}}
-                </button>
-                <span style="font-size:large">&nbsp; X &nbsp;</span>
             </div>
         </div>
 
@@ -22,26 +28,30 @@
                     <button type="button" (click)="LimitOrderClicked()" name="LimitOrderButton" [ngClass]="{'btn':true, ' button-selected': IsMarketOrder == false, 'button-not-selected': IsMarketOrder == true}">Limit</button>
                 </div>
 
-                <input class="form-control" [readonly]="IsMarketOrder" [ngModel]="quickOrder.OrderPrice" (ngModelChange)="updateOrderPrice($event)" style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="OrderPrice" placeholder=" Order Price" autocomplete="off" value="0" />
-                <button style="width:7em" class="btn token-label">{{quickOrder.Token2Id}}</button>
+
+                <input class="form-control" [readonly]="IsMarketOrder" [ngModel]="quickOrder.orderPrice" (ngModelChange)="updateOrderPrice($event)" style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="OrderPrice" placeholder=" Order Price" autocomplete="off" value="0" />
+                <button style="width:7em" class="btn token-label">{{quickOrder.token2Id}}</button>
                 <span style="font-size:large">&nbsp; = &nbsp; </span>
+
             </div>
         </div>
 
         <div class="col-auto" style="margin-top:5px">
             <div class="input-group">
-                <input class="form-control" readonly style="text-align:right; width:15em; margin-right:5px" type="text" name="total" placeholder="Total" autocomplete="off" value="{{quickOrder.Token2Amount | number: '1.6-6'}}" />
-                <button style="width:7em" class="btn token-label">{{quickOrder.Token2Id}}</button>
+                <input class="form-control" readonly style="text-align:right; width:15em; margin-right:5px" type="text" name="total" placeholder="Total" autocomplete="off" value="{{quickOrder.token2Amount | number: '1.6-6'}}" />
+                <button style="width:7em" class="btn token-label">{{quickOrder.token2Id}}</button>
             </div>
         </div>
     </div>
 
+
     <div class="form-row">
         <div class="col-auto">
-            <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
-            <button type="button" name="CancelOrder"  class="btn btn-danger ">Cancel</button>
+            <button type="submit" [disabled]="quickTradeForm.invalid || (quickOrder.token1Amount == 0)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+            <button type="button" name="CancelOrder" class="btn btn-danger ">Cancel</button>
         </div>
     </div>
+
 </form>
 
 <!--<h4>Change log:</h4>
@@ -63,10 +73,10 @@
         <line-chart id="linechart-q" [selectedAssetPair]="selectedAssetPair" style="margin-top:10px"></line-chart>
     </div>
     <div class="tab-pane fade" id="portfolio" style="margin-right:5em; margin-top:2em">
-        <portfolio></portfolio>
+        <portfolio-detail></portfolio-detail>
     </div>
     <div class="tab-pane fade" id="orders" style="margin-right:5em">
-        <orders></orders>
+        <open-orders></open-orders>
     </div>
     <div class="tab-pane fade" id="orderbook" style="margin-right:5em">
         <order-book></order-book>

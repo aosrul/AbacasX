@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.app" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,33 +30,52 @@
     <None Remove="ClientApp\app\components\accounts\accounts.component.ts" />
     <None Remove="ClientApp\app\components\advanced-trading\advanced-trading.component.ts" />
     <None Remove="ClientApp\app\components\all-trading\all-trading.component.ts" />
+    <None Remove="ClientApp\app\components\blockchain-detail\blockchain-detail.component.ts" />
+    <None Remove="ClientApp\app\components\blockchain-detail\blockchain.transactions.ts" />
     <None Remove="ClientApp\app\components\blockchain\blockchain.component.ts" />
-    <None Remove="ClientApp\app\components\blockchain\blockchaintransactions.ts" />
+    <None Remove="ClientApp\app\components\blockchain\blockchain.transactions.ts" />
     <None Remove="ClientApp\app\components\chart-data\chart-data.service.ts" />
     <None Remove="ClientApp\app\components\line-chart\line-chart.component.ts" />
+    <None Remove="ClientApp\app\components\open-orders\open-orders.component.ts" />
+    <None Remove="ClientApp\app\components\open-orders\open-orders.ts" />
     <None Remove="ClientApp\app\components\order-book\order-book.component.ts" />
+    <None Remove="ClientApp\app\components\order-history\order-history.component.ts" />
+    <None Remove="ClientApp\app\components\order-history\order-history.ts" />
     <None Remove="ClientApp\app\components\orders\orders.component.ts" />
+    <None Remove="ClientApp\app\components\portfolio-detail\portfolio-detail.component.ts" />
+    <None Remove="ClientApp\app\components\portfolio-detail\positions.ts" />
     <None Remove="ClientApp\app\components\portfolio\portfolio.component.ts" />
     <None Remove="ClientApp\app\components\portfolio\positions.ts" />
+    <None Remove="ClientApp\app\components\quick-trading-reactive\quick-trading-reactive.component.ts" />
     <None Remove="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <None Remove="ClientApp\app\components\rate-service\rate.service.ts" />
     <None Remove="ClientApp\app\components\reporting\reporting.component.ts" />
     <None Remove="ClientApp\app\components\Settings\settings.component.ts" />
-    <None Remove="ClientApp\app\components\telerik-button\telerik-button.component.ts" />
-    <None Remove="ClientApp\app\components\telerik-grid\products.ts" />
-    <None Remove="ClientApp\app\components\telerik-grid\telerik-grid.component.ts" />
+    <None Remove="ClientApp\app\shared\ensureModuleLoadedOnceGuard.ts" />
     <None Remove="ClientApp\app\shared\interfaces.ts" />
+    <None Remove="ClientApp\app\core\core.module.ts" />
+    <None Remove="ClientApp\app\core\data.service.ts" />
+    <None Remove="ClientApp\app\shared\pipes\enum.pipe.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\accounts\accounts.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\advanced-trading\advanced-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\all-trading\all-trading.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\blockchain-detail\blockchain-detail.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\blockchain-detail\blockchain.transactions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\chart-data\chart-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\open-orders\open-orders.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\order-history\order-history.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\open-orders\open-orders.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\order-history\order-history.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\portfolio-detail\portfolio-detail.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\portfolio-detail\positions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\portfolio\positions.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\quick-trading-reactive\quick-trading-reactive.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchaintransactions.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.transactions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\line-chart\line-chart.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\order-book\order-book.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\orders\orders.component.ts" />
@@ -59,10 +83,15 @@
     <TypeScriptCompile Include="ClientApp\app\components\rate-service\rate.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\reporting\reporting.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\Settings\settings.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\telerik-button\telerik-button.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\telerik-grid\products.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\telerik-grid\telerik-grid.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\ensureModuleLoadedOnceGuard.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\interfaces.ts" />
+    <TypeScriptCompile Include="ClientApp\app\core\core.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\core\data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\shared\pipes\enum.pipe.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

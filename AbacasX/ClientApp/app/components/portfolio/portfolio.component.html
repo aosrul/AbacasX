@@ -1,10 +1,11 @@
-﻿<kendo-grid [data]="gridData">
-    <kendo-grid-column field="TokenId" title="Token ID" width="150"></kendo-grid-column>
-    <kendo-grid-column field="TokenAmount" title="Amount" width="150" format="{0:n}"></kendo-grid-column>
+﻿
+<ul class="nav nav-tabs" style="margin-top:2em" role="tablist">
+    <li class="nav-item"> <a class="active nav-link" href="#portfolioDetail" role="tab" data-toggle="tab">Portfolio</a></li>
+</ul>
 
-    <kendo-grid-column field="TokenRate" title="Rate" width="150" format="{0:n6}"></kendo-grid-column>
-    <kendo-grid-column field="TokenRateIn" title="Rate In" width="150"></kendo-grid-column>
+<div class="tab-content" id="portfolioDetailTab">
+    <div class="tab-pane fade show active" id="portfolioDetail" role="tabpanel" style="margin-right:5em">
+        <portfolio-detail></portfolio-detail>
+    </div>
+</div>
 
-    <kendo-grid-column field="TokenValue" title="Value" width="150" format="{0:n2}"></kendo-grid-column>
-    <kendo-grid-column field="TokenGainLoss" title="Gain/Loss" width="150" format="{0:n2}"></kendo-grid-column>
-</kendo-grid>

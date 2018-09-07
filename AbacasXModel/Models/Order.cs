@@ -42,7 +42,8 @@ namespace AbacasXModel.Models
 
     public enum OrderTypeEnum
     {
-        Standard,
+        Market,
+        Limit,
         IfDone,
         OCO,
         IfDoneOCO

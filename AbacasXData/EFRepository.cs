@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXData
 {
-    public class EFRepository<T> : IRepository<T> where T : class
+    public class EFRepository<T,I> : IRepository<T,I> where T : class
     {
         public EFRepository(DbContext dbContext)
         {
@@ -30,7 +30,7 @@ namespace AbacasXData
             return DbSet;
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetById(I id)
         {
             return DbSet.Find(id);
         }
@@ -76,7 +76,7 @@ namespace AbacasXData
             }
         }
 
-        public virtual void Delete(int id)
+        public virtual void Delete(I id)
         {
             var entity = GetById(id);
             if (entity == null) return;

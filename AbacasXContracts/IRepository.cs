@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AbacasXData.Contracts
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T,I> where T : class
     {
         IQueryable<T> GetAll();
-        T GetById(int Id);
+        T GetById(I Id);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        void Delete(int Id);
+        void Delete(I Id);
     }
 }

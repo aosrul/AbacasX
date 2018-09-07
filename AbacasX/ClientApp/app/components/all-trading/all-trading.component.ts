@@ -13,20 +13,20 @@ export class AllTradingComponent implements OnInit
     TokenExchangeAsk: number = 0;
     IsCrossCurrency: boolean = false;
 
-    GOOGBidPrice: number = 1085.50;
-    GOOGAskPrice: number = 1085.60;
+    GOOGBidPrice: number = 1266.06;
+    GOOGAskPrice: number = 1266.36;
 
-    AAPLBidPrice: number = 186.9;
-    AAPLAskPrice: number = 187.5;
+    AAPLBidPrice: number = 194.415;
+    AAPLAskPrice: number = 195.0;
 
-    MSFTBidPrice: number = 98.85;
-    MSFTAskPrice: number = 98.9;
+    MSFTBidPrice: number = 109.77;
+    MSFTAskPrice: number = 110;
 
-    GOLDBidPrice: number = 1299.56;
-    GOLDAskPrice: number = 1300.30;
+    GOLDBidPrice: number = 1223.63;
+    GOLDAskPrice: number = 1230.50;
 
-    BTCBidPrice: number = 7500;
-    BTCAskPrice: number = 7525;
+    BTCBidPrice: number = 8228.36;
+    BTCAskPrice: number = 8235.00;
 
     USDBidPrice: number = 1.0;
     USDAskPrice: number = 1.0;

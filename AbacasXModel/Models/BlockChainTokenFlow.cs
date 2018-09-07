@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models
 {
-    class BlockChainTokenFlow
+    public class BlockChainTokenFlow
     {
         [Key]
         public int TokenFlowId { get; set; }

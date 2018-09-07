@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { Http } from '@angular/http';
+import { transactions } from './blockchain.transactions';
 
 
 @Component({
@@ -7,4 +8,5 @@ import { Http } from '@angular/http';
     templateUrl: './blockchain.component.html'
 })
 export class BlockchainComponent {
+    public gridData: any[] = transactions;
 }

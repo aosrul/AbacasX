@@ -32,7 +32,8 @@
 
 <ul class="nav nav-tabs" style="margin-top:2em" role="tablist">
     <li class="nav-item"> <a class="active nav-link" href="#quick" role="tab" data-toggle="tab">Quick Trade</a></li>
-    <li class="nav-item"><a class=" nav-link" href="#standard" role="tab" data-toggle="tab">Standard</a></li>
+    <li class="nav-item"> <a class="nav-link" href="#quickReactive" role="tab" data-toggle="tab">Quick Trade (Reactive)</a></li>
+    <li class="nav-item"><a class="nav-link" href="#standard" role="tab" data-toggle="tab">Standard</a></li>
     <li class="nav-item"><a class="nav-link" href="#advanced" role="tab" data-toggle="tab">Advanced</a></li>
 </ul>
 
@@ -40,10 +41,13 @@
     <div class="tab-pane fade show active" id="quick" role="tabpanel" style="margin-right:5em">
         <quick-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></quick-trading>
     </div>
+    <div class="tab-pane fade show" id="quickReactive" role="tabpanel" style="margin-right:5em">
+        <quick-trading-reactive [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></quick-trading-reactive>
+    </div>
     <div class="tab-pane fade show" id="standard" role="tabpanel" style="margin-right:5em">
         <standard-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></standard-trading>
     </div>
     <div class="tab-pane fade show" id="advanced" role="tabpanel" style="margin-right:5em">
-        <advanced-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk" [IsCrossCurrency]="IsCrossCurrency" [Token1PriceCurrency] ="Token1PriceCurrency" [Token2PriceCurrency] ="Token2PriceCurrency"></advanced-trading>
+        <advanced-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk" [IsCrossCurrency]="IsCrossCurrency" [Token1PriceCurrency]="Token1PriceCurrency" [Token2PriceCurrency]="Token2PriceCurrency"></advanced-trading>
     </div>
 </div>

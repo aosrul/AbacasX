@@ -17,19 +17,19 @@ export class LineChartComponent implements OnInit, OnChanges {
 
 
     public lineChartData1: Array<ILineData> = [
-        { data: [155, 180, 165, 175, 163, 185], label: '@AAPL' },];
+        { data: [180, 165, 175, 163, 185,194], label: '@AAPL' },];
     public lineChartData2: Array<ILineData> = [
-        { data: [6.96, 6.33, 6.42, 5.66, 6.63, 5.66], label: '@AAPL Per @GOOG' }];
+        { data: [6.33, 6.42, 5.66, 6.63, 5.66, 6.5360], label: '@AAPL Per @GOOG' }];
     public lineChartData3: Array<ILineData> = [
-        { data: [1080.0, 1140.0, 1060.0, 980.0, 1080.0, 1048.0], label: '@GOOG' },];
+        { data: [1140.0, 1060.0, 980.0, 1080.0, 1048.0, 1268], label: '@GOOG' },];
 
 
     private lineChartDataAAPLMSFT: Array<ILineData> = [
         { data: [1, 2, 3, 4, 5, 6], label: 'AAPL Per MSFT' }];
     private lineChartDataAAPL: Array<ILineData> = [
-        { data: [180, 165, 175, 163, 185, 191], label: '@AAPL' },];
+        { data: [165, 175, 163, 185, 191, 194], label: '@AAPL' },];
     private lineChartDataGOOG: Array<ILineData> = [
-        { data: [1140.0, 1060.0, 980.0, 1080.0, 1120.0, 1129], label: '@GOOG' },];
+        { data: [1060.0, 980.0, 1080.0, 1120.0, 1129, 1268], label: '@GOOG' },];
     private lineChartDataMSFT: Array<ILineData> = [
         { data: [86, 95, 93, 90, 95, 101], label: '@MSFT' },];
     private lineChartDataGOLD: Array<ILineData> = [
@@ -131,7 +131,7 @@ export class LineChartComponent implements OnInit, OnChanges {
         }
     }
 
-    public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June'];
+    public lineChartLabels: Array<any> = ['February', 'March', 'April', 'May', 'June','July'];
     public lineChartOptions: any = {
         responsive: true
     };

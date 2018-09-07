@@ -5,6 +5,25 @@ export interface ILineData {
     label: string;
 }
 
+export interface IClientBlockChainTransaction{
+    blockNumber: number;
+    date: string;
+    orderId: number;
+    payReceive: string;
+    tokenId: string;
+    tokenAmount: number;
+    address: string;
+    transactionHash: string;
+}
+
+export interface IClientPosition {
+    tokenId: string;
+    tokenAmount: number;
+    tokenRateIn: string;
+    tokenRate: number;
+    tokenValue: number;
+}
+
 export interface IOrderRates
 {
 
@@ -28,7 +47,7 @@ export interface IOrderRates
 }
 
 export interface IQuickOrder {
-    orderId?: number;
+    OrderId?: number;
 
     ClientId: number;
     ClientAccountId: number;
@@ -45,6 +64,26 @@ export interface IQuickOrder {
     OrderType: OrderTypeEnum;
 }
 
+export interface IOrder {
+    orderId?: number;
+
+    clientId: number;
+    clientAccountId: number;
+
+    buySellType: BuySellTypeEnum;
+    token1Id: string;
+    token1Amount: number;
+
+    token2Id: string;
+    token2Amount: number;
+    orderPrice: number;
+    orderPriceTerms: OrderPriceTermsEnum;
+
+    orderType: OrderTypeEnum;
+    orderStatus: OrderStatusEnum;
+    priceFilled: number;
+}
+
 export enum OrderPriceCurrencyTerms {
     CurrencyPerToken,
     TokenPerCurrency
@@ -55,11 +94,12 @@ export enum OrderPriceTerms {
     Token2PerToken1
 }
 
-
-
 export enum OrderTypeEnum {
     Market,
-    Limit
+    Limit,
+    IfDone,
+    OCO,
+    IfDoneOCO
 }
 
 export enum OrderPriceTermsEnum {
@@ -70,4 +110,14 @@ export enum OrderPriceTermsEnum {
 export enum BuySellTypeEnum {
     Buy,
     Sell
+}
+
+export enum OrderStatusEnum {
+    Contingent,  // Child Order awaiting outcome of Parent Order
+    Pending,     // Pending Acceptance by Trading Desk
+    Active,      // Active Order
+    Suspended,
+    Canceled,
+    Filled,
+    Expired
 }

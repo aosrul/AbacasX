@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AbacasXModel.Models.Data
 {
-    class AbacasXDbContext : DbContext
+    public class AbacasXDbContext : DbContext
     {
         public AbacasXDbContext() : base("AbacasXDbContext")
         {
