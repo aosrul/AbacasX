@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class='navbar-brand' [routerLink]="['/home']"> <span style="color:cornflowerblue">Abacas</span><span style="color:gold; font-size:larger">X</span><span style="color:darkseagreen">Change</span></a>
+  <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarColor01" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor01">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/home']">
+          Home
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/all-trading']">
+          Trading
+        </a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/orders']">
+          Orders
+        </a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/portfolio']">
+          Portfolio
+        </a>
+      </li>
+
+
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/reporting']">
+          Reporting
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/accounts']">
+          Accounts
+        </a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/blockchain']">
+          Blockchain
+        </a>
+      </li>
+
+      <li class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/settings']">
+          Settings
+        </a>
+      </li>
+    </ul>
+    <login></login>
+  </div>
+</nav>
+

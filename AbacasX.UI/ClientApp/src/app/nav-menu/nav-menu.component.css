@@ -1,0 +1,36 @@
+
+/* Highlighting rules for nav menu items */
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+  background-color: #4189C7;
+  color: white;
+}
+
+.navbar {
+  border-radius: 0px;
+  border-width: 0px;
+  height: 100%;
+}
+
+.navbar-header {
+  float: none;
+}
+
+.navbar-collapse {
+  padding: 0px;
+}
+
+.navbar ul {
+  float: none;
+}
+
+.navbar li {
+  font-size: 20px;
+  margin: 3px;
+}
+
+  .navbar li a {
+    padding: 10px 16px;
+    border-radius: 4px;
+  }
