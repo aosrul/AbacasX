@@ -121,3 +121,11 @@ export enum OrderStatusEnum {
     Filled,
     Expired
 }
+
+export enum RoleTypeEnum {
+    Investor,
+    Broker,
+    Ops,
+    Admin,
+    Guest
+}

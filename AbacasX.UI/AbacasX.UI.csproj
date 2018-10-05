@@ -36,6 +36,8 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\guards\auth-guard.service.ts" />
+    <None Remove="ClientApp\src\shared\interfaces.ts" />
     <None Remove="ClientApp\tsconfig.json" />
   </ItemGroup>
 
@@ -46,6 +48,8 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\core\login.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\guards\auth-guard.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\shared\interfaces.ts" />
   </ItemGroup>
 
   <ItemGroup>
