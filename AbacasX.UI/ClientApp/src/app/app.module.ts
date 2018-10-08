@@ -10,13 +10,15 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from '../core/login.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { TradingViewChartComponent } from './trading-view/trading-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    TradingViewChartComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
