@@ -1,6 +1,10 @@
 ﻿<div class="row" style="margin-top:20px">
-    <div class="col-3">
-        <div style="display: block;">
+    <div class="col-4">
+        
+            <tradingview-analysis [selectedAsset]="selectedAsset1"></tradingview-analysis>
+
+
+        <!--<div style="display: block;">
             <canvas baseChart width="200" height="200"
                     [datasets]="lineChartData1"
                     [labels]="lineChartLabels"
@@ -10,11 +14,13 @@
                     [chartType]="lineChartType"
                     (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)"></canvas>
-        </div>
+        </div>-->
     </div>
 
-    <div class="col-3">
-        <div style="display: block;">
+    <div class="col-4">
+        <tradingview-analysis [selectedAsset]="selectedAsset2"></tradingview-analysis>
+
+        <!--<div style="display: block;">
             <canvas baseChart width="200" height="200"
                     [datasets]="lineChartData2"
                     [labels]="lineChartLabels"
@@ -24,20 +30,22 @@
                     [chartType]="lineChartType"
                     (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)"></canvas>
-        </div>
+        </div>-->
     </div>
 
-    <div class="col-3">
-        <div style="display: block;">
-            <canvas baseChart width="200" height="200"
-                    [datasets]="lineChartData3"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors"
-                    [legend]="lineChartLegend"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-        </div>
+    <div class="col-4">
+        <tradingview-minichart [selectedAsset]="selectedAsset2"></tradingview-minichart>
+
+        <!--<div style="display: block;">
+        <canvas baseChart width="200" height="200"
+                [datasets]="lineChartData3"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>-->
     </div>
 </div>

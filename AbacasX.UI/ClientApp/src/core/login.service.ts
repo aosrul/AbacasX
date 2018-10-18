@@ -6,13 +6,15 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { ok } from 'assert';
+import { RoleTypeEnum } from '../shared/interfaces';
 
 
 @Injectable()
 export class LoginService {
 
-  username: string;
-  validLogin: boolean;
+  username: string = "";
+  validLogin: boolean = false;
+  userRole: RoleTypeEnum = RoleTypeEnum.Investor;
 
   constructor(private router: Router, private http: HttpClient) { }
 

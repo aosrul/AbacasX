@@ -31,6 +31,8 @@ import { OpenOrdersComponent } from './components/open-orders/open-orders.compon
 import { PortfolioDetailComponent } from './components/portfolio-detail/portfolio-detail.component'
 import { BlockchainDetailComponent } from './components/blockchain-detail/blockchain-detail.component'
 import { EnumAsStringPipe } from './shared/pipes/enum.pipe'
+import { TradingViewAnalysisComponent } from './components/tradingView-analysis/tradingView-analysis.component';
+import { TradingViewMiniChartComponent } from './components/tradingView-mini-chart/tradingView-mini-chart.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { EnumAsStringPipe } from './shared/pipes/enum.pipe'
         OpenOrdersComponent,
         PortfolioDetailComponent,
         BlockchainDetailComponent,
-        EnumAsStringPipe
+        EnumAsStringPipe,
+        TradingViewAnalysisComponent,
+        TradingViewMiniChartComponent,
     ],
     providers: [RateService],
     exports:[EnumAsStringPipe],

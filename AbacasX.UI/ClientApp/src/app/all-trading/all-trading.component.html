@@ -1,0 +1,17 @@
+<kendo-combobox [data]="data"
+                [filterable]="true"
+                (valueChange)="valueChange($event)"
+                (selectionChange)="selectionChange($event)"
+                (filterChange)="filterChange($event)">
+</kendo-combobox>
+
+<label for="value">Value</label>
+<kendo-arcgauge [value]="value" [scale]="{ max: 100 }">
+  <ng-template kendoArcGaugeCenterTemplate let-value="value">
+    {{ value }}%
+  </ng-template>
+</kendo-arcgauge>
+
+
+<event-log title="Event Log" [events]="events">
+</event-log>

@@ -12,6 +12,9 @@ export class LineChartComponent implements OnInit, OnChanges {
     selectedAssetPair: string = "";
     changeLog: string[] = [];
 
+    selectedAsset1: string = "AAPL";
+    selectedAsset2: string = "GOOG";
+
     private token1Id: string = "@AAPL";
     private token2Id: string = "@GOOG";
 

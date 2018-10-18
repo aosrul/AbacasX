@@ -4,7 +4,7 @@ declare var TradingView: any;
 
 @Component({
   selector: 'tradingview-chart',
-  templateUrl: './trading-view.component.html',
+  templateUrl: './tradingView-chart.component.html',
 })
 export class TradingViewChartComponent implements OnInit {
 
@@ -12,8 +12,8 @@ export class TradingViewChartComponent implements OnInit {
 
     new TradingView.widget(
       {
-        "height": 450,
-        "width": 980,
+        "height": "330",
+        "width": "100%",
         "symbol": "NASDAQ:AAPL",
         "interval": "D",
         "timezone": "Etc/UTC",
@@ -23,7 +23,7 @@ export class TradingViewChartComponent implements OnInit {
         "toolbar_bg": "#f1f3f6",
         "enable_publishing": false,
         "allow_symbol_change": true,
-        "container_id": "tradingview_d3500"
+        "container_id": "tradingview_chart"
       }
     );
   }

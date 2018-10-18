@@ -17,15 +17,15 @@ export class LoginComponent implements OnInit {
   validLogin: boolean;
   username: string;
   password: string;
-  userRole: RoleTypeEnum = RoleTypeEnum.Guest;
+  userRole: RoleTypeEnum = RoleTypeEnum.Investor;
 
     constructor(private jwtHelperService: JwtHelperService, private loginService: LoginService, private router: Router, private http: HttpClient) {
   }
 
   ngOnInit(): void {
-    this.validLogin = false;
-    this.username = null;
-    this.userRole = RoleTypeEnum.Guest;
+    this.validLogin = this.loginService.validLogin;
+    this.username = this.loginService.username;
+    this.userRole = this.loginService.userRole;
   }
 
   login(form: NgForm) {
@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
                 default:
                   this.userRole = RoleTypeEnum.Guest;
               }
+              this.loginService.userRole = this.userRole;
 
               this.roleUpdated.emit(this.userRole);
 
@@ -84,7 +85,8 @@ export class LoginComponent implements OnInit {
     this.loginService.validLogin = false;
     this.username = null;
     this.password = null;
-    this.userRole = RoleTypeEnum.Guest;
+    this.userRole = RoleTypeEnum.Investor;
     this.roleUpdated.emit(this.userRole);
+    this.router.navigate(["/"]);
   }
 }

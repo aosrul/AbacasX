@@ -51,6 +51,8 @@
     <None Remove="ClientApp\app\components\rate-service\rate.service.ts" />
     <None Remove="ClientApp\app\components\reporting\reporting.component.ts" />
     <None Remove="ClientApp\app\components\Settings\settings.component.ts" />
+    <None Remove="ClientApp\app\components\tradingView-analysis\tradingView-analysis.component.ts" />
+    <None Remove="ClientApp\app\components\tradingView-mini-chart\tradingView-mini-chart.component.ts" />
     <None Remove="ClientApp\app\shared\ensureModuleLoadedOnceGuard.ts" />
     <None Remove="ClientApp\app\shared\interfaces.ts" />
     <None Remove="ClientApp\app\core\core.module.ts" />
@@ -65,6 +67,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\blockchain-detail\blockchain-detail.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain-detail\blockchain.transactions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\chart-data\chart-data.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tradingView-mini-chart\tradingView-mini-chart.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\open-orders\open-orders.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\order-history\order-history.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\open-orders\open-orders.component.ts" />
@@ -83,6 +86,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\rate-service\rate.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\reporting\reporting.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\Settings\settings.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tradingView-analysis\tradingView-analysis.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\ensureModuleLoadedOnceGuard.ts" />
     <TypeScriptCompile Include="ClientApp\app\shared\interfaces.ts" />
     <TypeScriptCompile Include="ClientApp\app\core\core.module.ts" />
