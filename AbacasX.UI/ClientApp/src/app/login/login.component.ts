@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
 import { LoginService } from '../../core/login.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { RoleTypeEnum } from '../../shared/interfaces';
+import { RoleTypeEnum, LoginResults } from '../../shared/interfaces';
 
 
 @Component({
   selector: 'login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
   @Output() roleUpdated = new EventEmitter<RoleTypeEnum>();
@@ -18,8 +18,41 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   userRole: RoleTypeEnum = RoleTypeEnum.Investor;
+  
 
-    constructor(private jwtHelperService: JwtHelperService, private loginService: LoginService, private router: Router, private http: HttpClient) {
+  constructor(private loginService: LoginService, private router: Router, private http: HttpClient)
+  {
+
+    loginService.loginEvent.subscribe((loginResults: LoginResults) => {
+      this.validLogin = loginResults.successfulLogin;
+      this.userRole = loginResults.userRole;
+      this.username = loginResults.userName;
+
+      console.log(`New Login for user ${this.username} with role of ${this.userRole}`);
+
+      this.roleUpdated.emit(this.userRole);
+      this.router.navigate(["/"]);
+
+    }, err => {
+      this.validLogin = false;
+      this.userRole = RoleTypeEnum.Guest;
+      this.username = null;
+      this.roleUpdated.emit(this.userRole);
+
+      this.router.navigate(["/"]);
+      });
+
+    loginService.logoutEvent.subscribe((results: boolean) => {
+      console.log(`Logout for user ${this.username}`);
+
+      this.username = null;
+      this.validLogin = false;
+      this.userRole = this.loginService.userRole;
+      this.roleUpdated.emit(this.userRole);
+
+      this.router.navigate(["/"]);
+    });
+    
   }
 
   ngOnInit(): void {
@@ -28,65 +61,15 @@ export class LoginComponent implements OnInit {
     this.userRole = this.loginService.userRole;
   }
 
-  login(form: NgForm) {
+  login(form: NgForm)
+
+  {
     let credentials = JSON.stringify(form.value);
-
-    this.loginService.login(this.username, this.password, credentials)
-      .subscribe(response => {
-        let token = (<any>response).token;
-        localStorage.setItem("jwt", token);
-        this.validLogin = true;
-        this.loginService.validLogin = true;
-
-        var tokenObj = this.jwtHelperService.decodeToken(token);
-        console.log(tokenObj); // token
-        
-        for (var key in tokenObj) {
-          var keyValue = tokenObj[key];
-          if (typeof key === "string")
-          {
-            if (key.search('(claims\/role)') != -1)
-            {
-
-              switch (keyValue) {
-                case 'Investor': this.userRole = RoleTypeEnum.Investor;
-                  break;
-                case 'Guest': this.userRole = RoleTypeEnum.Guest;
-                  break;
-                case 'Broker': this.userRole = RoleTypeEnum.Broker;
-                  break;
-                case 'Admin': this.userRole = RoleTypeEnum.Admin;
-                  break;
-                case 'Ops': this.userRole = RoleTypeEnum.Ops;
-                  break;
-                default:
-                  this.userRole = RoleTypeEnum.Guest;
-              }
-              this.loginService.userRole = this.userRole;
-
-              this.roleUpdated.emit(this.userRole);
-
-              console.log(`User Role is ${keyValue}`);
-            }
-          }
-        }
-
-        this.router.navigate(["/"]);
-      }, err => {
-        this.validLogin = false;
-        this.loginService.validLogin = false;
-        this.router.navigate(["/"]);
-      });
+    this.loginService.login(this.username, this.password, credentials);
   }
 
+  
   logOut() {
-    localStorage.removeItem("jwt");
-    this.validLogin = false;
-    this.loginService.validLogin = false;
-    this.username = null;
-    this.password = null;
-    this.userRole = RoleTypeEnum.Investor;
-    this.roleUpdated.emit(this.userRole);
-    this.router.navigate(["/"]);
+    this.loginService.logOut();
   }
 }

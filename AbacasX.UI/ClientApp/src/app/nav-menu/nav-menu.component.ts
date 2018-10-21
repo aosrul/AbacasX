@@ -8,9 +8,12 @@ import { RoleTypeEnum } from '../../shared/interfaces';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-
   userRole: RoleTypeEnum = RoleTypeEnum.Guest;
   RoleTypeEnum = RoleTypeEnum;
+
+  constructor(private loginService: LoginService) {
+    this.userRole = loginService.userRole;
+  }
 
   updateRole(role: RoleTypeEnum) {
     this.userRole = role;

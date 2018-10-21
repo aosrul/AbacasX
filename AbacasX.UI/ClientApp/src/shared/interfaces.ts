@@ -1,5 +1,11 @@
 import { ModuleWithProviders } from '@angular/core';
 
+export class LoginResults {
+  public successfulLogin: boolean;
+  public userName: string;
+  public userRole: RoleTypeEnum;
+}
+
 export interface ILineData {
   data: number[];
   label: string;

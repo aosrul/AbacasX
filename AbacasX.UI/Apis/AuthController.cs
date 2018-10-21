@@ -47,7 +47,7 @@ namespace AbacasX.UI.Apis
                     UserDictionary.Add(userRecord.UserName, userRecord);
                 }
             }
-
+            
             if (user == null)
             {
                 return BadRequest("Invalid client request");
