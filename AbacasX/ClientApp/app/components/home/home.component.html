@@ -1,33 +1,23 @@
-<main role="main">
+<div class="container-fluid" style="width: 1784px">
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron" style="margin-top:5px; background-color:white; width:1300px">
-        <div class="container">
-            <div class="row">
-                <h2><span style="color:cornflowerblue">Abacas</span><span style="color:gold; font-size:larger">X</span><span style="color:darkseagreen">Change</span> // Community News</h2>
-            </div>
+    <div class="row" style="margin-left:2px">
+        <div class="col-3" style="border-right:solid 1px silver; height:350px">
+            <news></news>
+        </div>
+        <div id="tradingview_chart" class="col-6" style="margin-right:10px; margin-top:5px">
+
+            <tradingview-chart></tradingview-chart>
+
         </div>
     </div>
+    <hr style="margin:0px" />
 
-    <hr>
-
-    <div class="container-fluid">
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Portfolio</h2>
-                <p></p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div>
-            <div class="col-md-6">
-                <h2>Markets</h2>
-                <p></p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div>
+    <div class="row" style="margin-left:2px; height:350px; margin-bottom:5px">
+        <div class="col-3" style="border-right:solid 1px silver">
+            <community></community>
         </div>
-
-
-
-    </div> <!-- /container -->
-
-</main>
+        <div class="col-6" style="margin-right:10px; margin-top:5px">
+            <tradingview-crypto></tradingview-crypto>
+        </div>
+    </div>
+</div>

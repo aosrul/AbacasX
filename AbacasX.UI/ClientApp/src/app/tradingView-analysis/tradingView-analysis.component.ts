@@ -1,11 +1,13 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, Input } from '@angular/core';
 
 
 @Component({
   selector: 'tradingview-analysis',
-  templateUrl: './tradingView-analysis.component.html',
+  templateUrl: './tradingView-analysis.component.html'
 })
-export class TradingViewAnalysisComponent implements OnInit {
+export class TradingViewAnalysisComponent implements OnInit, AfterViewInit {
+  @Input() selectedAsset: string = "";
+  changeLog: string[] = [];
 
   constructor(private elementRef: ElementRef) { }
 
@@ -17,10 +19,11 @@ export class TradingViewAnalysisComponent implements OnInit {
     let s = document.createElement("script");
     s.type = 'text/javascript';
     s.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+
     s.text = `{
       "width": "100\%",
-      "height": "100\%",
-      "symbol": "NASDAQ:AAPL",
+      "height": "300",
+      "symbol": "NASDAQ:${this.selectedAsset}",
       "locale": "en",
       "interval": "1M"}`;
 

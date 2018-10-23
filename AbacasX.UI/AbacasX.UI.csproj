@@ -10,6 +10,7 @@
 
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <UserSecretsId>c0c464e2-f50b-4f36-8aac-4089e71755a4</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -38,6 +39,7 @@
     <None Remove="ClientApp\src\app\all-trading\all-trading.component.ts" />
     <None Remove="ClientApp\src\app\community\community.component.ts" />
     <None Remove="ClientApp\src\app\event-log\event-log.component.ts" />
+    <None Remove="ClientApp\src\app\line-chart\line-chart.component.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
     <None Remove="ClientApp\src\app\news\news.component.ts" />
     <None Remove="ClientApp\src\app\tradingView-analysis\tradingView-analysis.component.ts" />
@@ -57,6 +59,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\all-trading\all-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\community\community.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\event-log\event-log.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\line-chart\line-chart.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\news\news.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\tradingView-analysis\tradingView-analysis.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\tradingView-chart\tradingView-chart.component.ts" />
@@ -70,6 +73,10 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

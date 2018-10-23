@@ -14,7 +14,6 @@ import { HomeComponent } from './components/home/home.component';
 import { StandardTradingComponent } from './components/standard-trading/standard-trading.component';
 import { AdvancedTradingComponent } from './components/advanced-trading/advanced-trading.component';
 import { QuickTradingComponent } from './components/quick-trading/quick-trading.component';
-import { QuickTradingReactiveComponent } from './components/quick-trading-reactive/quick-trading-reactive.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -33,6 +32,10 @@ import { BlockchainDetailComponent } from './components/blockchain-detail/blockc
 import { EnumAsStringPipe } from './shared/pipes/enum.pipe'
 import { TradingViewAnalysisComponent } from './components/tradingView-analysis/tradingView-analysis.component';
 import { TradingViewMiniChartComponent } from './components/tradingView-mini-chart/tradingView-mini-chart.component';
+import { TradingViewChartComponent } from './components/tradingView-chart/tradingView-chart.component';
+import { TradingViewCryptoComponent } from './components/tradingView-crypto/tradingView-crypto.component';
+import { CommunityComponent } from './components/community/community.component';
+import { NewsComponent } from './components/news/news.component';
 
 
 @NgModule({
@@ -43,7 +46,6 @@ import { TradingViewMiniChartComponent } from './components/tradingView-mini-cha
         StandardTradingComponent,
         AdvancedTradingComponent,
         QuickTradingComponent,
-        QuickTradingReactiveComponent,
         OrdersComponent,
         AccountsComponent,
         SettingsComponent,
@@ -60,6 +62,10 @@ import { TradingViewMiniChartComponent } from './components/tradingView-mini-cha
         EnumAsStringPipe,
         TradingViewAnalysisComponent,
         TradingViewMiniChartComponent,
+        TradingViewChartComponent,
+        TradingViewCryptoComponent,
+        NewsComponent,
+        CommunityComponent
     ],
     providers: [RateService],
     exports:[EnumAsStringPipe],
@@ -81,7 +87,6 @@ import { TradingViewMiniChartComponent } from './components/tradingView-mini-cha
             { path: 'standard-trading', component: StandardTradingComponent },
             { path: 'advanced-trading', component: AdvancedTradingComponent },
             { path: 'quick-trading', component: QuickTradingComponent },
-            { path: 'quick-trading-reactive', component: QuickTradingReactiveComponent },
             { path: 'orders',   component: OrdersComponent },
             { path: 'accounts', component: AccountsComponent },
             { path: 'settings', component: SettingsComponent },

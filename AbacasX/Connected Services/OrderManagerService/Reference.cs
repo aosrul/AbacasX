@@ -13,7 +13,7 @@ namespace OrderManagerService
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BlockChainData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
     public partial class BlockChainData : object
     {
@@ -140,7 +140,7 @@ namespace OrderManagerService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ClientPositionData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
     public partial class ClientPositionData : object
     {
@@ -222,7 +222,7 @@ namespace OrderManagerService
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
     public partial class OrderData : object
     {
@@ -423,7 +423,7 @@ namespace OrderManagerService
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderLegBuySellEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
     public enum OrderLegBuySellEnum : int
     {
@@ -435,7 +435,7 @@ namespace OrderManagerService
         Sell = 1,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderPriceTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
     public enum OrderPriceTermsEnum : int
     {
@@ -447,7 +447,7 @@ namespace OrderManagerService
         Token2PerToken1 = 1,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
     public enum OrderStatusEnum : int
     {
@@ -474,7 +474,7 @@ namespace OrderManagerService
         Expired = 6,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderTypeEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
     public enum OrderTypeEnum : int
     {
@@ -495,7 +495,7 @@ namespace OrderManagerService
         IfDoneOCO = 4,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="OrderManagerService.IOrderService", CallbackContract=typeof(OrderManagerService.IOrderServiceCallback))]
     public interface IOrderService
     {
@@ -528,7 +528,7 @@ namespace OrderManagerService
         System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderId);
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     public interface IOrderServiceCallback
     {
         
@@ -536,13 +536,13 @@ namespace OrderManagerService
         void OrderAdded(OrderManagerService.OrderData orderData);
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     public interface IOrderServiceChannel : OrderManagerService.IOrderService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     public partial class OrderServiceClientBase : System.ServiceModel.DuplexClientBase<OrderManagerService.IOrderService>, OrderManagerService.IOrderService
     {
         

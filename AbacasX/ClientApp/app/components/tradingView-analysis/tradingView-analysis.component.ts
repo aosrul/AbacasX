@@ -6,6 +6,7 @@
     templateUrl: './tradingView-analysis.component.html'
 })
 export class TradingViewAnalysisComponent implements OnInit, AfterViewInit {
+
     @Input() selectedAsset: string = "";
     changeLog: string[] = [];
 
@@ -14,12 +15,12 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit {
     ngOnInit() {
     }
 
+    
     ngAfterViewInit() {
 
         let s = document.createElement("script");
         s.type = 'text/javascript';
         s.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
-
         s.text = `{
       "width": "100\%",
       "height": "300",

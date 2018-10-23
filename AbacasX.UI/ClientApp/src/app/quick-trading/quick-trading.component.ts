@@ -1,21 +1,15 @@
-﻿import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, OrderStatusEnum } from '../../shared/interfaces';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
+import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, OrderStatusEnum } from '../../shared/interfaces';
 import { DataService } from '../../core/data.service';
 
 
 @Component({
-    selector: 'quick-trading-reactive',
-    templateUrl: './quick-trading-reactive.component.html',
-    styleUrls: ['./quick-trading-reactive.component.css']
-
+    selector: 'quick-trading',
+    templateUrl: './quick-trading.component.html',
+    styleUrls: ['./quick-trading.component.css'],
 })
-export class QuickTradingReactiveComponent implements OnInit, OnChanges {
-
-    orderForm?: FormGroup;
-
-    errorMessage: string = "";
+export class QuickTradingComponent implements OnInit, OnChanges {
 
     @Input()
     selectedAssetPair: string = "";
@@ -28,7 +22,12 @@ export class QuickTradingReactiveComponent implements OnInit, OnChanges {
     IsMarketOrder: boolean = true;
     changeLog: string[] = [];
 
+    errorMessage: string = "";
+
     OrderDescription: string = "Buy @AAPL with @GOOG";
+
+    constructor(private router: Router,
+        private dataService: DataService) { }
 
     quickOrder: IOrder = {
         clientId: 0,
@@ -44,32 +43,6 @@ export class QuickTradingReactiveComponent implements OnInit, OnChanges {
         orderStatus: OrderStatusEnum.Active,
         priceFilled: 0
     };
-
-
-    constructor(private router: Router,
-        private dataService: DataService,
-        private formBuilder: FormBuilder) { }
-
-    ngOnInit() {
-
-        if (this.quickOrder.buySellType == BuySellTypeEnum.Buy)
-            this.quickOrder.orderPrice = this.TokenExchangeAsk;
-        else
-            this.quickOrder.orderPrice = this.TokenExchangeBid;
-
-        this.quickOrder.token1Amount = 0;
-        this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
-
-        this.buildForm();
-    }
-
-    buildForm() {
-        this.orderForm = this.formBuilder.group({
-            Token1Amount: [this.quickOrder.token1Amount, Validators.required],
-            OrderPrice: [this.quickOrder.orderPrice, Validators.required],
-        })
-    }
-
 
     ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
         let log: string[] = [];
@@ -102,19 +75,20 @@ export class QuickTradingReactiveComponent implements OnInit, OnChanges {
         this.changeLog.push(log.join(', '));
     }
 
-    submit({ value }:{ value: IOrder }) {
+    submit() {
         this.dataService.addOrder(this.quickOrder)
             .subscribe((order: IOrder) => {
                 if (order) {
-                    // Successful Add
                 }
                 else {
                     this.errorMessage = 'Unable to add Order';
                 }
             },
-                (err: any) => console.log(err));
+            (err: any) => console.log(err));
 
+        this.quickOrder.token1Amount = 0;
     }
+
 
     updateOrderPrice(orderPrice: string) {
         this.quickOrder.orderPrice = Number(orderPrice);
@@ -164,6 +138,15 @@ export class QuickTradingReactiveComponent implements OnInit, OnChanges {
     }
 
 
+    ngOnInit() {
+
+        if (this.quickOrder.buySellType == BuySellTypeEnum.Buy)
+            this.quickOrder.orderPrice = this.TokenExchangeAsk;
+        else
+            this.quickOrder.orderPrice = this.TokenExchangeBid;
+
+        this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
+    }
 
     MarketOrderClicked() {
         this.quickOrder.orderType = OrderTypeEnum.Market;

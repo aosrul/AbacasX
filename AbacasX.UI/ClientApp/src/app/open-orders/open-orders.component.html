@@ -1,0 +1,24 @@
+<div class="row" style="margin-left:0px; margin-top:10px">
+    <kendo-grid [data]="orders">
+        <kendo-grid-column field="orderId" title="Order ID" width="150"></kendo-grid-column>
+        <kendo-grid-column field="buySellType" title="Buy/Sell" width="150">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.buySellType | enumAsString:BuySellTypeEnum}}
+            </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="token1Id" title="Token Id" width="150"></kendo-grid-column>
+        <kendo-grid-column field="token1Amount" title="Amount" width="150"></kendo-grid-column>
+        <kendo-grid-column field="orderPrice" title="Rate" width="150"></kendo-grid-column>
+        <kendo-grid-column field="orderPriceTerms" title="Rate Terms" width="150">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.orderPriceTerms | enumAsString:OrderPriceTermsEnum}}
+            </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="token2Id" title="Token2 Id" width="150"></kendo-grid-column>
+        <kendo-grid-column field="orderType" title="Order Type" width="150">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.orderType | enumAsString:OrderTypeEnum}}
+            </ng-template>
+        </kendo-grid-column>
+    </kendo-grid>
+</div>

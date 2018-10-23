@@ -1,6 +1,8 @@
-﻿.panel {
-    margin: 0
+﻿
+.panel{
+    margin:0
 }
+
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -8,17 +10,17 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-.panel-body {
-    padding-top: 0;
-    padding-bottom: 0;
+.panel-body{
+    padding-top:0;
+    padding-bottom:0;
     padding-left: 3px;
     padding-right: 3px;
 }
-
-.well {
-    background-color: #fafafa;
-    margin-bottom: 5px;
+.well{
+    background-color:#fafafa;
+    margin-bottom:5px;
 }
+
 
 .token-label {
     color: white;
@@ -34,6 +36,7 @@ input[type=number]::-webkit-outer-spin-button {
     .button-selected:hover {
         background-image: linear-gradient(#3f8507, #2e5e06 );
     }
+    
 
 .button-not-selected {
     color: black;

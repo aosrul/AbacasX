@@ -1,17 +1,48 @@
-<kendo-combobox [data]="data"
-                [filterable]="true"
-                (valueChange)="valueChange($event)"
-                (selectionChange)="selectionChange($event)"
-                (filterChange)="filterChange($event)">
-</kendo-combobox>
 
-<label for="value">Value</label>
-<kendo-arcgauge [value]="value" [scale]="{ max: 100 }">
-  <ng-template kendoArcGaugeCenterTemplate let-value="value">
-    {{ value }}%
-  </ng-template>
-</kendo-arcgauge>
+<form class="form-inline">
+    <div class="form-group row" style="margin-left:5px; margin-top:2em; margin-bottom:5px">
+        <div class="col-auto">
+            <div class="input-group">
+                <label class="col-form-label" for="AssetPairSelect" style="font-size:large; margin-right:10px">Token Pair</label>
+                <select (change)="assetPairChange($event.target.value)" [(ngModel)]="selectedAssetPair" name="AssetPairSelect" class="form-control">
+                    <option>@AAPL - @GOOG</option>
+                    <option>@AAPL - @MSFT</option>
+                    <option>@AAPL - @GOLD</option>
+                    <option>@AAPL - @BTC</option>
+                    <option>@AAPL - @USD</option>
+                    <option>@AAPL - @BNP</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-auto">
+            <div class="input-group">
+                <input readonly [(ngModel)]="TokenExchangeBid" class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Bid" placeholder="Bid Rate" autocomplete="off" value="" />
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="input-group">
+                <input readonly [(ngModel)]="TokenExchangeAsk" class="form-control" style="width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Ask"  placeholder="Ask Rate" autocomplete="off" value="" />
+            </div>
+        </div>
+    </div>
+</form>
 
 
-<event-log title="Event Log" [events]="events">
-</event-log>
+<ul class="nav nav-tabs" style="margin-left:20px; margin-top:2em" role="tablist">
+    <li class="nav-item"> <a class="active nav-link" href="#quick" role="tab" data-toggle="tab">Quick Trade</a></li>
+    <li class="nav-item"><a class="nav-link" href="#standard" role="tab" data-toggle="tab">Standard</a></li>
+    <li class="nav-item"><a class="nav-link" href="#advanced" role="tab" data-toggle="tab">Advanced</a></li>
+</ul>
+
+<div  class="tab-content" id="tradeTabContent">
+    <div class="tab-pane fade show active" id="quick" role="tabpanel" style="margin-right:5em">
+        <quick-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></quick-trading>
+    </div>
+    <div class="tab-pane fade show" id="standard" role="tabpanel" style="margin-right:5em">
+        <standard-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></standard-trading>
+    </div>
+    <div class="tab-pane fade show" id="advanced" role="tabpanel" style="margin-right:5em">
+        <advanced-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk" [IsCrossCurrency]="IsCrossCurrency" [Token1PriceCurrency]="Token1PriceCurrency" [Token2PriceCurrency]="Token2PriceCurrency"></advanced-trading>
+    </div>
+</div>

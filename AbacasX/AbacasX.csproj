@@ -5,6 +5,11 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <UserSecretsId>13991d21-6dcd-42e2-824e-547af20680a3</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;NU1701;NU1702</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,7 +51,6 @@
     <None Remove="ClientApp\app\components\portfolio-detail\positions.ts" />
     <None Remove="ClientApp\app\components\portfolio\portfolio.component.ts" />
     <None Remove="ClientApp\app\components\portfolio\positions.ts" />
-    <None Remove="ClientApp\app\components\quick-trading-reactive\quick-trading-reactive.component.ts" />
     <None Remove="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <None Remove="ClientApp\app\components\rate-service\rate.service.ts" />
     <None Remove="ClientApp\app\components\reporting\reporting.component.ts" />
@@ -75,7 +79,6 @@
     <TypeScriptCompile Include="ClientApp\app\components\portfolio-detail\portfolio-detail.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\portfolio-detail\positions.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\portfolio\positions.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\quick-trading-reactive\quick-trading-reactive.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\quick-trading\quick-trading.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\blockchain\blockchain.transactions.ts" />

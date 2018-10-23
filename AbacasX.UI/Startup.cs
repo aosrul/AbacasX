@@ -1,3 +1,4 @@
+using AbacasX.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,8 +54,11 @@ namespace AbacasX.UI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "AspNetCoreIdentity API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "AbacasX UI", Version = "v1" });
             });
+
+            // Add an injectable service to the Order Manager Service
+            services.AddScoped<OrderService.IOrderService, OrderRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

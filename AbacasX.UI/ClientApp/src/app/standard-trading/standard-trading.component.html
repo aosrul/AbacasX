@@ -1,0 +1,134 @@
+﻿<form class="form-control-sm" style="margin-top:1%; margin-left:5px" novalidate>
+    <div class="d-inline-flex" style="margin-top:5px">
+
+        <div class="d-flex flex-column" style="margin-top:5px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Order</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Amount</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Order Price</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Total</label>
+            </div>
+        </div>
+
+
+
+        <div class="d-flex flex-column" style="margin-left:30px; align-items:flex-start">
+
+            <div class="d-inline-flex" style="margin-top:5px;padding-left:5px">
+                <div class="btn-group" name="BSButtonGroup">
+                    <button (click)="BuyToken1Clicked()" name="Token1Buy" type="button" [ngClass]="{'btn':true,  'button-selected': IsBuyOrder == true, 'button-not-selected': IsBuyOrder == false}">Buy</button>
+                    <button (click)="SellToken1Clicked()" name="Token1Sell" type="button" [ngClass]="{'btn':true,  'button-selected': IsBuyOrder == false, 'button-not-selected': IsBuyOrder == true}">Sell</button>
+                </div>
+
+                <button style="width:15em; margin-left:5px" class="btn token-label">
+                    {{ExchangeDescription}}
+                </button>
+            </div>
+
+            <div class="d-inline-flex" style="margin-top:5px">
+                <input class="form-control" [ngModel]="quickOrder.Token1Amount" (ngModelChange)="updateToken1Amount($event)" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="Token1Amount" placeholder="Amount" autocomplete="off" value="0" />
+                <button style="width:7em" class="btn token-label">
+                    {{quickOrder.Token1Id}}
+                </button>
+            </div>
+
+
+            <div class="d-inline-flex" style="margin-top:3px;">
+                <input class="form-control" [readonly]="IsMarketOrder" [ngModel]="quickOrder.OrderPrice" (ngModelChange)="updateOrderPrice($event)" style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="OrderPrice" placeholder=" Order Price" autocomplete="off" value="0" />
+                <button style="width:7em" class="btn token-label">
+                    {{quickOrder.Token2Id}}
+                </button>
+
+                <div class="btn-group" style="margin-left:10px">
+                    <button type="button" (click)="MarketOrderClicked()" name="MarketOrderButton" [ngClass]="{'btn':true, 'button-selected': IsMarketOrder == true,  'button-not-selected':IsMarketOrder == false}">Market</button>
+                    <button type="button" (click)="LimitOrderClicked()" name="LimitOrderButton" [ngClass]="{'btn':true, 'button-selected': IsMarketOrder == false, 'button-not-selected': IsMarketOrder == true}">Limit</button>
+                </div>
+
+            </div>
+
+            <div class="d-inline-flex" style="margin-top:3px;">
+                <input class="form-control" readonly style="text-align:right; width:15em; margin-right:5px; margin-left:5px" type="text" name="Token2Amount" placeholder="Total" autocomplete="off" value="{{quickOrder.Token2Amount | number: '1.6-6'}}" />
+                <button style="width:7em" class="btn token-label">{{quickOrder.Token2Id}}</button>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Start</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>Expires</label>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <input class="form-control" name="OrderStart" select style="width:15em; margin-left:5px; margin-right:5px" type="text" placeholder="Now" autocomplete="off" />
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <input class="form-control" name="OrderEnd" select style="width:15em; margin-left:5px; margin-right:5px" type="text" placeholder="Expiration" autocomplete="off" />
+            </div>
+        </div>
+
+        <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+            <div class="d-inline-flex" style="margin-top:5px">
+                <label>&nbsp;</label>
+            </div>
+
+            <div class="d-inline-flex" style="margin-top:5px">
+                <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+                <button type="button" name="CancelOrder" class="btn btn-danger " style="margin-left:5px">Cancel</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<ul style="margin-top:1em" class="nav nav-tabs">
+    <li class="nav-item"><a class="nav-link active" href="#charts-s" data-toggle="tab">Charts</a></li>
+    <li class="nav-item"><a class="nav-link" href="#portfolio-s" data-toggle="tab">Portfolio</a></li>
+    <li class="nav-item"><a class="nav-link" href="#orders-s" data-toggle="tab">Orders</a></li>
+    <li class="nav-item"><a class="nav-link" href="#orderbook-s" data-toggle="tab">Order Book</a></li>
+
+</ul>
+<div class="tab-content">
+    <div class="tab-pane fade active show" id="charts-s" style="margin-right:5em">
+        <line-chart id="linechart-s" [selectedAssetPair]="selectedAssetPair" style="margin-top:10px"></line-chart>
+    </div>
+    <div class="tab-pane fade" id="portfolio-s" style="margin-right:5em; margin-top:2em">
+        <portfolio-detail></portfolio-detail>
+    </div>
+    <div class="tab-pane fade" id="orders-s" style="margin-right:5em">
+        <open-orders></open-orders>
+    </div>
+    <div class="tab-pane fade" id="orderbook-s" style="margin-right:5em">
+        <order-book></order-book>
+    </div>
+</div>
