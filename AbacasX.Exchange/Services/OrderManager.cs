@@ -48,7 +48,7 @@ namespace AbacasX.Exchange.Services
             ClientPositionData basePosition = new ClientPositionData { TokenId = "@USD", TokenAmount = 1000000m, TokenRate = 1.0m, TokenRateIn = "USD", TokenValue = 1000000 };
 
             OrderData[] HistoricalOrderList = { new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 108.10M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@MSFT", Token1Amount = 500, Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 108.10M},
-                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 109.00M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Market, Token1Id = "@GOOG", Token1Amount = 100,  Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 1250.00M },
+                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 109.00M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Market, Token1Id = "@GOOG", Token1Amount = 300,  Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 1250.00M },
                                                 new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 0.0583M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@ETH", Token1Amount = 15,   Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 262.81m }};
 
             // Initialize USD Position
@@ -56,14 +56,14 @@ namespace AbacasX.Exchange.Services
 
             TokenRateData[] TokenRatesList =
             {
-                new TokenRateData { TokenId = "@GOOG", TokenRate = 1266.06m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@MSFT", TokenRate = 109.77m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@GOOG", TokenRate = 1105.06m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@MSFT", TokenRate = 109.9m, TokenRateIn = "USD"},
                 new TokenRateData { TokenId = "@CAT", TokenRate = 135.02M, TokenRateIn = "USD"},
                 new TokenRateData { TokenId = "@ETH", TokenRate = 262.81m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@BTC", TokenRate = 6033m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@BTC", TokenRate = 6433.0m, TokenRateIn = "USD"},
                 new TokenRateData { TokenId = "@USD", TokenRate = 1.0m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@AAPL", TokenRate = 194.415m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@GOLD", TokenRate = 1223.63m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@AAPL", TokenRate = 222.9m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@GOLD", TokenRate = 1225.0m, TokenRateIn = "USD"},
             };
 
             for (int i = 0; i < TokenRatesList.Count(); i++)
@@ -159,7 +159,7 @@ namespace AbacasX.Exchange.Services
                 {
                     ClientPosition = new ClientPositionData();
                     ClientPosition.TokenId = order.Token2Id;
-                    ClientPosition.TokenAmount = order.Token1Amount;
+                    ClientPosition.TokenAmount = order.Token2Amount;
 
                     ClientPosition.TokenRate = 0.0m;
                     ClientPosition.TokenRateIn = "USD";

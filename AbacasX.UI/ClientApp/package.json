@@ -33,6 +33,7 @@
     "popper.js": "^1.0.0",
     "zone.js": "^0.8.19",
     "ng2-charts": "1.6.0",
+    "@ng-bootstrap/ng-bootstrap": "1.1.2",
     "@progress/kendo-angular-buttons": "4.1.1",
     "@progress/kendo-angular-dateinputs": "3.4.0",
     "@progress/kendo-angular-dropdowns": "3.0.1",

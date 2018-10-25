@@ -10,7 +10,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { GaugesModule } from '@progress/kendo-angular-gauges';
 import { ChartsModule } from 'ng2-charts';
 import { CoreModule } from '../core/core.module';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -87,6 +87,7 @@ import { OrderBookComponent } from './order-book/order-book.component';
     DropDownsModule,
     GaugesModule,
     CoreModule,
+    NgbModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => { return localStorage.getItem('jwt') },
@@ -98,21 +99,20 @@ import { OrderBookComponent } from './order-book/order-book.component';
       { path: 'home', component: HomeComponent },
 
       { path: 'all-trading', component: AllTradingComponent },
-      { path: 'quick-trading', component: QuickTradingComponent },
       { path: 'standard-trading', component: StandardTradingComponent },
       { path: 'advanced-trading', component: AdvancedTradingComponent },
-
-      { path: 'portfolio', component: PortfolioComponent },
-      { path: 'portfolio-detail', component: PortfolioDetailComponent },
+      { path: 'quick-trading', component: QuickTradingComponent },
       { path: 'orders', component: OrdersComponent },
+      { path: 'accounts', component: AccountsComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'reporting', component: ReportingComponent },
+      { path: 'portfolio', component: PortfolioComponent },
+      { path: 'blockchain', component: BlockchainComponent },
       { path: 'order-history', component: OrderHistoryComponent },
       { path: 'open-orders', component: OpenOrdersComponent },
-      { path: 'blockchain', component: BlockchainComponent },
+      { path: 'portfolio-detail', component: PortfolioDetailComponent },
       { path: 'blockchain-detail', component: BlockchainDetailComponent },
-      { path: 'reporting', component: ReportingComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: 'accounts', component: AccountsComponent },
-      
+
       { path: '**', redirectTo: 'home' }
     ])
   ],

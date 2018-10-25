@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestExchangeService", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasX.Rate", "AbacasX.Rate\AbacasX.Rate.csproj", "{25698E70-A836-43A0-B9A8-DC5BC263C933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasX.UI", "AbacasX.UI\AbacasX.UI.csproj", "{3B5AF6A9-3CE5-445F-B0EB-4025D115855A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbacasX.UI", "AbacasX.UI\AbacasX.UI.csproj", "{3B5AF6A9-3CE5-445F-B0EB-4025D115855A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

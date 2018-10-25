@@ -106,14 +106,18 @@ export class QuickTradingComponent implements OnInit, OnChanges {
             this.quickOrder.token2Id = "@GOOG";
         }
 
+      if (this.selectedAssetPair == "@AAPL - @MSFT") {
+        this.quickOrder.token1Id = "@AAPL";
+        this.quickOrder.token2Id = "@MSFT";
+      }
         if (this.selectedAssetPair == "@AAPL - @GOLD") {
             this.quickOrder.token1Id = "@AAPL";
             this.quickOrder.token2Id = "@GOLD";
         }
 
-        if (this.selectedAssetPair == "@AAPL - @MSFT") {
-            this.quickOrder.token1Id = "@AAPL";
-            this.quickOrder.token2Id = "@MSFT";
+        if (this.selectedAssetPair == "@MSFT - @BTC") {
+            this.quickOrder.token1Id = "@MSFT";
+            this.quickOrder.token2Id = "@BTC";
         }
 
         if (this.selectedAssetPair == "@AAPL - @BTC") {
