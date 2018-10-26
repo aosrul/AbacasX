@@ -13,12 +13,221 @@ namespace ServiceReference1
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BlockChainData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    public partial class BlockChainData : object
+    {
+        
+        private string AddressField;
+        
+        private int BlockNumberField;
+        
+        private string DateField;
+        
+        private int OrderIdField;
+        
+        private string PayReceiveField;
+        
+        private decimal TokenAmountField;
+        
+        private string TokenIdField;
+        
+        private string TransactionHashField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Address
+        {
+            get
+            {
+                return this.AddressField;
+            }
+            set
+            {
+                this.AddressField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int BlockNumber
+        {
+            get
+            {
+                return this.BlockNumberField;
+            }
+            set
+            {
+                this.BlockNumberField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Date
+        {
+            get
+            {
+                return this.DateField;
+            }
+            set
+            {
+                this.DateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderId
+        {
+            get
+            {
+                return this.OrderIdField;
+            }
+            set
+            {
+                this.OrderIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PayReceive
+        {
+            get
+            {
+                return this.PayReceiveField;
+            }
+            set
+            {
+                this.PayReceiveField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal TokenAmount
+        {
+            get
+            {
+                return this.TokenAmountField;
+            }
+            set
+            {
+                this.TokenAmountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TokenId
+        {
+            get
+            {
+                return this.TokenIdField;
+            }
+            set
+            {
+                this.TokenIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TransactionHash
+        {
+            get
+            {
+                return this.TransactionHashField;
+            }
+            set
+            {
+                this.TransactionHashField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ClientPositionData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    public partial class ClientPositionData : object
+    {
+        
+        private decimal TokenAmountField;
+        
+        private string TokenIdField;
+        
+        private decimal TokenRateField;
+        
+        private string TokenRateInField;
+        
+        private decimal TokenValueField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal TokenAmount
+        {
+            get
+            {
+                return this.TokenAmountField;
+            }
+            set
+            {
+                this.TokenAmountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TokenId
+        {
+            get
+            {
+                return this.TokenIdField;
+            }
+            set
+            {
+                this.TokenIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal TokenRate
+        {
+            get
+            {
+                return this.TokenRateField;
+            }
+            set
+            {
+                this.TokenRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TokenRateIn
+        {
+            get
+            {
+                return this.TokenRateInField;
+            }
+            set
+            {
+                this.TokenRateInField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal TokenValue
+        {
+            get
+            {
+                return this.TokenValueField;
+            }
+            set
+            {
+                this.TokenValueField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
     public partial class OrderData : object
     {
         
-        private int BuySellTypeField;
+        private ServiceReference1.OrderLegBuySellEnum BuySellTypeField;
         
         private int ClientAccountIdField;
         
@@ -28,9 +237,13 @@ namespace ServiceReference1
         
         private decimal OrderPriceField;
         
-        private int OrderPriceTermsField;
+        private ServiceReference1.OrderPriceTermsEnum OrderPriceTermsField;
         
-        private int OrderTypeField;
+        private ServiceReference1.OrderStatusEnum OrderStatusField;
+        
+        private ServiceReference1.OrderTypeEnum OrderTypeField;
+        
+        private decimal PriceFilledField;
         
         private decimal Token1AmountField;
         
@@ -41,7 +254,7 @@ namespace ServiceReference1
         private string Token2IdField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BuySellType
+        public ServiceReference1.OrderLegBuySellEnum BuySellType
         {
             get
             {
@@ -106,7 +319,7 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OrderPriceTerms
+        public ServiceReference1.OrderPriceTermsEnum OrderPriceTerms
         {
             get
             {
@@ -119,7 +332,20 @@ namespace ServiceReference1
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OrderType
+        public ServiceReference1.OrderStatusEnum OrderStatus
+        {
+            get
+            {
+                return this.OrderStatusField;
+            }
+            set
+            {
+                this.OrderStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ServiceReference1.OrderTypeEnum OrderType
         {
             get
             {
@@ -128,6 +354,19 @@ namespace ServiceReference1
             set
             {
                 this.OrderTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PriceFilled
+        {
+            get
+            {
+                return this.PriceFilledField;
+            }
+            set
+            {
+                this.PriceFilledField = value;
             }
         }
         
@@ -184,25 +423,112 @@ namespace ServiceReference1
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderLegBuySellEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    public enum OrderLegBuySellEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Buy = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Sell = 1,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderPriceTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    public enum OrderPriceTermsEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Token1PerToken2 = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Token2PerToken1 = 1,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    public enum OrderStatusEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Contingent = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Pending = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Active = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Suspended = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Canceled = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Filled = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Expired = 6,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderTypeEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    public enum OrderTypeEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Market = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Limit = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        IfDone = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        OCO = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        IfDoneOCO = 4,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IOrderService", CallbackContract=typeof(ServiceReference1.IOrderServiceCallback))]
     public interface IOrderService
     {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientBlockChainTransactions", ReplyAction="http://tempuri.org/IOrderService/GetClientBlockChainTransactionsResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.BlockChainData[]> GetClientBlockChainTransactionsAsync(int ClientId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientPositions", ReplyAction="http://tempuri.org/IOrderService/GetClientPositionsResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.ClientPositionData[]> GetClientPositionsAsync(int ClientId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientOrders", ReplyAction="http://tempuri.org/IOrderService/GetClientOrdersResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.OrderData[]> GetClientOrdersAsync(int ClientId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientHistoricalOrders", ReplyAction="http://tempuri.org/IOrderService/GetClientHistoricalOrdersResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.OrderData[]> GetClientHistoricalOrdersAsync(int ClientId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/AddOrder", ReplyAction="http://tempuri.org/IOrderService/AddOrderResponse")]
-        System.Threading.Tasks.Task<int> AddOrderAsync(ServiceReference1.OrderData orderData);
+        System.Threading.Tasks.Task<ServiceReference1.OrderData> AddOrderAsync(ServiceReference1.OrderData orderData);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrder", ReplyAction="http://tempuri.org/IOrderService/GetOrderResponse")]
+        System.Threading.Tasks.Task<ServiceReference1.OrderData> GetOrderAsync(int OrderId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/SuspendOrder", ReplyAction="http://tempuri.org/IOrderService/SuspendOrderResponse")]
-        System.Threading.Tasks.Task<int> SuspendOrderAsync(int OrderID);
+        System.Threading.Tasks.Task<int> SuspendOrderAsync(int OrderId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/CancelOrder", ReplyAction="http://tempuri.org/IOrderService/CancelOrderResponse")]
-        System.Threading.Tasks.Task<int> CancelOrderAsync(int OrderID);
+        System.Threading.Tasks.Task<int> CancelOrderAsync(int OrderId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/ActivateOrder", ReplyAction="http://tempuri.org/IOrderService/ActivateOrderResponse")]
-        System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderID);
+        System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderId);
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     public interface IOrderServiceCallback
     {
         
@@ -210,13 +536,13 @@ namespace ServiceReference1
         void OrderAdded(ServiceReference1.OrderData orderData);
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     public interface IOrderServiceChannel : ServiceReference1.IOrderService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     public partial class OrderServiceClientBase : System.ServiceModel.DuplexClientBase<ServiceReference1.IOrderService>, ServiceReference1.IOrderService
     {
         
@@ -230,7 +556,7 @@ namespace ServiceReference1
         public OrderServiceClientBase(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance, OrderServiceClientBase.GetDefaultBinding(), OrderServiceClientBase.GetDefaultEndpointAddress())
         {
-            this.Endpoint.Name = EndpointConfiguration.tcpOM.ToString();
+            this.Endpoint.Name = EndpointConfiguration.NetHttpBinding_IOrderService.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
@@ -260,24 +586,49 @@ namespace ServiceReference1
         {
         }
         
-        public System.Threading.Tasks.Task<int> AddOrderAsync(ServiceReference1.OrderData orderData)
+        public System.Threading.Tasks.Task<ServiceReference1.BlockChainData[]> GetClientBlockChainTransactionsAsync(int ClientId)
+        {
+            return base.Channel.GetClientBlockChainTransactionsAsync(ClientId);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.ClientPositionData[]> GetClientPositionsAsync(int ClientId)
+        {
+            return base.Channel.GetClientPositionsAsync(ClientId);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.OrderData[]> GetClientOrdersAsync(int ClientId)
+        {
+            return base.Channel.GetClientOrdersAsync(ClientId);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.OrderData[]> GetClientHistoricalOrdersAsync(int ClientId)
+        {
+            return base.Channel.GetClientHistoricalOrdersAsync(ClientId);
+        }
+        
+        public System.Threading.Tasks.Task<ServiceReference1.OrderData> AddOrderAsync(ServiceReference1.OrderData orderData)
         {
             return base.Channel.AddOrderAsync(orderData);
         }
         
-        public System.Threading.Tasks.Task<int> SuspendOrderAsync(int OrderID)
+        public System.Threading.Tasks.Task<ServiceReference1.OrderData> GetOrderAsync(int OrderId)
         {
-            return base.Channel.SuspendOrderAsync(OrderID);
+            return base.Channel.GetOrderAsync(OrderId);
         }
         
-        public System.Threading.Tasks.Task<int> CancelOrderAsync(int OrderID)
+        public System.Threading.Tasks.Task<int> SuspendOrderAsync(int OrderId)
         {
-            return base.Channel.CancelOrderAsync(OrderID);
+            return base.Channel.SuspendOrderAsync(OrderId);
         }
         
-        public System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderID)
+        public System.Threading.Tasks.Task<int> CancelOrderAsync(int OrderId)
         {
-            return base.Channel.ActivateOrderAsync(OrderID);
+            return base.Channel.CancelOrderAsync(OrderId);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderId)
+        {
+            return base.Channel.ActivateOrderAsync(OrderId);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -292,12 +643,13 @@ namespace ServiceReference1
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.tcpOM))
+            if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IOrderService))
             {
-                System.ServiceModel.NetTcpBinding result = new System.ServiceModel.NetTcpBinding();
+                System.ServiceModel.NetHttpBinding result = new System.ServiceModel.NetHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
+                result.AllowCookies = true;
                 return result;
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
@@ -305,27 +657,27 @@ namespace ServiceReference1
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.tcpOM))
+            if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IOrderService))
             {
-                return new System.ServiceModel.EndpointAddress("net.tcp://localhost:8085/OrderManager");
+                return new System.ServiceModel.EndpointAddress("ws://localhost:8084/");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         
         private static System.ServiceModel.Channels.Binding GetDefaultBinding()
         {
-            return OrderServiceClientBase.GetBindingForEndpoint(EndpointConfiguration.tcpOM);
+            return OrderServiceClientBase.GetBindingForEndpoint(EndpointConfiguration.NetHttpBinding_IOrderService);
         }
         
         private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
         {
-            return OrderServiceClientBase.GetEndpointAddress(EndpointConfiguration.tcpOM);
+            return OrderServiceClientBase.GetEndpointAddress(EndpointConfiguration.NetHttpBinding_IOrderService);
         }
         
         public enum EndpointConfiguration
         {
             
-            tcpOM,
+            NetHttpBinding_IOrderService,
         }
     }
     

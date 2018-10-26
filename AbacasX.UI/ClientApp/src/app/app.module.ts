@@ -44,6 +44,10 @@ import { AdvancedTradingComponent } from './advanced-trading/advanced-trading.co
 import { AccountsComponent } from './accounts/accounts.component';
 import { OrderBookComponent } from './order-book/order-book.component';
 
+export function tokenGetter(){
+  return localStorage.getItem('jwt');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +94,7 @@ import { OrderBookComponent } from './order-book/order-book.component';
     NgbModule.forRoot(),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => { return localStorage.getItem('jwt') },
+        tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:63720', 'localhost:63720/api']
       }
     }),

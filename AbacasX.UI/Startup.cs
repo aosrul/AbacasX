@@ -83,10 +83,11 @@ namespace AbacasX.UI
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseCors("enableCORS");
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();
-            app.UseCors("enableCORS");
+       
 
             // Enable middleware to serve generated Swagger as a JSON endpoint
             app.UseSwagger();

@@ -556,7 +556,7 @@ namespace OrderManagerService
         public OrderServiceClientBase(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance, OrderServiceClientBase.GetDefaultBinding(), OrderServiceClientBase.GetDefaultEndpointAddress())
         {
-            this.Endpoint.Name = EndpointConfiguration.tcpOM.ToString();
+            this.Endpoint.Name = EndpointConfiguration.NetHttpBinding_IOrderService.ToString();
             ConfigureEndpoint(this.Endpoint, this.ClientCredentials);
         }
         
@@ -643,12 +643,13 @@ namespace OrderManagerService
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.tcpOM))
+            if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IOrderService))
             {
-                System.ServiceModel.NetTcpBinding result = new System.ServiceModel.NetTcpBinding();
+                System.ServiceModel.NetHttpBinding result = new System.ServiceModel.NetHttpBinding();
                 result.MaxBufferSize = int.MaxValue;
                 result.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 result.MaxReceivedMessageSize = int.MaxValue;
+                result.AllowCookies = true;
                 return result;
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
@@ -656,27 +657,27 @@ namespace OrderManagerService
         
         private static System.ServiceModel.EndpointAddress GetEndpointAddress(EndpointConfiguration endpointConfiguration)
         {
-            if ((endpointConfiguration == EndpointConfiguration.tcpOM))
+            if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IOrderService))
             {
-                return new System.ServiceModel.EndpointAddress("net.tcp://localhost:8085/OrderManager");
+                return new System.ServiceModel.EndpointAddress("ws://localhost:8084/");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
         
         private static System.ServiceModel.Channels.Binding GetDefaultBinding()
         {
-            return OrderServiceClientBase.GetBindingForEndpoint(EndpointConfiguration.tcpOM);
+            return OrderServiceClientBase.GetBindingForEndpoint(EndpointConfiguration.NetHttpBinding_IOrderService);
         }
         
         private static System.ServiceModel.EndpointAddress GetDefaultEndpointAddress()
         {
-            return OrderServiceClientBase.GetEndpointAddress(EndpointConfiguration.tcpOM);
+            return OrderServiceClientBase.GetEndpointAddress(EndpointConfiguration.NetHttpBinding_IOrderService);
         }
         
         public enum EndpointConfiguration
         {
             
-            tcpOM,
+            NetHttpBinding_IOrderService,
         }
     }
     
