@@ -62,23 +62,23 @@
 
 
       <div class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="Token1MarketRate" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 1 Price" autocomplete="off" />
+        <input class="form-control" name="MarketRateBid"  style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 1 Market Price" autocomplete="off"  value="{{token1Rate | number: '1.6-6'}}"/>
         <button style="width:12em" class="btn token-label">
           {{Token1PriceCurrency}} for {{quickOrder.Token1Id}}
         </button>
       </div>
 
       <div *ngIf="IsCrossCurrency" class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="FXToken2" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="FX Rate" autocomplete="off" />
+        <input class="form-control" name="FXToken2" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="FX Rate" autocomplete="off" value="{{tokenFXRate | number: '1.6-6'}}" />
         <button style="width:12em" class="btn token-label">
-          {{Token2PriceCurrency}} For {{Token1PriceCurrency}}
+          {{Token1PriceCurrency}} For {{Token2PriceCurrency}}
         </button>
       </div>
 
       <div class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="Token2MarketRate" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 2 Price" autocomplete="off" />
+        <input class="form-control" name="Token2MarketRate" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 2 Price" autocomplete="off" value="{{token2Rate | number: '1.6-6'}}" />
         <button style="width:12em" class="btn token-label">
-          {{quickOrder.Token2Id}} for {{Token2PriceCurrency}}
+          {{Token2PriceCurrency}} for {{quickOrder.Token2Id}}
         </button>
       </div>
 
@@ -95,36 +95,53 @@
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <label>Start</label>
+        &nbsp;
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <label>Expires</label>
+        <label>Expiration</label>
       </div>
 
     </div>
 
-    <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+    <div class="d-flex flex-column" style="margin-top:5px; padding-left:20px; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <input class="form-control" name="OrderStart" select style="width:15em; margin-left:5px; margin-right:5px" type="text" placeholder="Now" autocomplete="off" />
+        &nbsp;
       </div>
+
       <div class="d-inline-flex" style="margin-top:5px">
-        <input class="form-control" name="OrderEnd" select style="width:15em; margin-left:5px; margin-right:5px" type="text" placeholder="Expiration" autocomplete="off" />
+
+        <select (change)="orderTypeChange($event.target.value)" [(ngModel)]="selectedOrderType" name="OrderType" class="form-control">
+          <option>GTC</option>
+          <option>EOD</option>
+          <option>EOW</option>
+          <option>Good Till</option>
+        </select>
       </div>
+
+      <div hidden class="d-inline-flex" style="margin-top:5px; margin-left:0px">
+        <kendo-datepicker name="orderExpiration" [(ngModel)]="orderExpiration"></kendo-datepicker>
+        <kendo-timepicker style="margin-left:2px" name="orderExpirationTime" [(ngModel)]="orderExpirationTime"></kendo-timepicker>
+      </div>
+
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
+      </div>
+      <div class="d-inline-flex" style="margin-top:5px">
+        <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+        <button type="button" name="CancelOrder" class="btn btn-danger " style="margin-left:5px">Cancel</button>
       </div>
     </div>
   </div>
 </form>
 
 
-<div style="margin-left:20px">
+<div style="margin-left:20px; margin-right:20px">
   <ngb-tabset>
     <ngb-tab title="Charts">
       <ng-template ngbTabContent>

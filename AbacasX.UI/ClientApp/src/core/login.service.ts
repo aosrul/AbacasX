@@ -24,7 +24,7 @@ export class LoginService {
     this.username = username;
     let loginResults = { } as LoginResults;
  
-    this.http.post("http://localhost:63720/api/auth/login", credentials,
+    this.http.post("/api/auth/login", credentials,
       {
         headers: new HttpHeaders(
           {

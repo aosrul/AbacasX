@@ -11,6 +11,7 @@ import { GaugesModule } from '@progress/kendo-angular-gauges';
 import { ChartsModule } from 'ng2-charts';
 import { CoreModule } from '../core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -43,6 +44,8 @@ import { StandardTradingComponent } from './standard-trading/standard-trading.co
 import { AdvancedTradingComponent } from './advanced-trading/advanced-trading.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { OrderBookComponent } from './order-book/order-book.component';
+import { OpsMonitorComponent } from './ops-monitor/ops-monitor.component';
+import { AdminMonitorComponent } from './admin-monitor/admin-monitor.component';
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -78,7 +81,9 @@ export function tokenGetter(){
     StandardTradingComponent,
     AdvancedTradingComponent,
     AccountsComponent,
-    OrderBookComponent
+    OrderBookComponent,
+    OpsMonitorComponent,
+    AdminMonitorComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -91,6 +96,7 @@ export function tokenGetter(){
     DropDownsModule,
     GaugesModule,
     CoreModule,
+    DateInputsModule,
     NgbModule.forRoot(),
     JwtModule.forRoot({
       config: {
@@ -116,6 +122,8 @@ export function tokenGetter(){
       { path: 'open-orders', component: OpenOrdersComponent },
       { path: 'portfolio-detail', component: PortfolioDetailComponent },
       { path: 'blockchain-detail', component: BlockchainDetailComponent },
+      { path: 'ops-monitor', component: OpsMonitorComponent },
+      { path: 'admin-monitor', component: AdminMonitorComponent },
 
       { path: '**', redirectTo: 'home' }
     ])

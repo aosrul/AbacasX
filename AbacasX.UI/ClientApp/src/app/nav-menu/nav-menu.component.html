@@ -7,9 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <div [ngSwitch]="userRole">
       <div *ngSwitchCase="RoleTypeEnum.Investor">
-
         <ul class="navbar-nav mr-auto">
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/home']">
               Home
@@ -20,20 +18,16 @@
               Trading
             </a>
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/orders']">
               Orders
             </a>
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/portfolio']">
               Portfolio
             </a>
           </li>
-
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/reporting']">
               Reporting
@@ -49,61 +43,91 @@
               Blockchain
             </a>
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/settings']">
               Settings
             </a>
           </li>
         </ul>
-
       </div>
-      <div *ngSwitchCase="RoleTypeEnum.Admin">
-
+      <div *ngSwitchCase="RoleTypeEnum.Ops">
         <ul class="navbar-nav mr-auto">
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link" [routerLink]="['/home']">
               Home
             </a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/all-trading']">
-              Trading
+            <a class="nav-link" [routerLink]="['/ops-monitor']">
+              Monitoring
             </a>
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/orders']">
+            <a class="nav-link" [routerLink]="['/ops-orders']">
               Orders
             </a>
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/portfolio']">
-              Portfolio
+            <a class="nav-link" [routerLink]="['/ops-orders']">
+              Liquidity
             </a>
           </li>
-
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/reporting']">
+            <a class="nav-link" [routerLink]="['/ops-orders']">
+              Rates
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/ops-positions']">
+              Positions
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/ops-workflow']">
+              Workflow
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/ops-reporting']">
               Reporting
             </a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/accounts']">
-              Accounts
+            <a class="nav-link" [routerLink]="['/ops-definitions']">
+              Definitions
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div *ngSwitchCase="RoleTypeEnum.Admin">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/home']">
+              Home
             </a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/blockchain']">
-              Blockchain
+            <a class="nav-link" [routerLink]="['/admin-monitor']">
+              Monitoring
             </a>
           </li>
-
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" [routerLink]="['/settings']">
+            <a class="nav-link" [routerLink]="['/admin-monitor']">
+              Security
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/admin-reporting']">
+              Reporting
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/admin-definitions']">
+              Definitions
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/admin-settings']">
               Settings
             </a>
           </li>

@@ -1,5 +1,33 @@
 import { ModuleWithProviders } from '@angular/core';
 
+export class TradingRates {
+  Token1Id: string;
+  Token2Id: string;
+
+  Token1Bid: number;
+  Token1Ask: number;
+
+  Token2Bid: number;
+  Token2Ask: number;
+
+  Token1PriceCurrency: string;
+  Token2PriceCurrency: string;
+
+  Token1PriceCurrencyBid: number;
+  Token1PriceCurrencyAsk: number;
+  Token2PriceCurrencyBid: number;
+  Token2PriceCurrencyAsk: number;
+
+
+  TokenExchangeBid: number;
+  TokenExchangeAsk: number;
+
+  TokenExchangeFXBid: number;
+  TokenExchangeFXAsk: number;
+
+  IsCrossCurrency: boolean;
+}
+
 export class LoginResults {
   public successfulLogin: boolean;
   public userName: string;

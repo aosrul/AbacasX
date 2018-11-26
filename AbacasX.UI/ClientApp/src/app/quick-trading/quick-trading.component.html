@@ -33,6 +33,7 @@
         <span style="font-size:x-large">&nbsp;=&nbsp;</span>
 
       </div>
+
     </div>
 
     <div class="col-auto" style="margin-top:5px">
@@ -40,16 +41,13 @@
         <input class="form-control" readonly style="text-align:right; width:15em; margin-right:5px" type="text" name="total" placeholder="Total" autocomplete="off" value="{{quickOrder.token2Amount | number: '1.6-6'}}" />
         <button style="width:7em" class="btn token-label">{{quickOrder.token2Id}}</button>
       </div>
+
+      <div class="form-group-row" style="margin-top:2em;">
+        <button type="submit" [disabled]="quickTradeForm.invalid || (quickOrder.token1Amount == 0)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+        <button type="button" name="CancelOrder" class="btn btn-danger ">Cancel</button>
+      </div>
     </div>
   </div>
-
-  <div class="form-row" style="margin-bottom:2em; margin-top:0px">
-    <div class="col-auto">
-      <button type="submit" [disabled]="quickTradeForm.invalid || (quickOrder.token1Amount == 0)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
-      <button type="button" name="CancelOrder" class="btn btn-danger ">Cancel</button>
-    </div>
-  </div>
-
 </form>
 
 <!--<h4>Change log:</h4>

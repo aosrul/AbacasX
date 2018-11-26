@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TradingRates } from '../../shared/interfaces';
 
 @Component({
   selector: 'all-trading',
@@ -41,11 +42,16 @@ export class AllTradingComponent implements OnInit {
   Token2PriceCurrencyBid: number = 1.0;
   Token2PriceCurrencyAsk: number = 1.0;
 
+  TokenExchangeFXBid: number = 1.0;
+  TokenExchangeFXAsk: number = 1.0;
+
   USDFXBidRate: number = 1.0;
   USDFXAskRate: number = 1.0;
 
   EURFXBidRate: number = 1.1800;
   EURFXAskRate: number = 1.1850;
+
+  TradingRates: TradingRates = new TradingRates();
 
   public source: Array<string> = ["@AAPL", "@GOOG", "@MSFT", "@GOLD", "@BTC", "@USD", "@BNP"];
   public data: Array<string>;
@@ -77,6 +83,26 @@ export class AllTradingComponent implements OnInit {
     this.Token2PriceCurrency = "@USD";
     this.IsCrossCurrency = false;
 
+    this.TokenExchangeFXBid = 1.0;
+    this.TokenExchangeFXAsk = 1.0;
+
+    this.TradingRates.Token1Id = this.Token1Id;
+    this.TradingRates.Token2Id = this.Token2Id;
+    
+    this.TradingRates.TokenExchangeBid = this.TokenExchangeBid;
+    this.TradingRates.TokenExchangeAsk = this.TokenExchangeAsk;
+    
+    this.TradingRates.Token1PriceCurrencyBid = this.Token1PriceCurrencyBid;
+    this.TradingRates.Token1PriceCurrencyAsk = this.Token1PriceCurrencyAsk;
+    this.TradingRates.Token2PriceCurrencyBid = this.Token2PriceCurrencyBid;
+    this.TradingRates.Token2PriceCurrencyAsk = this.Token2PriceCurrencyAsk;
+
+    this.TradingRates.Token1PriceCurrency = this.Token1PriceCurrency;
+    this.TradingRates.Token2PriceCurrency = this.Token2PriceCurrency;
+    this.TradingRates.IsCrossCurrency = this.IsCrossCurrency;
+
+    this.TradingRates.TokenExchangeFXBid = this.TokenExchangeFXBid;
+    this.TradingRates.TokenExchangeFXAsk = this.TokenExchangeFXAsk;
   }
 
 
@@ -113,14 +139,18 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeBid = this.AAPLBidPrice * (1.0 / this.GOOGAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = 1.0;
-          this.Token2PriceCurrencyAsk = 1.0;
+          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
+          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token2PriceCurrencyBid = this.GOOGBidPrice;
+          this.Token2PriceCurrencyAsk = this.GOOGAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
           this.IsCrossCurrency = false;
+
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
 
         }
         break;
@@ -134,14 +164,18 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeBid = this.MSFTBidPrice * (1.0 / this.BTCAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = 1.0;
-          this.Token2PriceCurrencyAsk = 1.0;
+          this.Token1PriceCurrencyBid = this.MSFTBidPrice;
+          this.Token1PriceCurrencyAsk = this.MSFTAskPrice;
+          this.Token2PriceCurrencyBid = this.BTCBidPrice;
+          this.Token2PriceCurrencyAsk = this.BTCAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
           this.IsCrossCurrency = false;
+
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
         }
         break;
       case "@AAPL - @MSFT":
@@ -153,14 +187,17 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeBid = this.AAPLBidPrice * (1.0 / this.MSFTAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = 1.0;
-          this.Token2PriceCurrencyAsk = 1.0;
+          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
+          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token2PriceCurrencyBid = this.MSFTBidPrice;
+          this.Token2PriceCurrencyAsk = this.MSFTAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
           this.IsCrossCurrency = false;
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
         }
         break;
 
@@ -173,14 +210,17 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeBid = this.AAPLBidPrice * (1.0 / this.GOLDAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = 1.0;
-          this.Token2PriceCurrencyAsk = 1.0;
+          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
+          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token2PriceCurrencyBid = this.GOLDBidPrice;
+          this.Token2PriceCurrencyAsk = this.GOLDAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
           this.IsCrossCurrency = false;
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
         }
         break;
 
@@ -193,14 +233,18 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeBid = this.AAPLBidPrice * (1.0 / this.BTCAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = 1.0;
-          this.Token2PriceCurrencyAsk = 1.0;
+          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
+          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token2PriceCurrencyBid = this.BTCBidPrice;
+          this.Token2PriceCurrencyAsk = this.BTCAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
           this.IsCrossCurrency = false;
+
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
         }
         break;
 
@@ -213,14 +257,18 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeBid = this.AAPLBidPrice * (1.0 / this.USDAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = 1.0;
-          this.Token2PriceCurrencyAsk = 1.0;
+          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
+          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token2PriceCurrencyBid = this.USDBidPrice;
+          this.Token2PriceCurrencyAsk = this.USDAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
           this.IsCrossCurrency = false;
+
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
         }
         break;
 
@@ -229,10 +277,10 @@ export class AllTradingComponent implements OnInit {
           this.Token1Id = "@AAPL";
           this.Token2Id = "@BNP";
 
-          this.Token1PriceCurrencyBid = 1.0;
-          this.Token1PriceCurrencyAsk = 1.0;
-          this.Token2PriceCurrencyBid = this.EURFXBidRate;
-          this.Token2PriceCurrencyAsk = this.EURFXAskRate;
+          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
+          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token2PriceCurrencyBid = this.BNPBidPrice;
+          this.Token2PriceCurrencyAsk = this.BNPAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@EUR";
@@ -245,7 +293,10 @@ export class AllTradingComponent implements OnInit {
           this.selectedAssetPair = selectedAssetPair;
           this.IsCrossCurrency = true;
 
+          this.TokenExchangeFXBid = 1.0 / this.EURFXAskRate;
+          this.TokenExchangeFXAsk = 1.0 / this.EURFXBidRate;
 
+          
         }
         break;
 
@@ -262,7 +313,32 @@ export class AllTradingComponent implements OnInit {
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";
 
+          this.IsCrossCurrency = false;
+
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
+
+
         }
     }
+
+    this.TradingRates.Token1Id = this.Token1Id;
+    this.TradingRates.Token2Id = this.Token2Id;
+
+    this.TradingRates.TokenExchangeBid = this.TokenExchangeBid;
+    this.TradingRates.TokenExchangeAsk = this.TokenExchangeAsk;
+
+    this.TradingRates.Token1PriceCurrencyBid = this.Token1PriceCurrencyBid;
+    this.TradingRates.Token1PriceCurrencyAsk = this.Token1PriceCurrencyAsk;
+    this.TradingRates.Token2PriceCurrencyBid = this.Token2PriceCurrencyBid;
+    this.TradingRates.Token2PriceCurrencyAsk = this.Token2PriceCurrencyAsk;
+
+    this.TradingRates.Token1PriceCurrency = this.Token1PriceCurrency;
+    this.TradingRates.Token2PriceCurrency = this.Token2PriceCurrency;
+    this.TradingRates.IsCrossCurrency = this.IsCrossCurrency;
+    this.TradingRates.TokenExchangeFXBid = this.TokenExchangeFXBid;
+    this.TradingRates.TokenExchangeFXAsk = this.TokenExchangeFXAsk;
+
   }
 }

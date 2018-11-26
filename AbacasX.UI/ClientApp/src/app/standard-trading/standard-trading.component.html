@@ -1,5 +1,5 @@
-<form class="form-control-sm" style="margin-top:1%; margin-left:5px" novalidate>
-  <div class="d-inline-flex" style="margin-top:5px">
+<form class="form-control-sm" style="margin-top:1%; margin-left:5px; margin-bottom:10px" novalidate>
+  <div class="d-inline-flex" style="margin-top:5px; margin-bottom:1em">
 
     <div class="d-flex flex-column" style="margin-top:5px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
       <div class="d-inline-flex" style="margin-top:5px">
@@ -66,14 +66,14 @@
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <label>Start</label>
+        <label>Expiration</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <label>Expires</label>
+        <label>&nbsp;</label>
       </div>
     </div>
 
-    <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
+    <div class="d-flex flex-column" style="margin-top:5px; padding-left:20px; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
       </div>
@@ -81,14 +81,19 @@
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <input class="form-control" name="OrderStart" select style="width:15em; margin-left:5px; margin-right:5px" type="text" placeholder="Now" autocomplete="off" />
+        <select (change)="orderTypeChange($event.target.value)" [(ngModel)]="selectedOrderType" name="OrderType" class="form-control">
+          <option>GTC</option>
+          <option>EOD</option>
+          <option>EOW</option>
+          <option>Good Till</option>
+        </select>
       </div>
-      <div class="d-inline-flex" style="margin-top:5px">
-        <input class="form-control" name="OrderEnd" select style="width:15em; margin-left:5px; margin-right:5px" type="text" placeholder="Expiration" autocomplete="off" />
+      <div class="d-inline-flex" style="margin-top:5px; margin-left:0px">
+          <kendo-datepicker [(value)]="value"></kendo-datepicker>
       </div>
     </div>
 
-    <div class="d-flex flex-column" style="margin-top:5px; padding-left:40px; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
+    <div class="d-flex flex-column" style="margin-top:5px; padding-left:3em; align-items:flex-start; font-size:18px;font-weight:bold; color:#00337e">
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
       </div>
@@ -98,10 +103,7 @@
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
       </div>
-      <div class="d-inline-flex" style="margin-top:5px">
-        <label>&nbsp;</label>
-      </div>
-
+     
       <div class="d-inline-flex" style="margin-top:5px">
         <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
         <button type="button" name="CancelOrder" class="btn btn-danger " style="margin-left:5px">Cancel</button>
@@ -111,7 +113,7 @@
 </form>
 
 
-<div style="margin-left:20px">
+<div style="margin-left:20px; margin-right:20px">
   <ngb-tabset>
     <ngb-tab title="Charts">
       <ng-template ngbTabContent>

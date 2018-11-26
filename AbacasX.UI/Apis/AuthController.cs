@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AbacasX.UI.models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AbacasX.UI.Apis
@@ -25,7 +26,14 @@ namespace AbacasX.UI.Apis
     public class AuthController : Controller
     {
         Dictionary<string, UserClass> UserDictionary = new Dictionary<string, UserClass>();
-   
+
+        public AuthController(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
 
         // GET api/values
         [HttpPost, Route("login")]
@@ -61,13 +69,13 @@ namespace AbacasX.UI.Apis
             if (user.UserName == loginAccount.UserName && user.Password == loginAccount.Password)
             {
 
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("AbacasDevelopmentSecretKey"));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
 
                 var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:63720",
-                    audience: "http://localhost:63720",
+                    issuer: Configuration["Jwt:Issuer"],
+                    audience: Configuration["Jwt:Issuer"],
                     claims: new List<Claim> {
                         new Claim(ClaimTypes.System,"AbacasXChange"),
                         new Claim(ClaimTypes.Name, user.UserName),

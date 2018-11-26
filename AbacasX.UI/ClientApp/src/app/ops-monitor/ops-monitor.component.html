@@ -1,0 +1,77 @@
+<form>
+  <div class="row">
+    <div class="col-auto">
+      <div class="form-group">
+        <label for="value">Orders</label>
+        <kendo-arcgauge [value]="orderValue" [scale]="{ max: 100 }" [colors]="colors" >
+          <ng-template kendoArcGaugeCenterTemplate let-value="value">
+            {{ value }}%
+          </ng-template>
+        </kendo-arcgauge>
+      </div>
+    </div>
+
+    <div class="col-auto" style="align-content:center">
+
+      <label for="value">Liquidity</label>
+      <kendo-arcgauge [value]="liquidityValue" [scale]="{ max: 100 }" [colors]="colors">
+        <ng-template kendoArcGaugeCenterTemplate let-value="value">
+          {{ value }}%
+        </ng-template>
+      </kendo-arcgauge>
+
+    </div>
+
+    <div class="col-auto">
+
+      <label for="value">Rates</label>
+      <kendo-arcgauge [value]="rateValue" [scale]="{ max: 100 }" [colors]="colors">
+        <ng-template kendoArcGaugeCenterTemplate let-value="value">
+          {{ value }}%
+        </ng-template>
+      </kendo-arcgauge>
+
+    </div>
+
+    <div class="col-auto">
+
+      <label for="value">Positions</label>
+      <kendo-arcgauge [value]="positionValue" [scale]="{ max: 100 }" [colors]="colors">
+        <ng-template kendoArcGaugeCenterTemplate let-value="value">
+          {{ value }}%
+        </ng-template>
+      </kendo-arcgauge>
+
+    </div>
+
+    <div class="col-auto">
+      <label for="value">Workflow</label>
+      <kendo-arcgauge [value]="workflowValue" [scale]="{ max: 100 }" [colors]="colors">
+        <ng-template kendoArcGaugeCenterTemplate let-value="value">
+          {{ value }}%
+        </ng-template>
+      </kendo-arcgauge>
+
+    </div>
+
+
+  </div>
+</form>
+
+<!--<kendo-combobox [data]="data"
+                [filterable]="true"
+                (valueChange)="valueChange($event)"
+                (selectionChange)="selectionChange($event)"
+                (filterChange)="filterChange($event)">
+</kendo-combobox>
+
+<label for="value">Value</label>
+<kendo-arcgauge [value]="value" [scale]="{ max: 100 }">
+  <ng-template kendoArcGaugeCenterTemplate let-value="value">
+    {{ value }}%
+  </ng-template>
+</kendo-arcgauge>
+
+
+<event-log title="Event Log" [events]="events">
+</event-log>-->
