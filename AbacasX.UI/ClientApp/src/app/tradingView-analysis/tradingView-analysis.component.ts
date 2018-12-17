@@ -9,6 +9,7 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit, OnCh
   @Input() selectedAsset: string = "";
   changeLog: string[] = [];
   s: any = null;
+  p: any = null;
 
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
@@ -31,17 +32,42 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit, OnCh
       }
 
       if (propName === "selectedAsset")
+      {
+        this.changeLog.push(log.join(', '));
         this.selectedAssetChanged(changedProp.currentValue);
+      }
     }
   }
 
 
   selectedAssetChanged(currentValue: string) {
+
+    if (this.s != null)
+    {
+      this.renderer.removeChild(this.elementRef.nativeElement, this.p);
+
+      this.p = this.renderer.createElement('div');
+      this.s = this.renderer.createElement("script");
+
+      this.s.id = "TechAnalysis";
+      this.s.type = 'text/javascript';
+      this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+
+      this.s.text = `{
+      "width": "100\%",
+      "height": "300",
+      "symbol": "NASDAQ:${this.selectedAsset}",
+      "locale": "en",
+      "interval": "1D"}`;
+
+      this.renderer.appendChild(this.p, this.s);
+      this.renderer.appendChild(this.elementRef.nativeElement, this.p);
+    }
   }
 
   ngAfterViewInit() {
 
-  
+    this.p = this.renderer.createElement('div');
     this.s = this.renderer.createElement("script");
 
     this.s.id = "TechAnalysis";
@@ -55,8 +81,7 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit, OnCh
       "locale": "en",
       "interval": "1D"}`;
 
-    this.renderer.appendChild(this.elementRef.nativeElement, this.s);
-
-    //this.elementRef.nativeElement.appendChild(s);
+    this.renderer.appendChild(this.p, this.s);
+    this.renderer.appendChild(this.elementRef.nativeElement, this.p);
   }
 }

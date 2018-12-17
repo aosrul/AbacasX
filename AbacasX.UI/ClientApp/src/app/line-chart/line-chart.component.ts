@@ -63,13 +63,23 @@ export class LineChartComponent implements OnInit, OnChanges {
     if (this.selectedAssetPair == "@AAPL - @MSFT") {
       this.token1Id = "@AAPL";
       this.token2Id = "@MSFT";
-      
+
+      this.selectedAsset1 = "AAPL";
       this.selectedAsset2 = "MSFT";
+    }
+
+    if (this.selectedAssetPair == "@MSFT - @BTC") {
+      this.token1Id = "@MSFT";
+      this.token2Id = "@BTC";
+
+      this.selectedAsset1 = "MSFT";
+      this.selectedAsset2 = "BTC";
     }
 
     if (this.selectedAssetPair == "@AAPL - @BTC") {
       this.token1Id = "@AAPL";
       this.token2Id = "@BTC";
+      this.selectedAsset1 = "AAPL";
       this.selectedAsset2 = "BTC";
 
     }
