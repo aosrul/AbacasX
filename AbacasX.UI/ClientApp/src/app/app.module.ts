@@ -13,6 +13,7 @@ import { CoreModule } from '../core/core.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
+
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -46,6 +47,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { OrderBookComponent } from './order-book/order-book.component';
 import { OpsMonitorComponent } from './ops-monitor/ops-monitor.component';
 import { AdminMonitorComponent } from './admin-monitor/admin-monitor.component';
+import { StockComponent } from './stock/stock.component';
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -84,6 +86,7 @@ export function tokenGetter(){
     OrderBookComponent,
     OpsMonitorComponent,
     AdminMonitorComponent,
+    StockComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -124,6 +127,7 @@ export function tokenGetter(){
       { path: 'blockchain-detail', component: BlockchainDetailComponent },
       { path: 'ops-monitor', component: OpsMonitorComponent },
       { path: 'admin-monitor', component: AdminMonitorComponent },
+      { path: 'stocks', component: StockComponent },
 
       { path: '**', redirectTo: 'home' }
     ])

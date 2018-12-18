@@ -1,4 +1,6 @@
 using AbacasX.Repository;
+using AbacasX.UI.Hubs;
+using AbacasX.UI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +29,7 @@ namespace AbacasX.UI
 
             services.AddCors(options =>
             {
-                options.AddPolicy("EnableCORS", builder =>
+                options.AddPolicy("CorsPolicy", builder =>
                 {
                     builder.AllowAnyOrigin()
                     .AllowAnyHeader()
@@ -36,6 +38,9 @@ namespace AbacasX.UI
                     .Build();
                 });
             });
+
+            services.AddSignalR();
+            services.AddSingleton<StockTicker>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
            .AddJwtBearer(options =>
@@ -83,7 +88,7 @@ namespace AbacasX.UI
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseCors("enableCORS");
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();
@@ -106,6 +111,11 @@ namespace AbacasX.UI
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<StockTickerHub>("/stock");
             });
 
             app.UseSpa(spa =>

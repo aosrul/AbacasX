@@ -1,0 +1,44 @@
+<div>
+  <br />
+  <button name="openmarket" class="btn btn-primary" (click)="openMarketClicked()">Rate Feed On</button>
+  <button name="" class="btn btn-danger" (click)="closeMarketClicked()">Rate Feed Off</button>
+  <button name="" class="btn btn-default" (click)="resetClicked()">Reset</button>
+  <br />
+  <p>Asset Count : {{stocks.length}}</p>
+  <p>Rate Feed Status : {{rateFeedStatus}}</p>
+  <br />
+  <br />
+
+
+  <kendo-grid [data]="stocks">
+    <kendo-grid-column field="symbol" title="Symbol" width="100"></kendo-grid-column>
+    <kendo-grid-column field="price" title="Price" width="100"></kendo-grid-column>
+    <kendo-grid-column field="percentChange" title="% Change" width="100">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <span [style.color]="dataItem.percentChange >= 0 ? 'green' : 'red'">
+          {{dataItem.percentChange}}
+        </span>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+
+  <!--<table class="table table-response table-bordered">
+
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Change %</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let stock of stocks">
+        <td>{{stock.symbol}}</td>
+        <td>{{stock.price}}</td>
+        <td>{{stock.percentChange}} {{stock.percentChange >= 0 ? '▲' : '▼'}}</td>
+      </tr>
+    </tbody>
+
+  </table>-->
+</div>
