@@ -117,6 +117,32 @@ export interface IOrder {
   priceFilled: number;
 }
 
+export interface IAssetTransfer {
+  assetTransferId?: number;
+  assetAccountId: number;
+  custodianId: number;
+  tokenConversionId?: number;
+  assetId: string;
+  amount: number;
+  transferStatus: TransferStatusEnum;
+  transferType: TransferTypeEnum;
+  forAccountOf: string;
+  referenceCode: string;
+}
+
+export enum TransferStatusEnum {
+  Requested,
+  InProgress,
+  Completed,
+  Canceled,
+  Failed
+}
+
+export enum TransferTypeEnum {
+  Deposit,
+  Withdrawal
+}
+
 export enum OrderPriceCurrencyTerms {
   CurrencyPerToken,
   TokenPerCurrency
@@ -160,5 +186,6 @@ export enum RoleTypeEnum {
   Broker,
   Ops,
   Admin,
-  Guest
+  Guest,
+  Custodian
 }

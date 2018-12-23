@@ -1,1 +1,19 @@
-﻿<h1>Accounts</h1>
+<div style="margin-left:20px; margin-top:2em">
+  <ngb-tabset>
+    <ngb-tab title="Deposit Notification">
+      <ng-template ngbTabContent>
+        <account-deposit></account-deposit>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Withdrawal Request">
+      <ng-template ngbTabContent>
+        <account-withdrawal></account-withdrawal>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Activity">
+      <ng-template ngbTabContent>
+        <account-transfer></account-transfer>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

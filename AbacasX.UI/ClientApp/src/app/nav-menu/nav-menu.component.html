@@ -6,6 +6,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <div [ngSwitch]="userRole">
+      <!-- Investor -->
       <div *ngSwitchCase="RoleTypeEnum.Investor">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" [routerLinkActive]="['link-active']">
@@ -50,6 +51,7 @@
           </li>
         </ul>
       </div>
+      <!-- Ops -->
       <div *ngSwitchCase="RoleTypeEnum.Ops">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" [routerLinkActive]="['link-active']">
@@ -99,6 +101,7 @@
           </li>
         </ul>
       </div>
+      <!-- Admin -->
       <div *ngSwitchCase="RoleTypeEnum.Admin">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item" [routerLinkActive]="['link-active']">
@@ -133,6 +136,47 @@
           </li>
         </ul>
       </div>
+      <!-- Custodian -->
+      <div *ngSwitchCase="RoleTypeEnum.Custodian">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/home']">
+              Home
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/custodian-asset']">
+              Assets
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/custodian-deposit']">
+              Deposits
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/custodian-withdrawal']">
+              Withdrawals
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/custodian-reporting']">
+              Reporting
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/custodian-definition']">
+              Definitions
+            </a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/custodian-settings']">
+              Settings
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Guest -->
       <div *ngSwitchDefault>
         <ul class="navbar-nav mr-auto">
 

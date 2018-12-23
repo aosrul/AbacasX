@@ -1,0 +1,32 @@
+<form (ngSubmit)="submit()" #accountTransferForm="ngForm" style="margin-top:1%; margin-bottom:10px; margin-left:20px" novalidate>
+  <div class="form-row" style="margin-top:5px; margin-bottom:1em">
+    <div class="col-auto" style="margin-top:5px; margin-right:7px">
+      <div class="form-group row">
+        <div class="input-group">
+
+          <input class="form-control"
+                 [ngModel]="transferRequest.amount" (ngModelChange)="updateTransferRequestAmount($event)" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" #modelAssetAmount="ngModel" name="TransferAmount" placeholder="Amount" autocomplete="off" value="0" required />
+
+          <select [(ngModel)]="transferRequest.assetId" name="TransferAsset" class="form-control" style="width:100px">
+
+            <option>AAPL</option>
+            <option>GOOG</option>
+            <option>MSFT</option>
+            <option>BTC</option>
+            <option>USD</option>
+            <option>BNP</option>
+
+          </select>
+
+          <input class="form-control" type="text" style="width:300px; margin-left:5px; margin-right:5px" placeholder="Reference Code" />
+
+          <div class="btn-group">
+            <button (click)="AssetDepositClicked()" name="AssetDeposit" type="button" [ngClass]="{'btn':true, 'button-selected' : IsDepositRequest == true , 'button-not-selected': IsDepositRequest == false}">Deposit</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -65,6 +65,9 @@ export class LoginService {
                 case 'Ops': this.userRole = RoleTypeEnum.Ops;
                   this.validLogin = true;
                   break;
+                case 'Custodian': this.userRole = RoleTypeEnum.Custodian;
+                  this.validLogin = true;
+                  break;
                 default:
                   this.userRole = RoleTypeEnum.Guest;
                   this.validLogin = false;

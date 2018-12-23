@@ -15,7 +15,7 @@ namespace AbacasX.UI.Apis
         [HttpGet, Authorize]
         public IEnumerable<string> Get()
         {
-            return new string[] { "TradezDigital", "DigitalBroker", "DigitalInvestor", "AbacasAdmin", "AbacasOps" };
+            return new string[] { "TradezDigital", "DigitalBroker", "DigitalInvestor", "AbacasAdmin", "AbacasOps","KingdomTrust" };
         }
     }
 }

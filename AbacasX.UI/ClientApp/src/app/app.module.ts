@@ -48,6 +48,21 @@ import { OrderBookComponent } from './order-book/order-book.component';
 import { OpsMonitorComponent } from './ops-monitor/ops-monitor.component';
 import { AdminMonitorComponent } from './admin-monitor/admin-monitor.component';
 import { StockComponent } from './stock/stock.component';
+import { CustodianAssetComponent } from './custodian/custodian-asset/custodian-asset.component';
+import { CustodianDepositComponent } from './custodian/custodian-deposit/custodian-deposit.component';
+import { CustodianWithdrawalComponent } from './custodian/custodian-withdrawal/custodian-withdrawal.component';
+import { CustodianDefinitionComponent } from './custodian/custodian-definition/custodian-definition.component';
+import { CustodianReportingComponent } from './custodian/custodian-reporting/custodian-reporting.component';
+import { CustodianSettingsComponent } from './custodian/custodian-settings/custodian-settings.component';
+import { CustodianAssetDetailComponent } from './custodian/custodian-asset-detail/custodian-asset-detail.component';
+import { CustodianDepositPendingComponent } from './custodian/custodian-deposit-pending/custodian-deposit-pending.component';
+import { CustodianDepositHistoryComponent } from './custodian/custodian-deposit-history/custodian-deposit-history.component';
+import { CustodianWithdrawalPendingComponent } from './custodian/custodian-withdrawal-pending/custodian-withdrawal-pending.component';
+import { CustodianWithdrawalHistoryComponent } from './custodian/custodian-withdrawal-history/custodian-withdrawal-history.component';
+import { AccountTransferComponent } from './account-transfer/account-transfer.component';
+import { AccountDepositComponent } from './account-deposit/account-deposit.component';
+import { AccountWithdrawalComponent } from './account-withdrawal/account-withdrawal.component';
+
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -87,6 +102,20 @@ export function tokenGetter(){
     OpsMonitorComponent,
     AdminMonitorComponent,
     StockComponent,
+    CustodianAssetComponent,
+    CustodianDepositComponent,
+    CustodianWithdrawalComponent,
+    CustodianDefinitionComponent,
+    CustodianReportingComponent,
+    CustodianSettingsComponent,
+    CustodianAssetDetailComponent,
+    CustodianDepositPendingComponent,
+    CustodianDepositHistoryComponent,
+    CustodianWithdrawalPendingComponent,
+    CustodianWithdrawalHistoryComponent,
+    AccountTransferComponent,
+    AccountDepositComponent,
+    AccountWithdrawalComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -117,6 +146,12 @@ export function tokenGetter(){
       { path: 'quick-trading', component: QuickTradingComponent },
       { path: 'orders', component: OrdersComponent },
       { path: 'accounts', component: AccountsComponent },
+
+      { path: 'account-transfer', component: AccountTransferComponent },
+      { path: 'account-deposit', component: AccountDepositComponent },
+      { path: 'account-withdrawal', component: AccountWithdrawalComponent},
+
+
       { path: 'settings', component: SettingsComponent },
       { path: 'reporting', component: ReportingComponent },
       { path: 'portfolio', component: PortfolioComponent },
@@ -128,6 +163,20 @@ export function tokenGetter(){
       { path: 'ops-monitor', component: OpsMonitorComponent },
       { path: 'admin-monitor', component: AdminMonitorComponent },
       { path: 'stocks', component: StockComponent },
+
+      { path: 'custodian-asset', component: CustodianAssetComponent },
+      { path: 'custodian-asset-detail', component: CustodianAssetDetailComponent },
+      { path: 'custodian-deposit', component: CustodianDepositComponent },
+      { path: 'custodian-deposit-pending', component: CustodianDepositPendingComponent },
+      { path: 'custodian-deposit-history', component: CustodianDepositHistoryComponent },
+
+      { path: 'custodian-withdrawal', component: CustodianWithdrawalComponent },
+      { path: 'custodian-withdrawal-pending', component: CustodianWithdrawalPendingComponent },
+      { path: 'custodian-withdrawal-history', component: CustodianWithdrawalHistoryComponent },
+
+      { path: 'custodian-reporting', component: CustodianReportingComponent },
+      { path: 'custodian-definition', component: CustodianDefinitionComponent },
+      { path: 'custodian-settings', component: CustodianSettingsComponent },
 
       { path: '**', redirectTo: 'home' }
     ])
