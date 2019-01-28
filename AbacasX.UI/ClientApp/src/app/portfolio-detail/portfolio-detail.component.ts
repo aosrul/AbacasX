@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { positions } from './positions';
 import { DataService } from '../../core/data.service';
 import { IClientPosition } from '../../shared/interfaces';
@@ -9,7 +9,7 @@ import { IClientPosition } from '../../shared/interfaces';
 })
 export class PortfolioDetailComponent implements OnInit {
 
-    public clientPositions: any[] = positions;
+  public clientPositions: any[] = [];
     title: string = "";
 
     constructor(private dataService: DataService) { }

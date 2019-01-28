@@ -59,9 +59,9 @@ import { CustodianDepositPendingComponent } from './custodian/custodian-deposit-
 import { CustodianDepositHistoryComponent } from './custodian/custodian-deposit-history/custodian-deposit-history.component';
 import { CustodianWithdrawalPendingComponent } from './custodian/custodian-withdrawal-pending/custodian-withdrawal-pending.component';
 import { CustodianWithdrawalHistoryComponent } from './custodian/custodian-withdrawal-history/custodian-withdrawal-history.component';
-import { AccountTransferComponent } from './account-transfer/account-transfer.component';
 import { AccountDepositComponent } from './account-deposit/account-deposit.component';
 import { AccountWithdrawalComponent } from './account-withdrawal/account-withdrawal.component';
+import { AccountTransferActivityComponent } from './account-transfer-activity/account-transfer-activity.component';
 
 
 export function tokenGetter(){
@@ -113,9 +113,9 @@ export function tokenGetter(){
     CustodianDepositHistoryComponent,
     CustodianWithdrawalPendingComponent,
     CustodianWithdrawalHistoryComponent,
-    AccountTransferComponent,
     AccountDepositComponent,
     AccountWithdrawalComponent,
+    AccountTransferActivityComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -147,9 +147,9 @@ export function tokenGetter(){
       { path: 'orders', component: OrdersComponent },
       { path: 'accounts', component: AccountsComponent },
 
-      { path: 'account-transfer', component: AccountTransferComponent },
       { path: 'account-deposit', component: AccountDepositComponent },
-      { path: 'account-withdrawal', component: AccountWithdrawalComponent},
+      { path: 'account-withdrawal', component: AccountWithdrawalComponent },
+      { path: 'account-transfer-activity', component: AccountTransferActivityComponent},
 
 
       { path: 'settings', component: SettingsComponent },

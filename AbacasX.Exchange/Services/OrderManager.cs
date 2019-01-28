@@ -28,6 +28,9 @@ namespace AbacasX.Exchange.Services
         ConcurrentDictionary<string, TokenRateData> TokenRates = new ConcurrentDictionary<string, TokenRateData>();
         ConcurrentDictionary<int, KeyPairData> KeyPairs = new ConcurrentDictionary<int, KeyPairData>();
         ConcurrentDictionary<int, BlockChainData> BlockChainTransactions = new ConcurrentDictionary<int, BlockChainData>();
+        ConcurrentDictionary<string, AssetDepositData> DepositNotifications = new ConcurrentDictionary<string, AssetDepositData>();
+        ConcurrentDictionary<string, AssetWithdrawalData> WithdrawalRequests = new ConcurrentDictionary<string, AssetWithdrawalData>();
+        ConcurrentDictionary<string, AssetTransferData> AssetTransfers = new ConcurrentDictionary<string, AssetTransferData>();
 
 
 
@@ -39,7 +42,7 @@ namespace AbacasX.Exchange.Services
         public object OrderListLock = new object();
         private volatile bool _fillingOpenOrders = false;
         private int orderFillCount = 0;
-        
+
         public OrderManager()
         {
             Console.Title = "AbacasX Exchange Service";
@@ -47,23 +50,29 @@ namespace AbacasX.Exchange.Services
 
             ClientPositionData basePosition = new ClientPositionData { TokenId = "@USD", TokenAmount = 1000000m, TokenRate = 1.0m, TokenRateIn = "USD", TokenValue = 1000000 };
 
-            OrderData[] HistoricalOrderList = { new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 108.10M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@MSFT", Token1Amount = 500, Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 108.10M},
-                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 109.00M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Market, Token1Id = "@GOOG", Token1Amount = 300,  Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 1250.00M },
-                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 0.0583M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@ETH", Token1Amount = 15,   Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 262.81m }};
+            ClientPositionData baseEURPosition = new ClientPositionData { TokenId = "@GBP", TokenAmount = 200000m, TokenRate = 1.26m, TokenRateIn = "USD", TokenValue = 252000.0m };
 
-            // Initialize USD Position
+            OrderData[] HistoricalOrderList = { new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 101.10M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@MSFT", Token1Amount = 500, Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 99.5M},
+                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 1282.00M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Market, Token1Id = "@GOOG", Token1Amount = 300,  Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 1250.00M } };
+
+            // Initialize USD, EUR Position
             ClientPositions.TryAdd(basePosition.TokenId, basePosition);
+            ClientPositions.TryAdd(baseEURPosition.TokenId, baseEURPosition);
 
             TokenRateData[] TokenRatesList =
             {
-                new TokenRateData { TokenId = "@GOOG", TokenRate = 1105.06m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@MSFT", TokenRate = 109.9m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@CAT", TokenRate = 135.02M, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@ETH", TokenRate = 262.81m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@BTC", TokenRate = 6433.0m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@GOOG", TokenRate = 1036.06m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@MSFT", TokenRate = 103.9m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@CAT", TokenRate = 127.02M, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@ETH", TokenRate = 159m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@BTC", TokenRate = 3860.0m, TokenRateIn = "USD"},
                 new TokenRateData { TokenId = "@USD", TokenRate = 1.0m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@AAPL", TokenRate = 222.9m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@GOLD", TokenRate = 1225.0m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@AAPL", TokenRate = 159.9m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@GOLD", TokenRate = 1292.0m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@TOYOTA", TokenRate = 58.77m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@BT", TokenRate = 15.20m, TokenRateIn = "USD"},
+                new TokenRateData { TokenId = "@BNP", TokenRate = 39.475m, TokenRateIn = "EUR"},
+                new TokenRateData { TokenId = "@EUR", TokenRate = 1.15m, TokenRateIn = "USD"},
             };
 
             for (int i = 0; i < TokenRatesList.Count(); i++)
@@ -225,11 +234,122 @@ namespace AbacasX.Exchange.Services
                         UpdateBlockChain(orderFilled);
                     }
 
+                    // Add the processing of transfer requests
+
+                    Console.WriteLine("Processing Asset Transfer Requests");
+
+                    foreach (var transfer in AssetTransfers)
+                    {
+                        AssetTransferData transferRequest = transfer.Value;
+
+                        if (transferRequest.transferStatus == TransferStatusEnum.InProgress)
+                        {
+                            if (transferRequest.transferType == TransferTypeEnum.Deposit)
+                            {
+                                AssetDepositData depositRecord;
+
+                                addTransferToPosition(transferRequest);
+                                addTransferToBlockChain(transferRequest);
+
+                                // Update the Transfer Activity to Completed, and remove the deposit notification
+                                transferRequest.transferStatus = TransferStatusEnum.Completed;
+                                DepositNotifications.TryRemove(transferRequest.referenceId, out depositRecord);
+                            }
+                            else
+                            {
+
+                                AssetWithdrawalData withdrawalRecord;
+
+                                addTransferToPosition(transferRequest);
+                                addTransferToBlockChain(transferRequest);
+
+                                // Update the Transfer Activity to Completed, and remove the deposit notification
+                                transferRequest.transferStatus = TransferStatusEnum.Completed;
+                                WithdrawalRequests.TryRemove(transferRequest.referenceId, out withdrawalRecord);
+                            }
+                        }
+                    }
+
                     _fillingOpenOrders = false;
                 }
             }
         }
 
+
+        private void addTransferToBlockChain(AssetTransferData transferRequest)
+        {
+            BlockChainData blockChainRecord = new BlockChainData();
+            KeyPairData KeyPair = new KeyPairData();
+
+            blockChainRecord = new BlockChainData();
+
+            blockChainRecord.Date = DateTime.Now.ToShortDateString();
+            blockChainRecord.BlockNumber = blockCount++;
+            blockChainRecord.OrderId = orderCount++;
+
+            if (transferRequest.transferType == TransferTypeEnum.Deposit)
+            {
+                blockChainRecord.PayReceive = "Receive";
+                blockChainRecord.TokenAmount = transferRequest.tokenAmount;
+                blockChainRecord.TokenId = transferRequest.tokenId;
+            }
+            else
+            {
+                blockChainRecord.PayReceive = "Pay";
+                blockChainRecord.TokenAmount = transferRequest.tokenAmount;
+                blockChainRecord.TokenId = transferRequest.tokenId;
+            }
+
+            if (KeyPairs.TryGetValue(1, out KeyPair) == true)
+            {
+                blockChainRecord.Address = KeyPair.publicKey;
+            }
+
+            blockChainRecord.TransactionHash = HashOrder(blockChainRecord);
+            BlockChainTransactions.TryAdd(blockChainRecord.BlockNumber, blockChainRecord);
+        }
+
+        private void addTransferToPosition(AssetTransferData transferRequest)
+        {
+            ClientPositionData ClientPosition = new ClientPositionData();
+            TokenRateData TokenRate = new TokenRateData();
+
+            if (transferRequest.transferType == TransferTypeEnum.Deposit)
+            {
+                if (ClientPositions.TryGetValue(transferRequest.tokenId, out ClientPosition) == true)
+                {
+                    ClientPosition.TokenAmount += transferRequest.tokenAmount;
+                    ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
+                }
+                else
+                {
+                    ClientPosition = new ClientPositionData();
+
+                    ClientPosition.TokenId = transferRequest.tokenId;
+                    ClientPosition.TokenAmount = transferRequest.tokenAmount;
+
+                    ClientPosition.TokenRate = 0.0m;
+                    ClientPosition.TokenRateIn = "USD";
+
+                    if (TokenRates.TryGetValue(ClientPosition.TokenId, out TokenRate) == true)
+                    {
+                        ClientPosition.TokenRate = TokenRate.TokenRate;
+                        ClientPosition.TokenRateIn = TokenRate.TokenRateIn;
+                    }
+
+                    ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
+                    ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
+                }
+            }
+            else
+            {
+                if (ClientPositions.TryGetValue(transferRequest.tokenId, out ClientPosition) == true)
+                {
+                    ClientPosition.TokenAmount -= transferRequest.tokenAmount;
+                    ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
+                }
+            }
+        }
 
         private void UpdateBlockChain(OrderData order)
         {
@@ -390,6 +510,70 @@ namespace AbacasX.Exchange.Services
         public int SuspendOrder(int OrderID)
         {
             return (0);
+        }
+
+        public string GetNewGuid()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        public AssetDepositData AddDeposit(AssetDepositData depositNotification)
+        {
+            //depositNotification.referenceId = Guid.NewGuid().ToString();
+
+            DepositNotifications.TryAdd(depositNotification.referenceId, depositNotification);
+
+            Console.WriteLine("Asset Deposit Notification {0} Added", depositNotification.referenceId);
+
+            AssetTransferData newTransfer = new AssetTransferData();
+
+            newTransfer.referenceId = depositNotification.referenceId;
+            newTransfer.assetId = depositNotification.assetId;
+            newTransfer.assetAmount = depositNotification.amount;
+
+            newTransfer.transferStatus = TransferStatusEnum.InProgress;
+            newTransfer.transferType = TransferTypeEnum.Deposit;
+
+            newTransfer.tokenId = '@' + depositNotification.assetId;
+            newTransfer.tokenAmount = depositNotification.amount;
+            newTransfer.forAccountOf = "TradezDigital";
+
+            AssetTransfers.TryAdd(newTransfer.referenceId, newTransfer);
+            Console.WriteLine("Asset Deposit Transfer Added {0}", newTransfer.referenceId);
+
+
+            return depositNotification;
+        }
+
+        public AssetWithdrawalData AddWithdrawal(AssetWithdrawalData withdrawalRequest)
+        {
+            //withdrawalRequest.referenceId = Guid.NewGuid().ToString();
+            WithdrawalRequests.TryAdd(withdrawalRequest.referenceId, withdrawalRequest);
+
+            Console.WriteLine("Asset Withdrawal Notification {0} Added", withdrawalRequest.referenceId);
+
+            AssetTransferData newTransfer = new AssetTransferData();
+
+            newTransfer.referenceId = withdrawalRequest.referenceId;
+            newTransfer.assetId = withdrawalRequest.tokenId.Substring(1);
+            newTransfer.assetAmount = withdrawalRequest.amount;
+
+            newTransfer.transferStatus = TransferStatusEnum.InProgress;
+            newTransfer.transferType = TransferTypeEnum.Withdrawal;
+
+            newTransfer.tokenId = withdrawalRequest.tokenId;
+            newTransfer.tokenAmount = withdrawalRequest.amount;
+            newTransfer.forAccountOf = "TradezDigital";
+
+            AssetTransfers.TryAdd(newTransfer.referenceId, newTransfer);
+            Console.WriteLine("Asset Withdrawal Transfer Added {0}", newTransfer.referenceId);
+
+            return withdrawalRequest;
+        }
+
+        public List<AssetTransferData> GetClientTransferActivity(int ClientId)
+        {
+            return AssetTransfers.Values.ToList();
         }
     }
 }

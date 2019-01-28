@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum } from '../../shared/interfaces';
+import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IWithdrawal } from '../../shared/interfaces';
+import { Router } from '@angular/router';
+import { DataService } from '../../core/data.service';
 
 @Component({
   selector: 'account-withdrawal',
@@ -8,41 +10,53 @@ import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum } from '../../shar
 })
 export class AccountWithdrawalComponent implements OnInit {
 
-  public IsDepositRequest: boolean = false;
   changeLog: string[] = [];
   errorMessage: string = "";
 
-  transferRequest: IAssetTransfer = {
-
-    assetTransferId: null,
-    assetAccountId: 0,
-    custodianId: 0,
-    tokenConversionId: null,
-    assetId: "@USD",
+  withdrawalRequest: IWithdrawal = {
+    tokenId: "@USD",
     amount: 0,
-    transferStatus: TransferStatusEnum.Requested,
-    transferType: TransferTypeEnum.Withdrawal,
-    forAccountOf: "TradezDigital",
-    referenceCode: "",
+    referenceId: null,
+    clientId: 0
   };
 
 
-  constructor() { }
+  constructor(private router: Router,
+    private dataService: DataService) { }
+
 
   ngOnInit() {
+    this.getNewGuid();
   }
 
-  updateTransferRequestAmount(amount: string) {
-    this.transferRequest.amount = Number(amount);
+  getNewGuid() {
+
+    this.dataService.getNewGuid().
+      subscribe((guid: any) => {
+        if (guid) {
+          this.withdrawalRequest.referenceId = guid;
+        }
+        else {
+          this.errorMessage = "Unable to access new reference ID";
+        }
+      },
+        (err: any) => console.log(err));
   }
 
-  AssetDepositClicked() {
-    this.IsDepositRequest = true;
-    this.transferRequest.transferType = TransferTypeEnum.Deposit;
+  submit() {
+    this.dataService.addWithdrawal(this.withdrawalRequest)
+      .subscribe((withdrawal: IWithdrawal) => {
+        if (withdrawal) {
+        }
+        else {
+          this.errorMessage = 'Unable to add Withdrawal Request';
+        }
+      },
+        (err: any) => console.log(err));
+
+    this.withdrawalRequest.amount = 0;
+    this.getNewGuid();
   }
 
-  AssetWithdrawalClicked() {
-    this.IsDepositRequest = false;
-    this.transferRequest.transferType = TransferTypeEnum.Withdrawal;
-  }
+
 }

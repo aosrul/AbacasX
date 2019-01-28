@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/data.service';
 import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum} from '../../shared/interfaces';
 import { openOrders } from './open-orders';
@@ -11,7 +11,7 @@ import { openOrders } from './open-orders';
 export class OpenOrdersComponent implements OnInit {
 
     title: string = "";
-    public orders: any[] = openOrders;
+    public orders: any[] = [];
     BuySellTypeEnum = BuySellTypeEnum;
     OrderPriceTermsEnum = OrderPriceTermsEnum;
     OrderTypeEnum = OrderTypeEnum;

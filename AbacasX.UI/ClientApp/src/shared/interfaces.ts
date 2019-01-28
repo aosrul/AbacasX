@@ -97,6 +97,21 @@ export interface IQuickOrder {
   OrderType: OrderTypeEnum;
 }
 
+export interface IDeposit {
+  referenceId?: string;
+  assetId: string;
+  amount: number;
+  clientId: number;
+}
+
+export interface IWithdrawal {
+  referenceId?: string;
+  tokenId: string;
+  amount: number;
+  clientId: number;
+}
+
+
 export interface IOrder {
   orderId?: number;
 
@@ -118,16 +133,15 @@ export interface IOrder {
 }
 
 export interface IAssetTransfer {
-  assetTransferId?: number;
-  assetAccountId: number;
-  custodianId: number;
-  tokenConversionId?: number;
+  referenceId: string;
+  forAccountOf: string;
+  clientId: number;
+  tokenId: string;
   assetId: string;
-  amount: number;
+  tokenAmount: number;
+  assetAmount: number;
   transferStatus: TransferStatusEnum;
   transferType: TransferTypeEnum;
-  forAccountOf: string;
-  referenceCode: string;
 }
 
 export enum TransferStatusEnum {

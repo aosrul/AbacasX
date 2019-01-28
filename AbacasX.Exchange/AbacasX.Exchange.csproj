@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\AssetTransferData.cs" />
     <Compile Include="Contracts\BlockChainData.cs" />
     <Compile Include="Contracts\ClientPositionData.cs" />
     <Compile Include="Contracts\IOrderService.cs" />

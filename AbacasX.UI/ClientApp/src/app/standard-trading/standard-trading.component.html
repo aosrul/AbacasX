@@ -89,7 +89,8 @@
         </select>
       </div>
       <div class="d-inline-flex" style="margin-top:5px; margin-left:0px">
-          <kendo-datepicker [(value)]="value"></kendo-datepicker>
+        <kendo-datepicker [(value)]="value"></kendo-datepicker>
+        <kendo-timepicker style="margin-left:2px" name="orderExpirationTime" [(ngModel)]="orderExpirationTime"></kendo-timepicker>
       </div>
     </div>
 
@@ -103,7 +104,7 @@
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>
       </div>
-     
+
       <div class="d-inline-flex" style="margin-top:5px">
         <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
         <button type="button" name="CancelOrder" class="btn btn-danger " style="margin-left:5px">Cancel</button>

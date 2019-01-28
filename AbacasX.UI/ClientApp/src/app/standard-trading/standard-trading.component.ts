@@ -28,6 +28,10 @@ export class StandardTradingComponent implements OnInit {
   ExchangeDescription: string = "@AAPL for @GOOG";
   public value: Date = new Date();
 
+  public orderExpirationTime: Date = new Date();
+  public orderExpiration: Date = new Date();
+
+
   quickOrder: IQuickOrder = {
     ClientId: 0,
     ClientAccountId: 0,
@@ -41,6 +45,9 @@ export class StandardTradingComponent implements OnInit {
     Token2Amount: 0
   };
 
+  constructor() {
+    this.orderExpirationTime.setHours(17, 0, 0);
+  };
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     let log: string[] = [];

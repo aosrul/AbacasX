@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum } from '../../shared/interfaces';
+import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IDeposit } from '../../shared/interfaces';
+import { Router } from '@angular/router';
+import { DataService } from '../../core/data.service';
 
 @Component({
   selector: 'account-deposit',
@@ -8,41 +10,54 @@ import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum } from '../../shar
 })
 export class AccountDepositComponent implements OnInit {
 
-  public IsDepositRequest: boolean = true;
   changeLog: string[] = [];
   errorMessage: string = "";
 
-  transferRequest: IAssetTransfer = {
-
-    assetTransferId: null,
-    assetAccountId: 0,
-    custodianId: 0,
-    tokenConversionId: null,
+  depositRequest: IDeposit = {
     assetId: "USD",
     amount: 0,
-    transferStatus: TransferStatusEnum.Requested,
-    transferType: TransferTypeEnum.Deposit,
-    forAccountOf: "TradezDigital",
-    referenceCode: "",
+    referenceId: null,
+    clientId: 0
   };
 
 
-  constructor() { }
+  constructor(private router: Router,
+    private dataService: DataService) { }
+
 
   ngOnInit() {
+    this.getNewGuid();
   }
 
-  updateTransferRequestAmount(amount: string) {
-    this.transferRequest.amount = Number(amount);
+  getNewGuid() {
+
+    this.dataService.getNewGuid().
+      subscribe((guid: any) => {
+        if (guid) {
+          this.depositRequest.referenceId = guid;
+        }
+        else {
+          this.errorMessage = "Unable to access new reference ID";
+        }
+      },
+        (err: any) => console.log(err));
   }
 
-  AssetDepositClicked() {
-    this.IsDepositRequest = true;
-    this.transferRequest.transferType = TransferTypeEnum.Deposit;
+  
+  submit() {
+    this.dataService.addDeposit(this.depositRequest)
+      .subscribe((deposit: IDeposit) => {
+        if (deposit) {
+        }
+        else {
+          this.errorMessage = 'Unable to add Deposit Request';
+        }
+      },
+        (err: any) => console.log(err));
+
+    this.depositRequest.amount = 0;
+    this.getNewGuid();
   }
 
-  AssetWithdrawalClicked() {
-    this.IsDepositRequest = false;
-    this.transferRequest.transferType = TransferTypeEnum.Withdrawal;
-  }
+
 }

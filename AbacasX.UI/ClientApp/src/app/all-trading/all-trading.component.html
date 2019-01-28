@@ -7,11 +7,13 @@
         <select (change)="assetPairChange($event.target.value)" [(ngModel)]="selectedAssetPair" name="AssetPairSelect" class="form-control">
           <option>@AAPL - @GOOG</option>
           <option>@AAPL - @MSFT</option>
-          <option>@AAPL - @GOLD</option>
-          <option>@MSFT - @BTC</option>
-          <option>@AAPL - @BTC</option>
           <option>@AAPL - @USD</option>
           <option>@AAPL - @BNP</option>
+          <option>@BTC  - @GOLD</option>
+          <option>@BTC  - @ETH</option>
+          <option>@BTC  - @USD</option>
+          <option>@GOLD - @USD</option>
+          <option>@MSFT - @BTC</option>
         </select>
       </div>
     </div>

@@ -56,9 +56,9 @@ export class AdvancedTradingComponent implements OnInit {
   constructor() {
     this.orderExpirationTime.setHours(17, 0, 0);
 
-    this.token1Rate = 222.415;
+    this.token1Rate = 143.415;
     this.token2Rate = 49;
-    this.tokenFXRate = 1.1850;
+    this.tokenFXRate = 1.1450;
 
     //this.tradingRates.Token1Id = "@AAPL";
     //this.tradingRates.Token2Id = "@GOOG";

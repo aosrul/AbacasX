@@ -11,6 +11,9 @@ namespace AbacasX.models
     {
         public bool Status { get; set; }
         public OrderData Order { get; set; }
+        public AssetDepositData Deposit { get; set; }
+        public AssetWithdrawalData Withdrawal { get; set; }
         public ModelStateDictionary ModelState { get; set; }
+        public string Guid { get; set; }
     }
 }

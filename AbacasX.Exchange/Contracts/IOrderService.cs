@@ -23,6 +23,9 @@ namespace AbacasX.Exchange.Contracts
         List<OrderData> GetClientHistoricalOrders(int ClientId);
 
         [OperationContract]
+        List<AssetTransferData> GetClientTransferActivity(int ClientId);
+
+        [OperationContract]
         OrderData AddOrder(OrderData orderData);
 
         [OperationContract]
@@ -36,11 +39,27 @@ namespace AbacasX.Exchange.Contracts
 
         [OperationContract]
         int ActivateOrder(int OrderId);
+
+        [OperationContract]
+        string GetNewGuid();
+
+        [OperationContract]
+        AssetDepositData AddDeposit(AssetDepositData depositNotification);
+
+        [OperationContract]
+        AssetWithdrawalData AddWithdrawal(AssetWithdrawalData withdrawalRequest);
     }
 
     public interface IOrderServiceCallBack
     {
         [OperationContract(IsOneWay = true)]
         void OrderAdded(OrderData orderData);
+
+        [OperationContract(IsOneWay = true)]
+        void DepositAdded(AssetDepositData depositData);
+
+        [OperationContract(IsOneWay = true)]
+        void WithdrawalAdded(AssetWithdrawalData withdrawalData);
+
     }
 }

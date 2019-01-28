@@ -495,6 +495,315 @@ namespace OrderService
         IfDoneOCO = 4,
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetTransferData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    public partial class AssetTransferData : object
+    {
+        
+        private decimal assetAmountField;
+        
+        private string assetIdField;
+        
+        private int clientIdField;
+        
+        private string forAccountOfField;
+        
+        private string referenceIdField;
+        
+        private decimal tokenAmountField;
+        
+        private string tokenIdField;
+        
+        private OrderService.TransferStatusEnum transferStatusField;
+        
+        private OrderService.TransferTypeEnum transferTypeField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal assetAmount
+        {
+            get
+            {
+                return this.assetAmountField;
+            }
+            set
+            {
+                this.assetAmountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string assetId
+        {
+            get
+            {
+                return this.assetIdField;
+            }
+            set
+            {
+                this.assetIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int clientId
+        {
+            get
+            {
+                return this.clientIdField;
+            }
+            set
+            {
+                this.clientIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string forAccountOf
+        {
+            get
+            {
+                return this.forAccountOfField;
+            }
+            set
+            {
+                this.forAccountOfField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string referenceId
+        {
+            get
+            {
+                return this.referenceIdField;
+            }
+            set
+            {
+                this.referenceIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal tokenAmount
+        {
+            get
+            {
+                return this.tokenAmountField;
+            }
+            set
+            {
+                this.tokenAmountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string tokenId
+        {
+            get
+            {
+                return this.tokenIdField;
+            }
+            set
+            {
+                this.tokenIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public OrderService.TransferStatusEnum transferStatus
+        {
+            get
+            {
+                return this.transferStatusField;
+            }
+            set
+            {
+                this.transferStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public OrderService.TransferTypeEnum transferType
+        {
+            get
+            {
+                return this.transferTypeField;
+            }
+            set
+            {
+                this.transferTypeField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TransferStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public enum TransferStatusEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Requested = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        InProgress = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Completed = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Canceled = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Failed = 4,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TransferTypeEnum", Namespace="http://schemas.datacontract.org/2004/07/")]
+    public enum TransferTypeEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Deposit = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Withdrawal = 1,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetDepositData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    public partial class AssetDepositData : object
+    {
+        
+        private decimal amountField;
+        
+        private string assetIdField;
+        
+        private int clientIdField;
+        
+        private string referenceIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal amount
+        {
+            get
+            {
+                return this.amountField;
+            }
+            set
+            {
+                this.amountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string assetId
+        {
+            get
+            {
+                return this.assetIdField;
+            }
+            set
+            {
+                this.assetIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int clientId
+        {
+            get
+            {
+                return this.clientIdField;
+            }
+            set
+            {
+                this.clientIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string referenceId
+        {
+            get
+            {
+                return this.referenceIdField;
+            }
+            set
+            {
+                this.referenceIdField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetWithdrawalData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    public partial class AssetWithdrawalData : object
+    {
+        
+        private decimal amountField;
+        
+        private int clientIdField;
+        
+        private string referenceIdField;
+        
+        private string tokenIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal amount
+        {
+            get
+            {
+                return this.amountField;
+            }
+            set
+            {
+                this.amountField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int clientId
+        {
+            get
+            {
+                return this.clientIdField;
+            }
+            set
+            {
+                this.clientIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string referenceId
+        {
+            get
+            {
+                return this.referenceIdField;
+            }
+            set
+            {
+                this.referenceIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string tokenId
+        {
+            get
+            {
+                return this.tokenIdField;
+            }
+            set
+            {
+                this.tokenIdField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="OrderService.IOrderService", CallbackContract=typeof(OrderService.IOrderServiceCallback))]
     public interface IOrderService
@@ -512,6 +821,9 @@ namespace OrderService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientHistoricalOrders", ReplyAction="http://tempuri.org/IOrderService/GetClientHistoricalOrdersResponse")]
         System.Threading.Tasks.Task<OrderService.OrderData[]> GetClientHistoricalOrdersAsync(int ClientId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientTransferActivity", ReplyAction="http://tempuri.org/IOrderService/GetClientTransferActivityResponse")]
+        System.Threading.Tasks.Task<OrderService.AssetTransferData[]> GetClientTransferActivityAsync(int ClientId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/AddOrder", ReplyAction="http://tempuri.org/IOrderService/AddOrderResponse")]
         System.Threading.Tasks.Task<OrderService.OrderData> AddOrderAsync(OrderService.OrderData orderData);
         
@@ -526,6 +838,15 @@ namespace OrderService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/ActivateOrder", ReplyAction="http://tempuri.org/IOrderService/ActivateOrderResponse")]
         System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetNewGuid", ReplyAction="http://tempuri.org/IOrderService/GetNewGuidResponse")]
+        System.Threading.Tasks.Task<string> GetNewGuidAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/AddDeposit", ReplyAction="http://tempuri.org/IOrderService/AddDepositResponse")]
+        System.Threading.Tasks.Task<OrderService.AssetDepositData> AddDepositAsync(OrderService.AssetDepositData depositNotification);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/AddWithdrawal", ReplyAction="http://tempuri.org/IOrderService/AddWithdrawalResponse")]
+        System.Threading.Tasks.Task<OrderService.AssetWithdrawalData> AddWithdrawalAsync(OrderService.AssetWithdrawalData withdrawalRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -534,6 +855,12 @@ namespace OrderService
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOrderService/OrderAdded")]
         void OrderAdded(OrderService.OrderData orderData);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOrderService/DepositAdded")]
+        void DepositAdded(OrderService.AssetDepositData depositData);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOrderService/WithdrawalAdded")]
+        void WithdrawalAdded(OrderService.AssetWithdrawalData withdrawalData);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -606,6 +933,11 @@ namespace OrderService
             return base.Channel.GetClientHistoricalOrdersAsync(ClientId);
         }
         
+        public System.Threading.Tasks.Task<OrderService.AssetTransferData[]> GetClientTransferActivityAsync(int ClientId)
+        {
+            return base.Channel.GetClientTransferActivityAsync(ClientId);
+        }
+        
         public System.Threading.Tasks.Task<OrderService.OrderData> AddOrderAsync(OrderService.OrderData orderData)
         {
             return base.Channel.AddOrderAsync(orderData);
@@ -629,6 +961,21 @@ namespace OrderService
         public System.Threading.Tasks.Task<int> ActivateOrderAsync(int OrderId)
         {
             return base.Channel.ActivateOrderAsync(OrderId);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetNewGuidAsync()
+        {
+            return base.Channel.GetNewGuidAsync();
+        }
+        
+        public System.Threading.Tasks.Task<OrderService.AssetDepositData> AddDepositAsync(OrderService.AssetDepositData depositNotification)
+        {
+            return base.Channel.AddDepositAsync(depositNotification);
+        }
+        
+        public System.Threading.Tasks.Task<OrderService.AssetWithdrawalData> AddWithdrawalAsync(OrderService.AssetWithdrawalData withdrawalRequest)
+        {
+            return base.Channel.AddWithdrawalAsync(withdrawalRequest);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
@@ -702,6 +1049,48 @@ namespace OrderService
         }
     }
     
+    public class DepositAddedReceivedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+        
+        private object[] results;
+        
+        public DepositAddedReceivedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+        
+        public OrderService.AssetDepositData depositData
+        {
+            get
+            {
+                base.RaiseExceptionIfNecessary();
+                return ((OrderService.AssetDepositData)(this.results[0]));
+            }
+        }
+    }
+    
+    public class WithdrawalAddedReceivedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+        
+        private object[] results;
+        
+        public WithdrawalAddedReceivedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState)
+        {
+            this.results = results;
+        }
+        
+        public OrderService.AssetWithdrawalData withdrawalData
+        {
+            get
+            {
+                base.RaiseExceptionIfNecessary();
+                return ((OrderService.AssetWithdrawalData)(this.results[0]));
+            }
+        }
+    }
+    
     public partial class OrderServiceClient : OrderServiceClientBase
     {
         
@@ -740,12 +1129,34 @@ namespace OrderService
         
         public event System.EventHandler<OrderAddedReceivedEventArgs> OrderAddedReceived;
         
+        public event System.EventHandler<DepositAddedReceivedEventArgs> DepositAddedReceived;
+        
+        public event System.EventHandler<WithdrawalAddedReceivedEventArgs> WithdrawalAddedReceived;
+        
         private void OnOrderAddedReceived(object state)
         {
             if ((this.OrderAddedReceived != null))
             {
                 object[] results = ((object[])(state));
                 this.OrderAddedReceived(this, new OrderAddedReceivedEventArgs(results, null, false, null));
+            }
+        }
+        
+        private void OnDepositAddedReceived(object state)
+        {
+            if ((this.DepositAddedReceived != null))
+            {
+                object[] results = ((object[])(state));
+                this.DepositAddedReceived(this, new DepositAddedReceivedEventArgs(results, null, false, null));
+            }
+        }
+        
+        private void OnWithdrawalAddedReceived(object state)
+        {
+            if ((this.WithdrawalAddedReceived != null))
+            {
+                object[] results = ((object[])(state));
+                this.WithdrawalAddedReceived(this, new WithdrawalAddedReceivedEventArgs(results, null, false, null));
             }
         }
         
@@ -763,6 +1174,18 @@ namespace OrderService
             {
                 this.proxy.OnOrderAddedReceived(new object[] {
                             orderData});
+            }
+            
+            public void DepositAdded(OrderService.AssetDepositData depositData)
+            {
+                this.proxy.OnDepositAddedReceived(new object[] {
+                            depositData});
+            }
+            
+            public void WithdrawalAdded(OrderService.AssetWithdrawalData withdrawalData)
+            {
+                this.proxy.OnWithdrawalAddedReceived(new object[] {
+                            withdrawalData});
             }
         }
     }

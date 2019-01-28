@@ -5,25 +5,26 @@
         <div class="input-group">
 
           <input class="form-control"
-                 [ngModel]="transferRequest.amount" (ngModelChange)="updateTransferRequestAmount($event)" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" #modelAssetAmount="ngModel" name="TransferAmount" placeholder="Amount" autocomplete="off" value="0" required />
+                 [(ngModel)]="withdrawalRequest.amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="WithdrawalAmount" placeholder="Amount" autocomplete="off" value="0" required />
 
-          <select [(ngModel)]="transferRequest.assetId" name="TransferAsset" class="form-control" style="width:100px">
+          <select [(ngModel)]="withdrawalRequest.tokenId" name="WithdrawalAsset" class="form-control" style="width:150px">
 
             <option>@AAPL</option>
             <option>@GOOG</option>
             <option>@MSFT</option>
             <option>@BTC</option>
+            <option>@ETH</option>
             <option>@USD</option>
+            <option>@GBP</option>
             <option>@BNP</option>
 
           </select>
 
-          <input class="form-control" type="text" style="width:300px; margin-left:5px; margin-right:5px" placeholder="Reference Code" />
+          <input class="form-control" type="text" readonly style="width:300px; margin-left:5px; margin-right:5px" placeholder="Reference Code" value="{{withdrawalRequest.referenceId}}" />
 
           <div class="btn-group">
-            <button (click)="AssetWithdrawalClicked()" name="AssetWithdrawal" type="button" [ngClass]="{'btn':true, 'button-selected' : IsDepositRequest == false, 'button-not-selected': IsDepositRequest == true}">Withdrawal</button>
+            <button type="submit" class="form-control button-selected">Withdrawal</button>
           </div>
-
         </div>
       </div>
     </div>

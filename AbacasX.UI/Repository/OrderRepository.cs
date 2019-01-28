@@ -13,17 +13,25 @@ namespace AbacasX.Repository
 
         public OrderRepository()
         {
-            
             _orderServiceClient = new OrderServiceClient();
-            
         }
 
         [CallbackBehavior(UseSynchronizationContext = false)]
         public class OrderServiceCallBack : IOrderServiceCallback
         {
+            public void DepositAdded(AssetDepositData depositData)
+            {
+                Console.WriteLine("Deposit of {0} {1} with Reference {2} Added", depositData.assetId, depositData.amount, depositData.referenceId);
+            }
+
             public void OrderAdded(OrderData orderData)
             {
                 Console.WriteLine("Order {0} Added", orderData.OrderId);
+            }
+
+            public void WithdrawalAdded(AssetWithdrawalData withdrawalData)
+            {
+                Console.WriteLine("Withdrawal of {0} {1} with Reference {2} Added", withdrawalData.tokenId, withdrawalData.amount, withdrawalData.referenceId);
             }
         }
 
@@ -75,6 +83,26 @@ namespace AbacasX.Repository
         public Task<BlockChainData[]> GetClientBlockChainTransactionsAsync(int ClientId)
         {
             return _orderServiceClient.GetClientBlockChainTransactionsAsync(0);
+        }
+
+        public Task<string> GetNewGuidAsync()
+        {
+            return _orderServiceClient.GetNewGuidAsync();
+        }
+
+        public Task<AssetDepositData> AddDepositAsync(AssetDepositData depositNotification)
+        {
+            return _orderServiceClient.AddDepositAsync(depositNotification);
+        }
+
+        public Task<AssetWithdrawalData> AddWithdrawalAsync(AssetWithdrawalData withdrawalRequest)
+        {
+            return _orderServiceClient.AddWithdrawalAsync(withdrawalRequest);
+        }
+
+        public Task<AssetTransferData[]> GetClientTransferActivityAsync(int ClientId)
+        {
+            return _orderServiceClient.GetClientTransferActivityAsync(ClientId);
         }
     }
 }

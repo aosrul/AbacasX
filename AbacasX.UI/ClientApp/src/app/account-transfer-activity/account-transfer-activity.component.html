@@ -1,0 +1,23 @@
+<kendo-grid [data]="clientTransfers">
+
+  <kendo-grid-column field="referenceId" title="Reference ID" width="50"></kendo-grid-column>
+  
+  <kendo-grid-column field="transferType" title="Type" width="20">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{dataItem.transferType | enumAsString:TransferTypeEnum}}
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column field="assetId" title="Asset" width="10"></kendo-grid-column>
+  <kendo-grid-column field="assetAmount" title="Asset Amount" width="30"></kendo-grid-column>
+
+  <kendo-grid-column field="tokenId" title="Token" width="10"></kendo-grid-column>
+  <kendo-grid-column field="tokenAmount" title="Token Amount" width="30"></kendo-grid-column>
+
+  <kendo-grid-column field="transferStatus" title="Status" width="20">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{dataItem.transferStatus | enumAsString:TransferStatusEnum}}
+    </ng-template>
+  </kendo-grid-column>
+
+</kendo-grid>

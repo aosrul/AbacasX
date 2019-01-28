@@ -25,7 +25,7 @@ namespace AbacasX.Exchange
             using (ServiceHost hostOrderManager = new ServiceHost(typeof(OrderManager), new Uri("http://localhost:8084")))
             {
                 //ServiceHost hostOrderManager = new ServiceHost(typeof(OrderManager));
-                
+
                 ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
                 smb.HttpGetEnabled = true;
                 hostOrderManager.Description.Behaviors.Add(smb);

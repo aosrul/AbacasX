@@ -13,26 +13,32 @@ export class AllTradingComponent implements OnInit {
   TokenExchangeAsk: number = 0;
   IsCrossCurrency: boolean = false;
 
-  GOOGBidPrice: number = 1103.06;
-  GOOGAskPrice: number = 1106.36;
+  GOOGBidPrice: number = 1035.06;
+  GOOGAskPrice: number = 1036.36;
 
-  AAPLBidPrice: number = 222.415;
-  AAPLAskPrice: number = 223.0;
+  AAPLBidPrice: number = 157.415;
+  AAPLAskPrice: number = 158.0;
 
-  MSFTBidPrice: number = 109.77;
-  MSFTAskPrice: number = 110;
+  MSFTBidPrice: number = 101.77;
+  MSFTAskPrice: number = 102;
 
-  GOLDBidPrice: number = 1223.63;
-  GOLDAskPrice: number = 1230.50;
+  GOLDBidPrice: number = 1282.63;
+  GOLDAskPrice: number = 1290.50;
 
-  BTCBidPrice: number = 6431.00;
-  BTCAskPrice: number = 6440.00;
+  BTCBidPrice: number = 3858.00;
+  BTCAskPrice: number = 3860.00;
 
   USDBidPrice: number = 1.0;
   USDAskPrice: number = 1.0;
 
-  BNPBidPrice: number = 47.59;
-  BNPAskPrice: number = 49;
+  BNPBidPrice: number = 39.475;
+  BNPAskPrice: number = 40;
+
+  BTBidPrice: number = 15.29;
+  BTAskPrice: number = 15.35;
+
+  ETHBidPrice: number = 157;
+  ETHAskPrice: number = 158;
 
   Token1PriceCurrency: string = "@USD";
   Token2PriceCurrency: string = "@USD";
@@ -201,19 +207,89 @@ export class AllTradingComponent implements OnInit {
         }
         break;
 
-      case "@AAPL - @GOLD":
+      case "@BTC - @GOLD":
         {
-          this.Token1Id = "@AAPL";
+          this.Token1Id = "@BTC";
           this.Token2Id = "@GOLD";
 
-          this.TokenExchangeAsk = this.AAPLAskPrice * (1.0 / this.GOLDBidPrice);
-          this.TokenExchangeBid = this.AAPLBidPrice * (1.0 / this.GOLDAskPrice);
+          this.TokenExchangeAsk = this.BTCAskPrice * (1.0 / this.GOLDBidPrice);
+          this.TokenExchangeBid = this.BTCBidPrice * (1.0 / this.GOLDAskPrice);
           this.selectedAssetPair = selectedAssetPair;
 
-          this.Token1PriceCurrencyBid = this.AAPLBidPrice;
-          this.Token1PriceCurrencyAsk = this.AAPLAskPrice;
+          this.Token1PriceCurrencyBid = this.BTCBidPrice;
+          this.Token1PriceCurrencyAsk = this.BTCAskPrice;
           this.Token2PriceCurrencyBid = this.GOLDBidPrice;
           this.Token2PriceCurrencyAsk = this.GOLDAskPrice;
+
+          this.Token1PriceCurrency = "@USD";
+          this.Token2PriceCurrency = "@USD";
+          this.IsCrossCurrency = false;
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
+        }
+        break;
+
+      case "@GOLD - @USD":
+        {
+          this.Token1Id = "@GOLD";
+          this.Token2Id = "@USD";
+
+          this.TokenExchangeAsk = this.GOLDAskPrice * (1.0 / this.USDBidPrice);
+          this.TokenExchangeBid = this.GOLDBidPrice * (1.0 / this.USDAskPrice);
+          this.selectedAssetPair = selectedAssetPair;
+
+          this.Token1PriceCurrencyBid = this.GOLDBidPrice;
+          this.Token1PriceCurrencyAsk = this.GOLDAskPrice;
+          this.Token2PriceCurrencyBid = this.USDBidPrice;
+          this.Token2PriceCurrencyAsk = this.USDAskPrice;
+
+          this.Token1PriceCurrency = "@USD";
+          this.Token2PriceCurrency = "@USD";
+          this.IsCrossCurrency = false;
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
+        }
+        break;
+
+      case "@BTC - @ETH":
+        {
+          this.Token1Id = "@BTC";
+          this.Token2Id = "@ETH";
+
+          this.TokenExchangeAsk = this.BTCAskPrice * (1.0 / this.ETHBidPrice);
+          this.TokenExchangeBid = this.BTCBidPrice * (1.0 / this.ETHAskPrice);
+          this.selectedAssetPair = selectedAssetPair;
+
+          this.Token1PriceCurrencyBid = this.BTCBidPrice;
+          this.Token1PriceCurrencyAsk = this.BTCAskPrice;
+          this.Token2PriceCurrencyBid = this.ETHBidPrice;
+          this.Token2PriceCurrencyAsk = this.ETHAskPrice;
+
+          this.Token1PriceCurrency = "@USD";
+          this.Token2PriceCurrency = "@USD";
+          this.IsCrossCurrency = false;
+          this.TokenExchangeFXBid = 1.0;
+          this.TokenExchangeFXAsk = 1.0;
+
+        }
+        break;
+
+
+      case "@BTC - @USD":
+        {
+          this.Token1Id = "@BTC";
+          this.Token2Id = "@USD";
+
+          this.TokenExchangeAsk = this.BTCAskPrice * (1.0 / this.USDBidPrice);
+          this.TokenExchangeBid = this.BTCBidPrice * (1.0 / this.USDAskPrice);
+          this.selectedAssetPair = selectedAssetPair;
+
+          this.Token1PriceCurrencyBid = this.BTCBidPrice;
+          this.Token1PriceCurrencyAsk = this.BTCAskPrice;
+          this.Token2PriceCurrencyBid = this.USDBidPrice;
+          this.Token2PriceCurrencyAsk = this.USDAskPrice;
 
           this.Token1PriceCurrency = "@USD";
           this.Token2PriceCurrency = "@USD";

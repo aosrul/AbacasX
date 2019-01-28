@@ -153,5 +153,107 @@ namespace AbacasX.Apis
             }
 
         }
+
+        [HttpPost]
+        [NoCache]
+        [Route("createDeposit")]
+        [ProducesResponseType(typeof(AssetDepositData), 201)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> CreateDeposit([FromBody] AssetDepositData deposit)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse { Status = false, ModelState = ModelState });
+            }
+
+            try
+            {
+                var newDeposit = await _orderService.AddDepositAsync(deposit);
+
+                if (newDeposit == null)
+                {
+                    return BadRequest(new ApiResponse { Status = false });
+                }
+                else
+                {
+                    return Ok(new ApiResponse { Status = true, Deposit = newDeposit });
+                }
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        [HttpPost]
+        [NoCache]
+        [Route("createWithdrawal")]
+        [ProducesResponseType(typeof(AssetWithdrawalData), 201)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> CreateWithdrawal([FromBody] AssetWithdrawalData withdrawal)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new ApiResponse { Status = false, ModelState = ModelState });
+            }
+
+            try
+            {
+                var newWithdrawal = await _orderService.AddWithdrawalAsync(withdrawal);
+
+                if (newWithdrawal == null)
+                {
+                    return BadRequest(new ApiResponse { Status = false });
+                }
+                else
+                {
+                    return Ok(new ApiResponse { Status = true, Withdrawal = newWithdrawal });
+                }
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        [HttpGet]
+        [NoCache]
+        [Route("getNewGuid")]
+        [ProducesResponseType(typeof(Guid), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> GetNewGuid()
+        {
+            try
+            {
+                var newGuid = await _orderService.GetNewGuidAsync();
+                return Ok(new ApiResponse {Status = true, Guid = newGuid});
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        [HttpGet]
+        [NoCache]
+        [Route("clientTransferActivity")]
+        [ProducesResponseType(typeof(List<AssetTransferData>), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> ClientTransferActivity()
+        {
+            try
+            {
+                var clientTransferActivity = await _orderService.GetClientTransferActivityAsync(0);
+                return Ok(clientTransferActivity);
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
     }
 }

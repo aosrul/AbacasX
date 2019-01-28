@@ -29,6 +29,10 @@ namespace AbacasX.Exchange.Proxies
             return Channel.GetClientPositions(clientId);
         }
 
+        public List<AssetTransferData> GetClientTransferActivity(int clientId)
+        {
+            return Channel.GetClientTransferActivity(clientId);
+        }
 
         public List<OrderData> GetClientOrders(int clientId)
         {
@@ -63,6 +67,21 @@ namespace AbacasX.Exchange.Proxies
         public int CancelOrder(int OrderID)
         {
             return Channel.CancelOrder(OrderID);
+        }
+
+        public string GetNewGuid()
+        {
+            return Channel.GetNewGuid();
+        }
+
+        public AssetDepositData AddDeposit(AssetDepositData depositNotification)
+        {
+            return Channel.AddDeposit(depositNotification);
+        }
+
+        public AssetWithdrawalData AddWithdrawal(AssetWithdrawalData withdrawalRequest)
+        {
+            return Channel.AddWithdrawal(withdrawalRequest);
         }
     }
 }
