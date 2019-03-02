@@ -14,7 +14,7 @@ namespace AbacasXModel.Models
         [MaxLength(35)]
         public string TokenId { get; set; }
 
-        public int AssetId { get; set; }
+        public string AssetId { get; set; }
         public int AssetAccountId { get; set; }
         public int CustodianId { get; set; }
         public int TrustId { get; set; }

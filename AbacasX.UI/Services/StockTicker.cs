@@ -36,11 +36,11 @@ namespace AbacasX.UI.Services
             LoadDefaultStocks();
             }
 
-        public void InitializeTicker(IHubContext<StockTickerHub> hub)
-            {
-            Hub = hub;
-            return;
-            }
+        //public void InitializeTicker(IHubContext<StockTickerHub> hub)
+        //    {
+        //    Hub = hub;
+        //    return;
+        //    }
 
         private IHubContext<StockTickerHub> Hub
             {

@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasX.BlockChain", "Abaca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasX.Repository", "AbacasX.Repository\AbacasX.Repository.csproj", "{DF23190E-1C73-49A4-BF1E-82FEB98CD94E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestExchangeService", "TestExchangeService\TestExchangeService.csproj", "{440A717D-120F-4D24-BA01-9047C21E13FB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasX.Rate", "AbacasX.Rate\AbacasX.Rate.csproj", "{25698E70-A836-43A0-B9A8-DC5BC263C933}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbacasX.UI", "AbacasX.UI\AbacasX.UI.csproj", "{3B5AF6A9-3CE5-445F-B0EB-4025D115855A}"
@@ -69,10 +67,6 @@ Global
 		{DF23190E-1C73-49A4-BF1E-82FEB98CD94E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF23190E-1C73-49A4-BF1E-82FEB98CD94E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF23190E-1C73-49A4-BF1E-82FEB98CD94E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{440A717D-120F-4D24-BA01-9047C21E13FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{440A717D-120F-4D24-BA01-9047C21E13FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{440A717D-120F-4D24-BA01-9047C21E13FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{440A717D-120F-4D24-BA01-9047C21E13FB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25698E70-A836-43A0-B9A8-DC5BC263C933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{25698E70-A836-43A0-B9A8-DC5BC263C933}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25698E70-A836-43A0-B9A8-DC5BC263C933}.Release|Any CPU.ActiveCfg = Release|Any CPU

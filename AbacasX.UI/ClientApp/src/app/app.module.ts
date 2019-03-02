@@ -62,6 +62,7 @@ import { CustodianWithdrawalHistoryComponent } from './custodian/custodian-withd
 import { AccountDepositComponent } from './account-deposit/account-deposit.component';
 import { AccountWithdrawalComponent } from './account-withdrawal/account-withdrawal.component';
 import { AccountTransferActivityComponent } from './account-transfer-activity/account-transfer-activity.component';
+import { CoinMarketAlertComponent } from './coinmarket-alert/coinmarket-alert.component';
 
 
 export function tokenGetter(){
@@ -115,7 +116,8 @@ export function tokenGetter(){
     CustodianWithdrawalHistoryComponent,
     AccountDepositComponent,
     AccountWithdrawalComponent,
-    AccountTransferActivityComponent
+    AccountTransferActivityComponent,
+    CoinMarketAlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -177,6 +179,7 @@ export function tokenGetter(){
       { path: 'custodian-reporting', component: CustodianReportingComponent },
       { path: 'custodian-definition', component: CustodianDefinitionComponent },
       { path: 'custodian-settings', component: CustodianSettingsComponent },
+      { path: 'coinmarket-alert', component: CoinMarketAlertComponent},
 
       { path: '**', redirectTo: 'home' }
     ])

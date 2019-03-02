@@ -73,6 +73,7 @@
     <Compile Include="Models\TokenConversion.cs" />
     <Compile Include="Models\TokenFlow.cs" />
     <Compile Include="Models\BlockChainTokenFlow.cs" />
+    <Compile Include="Models\TokenRate.cs" />
     <Compile Include="Models\TokenTrade.cs" />
     <Compile Include="Models\Trust.cs" />
     <Compile Include="Models\ClientAuthentication.cs" />

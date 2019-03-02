@@ -1,5 +1,25 @@
-﻿<kendo-grid>
-    <kendo-grid-column field="orderBookBuyAmount" title="Buy" width="150"></kendo-grid-column>
-    <kendo-grid-column field="orderBookBuyPrice" title="Price" width="150"></kendo-grid-column>
-    <kendo-grid-column field="orderBookSellAmount" title="Sell" width="150"></kendo-grid-column>
+<kendo-grid [data]="bookOrders" style="margin-left:10px; margin-right:10px; width:500px; height:400px">
+  <!--<kendo-grid-column field="CumulativeBuyAmount" title="Cumulative Bid" width="150"></kendo-grid-column>-->
+  <kendo-grid-column field="BuyAmount" title="Bid" width="75" [style]="{'text-align': 'right'}">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span style="color:#3c3cae">
+        {{dataItem.BuyAmount == 0 ? ' ' : dataItem.BuyAmount | number : '1.0'}}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="Price" title="Price" width="75" [style]="{'text-align': 'center'}">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span style="text-align:center">
+        {{dataItem.Price | number : '1.6-6'}}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="SellAmount" title="Offer" width="75" [style]="{'text-align': 'left'}">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span style="color:seagreen">
+        {{dataItem.SellAmount == 0 ? ' ' : dataItem.SellAmount | number : '1.0'}}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <!--<kendo-grid-column field="CumulativeSellAmount" title="Cumulative Offer" width="150"></kendo-grid-column>-->
 </kendo-grid>
