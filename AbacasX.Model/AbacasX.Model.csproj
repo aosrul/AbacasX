@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25698E70-A836-43A0-B9A8-DC5BC263C933}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>AbacasX.Rate</RootNamespace>
-    <AssemblyName>AbacasX.Rate</AssemblyName>
+    <ProjectGuid>{57F16DBD-1E6A-421B-BB7B-F1B151E7FC6B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AbacasX.Model</RootNamespace>
+    <AssemblyName>AbacasX.Model</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,8 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,22 +41,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IRateService.cs" />
-    <Compile Include="Models\CurrencyCrossRate.cs" />
-    <Compile Include="Models\TokenCrossRate.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Models\AssetRate.cs" />
+    <Compile Include="Models\ClientAccount.cs" />
+    <Compile Include="Models\ClientAccountHolder.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderFilled.cs" />
+    <Compile Include="Models\OrderFilledMatch.cs" />
+    <Compile Include="Models\OrderLeg.cs" />
+    <Compile Include="Models\TokenAccount.cs" />
+    <Compile Include="Models\Asset.cs" />
+    <Compile Include="Models\AssetAccount.cs" />
+    <Compile Include="Models\AssetRateProvider.cs" />
+    <Compile Include="Models\AssetTransfer.cs" />
+    <Compile Include="Models\Custodian.cs" />
+    <Compile Include="Models\Token.cs" />
+    <Compile Include="Models\TokenConversion.cs" />
+    <Compile Include="Models\TokenFlow.cs" />
+    <Compile Include="Models\BlockChainTokenFlow.cs" />
+    <Compile Include="Models\TokenRate.cs" />
+    <Compile Include="Models\TokenTrade.cs" />
+    <Compile Include="Models\Trust.cs" />
+    <Compile Include="Models\ClientAuthentication.cs" />
+    <Compile Include="Models\ClientLogin.cs" />
+    <Compile Include="Models\ClientRegistration.cs" />
+    <Compile Include="Models\ClientKYC.cs" />
+    <Compile Include="Models\TrustAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proxies\RateServiceClient.cs" />
-    <Compile Include="Services\RateManager.cs" />
+    <Compile Include="Models\Client.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AbacasXModel\AbacasX.Model.csproj">
-      <Project>{57F16DBD-1E6A-421B-BB7B-F1B151E7FC6B}</Project>
-      <Name>AbacasX.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

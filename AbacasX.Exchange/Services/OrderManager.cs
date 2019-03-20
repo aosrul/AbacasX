@@ -1,5 +1,5 @@
 ﻿using AbacasX.Exchange.Contracts;
-using AbacasXModel.Models;
+using AbacasX.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

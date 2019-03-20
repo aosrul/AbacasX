@@ -424,7 +424,7 @@ namespace OrderService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="OrderLegBuySellEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderLegBuySellEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models")]
     public enum OrderLegBuySellEnum : int
     {
         
@@ -436,7 +436,7 @@ namespace OrderService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="OrderPriceTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderPriceTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models")]
     public enum OrderPriceTermsEnum : int
     {
         
@@ -448,7 +448,7 @@ namespace OrderService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="OrderStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models")]
     public enum OrderStatusEnum : int
     {
         
@@ -475,7 +475,7 @@ namespace OrderService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="OrderTypeEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasXModel.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderTypeEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models")]
     public enum OrderTypeEnum : int
     {
         

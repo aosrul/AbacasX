@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25698E70-A836-43A0-B9A8-DC5BC263C933}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>AbacasX.Rate</RootNamespace>
-    <AssemblyName>AbacasX.Rate</AssemblyName>
+    <ProjectGuid>{0A26EEF2-A4A2-4FC4-95EC-06C2D22D7385}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AbacasX.Data</RootNamespace>
+    <AssemblyName>AbacasX.Data</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,9 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,22 +47,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IRateService.cs" />
-    <Compile Include="Models\CurrencyCrossRate.cs" />
-    <Compile Include="Models\TokenCrossRate.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="AbacasXUow.cs" />
+    <Compile Include="ClientAccountHolderRepository.cs" />
+    <Compile Include="Models\Data\AbacasXDbContext.cs" />
+    <Compile Include="Models\Data\AbacasXDbInitializer.cs" />
+    <Compile Include="Models\Data\TokenConfiguration.cs" />
+    <Compile Include="EFRepository.cs" />
+    <Compile Include="Helpers\IRepositoryProvider.cs" />
+    <Compile Include="Helpers\RepositoryFactories.cs" />
+    <Compile Include="Helpers\RepositoryProvider.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="modelBuilder\Entity.cs" />
+    <Compile Include="OrderFilledMatchRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proxies\RateServiceClient.cs" />
-    <Compile Include="Services\RateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AbacasXModel\AbacasX.Model.csproj">
+    <ProjectReference Include="..\AbacasX.DataContracts\AbacasX.DataContracts.csproj">
+      <Project>{f48d9ba6-689c-4416-b5fe-df9b232485ac}</Project>
+      <Name>AbacasX.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AbacasX.Model\AbacasX.Model.csproj">
       <Project>{57F16DBD-1E6A-421B-BB7B-F1B151E7FC6B}</Project>
       <Name>AbacasX.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

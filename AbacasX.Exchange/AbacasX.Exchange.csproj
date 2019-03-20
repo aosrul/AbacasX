@@ -94,12 +94,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AbacasXModel\AbacasXModel.csproj">
+    <ProjectReference Include="..\AbacasX.Model\AbacasX.Model.csproj">
       <Project>{57f16dbd-1e6a-421b-bb7b-f1b151e7fc6b}</Project>
-      <Name>AbacasXModel</Name>
+      <Name>AbacasX.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.2.0.0\build\Microsoft.Web.WebJobs.Publish.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.2.0.0\build\Microsoft.Web.WebJobs.Publish.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
