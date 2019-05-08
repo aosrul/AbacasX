@@ -14,7 +14,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BlockChainData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BlockChainData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Exchange.Contracts")]
     public partial class BlockChainData : object
     {
         
@@ -141,7 +141,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ClientPositionData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ClientPositionData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Exchange.Contracts")]
     public partial class ClientPositionData : object
     {
         
@@ -223,7 +223,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="OrderData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Exchange.Contracts")]
     public partial class OrderData : object
     {
         
@@ -497,7 +497,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetTransferData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetTransferData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Exchange.Contracts")]
     public partial class AssetTransferData : object
     {
         
@@ -672,7 +672,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetDepositData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetDepositData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Exchange.Contracts")]
     public partial class AssetDepositData : object
     {
         
@@ -739,7 +739,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetWithdrawalData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetWithdrawalData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Exchange.Contracts")]
     public partial class AssetWithdrawalData : object
     {
         
@@ -1006,7 +1006,7 @@ namespace OrderService
         {
             if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IOrderService))
             {
-                return new System.ServiceModel.EndpointAddress("ws://localhost:8084/");
+                return new System.ServiceModel.EndpointAddress("ws://abacaswebxexchange20190429082147.azurewebsites.net/OrderManagerService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

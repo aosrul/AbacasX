@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TradingRates } from '../../shared/interfaces';
+import { indexDebugNode } from '@angular/core/src/debug/debug_node';
 
 @Component({
   selector: 'all-trading',
@@ -7,8 +8,8 @@ import { TradingRates } from '../../shared/interfaces';
 })
 export class AllTradingComponent implements OnInit {
   selectedAssetPair: string = "@AAPL - @GOOG";
-  public Token1Id: string = "@AAPL";
-  public Token2Id: string = "@GOOG";
+  public Token1Id: string = "";
+  public Token2Id: string = "";
   TokenExchangeBid: number = 0;
   TokenExchangeAsk: number = 0;
   IsCrossCurrency: boolean = false;
@@ -59,7 +60,7 @@ export class AllTradingComponent implements OnInit {
 
   TradingRates: TradingRates = new TradingRates();
 
-  public source: Array<string> = ["@AAPL", "@GOOG", "@MSFT", "@GOLD", "@BTC", "@USD", "@BNP"];
+  public source: Array<string> = ["@AAPL", "@GOOG", "@MSFT", "@GOLD", "@BTC", "@USD", "@ETH", "@BNP"];
   public data: Array<string>;
   public data2: Array<string>;
   public events: string[] = [];
@@ -74,11 +75,11 @@ export class AllTradingComponent implements OnInit {
   ngOnInit() {
 
     this.selectedAssetPair = "@AAPL - @GOOG";
-    this.Token1Id = "@AAPL";
-    this.Token2Id = "@GOOG";
     this.TokenExchangeBid = 0.0;
     this.TokenExchangeAsk = 0.0;
     this.assetPairChange("@AAPL - @GOOG");
+    this.Token1Id = null;
+    this.Token2Id = null;
 
     this.Token1PriceCurrencyBid = 1.0;
     this.Token1PriceCurrencyAsk = 1.0;
@@ -94,10 +95,10 @@ export class AllTradingComponent implements OnInit {
 
     this.TradingRates.Token1Id = this.Token1Id;
     this.TradingRates.Token2Id = this.Token2Id;
-    
+
     this.TradingRates.TokenExchangeBid = this.TokenExchangeBid;
     this.TradingRates.TokenExchangeAsk = this.TokenExchangeAsk;
-    
+
     this.TradingRates.Token1PriceCurrencyBid = this.Token1PriceCurrencyBid;
     this.TradingRates.Token1PriceCurrencyAsk = this.Token1PriceCurrencyAsk;
     this.TradingRates.Token2PriceCurrencyBid = this.Token2PriceCurrencyBid;
@@ -113,7 +114,15 @@ export class AllTradingComponent implements OnInit {
 
 
   public valueChange(value: any): void {
+
     this.log('valueChange', value);
+    this.data2 = this.source.filter((item) => {
+      if (item != this.Token1Id){return item;}
+    });
+
+    if (this.Token1Id == this.Token2Id)
+      this.Token2Id = null;
+
   }
 
   public selectionChange(value: any): void {
@@ -122,11 +131,18 @@ export class AllTradingComponent implements OnInit {
 
 
   public valueChange2(value: any): void {
-    this.log('valueChange', value);
+    this.log('valueChange2', value);
+
+    this.data = this.source.filter((item) => {
+      if (item != this.Token2Id) { return item; }
+    });
+
+    if (this.Token1Id == this.Token2Id)
+      this.Token1Id = null;
   }
 
   public selectionChange2(value: any): void {
-    this.log('selectionChange', value);
+    this.log('selectionChange2', value);
   }
 
 
@@ -372,7 +388,7 @@ export class AllTradingComponent implements OnInit {
           this.TokenExchangeFXBid = 1.0 / this.EURFXAskRate;
           this.TokenExchangeFXAsk = 1.0 / this.EURFXBidRate;
 
-          
+
         }
         break;
 

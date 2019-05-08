@@ -2,7 +2,9 @@
 <form class="form-inline">
   <div class="form-group row" style="margin-left:5px; margin-top:2em; margin-bottom:5px">
     <div class="col-auto">
+
       <div class="input-group">
+
         <label class="col-form-label" for="AssetPairSelect" style="font-size:large; margin-right:10px">Token Pair</label>
         <select (change)="assetPairChange($event.target.value)" [(ngModel)]="selectedAssetPair" name="AssetPairSelect" class="form-control">
           <option>@AAPL - @GOOG</option>
@@ -18,9 +20,11 @@
       </div>
     </div>
 
-    <!--<div class="col-auto" style="width:200px; padding-left:0px; padding-right:0px">
+    <div class="col-auto">
       <div class="input-group">
+
         <kendo-combobox style="font-size:medium" name="token1Id"
+                        spellcheck="false"
                         [data]="data"
                         (valueChange)="valueChange($event)"
                         (selectionChange)="selectionChange($event)"
@@ -30,16 +34,18 @@
     </div>
 
 
-    <div class="col-auto" style="width:200px; padding-left:10px">
+    <div class="col-auto">
       <div class="input-group">
-        <kendo-combobox style="font-size:medium" name="token2Id"
-                        [data]="data"
-                        (valueChange2)="valueChange($event)"
-                        (selectionChange2)="selectionChange($event)"
+
+        <kendo-combobox style="font-size:medium" name="token2Id" spellcheck="false"
+                        [data]="data2"
+                        (valueChange)="valueChange2($event)"
+                        (selectionChange)="selectionChange2($event)"
                         [(ngModel)]="Token2Id">
         </kendo-combobox>
       </div>
-    </div>-->
+    </div>
+
 
     <div class="col-auto">
       <div class="input-group">
@@ -53,6 +59,11 @@
     </div>
   </div>
 </form>
+
+<!--<h4>Change log:</h4>
+<ul>
+    <li *ngFor="let change of events">{{change}}</li>
+</ul>-->
 
 <div style="margin-left:20px">
   <ngb-tabset>

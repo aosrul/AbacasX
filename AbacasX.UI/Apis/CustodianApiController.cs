@@ -27,7 +27,7 @@ namespace AbacasX.UI.Apis
         [Route("depositNotification")]
         [ProducesResponseType(typeof(DepositNotification), 201)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public ActionResult DepositNotificationResponse([FromBody] DepositNotification depositNotification)
+        public ActionResult DepositNotification([FromBody] DepositNotification depositNotification)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace AbacasX.UI.Apis
         [Route("withdrawalRequest")]
         [ProducesResponseType(typeof(WithdrawalRequest), 201)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public ActionResult WithdrawalRequestResponse([FromBody] WithdrawalRequest withdrawalRequest)
+        public ActionResult WithdrawalRequest([FromBody] WithdrawalRequest withdrawalRequest)
         {
             if (!ModelState.IsValid)
             {

@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbacasX.UI", "AbacasX.UI\Ab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasX.Repository", "AbacasX.Repository\AbacasX.Repository.csproj", "{BCBA8E60-8474-4BB0-895D-AFBF502209A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasWebX.Exchange", "AbacasWebX.Exchange\AbacasWebX.Exchange.csproj", "{F082E04A-B9B2-49DD-86D1-38A605FC0C9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasWebX.Rate", "AbacasWebX.Rate\AbacasWebX.Rate.csproj", "{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,14 @@ Global
 		{BCBA8E60-8474-4BB0-895D-AFBF502209A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCBA8E60-8474-4BB0-895D-AFBF502209A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCBA8E60-8474-4BB0-895D-AFBF502209A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F082E04A-B9B2-49DD-86D1-38A605FC0C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F082E04A-B9B2-49DD-86D1-38A605FC0C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F082E04A-B9B2-49DD-86D1-38A605FC0C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F082E04A-B9B2-49DD-86D1-38A605FC0C9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

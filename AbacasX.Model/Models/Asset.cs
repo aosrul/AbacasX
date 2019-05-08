@@ -25,7 +25,7 @@ namespace AbacasX.Model.Models
         [Required]
         public string PriceCurrency { get; set; }
 
-        public AssetPriceTermsEnum  PriceTerms {get;set;}
+        public RateTermsEnum  PriceTerms {get;set;}
 
         [MaxLength(35)]
         [Required]
@@ -37,16 +37,10 @@ namespace AbacasX.Model.Models
     }
 }
 
-public enum AssetPriceTermsEnum
-{
-    CurrencyPerAsset,
-    AssetPerCurrency
-}
-
 public enum AssetTypeEnum
 {
     Currency,
     CryptoCurrency,
     PreciousMetal,
-    Stock,
+    Stock
 }
