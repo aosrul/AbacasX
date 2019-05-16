@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasWebX.Exchange", "Abac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbacasWebX.Rate", "AbacasWebX.Rate\AbacasWebX.Rate.csproj", "{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFRateTestClient", "WCFRateTestClient\WCFRateTestClient.csproj", "{6B731087-ADCA-4262-A9D1-25885DAAFC37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ABE3ED6-2570-44C5-B27C-2A2822B3F700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B731087-ADCA-4262-A9D1-25885DAAFC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B731087-ADCA-4262-A9D1-25885DAAFC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B731087-ADCA-4262-A9D1-25885DAAFC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B731087-ADCA-4262-A9D1-25885DAAFC37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

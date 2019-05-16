@@ -1,4 +1,5 @@
 ﻿using AbacasX.Model.ViewModels;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 
@@ -23,10 +24,28 @@ namespace AbacasX.Rate.Contracts
         void SubscribeToTokenPairRateUpdate(string Token1, string Token2);
 
         [OperationContract(IsOneWay = false)]
-        void UnSubscribeToTokenPairRateUpdate(string Token1, string Token2);
+        void UnSubscribeToTokenPairRateUpdate(string Token, string Token2);
+
+        [OperationContract(IsOneWay = false)]
+        void SubscribeToTokenRateUpdate(string TokenId);
+
+        [OperationContract(IsOneWay = false)]
+        void UnSubscribeToTokenRateUpdate(string TokenId);
 
         [OperationContract(IsOneWay = false)]
         void UnSubscribeAllRateUpdates();
+
+        [OperationContract]
+        List<string> GetAssetList();
+
+        [OperationContract]
+        List<string> GetTokenList();
+
+        [OperationContract]
+        List<AssetRateData> GetAssetRateList();
+
+        [OperationContract]
+        List<TokenRateData> GetTokenRateList();
     }
 
     public interface IRateServiceCallBack
@@ -38,8 +57,9 @@ namespace AbacasX.Rate.Contracts
         void CurrencyPairRateUpdate(CurrencyPairRateData CurrencyPairRateRecord);
 
         [OperationContract(IsOneWay = true)]
+        void TokenRateUpdate(TokenRateData TokenRateRecord);
+
+        [OperationContract(IsOneWay = true)]
         void TokenPairRateUpdate(TokenPairRateData TokenPairRateRecord);
     }
-
-
 }

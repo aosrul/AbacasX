@@ -55,6 +55,15 @@ namespace AbacasWebX.Rate.Contracts
         public RateTermsEnum Currency2RateTerms { get; set; }
 
         [DataMember]
+        public double CurrencyPairBidRate { get; set; }
+
+        [DataMember]
+        public double CurrencyPairAskRate { get; set; }
+
+        [DataMember]
+        public CurrencyPairRateTermsEnum CurrencyPairRateTerms { get; set; }
+
+        [DataMember]
         public DateTime LastUpdate { get; set; }
 
     }
