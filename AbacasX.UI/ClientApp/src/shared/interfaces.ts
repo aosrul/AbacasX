@@ -1,5 +1,50 @@
 import { ModuleWithProviders } from '@angular/core';
 
+export enum TokenPairRateTermsEnum {
+  Token1PerToken2,
+  Token2PerToken1
+}
+
+export enum TokenRateTermsEnum {
+  TokenPerCurrency,
+  CurrencyPerToken
+}
+
+export enum AssetRateTermsEnum {
+  AssetPerCurrency,
+  CurrencyPerAsset
+}
+
+export enum CurrencyPairRateTermsEnum {
+  Currency1PerCurrency2,
+  Currency2PerCurrency1
+}
+
+export class TokenPairRate {
+  token1Id: string;
+  token2Id: string;
+  rateTerms: TokenPairRateTermsEnum;
+  bidRate: number;
+  askRate: number;
+  token1BidRate: number;
+  token1AskRate: number;
+  token1RateTerms: TokenRateTermsEnum;
+  token2BidRate: number;
+  token2AskRate: number;
+  token2RateTerms: TokenRateTermsEnum;
+  currency1: string;
+  currency1BidRate: number;
+  currency1AskRate: number;
+  currency1RateTerms: AssetRateTermsEnum;
+  currency2: string;
+  currency2BidRate: number;
+  currency2AskRate: number;
+  currency2RateTerms: AssetRateTermsEnum;
+  currencyPairBidRate: number;
+  currencyPairAskRate: number;
+  currencyPairRateTerms: CurrencyPairRateTermsEnum;
+}
+
 export class TradingRates {
   Token1Id: string;
   Token2Id: string;
@@ -96,7 +141,6 @@ export interface IQuickOrder {
 
   OrderType: OrderTypeEnum;
 }
-
 export interface IDeposit {
   referenceId?: string;
   assetId: string;

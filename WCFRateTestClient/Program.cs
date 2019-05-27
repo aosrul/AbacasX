@@ -20,6 +20,35 @@ namespace WCFRateTestClient
         {
             RateService.RateServiceClient client = new RateServiceClient();
 
+            Console.WriteLine("Get the Token Rate List");
+
+            foreach(TokenRateData t in client.GetTokenRateListAsync().GetAwaiter().GetResult())
+            {
+                Console.WriteLine("Token {0} Bid/Ask {1}/{2}", t.TokenId, t.BidRate, t.AskRate);
+            }
+
+                        
+            Console.WriteLine("Testing Token Pair Rate Data for @AAPL-@BNP");
+
+            TokenPairRateData tokenPairRateData = client.GetTokenPairRateAsync("@AAPL", "@BNP").GetAwaiter().GetResult();
+
+
+            Console.WriteLine("Token Pair Rates");
+            Console.WriteLine("Token Pair {0}/{1}  Bid/Offer {2}/{3}", tokenPairRateData.Token1Id, tokenPairRateData.Token2Id,
+                tokenPairRateData.BidRate, tokenPairRateData.AskRate);
+            Console.WriteLine("Token1 {0}  Bid/Offer {1}/{2}", tokenPairRateData.Token1Id, tokenPairRateData.Token1BidRate, tokenPairRateData.Token1AskRate);
+            Console.WriteLine("Token2 {0}  Bid/Offer {1}/{2}", tokenPairRateData.Token2Id, tokenPairRateData.Token2BidRate, tokenPairRateData.Token2AskRate);
+
+            Console.WriteLine();
+            Console.WriteLine("Cross Currency Rates");
+            Console.WriteLine("Currency Pair {0}-{1} Bid/Offer {2}/{3}", tokenPairRateData.Currency1, tokenPairRateData.Currency2, tokenPairRateData.CurrencyPairBidRate, tokenPairRateData.CurrencyPairAskRate);
+            Console.WriteLine("Token1 Price Currency {0} Bid/Offer {1}/{2}", tokenPairRateData.Currency1, tokenPairRateData.Currency1BidRate, tokenPairRateData.Currency1AskRate);
+            Console.WriteLine("Token2 Price Currency {0} Bid/Offer {1}/{2}", tokenPairRateData.Currency2, tokenPairRateData.Currency2BidRate, tokenPairRateData.Currency2AskRate);
+
+            Console.WriteLine("Press Any Key");
+            Console.ReadKey();
+
+
             //Console.WriteLine("Test the Get List Methods");
 
             //var assetList = client.GetAssetListAsync().GetAwaiter().GetResult();
@@ -67,18 +96,18 @@ namespace WCFRateTestClient
             //Console.WriteLine("Test Completed");
 
 
-            Console.WriteLine("Currency Pair Subscription Test");
-            Console.ReadKey();
+            //Console.WriteLine("Currency Pair Subscription Test");
+            //Console.ReadKey();
 
-            client.CurrencyPairRateUpdateReceived += Client_CurrencyPairRateUpdateReceived;
-            client.SubscribeToCurrencyPairRateUpdateAsync("EUR", "USD");
+            //client.CurrencyPairRateUpdateReceived += Client_CurrencyPairRateUpdateReceived;
+            //client.SubscribeToCurrencyPairRateUpdateAsync("EUR", "USD");
 
-            Console.WriteLine("Subscribing to currency pair EUR/USD");
-            Console.ReadKey();
+            //Console.WriteLine("Subscribing to currency pair EUR/USD");
+            //Console.ReadKey();
 
-            client.UnSubscribeToCurrencyPairRateUpdateAsync("EUR", "USD");
-            Console.WriteLine("Unsubscribed from EUR/USD");
-            Console.ReadKey();
+            //client.UnSubscribeToCurrencyPairRateUpdateAsync("EUR", "USD");
+            //Console.WriteLine("Unsubscribed from EUR/USD");
+            //Console.ReadKey();
 
 
             Console.WriteLine("Token Pair Subscription Test");
@@ -92,8 +121,9 @@ namespace WCFRateTestClient
             client.UnSubscribeToTokenPairRateUpdateAsync("@AAPL", "@BNP");
 
             Console.WriteLine("Unsubscribed from @AAPL/@BNP");
-            Console.WriteLine("Test completed ...");
 
+
+            Console.WriteLine("Test completed ...");
 
             Console.ReadKey();
 

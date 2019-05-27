@@ -14,7 +14,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Rate.Contracts")]
     public partial class AssetRateData : object
     {
         
@@ -198,7 +198,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TokenRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Rate.Contracts")]
     public partial class TokenRateData : object
     {
         
@@ -382,236 +382,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CurrencyPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
-    public partial class CurrencyPairRateData : object
-    {
-        
-        private double AskRateField;
-        
-        private RateService.RateChangeEnum AskRateChangeTypeField;
-        
-        private double BidRateField;
-        
-        private RateService.RateChangeEnum BidRateChangeTypeField;
-        
-        private string Currency1Field;
-        
-        private double Currency1AskRateField;
-        
-        private double Currency1BidRateField;
-        
-        private RateService.RateTermsEnum Currency1RateTermsField;
-        
-        private string Currency2Field;
-        
-        private double Currency2AskRateField;
-        
-        private double Currency2BidRateField;
-        
-        private RateService.RateTermsEnum Currency2RateTermsField;
-        
-        private System.DateTime LastUpdateField;
-        
-        private RateService.CurrencyPairRateTermsEnum RateTermsField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double AskRate
-        {
-            get
-            {
-                return this.AskRateField;
-            }
-            set
-            {
-                this.AskRateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public RateService.RateChangeEnum AskRateChangeType
-        {
-            get
-            {
-                return this.AskRateChangeTypeField;
-            }
-            set
-            {
-                this.AskRateChangeTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double BidRate
-        {
-            get
-            {
-                return this.BidRateField;
-            }
-            set
-            {
-                this.BidRateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public RateService.RateChangeEnum BidRateChangeType
-        {
-            get
-            {
-                return this.BidRateChangeTypeField;
-            }
-            set
-            {
-                this.BidRateChangeTypeField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Currency1
-        {
-            get
-            {
-                return this.Currency1Field;
-            }
-            set
-            {
-                this.Currency1Field = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Currency1AskRate
-        {
-            get
-            {
-                return this.Currency1AskRateField;
-            }
-            set
-            {
-                this.Currency1AskRateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Currency1BidRate
-        {
-            get
-            {
-                return this.Currency1BidRateField;
-            }
-            set
-            {
-                this.Currency1BidRateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public RateService.RateTermsEnum Currency1RateTerms
-        {
-            get
-            {
-                return this.Currency1RateTermsField;
-            }
-            set
-            {
-                this.Currency1RateTermsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Currency2
-        {
-            get
-            {
-                return this.Currency2Field;
-            }
-            set
-            {
-                this.Currency2Field = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Currency2AskRate
-        {
-            get
-            {
-                return this.Currency2AskRateField;
-            }
-            set
-            {
-                this.Currency2AskRateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Currency2BidRate
-        {
-            get
-            {
-                return this.Currency2BidRateField;
-            }
-            set
-            {
-                this.Currency2BidRateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public RateService.RateTermsEnum Currency2RateTerms
-        {
-            get
-            {
-                return this.Currency2RateTermsField;
-            }
-            set
-            {
-                this.Currency2RateTermsField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime LastUpdate
-        {
-            get
-            {
-                return this.LastUpdateField;
-            }
-            set
-            {
-                this.LastUpdateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public RateService.CurrencyPairRateTermsEnum RateTerms
-        {
-            get
-            {
-                return this.RateTermsField;
-            }
-            set
-            {
-                this.RateTermsField = value;
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CurrencyPairRateTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels")]
-    public enum CurrencyPairRateTermsEnum : int
-    {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Currency1PerCurrency2 = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Currency2PerCurrency1 = 1,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TokenPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Rate.Contracts")]
     public partial class TokenPairRateData : object
     {
         
@@ -962,6 +733,18 @@ namespace RateService
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CurrencyPairRateTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels")]
+    public enum CurrencyPairRateTermsEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Currency1PerCurrency2 = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Currency2PerCurrency1 = 1,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="TokenPairRateTermsEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels")]
     public enum TokenPairRateTermsEnum : int
     {
@@ -971,6 +754,223 @@ namespace RateService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Token2PerToken1 = 1,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CurrencyPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Rate.Contracts")]
+    public partial class CurrencyPairRateData : object
+    {
+        
+        private double AskRateField;
+        
+        private RateService.RateChangeEnum AskRateChangeTypeField;
+        
+        private double BidRateField;
+        
+        private RateService.RateChangeEnum BidRateChangeTypeField;
+        
+        private string Currency1Field;
+        
+        private double Currency1AskRateField;
+        
+        private double Currency1BidRateField;
+        
+        private RateService.RateTermsEnum Currency1RateTermsField;
+        
+        private string Currency2Field;
+        
+        private double Currency2AskRateField;
+        
+        private double Currency2BidRateField;
+        
+        private RateService.RateTermsEnum Currency2RateTermsField;
+        
+        private System.DateTime LastUpdateField;
+        
+        private RateService.CurrencyPairRateTermsEnum RateTermsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double AskRate
+        {
+            get
+            {
+                return this.AskRateField;
+            }
+            set
+            {
+                this.AskRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RateService.RateChangeEnum AskRateChangeType
+        {
+            get
+            {
+                return this.AskRateChangeTypeField;
+            }
+            set
+            {
+                this.AskRateChangeTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double BidRate
+        {
+            get
+            {
+                return this.BidRateField;
+            }
+            set
+            {
+                this.BidRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RateService.RateChangeEnum BidRateChangeType
+        {
+            get
+            {
+                return this.BidRateChangeTypeField;
+            }
+            set
+            {
+                this.BidRateChangeTypeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Currency1
+        {
+            get
+            {
+                return this.Currency1Field;
+            }
+            set
+            {
+                this.Currency1Field = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Currency1AskRate
+        {
+            get
+            {
+                return this.Currency1AskRateField;
+            }
+            set
+            {
+                this.Currency1AskRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Currency1BidRate
+        {
+            get
+            {
+                return this.Currency1BidRateField;
+            }
+            set
+            {
+                this.Currency1BidRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RateService.RateTermsEnum Currency1RateTerms
+        {
+            get
+            {
+                return this.Currency1RateTermsField;
+            }
+            set
+            {
+                this.Currency1RateTermsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Currency2
+        {
+            get
+            {
+                return this.Currency2Field;
+            }
+            set
+            {
+                this.Currency2Field = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Currency2AskRate
+        {
+            get
+            {
+                return this.Currency2AskRateField;
+            }
+            set
+            {
+                this.Currency2AskRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Currency2BidRate
+        {
+            get
+            {
+                return this.Currency2BidRateField;
+            }
+            set
+            {
+                this.Currency2BidRateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RateService.RateTermsEnum Currency2RateTerms
+        {
+            get
+            {
+                return this.Currency2RateTermsField;
+            }
+            set
+            {
+                this.Currency2RateTermsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime LastUpdate
+        {
+            get
+            {
+                return this.LastUpdateField;
+            }
+            set
+            {
+                this.LastUpdateField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RateService.CurrencyPairRateTermsEnum RateTerms
+        {
+            get
+            {
+                return this.RateTermsField;
+            }
+            set
+            {
+                this.RateTermsField = value;
+            }
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -1016,6 +1016,12 @@ namespace RateService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenRateList", ReplyAction="http://tempuri.org/IRateService/GetTokenRateListResponse")]
         System.Threading.Tasks.Task<RateService.TokenRateData[]> GetTokenRateListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenPairRate", ReplyAction="http://tempuri.org/IRateService/GetTokenPairRateResponse")]
+        System.Threading.Tasks.Task<RateService.TokenPairRateData> GetTokenPairRateAsync(string Token1Id, string Token2Id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenRate", ReplyAction="http://tempuri.org/IRateService/GetTokenRateResponse")]
+        System.Threading.Tasks.Task<RateService.TokenRateData> GetTokenRateAsync(string Token1Id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -1150,6 +1156,16 @@ namespace RateService
             return base.Channel.GetTokenRateListAsync();
         }
         
+        public System.Threading.Tasks.Task<RateService.TokenPairRateData> GetTokenPairRateAsync(string Token1Id, string Token2Id)
+        {
+            return base.Channel.GetTokenPairRateAsync(Token1Id, Token2Id);
+        }
+        
+        public System.Threading.Tasks.Task<RateService.TokenRateData> GetTokenRateAsync(string Token1Id)
+        {
+            return base.Channel.GetTokenRateAsync(Token1Id);
+        }
+        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
@@ -1178,7 +1194,7 @@ namespace RateService
         {
             if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IRateService))
             {
-                return new System.ServiceModel.EndpointAddress("ws://localhost:62716/RateManagerService.svc");
+                return new System.ServiceModel.EndpointAddress("ws://localhost:8088/");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

@@ -46,6 +46,12 @@ namespace AbacasX.Rate.Contracts
 
         [OperationContract]
         List<TokenRateData> GetTokenRateList();
+
+        [OperationContract]
+        TokenPairRateData GetTokenPairRate(string Token1Id, string Token2Id);
+
+        [OperationContract]
+        TokenRateData GetTokenRate(string Token1Id);
     }
 
     public interface IRateServiceCallBack

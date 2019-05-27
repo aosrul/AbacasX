@@ -10,6 +10,7 @@ export class TradingViewMiniChartComponent implements OnInit, AfterViewInit, OnC
   changeLog: string[] = [];
   s: any = null;
   p: any = null;
+  public assetSymbol: string = "";
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
@@ -39,6 +40,8 @@ export class TradingViewMiniChartComponent implements OnInit, AfterViewInit, OnC
 
   selectedAssetChanged(currentValue: string) {
 
+    console.log("Mini-Chart Selected Asset is {0}", this.selectedAsset);
+    
     if (this.s != null) {
       this.renderer.removeChild(this.elementRef.nativeElement, this.p);
 
@@ -49,7 +52,20 @@ export class TradingViewMiniChartComponent implements OnInit, AfterViewInit, OnC
       this.s.type = 'text/javascript';
       this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
 
-      this.s.text = `{     "symbol": "NASDAQ:${this.selectedAsset}",
+      this.assetSymbol = "NASDAQ:" + this.selectedAsset;
+
+      if (this.selectedAsset == "BNP")
+        this.assetSymbol = "MIL:BNP";
+      else if (this.selectedAsset == "GOLD")
+        this.assetSymbol = "TVC:GOLD"
+      else if (this.selectedAsset == "BTC")
+        this.assetSymbol = "COINBASE:BTCUSD";
+      else if (this.selectedAsset == "ETH")
+        this.assetSymbol = "KFRAKE:ETHUSD";
+
+      //this.s.text = `{  "symbol": "NASDAQ:${this.selectedAsset}",
+
+      this.s.text = `{  "symbol": "${this.assetSymbol}",
                         "width": "100\%",
                         "height": "300",
                         "locale": "en",

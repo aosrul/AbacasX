@@ -1,5 +1,6 @@
 using AbacasX.Repository;
 using AbacasX.UI.Hubs;
+using AbacasX.UI.Repository;
 using AbacasX.UI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -39,8 +40,17 @@ namespace AbacasX.UI
                 });
             });
 
-            services.AddSignalR();
+            // Dependency Injection of Repository Services
+            services.AddScoped<OrderService.IOrderService, OrderRepository>();
+            services.AddSingleton<RateService.IRateService, RateRepository>();
+
+
+            services.AddSignalR(hubOptions => {
+                hubOptions.EnableDetailedErrors = true;
+                //hubOptions.KeepAliveInterval = System.TimeSpan.FromHours(1);
+            });
             services.AddSingleton<StockTicker>();
+            services.AddSingleton<RateServer>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
            .AddJwtBearer(options =>
@@ -62,9 +72,7 @@ namespace AbacasX.UI
                 c.SwaggerDoc("v1", new Info { Title = "AbacasX UI", Version = "v1" });
             });
 
-            // Add an injectable service to the Order Manager Service
-            services.AddScoped<OrderService.IOrderService, OrderRepository>();
-
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
@@ -114,6 +122,7 @@ namespace AbacasX.UI
             app.UseSignalR(routes =>
             {
                 routes.MapHub<StockTickerHub>("/stock");
+                routes.MapHub<RateServerHub>("/rate");
             });
 
             app.UseSpa(spa =>

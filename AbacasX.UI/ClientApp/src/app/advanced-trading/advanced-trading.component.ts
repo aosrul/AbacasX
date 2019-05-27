@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { IQuickOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, TradingRates } from '../../shared/interfaces';
+import { IQuickOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, TokenPairRate, OrderStatusEnum, IOrder } from '../../shared/interfaces';
+import { DataService } from '../../core/data.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,29 +14,25 @@ export class AdvancedTradingComponent implements OnInit {
   @Input()
   selectedAssetPair: string = "";
   @Input()
-  TokenExchangeBid: number = 0;
-  @Input()
-  TokenExchangeAsk: number = 0;
-  @Input()
-  IsCrossCurrency: boolean = false;
-  @Input()
-  Token1PriceCurrency: string = "USD";
-  @Input()
-  Token2PriceCurrency: string = "USD";
-  @Input()
-  tradingRates: TradingRates = new TradingRates();
+  TokenPairRate: TokenPairRate;
+
+  public Token1PriceCurrency: string = "USD";
+  public Token2PriceCurrency: string = "USD";
+
 
   public orderExpiration: Date = new Date();
   public orderExpirationTime: Date = new Date();
 
   selectedOrderType: string = "GTC";
 
+  IsCrossCurrency: boolean = false;
   IsBuyOrder: boolean = true;
   IsMarketOrder: boolean = true;
   changeLog: string[] = [];
 
   OrderDescription: string = "Buy @AAPL with @GOOG";
   ExchangeDescription: string = "@AAPL for @GOOG";
+  errorMessage: string = "";
 
   public token1Rate: number = 1.0;
   public token2Rate: number = 1.0;
@@ -53,34 +51,26 @@ export class AdvancedTradingComponent implements OnInit {
     Token2Amount: 0
   };
 
-  constructor() {
+  order: IOrder = {
+    clientId: 0,
+    clientAccountId: 0,
+    buySellType: BuySellTypeEnum.Buy,
+    token1Id: '',
+    token1Amount: 0,
+    token2Id: '',
+    orderPrice: 0,
+    orderPriceTerms: OrderPriceTermsEnum.Token2PerToken1,
+    orderType: OrderTypeEnum.Market,
+    token2Amount: 0,
+    orderStatus: OrderStatusEnum.Active,
+    priceFilled: 0
+  };
+
+  constructor(private router: Router,
+    private dataService: DataService) {
     this.orderExpirationTime.setHours(17, 0, 0);
+  };
 
-    this.token1Rate = 143.415;
-    this.token2Rate = 49;
-    this.tokenFXRate = 1.1450;
-
-    //this.tradingRates.Token1Id = "@AAPL";
-    //this.tradingRates.Token2Id = "@GOOG";
-    //this.tradingRates.Token1Bid = 1.0;
-    //this.tradingRates.Token1Ask = 1.0;
-
-    //this.tradingRates.TokenExchangeBid = 1.0;
-    //this.tradingRates.TokenExchangeAsk = 1.0;
-
-    //this.tradingRates.Token1PriceCurrencyBid = 1.0;
-    //this.tradingRates.Token1PriceCurrencyAsk = 1.0;
-    //this.tradingRates.Token2PriceCurrencyBid = 1.0;
-    //this.tradingRates.Token2PriceCurrencyAsk = 1.0;
-
-    //this.tradingRates.IsCrossCurrency = false;
-
-    //this.tradingRates.Token1PriceCurrency = "@USD";
-    //this.tradingRates.Token2PriceCurrency = "@USD";
-    //this.tradingRates.TokenExchangeFXBid = 1.0;
-    //this.tradingRates.TokenExchangeFXAsk = 1.0;
-  }
- 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     let log: string[] = [];
 
@@ -109,7 +99,7 @@ export class AdvancedTradingComponent implements OnInit {
         }
       }
 
-      if (propName === "tradingRates") {
+      if (propName === "TokenPairRate") {
         this.updateTradingPrices();
       }
 
@@ -117,11 +107,66 @@ export class AdvancedTradingComponent implements OnInit {
     this.changeLog.push(log.join(', '));
   }
 
+  submit() {
 
+    this.order.token1Id = this.quickOrder.Token1Id;
+    this.order.token2Id = this.quickOrder.Token2Id;
+    this.order.token1Amount = this.quickOrder.Token1Amount;
+    this.order.token2Amount = this.quickOrder.Token2Amount;
+    this.order.buySellType = this.quickOrder.BuySellType;
+    this.order.clientId = this.quickOrder.ClientId;
+    this.order.clientAccountId = this.quickOrder.ClientAccountId;
+    this.order.orderPrice = this.quickOrder.OrderPrice;
+    this.order.orderPriceTerms = this.quickOrder.OrderPriceTerms;
+
+    console.log("Advanced Order Submitted");
+
+    this.dataService.addOrder(this.order)
+      .subscribe((order: IOrder) => {
+        if (order) {
+        }
+        else {
+          this.errorMessage = 'Unable to add Order';
+        }
+      },
+        (err: any) => console.log(err));
+
+    this.quickOrder.Token1Amount = 0;
+  }
+
+  
   updateTradingPrices() {
-    //this.token1Rate = this.tradingRates.Token1Bid;
-    //this.token2Rate = this.tradingRates.Token2Bid;
-    //this.tokenFXRate = this.tradingRates.TokenExchangeFXAsk;
+    this.Token1PriceCurrency = this.TokenPairRate.currency1;
+    this.Token2PriceCurrency = this.TokenPairRate.currency2;
+
+    if (this.IsBuyOrder) {
+      this.token1Rate = this.TokenPairRate.token1AskRate;
+      this.token2Rate = this.TokenPairRate.token2BidRate;
+      this.tokenFXRate = this.TokenPairRate.currencyPairAskRate;
+    }
+    else {
+      this.token1Rate = this.TokenPairRate.token1BidRate;
+      this.token2Rate = this.TokenPairRate.token2AskRate;
+      this.tokenFXRate = this.TokenPairRate.currencyPairBidRate;
+    }
+
+    if (this.TokenPairRate.currency1 == this.TokenPairRate.currency2)
+      this.IsCrossCurrency = false;
+    else
+      this.IsCrossCurrency = true;
+
+    if (this.quickOrder.BuySellType == BuySellTypeEnum.Buy)
+      this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
+    else
+      this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
+
+    if (this.IsBuyOrder)
+      this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+    else
+      this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+
+    this.ExchangeDescription = this.quickOrder.Token1Id + " - " + this.quickOrder.Token2Id;
+    this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
   }
 
 
@@ -139,56 +184,72 @@ export class AdvancedTradingComponent implements OnInit {
   }
 
   selectedAssetPairChanged(newAssetPair: string) {
-    if (this.selectedAssetPair == "@AAPL - @GOOG") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@GOOG";
-      this.IsCrossCurrency = false;
+
+    // Locate the assets which start with an @
+    var results = newAssetPair.match(/@\S*/g);
+
+    console.log("Asset 1 {0}", results[0]);
+    console.log("Asset 2 {0}", results[1]);
+
+    this.quickOrder.Token1Id = results[0];
+    this.quickOrder.Token2Id = results[1];
+    this.quickOrder.Token1Amount = 0;
+
+    this.Token1PriceCurrency = this.TokenPairRate.currency1;
+    this.Token2PriceCurrency = this.TokenPairRate.currency2;
+
+    if (this.IsBuyOrder) {
+      this.token1Rate = this.TokenPairRate.token1AskRate;
+      this.token2Rate = this.TokenPairRate.token2BidRate;
+      this.tokenFXRate = this.TokenPairRate.currencyPairAskRate;
+    }
+    else {
+      this.token1Rate = this.TokenPairRate.token1BidRate;
+      this.token2Rate = this.TokenPairRate.token2AskRate;
+      this.tokenFXRate = this.TokenPairRate.currencyPairBidRate;
     }
 
-    if (this.selectedAssetPair == "@AAPL - @GOLD") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@GOLD";
+    if (this.TokenPairRate.currency1 == this.TokenPairRate.currency2)
       this.IsCrossCurrency = false;
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @MSFT") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@MSFT";
-      this.IsCrossCurrency = false;
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @BTC") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@BTC";
-      this.IsCrossCurrency = false;
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @USD") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@USD";
-      this.IsCrossCurrency = false;
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @BNP") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@BNP";
+    else
       this.IsCrossCurrency = true;
-    }
+
+    if (this.quickOrder.BuySellType == BuySellTypeEnum.Buy)
+      this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
+    else
+      this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
 
     if (this.IsBuyOrder)
-      this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
+      this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
     else
-      this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
+      this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
 
-    this.ExchangeDescription = this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+    this.ExchangeDescription = this.quickOrder.Token1Id + " - " + this.quickOrder.Token2Id;
+
+    this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
   }
 
   ngOnInit() {
 
-    if (this.quickOrder.BuySellType == BuySellTypeEnum.Buy)
-      this.quickOrder.OrderPrice = this.TokenExchangeAsk;
+    // Initial setup is to Buy Token 1, thus the offer on Token1, Bid on token 2
+    // Buying token1 means selling currency1 and buying currency 2
+    // thus the offer on currency2 - currency1.
+
+    this.token1Rate = this.TokenPairRate.token1AskRate;
+    this.token2Rate = this.TokenPairRate.token2BidRate;
+    this.tokenFXRate = this.TokenPairRate.currencyPairAskRate;
+    this.Token1PriceCurrency = this.TokenPairRate.currency1;
+    this.Token2PriceCurrency = this.TokenPairRate.currency2;
+
+    if (this.TokenPairRate.currency1 == this.TokenPairRate.currency2)
+      this.IsCrossCurrency = false;
     else
-      this.quickOrder.OrderPrice = this.TokenExchangeBid;
+      this.IsCrossCurrency = true;
+
+    if (this.quickOrder.BuySellType == BuySellTypeEnum.Buy)
+      this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
+    else
+      this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
 
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
   }
@@ -204,18 +265,46 @@ export class AdvancedTradingComponent implements OnInit {
   }
 
   BuyToken1Clicked() {
+
+
+    this.token1Rate = this.TokenPairRate.token1AskRate;
+    this.token2Rate = this.TokenPairRate.token2BidRate;
+    this.tokenFXRate = this.TokenPairRate.currencyPairAskRate;
+
+
     this.quickOrder.BuySellType = BuySellTypeEnum.Buy;
     this.IsBuyOrder = true;
-    this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
-    this.quickOrder.OrderPrice = this.TokenExchangeAsk;
+    
+    this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
+
+    if (this.IsBuyOrder)
+      this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+    else
+      this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+
+
   }
 
   SellToken1Clicked() {
+
+
+    this.token1Rate = this.TokenPairRate.token1BidRate;
+    this.token2Rate = this.TokenPairRate.token2AskRate;
+    this.tokenFXRate = this.TokenPairRate.currencyPairBidRate;
+
+
+
     this.quickOrder.BuySellType = BuySellTypeEnum.Sell;
     this.IsBuyOrder = false;
-    this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;
-    this.quickOrder.OrderPrice = this.TokenExchangeBid;
+    this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
+
+    if (this.IsBuyOrder)
+      this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+    else
+      this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
+
+
   }
 }

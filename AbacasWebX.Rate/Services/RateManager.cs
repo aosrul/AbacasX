@@ -189,6 +189,7 @@ namespace AbacasWebX.Rate.Services
                 ((ICommunicationObject)rateUpdateCallBack).State == CommunicationState.Faulted)
             {
                 connected = false;
+                throw new Exception("No Rate Callback connection found");
             }
 
             if ((rateUpdateCallBack != null) && connected)
@@ -783,15 +784,15 @@ namespace AbacasWebX.Rate.Services
             tokenPairRateManager = new TokenPairRateManager(tokenRateManager, currencyPairRateManager);
 
 
-            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 211, AskRate = 211 });
-            baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1165, AskRate = 1165 });
+            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 179.85, AskRate = 180 });
+            baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1140, AskRate = 1141 });
             baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 127, AskRate = 127 });
-            baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1270, AskRate = 1270 });
-            baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 5362, AskRate = 5362 });
+            baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1283, AskRate = 1283 });
+            baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 8012, AskRate = 8012 });
             baseAssetList.TryAdd("USD", new AssetRate { AssetId = "USD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1, AskRate = 1 });
-            baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 160, AskRate = 160 });
-            baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 48, AskRate = 48 });
-            baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.12, AskRate = 1.12 });
+            baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 251, AskRate = 251 });
+            baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 43.655, AskRate = 43.655 });
+            baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.1188, AskRate = 1.1188 });
 
             foreach (AssetRate a in baseAssetList.Values)
             {
@@ -945,8 +946,7 @@ namespace AbacasWebX.Rate.Services
             {
                 foreach (TokenRateViewModel t in tokenRateManager.tokenRateList.Values)
                 {
-                    t.CopyPropertiesTo(tokenRateDataRecord);
-                    tokenRateDataList.Add(tokenRateDataRecord);
+                    tokenRateDataList.Add(t.tokenRateRecord);
                 }
             }
 
@@ -1262,6 +1262,35 @@ namespace AbacasWebX.Rate.Services
             }
         }
 
+        public TokenPairRateData GetTokenPairRate(string Token1, string Token2)
+        {
+            TokenPairRateViewModel tokenPairRateViewModelRecord;
+
+            tokenPairRateViewModelRecord = tokenPairRateManager.GetTokenPairRateView(Token1, Token2);
+
+            return tokenPairRateViewModelRecord.tokenPairRateRecord;
+        }
+
+        public TokenRateData GetTokenRate(string TokenId)
+        {
+            TokenRateData tokenRateDataRecord = new TokenRateData();
+            TokenRateViewModel tokenRateViewModelRecord;
+
+            lock (tokenRateManager.tokenRateListLock)
+            {
+                if (tokenRateManager.tokenRateList.TryGetValue(TokenId, out tokenRateViewModelRecord) == true)
+                {
+                    tokenRateDataRecord = tokenRateViewModelRecord.tokenRateRecord;
+                }
+                else
+                {
+                    tokenRateDataRecord = new TokenRateData();
+                    tokenRateDataRecord.TokenId = TokenId;
+                }
+            }
+
+            return tokenRateDataRecord;
+        }
 
         #endregion
     }

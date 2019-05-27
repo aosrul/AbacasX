@@ -1,4 +1,4 @@
-<form class="form-control-sm" style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
+<form (ngSubmit)="submit()" class="form-control-sm" style="margin-top:1%; margin-bottom:10px; margin-left:5px" novalidate>
   <div class="d-inline-flex" style="margin-top:5px; margin-bottom:3em">
     <div class="d-flex flex-column" style="margin-top:5px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
       <div class="d-inline-flex" style="margin-top:5px">
@@ -62,23 +62,23 @@
 
 
       <div class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="MarketRateBid"  style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 1 Market Price" autocomplete="off"  value="{{token1Rate | number: '1.6-6'}}"/>
+        <input class="form-control" name="MarketRateBid"  style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 1 Market Price" autocomplete="off"  value="{{token1Rate}}"/>
         <button style="width:12em" class="btn token-label">
-          {{Token1PriceCurrency}} for {{quickOrder.Token1Id}}
+          {{Token1PriceCurrency}} / {{quickOrder.Token1Id}}
         </button>
       </div>
 
       <div *ngIf="IsCrossCurrency" class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="FXToken2" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="FX Rate" autocomplete="off" value="{{tokenFXRate | number: '1.6-6'}}" />
+        <input class="form-control" name="FXToken2" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="FX Rate" autocomplete="off" value="{{tokenFXRate}}" />
         <button style="width:12em" class="btn token-label">
-          {{Token1PriceCurrency}} For {{Token2PriceCurrency}}
+          {{Token2PriceCurrency}} / {{Token1PriceCurrency}}
         </button>
       </div>
 
       <div class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="Token2MarketRate" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 2 Price" autocomplete="off" value="{{token2Rate | number: '1.6-6'}}" />
+        <input class="form-control" name="Token2MarketRate" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 2 Price" autocomplete="off" value="{{token2Rate}}" />
         <button style="width:12em" class="btn token-label">
-          {{Token2PriceCurrency}} for {{quickOrder.Token2Id}}
+          {{Token2PriceCurrency}} / {{quickOrder.Token2Id}}
         </button>
       </div>
 
@@ -133,7 +133,8 @@
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+        <button type="submit" [disabled]="(quickOrder.Token1Amount == 0)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+        <!--<button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>-->
         <button type="button" name="CancelOrder" class="btn btn-danger " style="margin-left:5px">Cancel</button>
       </div>
     </div>

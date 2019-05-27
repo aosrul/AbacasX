@@ -10,6 +10,7 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit, OnCh
   changeLog: string[] = [];
   s: any = null;
   p: any = null;
+  public assetSymbol: string = "";
 
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
@@ -53,10 +54,21 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit, OnCh
       this.s.type = 'text/javascript';
       this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
 
+      this.assetSymbol = "NASDAQ:" + this.selectedAsset;
+
+      if (this.selectedAsset == "BNP")
+        this.assetSymbol = "MIL:BNP";
+      else if (this.selectedAsset == "GOLD")
+        this.assetSymbol = "TVC:GOLD"
+      else if (this.selectedAsset == "BTC")
+        this.assetSymbol = "COINBASE:BTCUSD";
+      else if (this.selectedAsset == "ETH")
+        this.assetSymbol = "KFRAKE:ETHUSD";
+
       this.s.text = `{
       "width": "100\%",
       "height": "300",
-      "symbol": "NASDAQ:${this.selectedAsset}",
+      "symbol": "${this.assetSymbol}",
       "locale": "en",
       "interval": "1D"}`;
 

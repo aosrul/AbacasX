@@ -75,6 +75,7 @@
     <None Remove="ClientApp\src\app\tradingView-analysis\tradingView-analysis.component.ts" />
     <None Remove="ClientApp\src\app\tradingView-chart\tradingView-chart.component.ts" />
     <None Remove="ClientApp\src\app\tradingView-crypto\tradingView-crypto.component.ts" />
+    <None Remove="ClientApp\src\core\rate.service.ts" />
     <None Remove="ClientApp\src\core\stock.service.ts" />
     <None Remove="ClientApp\src\guards\auth-guard.service.ts" />
     <None Remove="ClientApp\src\shared\interfaces.ts" />
@@ -105,6 +106,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\tradingView-analysis\tradingView-analysis.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\tradingView-chart\tradingView-chart.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\tradingView-crypto\tradingView-crypto.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\core\rate.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\core\login.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\core\stock.service.ts" />
