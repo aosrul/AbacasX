@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService } from '../../core/data.service';
 import { TransferTypeEnum, TransferStatusEnum, IAssetTransfer } from '../../shared/interfaces';
+import { LoginService } from '../../core/login.service';
 
 @Component({
   selector: 'account-transfer-activity',
@@ -15,7 +16,7 @@ export class AccountTransferActivityComponent implements OnInit {
   TransferStatusEnum = TransferStatusEnum;
   
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private loginService : LoginService) { }
 
   ngOnInit(): void {
     this.getClientTransferActivity();
@@ -23,7 +24,7 @@ export class AccountTransferActivityComponent implements OnInit {
 
   getClientTransferActivity() {
 
-    this.dataService.getClientTransferActivity()
+    this.dataService.getClientTransferActivity(this.loginService.userId)
       .subscribe((clientTransfers: IAssetTransfer[]) => {
         this.clientTransfers = clientTransfers;
       },

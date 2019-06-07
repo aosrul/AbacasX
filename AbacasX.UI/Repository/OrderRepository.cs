@@ -57,12 +57,12 @@ namespace AbacasX.Repository
         {
             // Client Id initially not utilized as this call is really meant
             // for the Web Publishing Service, not the order manager
-            return _orderServiceClient.GetClientOrdersAsync(0);
+            return _orderServiceClient.GetClientOrdersAsync(ClientId);
         }
 
         public Task<OrderData[]> GetClientHistoricalOrdersAsync(int ClientId)
         {
-            return _orderServiceClient.GetClientHistoricalOrdersAsync(0);
+            return _orderServiceClient.GetClientHistoricalOrdersAsync(ClientId);
         }
 
         Task<OrderData> IOrderService.GetOrderAsync(int OrderId)
@@ -77,12 +77,12 @@ namespace AbacasX.Repository
 
         public Task<ClientPositionData[]> GetClientPositionsAsync(int ClientId)
         {
-            return _orderServiceClient.GetClientPositionsAsync(0);
+            return _orderServiceClient.GetClientPositionsAsync(ClientId);
         }
 
         public Task<BlockChainData[]> GetClientBlockChainTransactionsAsync(int ClientId)
         {
-            return _orderServiceClient.GetClientBlockChainTransactionsAsync(0);
+            return _orderServiceClient.GetClientBlockChainTransactionsAsync(ClientId);
         }
 
         public Task<string> GetNewGuidAsync()

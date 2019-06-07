@@ -19,6 +19,20 @@ public class KeyPairData
     public string privateKey;
 }
 
+public class ClientPosition
+{
+    public int ClientId;
+    public ConcurrentDictionary<string, ClientPositionData> ClientPositions;
+
+    public ClientPosition(int clientId)
+    {
+        ClientId = clientId;
+        ClientPositions = new ConcurrentDictionary<string, ClientPositionData>();
+    }
+}
+
+
+
 namespace AbacasX.Exchange.Services
 {
     [ServiceBehavior(UseSynchronizationContext = false, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
@@ -26,7 +40,10 @@ namespace AbacasX.Exchange.Services
     {
         ConcurrentDictionary<int, OrderData> ClientOrders = new ConcurrentDictionary<int, OrderData>();
         ConcurrentDictionary<int, OrderData> ClientHistoricalOrders = new ConcurrentDictionary<int, OrderData>();
-        ConcurrentDictionary<string, ClientPositionData> ClientPositions = new ConcurrentDictionary<string, ClientPositionData>();
+
+        // Positions for each client
+        ConcurrentDictionary<int, ClientPosition> ClientPositions = new ConcurrentDictionary<int, ClientPosition>();
+
         ConcurrentDictionary<string, TokenRateData> TokenRates = new ConcurrentDictionary<string, TokenRateData>();
         ConcurrentDictionary<int, KeyPairData> KeyPairs = new ConcurrentDictionary<int, KeyPairData>();
         ConcurrentDictionary<int, BlockChainData> BlockChainTransactions = new ConcurrentDictionary<int, BlockChainData>();
@@ -35,8 +52,6 @@ namespace AbacasX.Exchange.Services
         ConcurrentDictionary<string, AssetTransferData> AssetTransfers = new ConcurrentDictionary<string, AssetTransferData>();
         ExchangeBook _exchangeBook;
 
-
-
         static int orderCount = 20150;
         static int blockCount = 10015;
 
@@ -44,26 +59,34 @@ namespace AbacasX.Exchange.Services
         private readonly Timer _timer;
         public object OrderListLock = new object();
         private volatile bool _fillingOpenOrders = false;
-        private int orderFillCount = 0;
+        
 
         public OrderManager()
         {
+            ClientPosition clientPositionRecord;
+
             Console.Title = "AbacasX Exchange Service";
 
             _exchangeBook = new ExchangeBook();
 
+            // Add some default positions to TradezDigital
 
             ClientPositionData basePosition = new ClientPositionData { TokenId = "@USD", TokenAmount = 1000000m, TokenRate = 1.0m, TokenRateIn = "USD", TokenValue = 1000000 };
 
             ClientPositionData baseEURPosition = new ClientPositionData { TokenId = "@GBP", TokenAmount = 200000m, TokenRate = 1.26m, TokenRateIn = "USD", TokenValue = 252000.0m };
 
-            OrderData[] HistoricalOrderList = { new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 101.10M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@MSFT", Token1Amount = 500, Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 99.5M},
-                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 1282.00M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Market, Token1Id = "@GOOG", Token1Amount = 300,  Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 1250.00M } };
+            OrderData[] HistoricalOrderList = { new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 1, OrderPrice = 101.10M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Limit, Token1Id = "@MSFT", Token1Amount = 500, Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 99.5M},
+                                                new OrderData { OrderId = orderCount++, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 1, OrderPrice = 1282.00M, OrderPriceTerms = OrderPriceTermsEnum.Token2PerToken1, OrderType = OrderTypeEnum.Market, Token1Id = "@GOOG", Token1Amount = 300,  Token2Id = "@USD", OrderStatus = OrderStatusEnum.Filled, PriceFilled = 1250.00M } };
 
             // Initialize USD, EUR Position
-            ClientPositions.TryAdd(basePosition.TokenId, basePosition);
-            ClientPositions.TryAdd(baseEURPosition.TokenId, baseEURPosition);
 
+            clientPositionRecord = new ClientPosition(1);
+            ClientPositions.TryAdd(clientPositionRecord.ClientId, clientPositionRecord);
+            
+            clientPositionRecord.ClientPositions.TryAdd(basePosition.TokenId, basePosition);
+            clientPositionRecord.ClientPositions.TryAdd(baseEURPosition.TokenId, baseEURPosition);
+
+            
             TokenRateData[] TokenRatesList =
             {
                 new TokenRateData { TokenId = "@GOOG", TokenRate = 1036.06m, TokenRateIn = "USD"},
@@ -124,13 +147,27 @@ namespace AbacasX.Exchange.Services
 
         private void addOrderToPosition(OrderData order)
         {
+            ClientPosition clientPositionRecord;
+
             ClientPositionData ClientPosition = new ClientPositionData();
             TokenRateData TokenRate = new TokenRateData();
+
+            if (ClientPositions.TryGetValue(order.ClientId, out clientPositionRecord) == false)
+            {
+                clientPositionRecord = new ClientPosition(order.ClientId);
+                ClientPositions.TryAdd(order.ClientId, clientPositionRecord);
+            }
+
+
+            if (clientPositionRecord == null)
+            {
+                throw new Exception("Unable to find/generate client position record");
+            }
 
 
             if (order.BuySellType == OrderLegBuySellEnum.Buy)
             {
-                if (ClientPositions.TryGetValue(order.Token1Id, out ClientPosition) == true)
+                if (clientPositionRecord.ClientPositions.TryGetValue(order.Token1Id, out ClientPosition) == true)
                 {
                     ClientPosition.TokenAmount += order.Token1Amount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -152,11 +189,11 @@ namespace AbacasX.Exchange.Services
                     }
 
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
-                    ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
+                    clientPositionRecord.ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
                 }
 
 
-                if (ClientPositions.TryGetValue(order.Token2Id, out ClientPosition) == true)
+                if (clientPositionRecord.ClientPositions.TryGetValue(order.Token2Id, out ClientPosition) == true)
                 {
                     ClientPosition.TokenAmount -= order.Token2Amount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -164,7 +201,7 @@ namespace AbacasX.Exchange.Services
             }
             else
             {
-                if (ClientPositions.TryGetValue(order.Token2Id, out ClientPosition) == true)
+                if (clientPositionRecord.ClientPositions.TryGetValue(order.Token2Id, out ClientPosition) == true)
                 {
                     ClientPosition.TokenAmount += order.Token2Amount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -185,10 +222,10 @@ namespace AbacasX.Exchange.Services
                     }
 
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
-                    ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
+                    clientPositionRecord.ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
                 }
 
-                if (ClientPositions.TryGetValue(order.Token1Id, out ClientPosition) == true)
+                if (clientPositionRecord.ClientPositions.TryGetValue(order.Token1Id, out ClientPosition) == true)
                 {
                     ClientPosition.TokenAmount -= order.Token1Amount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -290,6 +327,7 @@ namespace AbacasX.Exchange.Services
             blockChainRecord.Date = DateTime.Now.ToShortDateString();
             blockChainRecord.BlockNumber = blockCount++;
             blockChainRecord.OrderId = orderCount++;
+            blockChainRecord.clientId = transferRequest.clientId;
 
             if (transferRequest.transferType == TransferTypeEnum.Deposit)
             {
@@ -317,10 +355,20 @@ namespace AbacasX.Exchange.Services
         {
             ClientPositionData ClientPosition = new ClientPositionData();
             TokenRateData TokenRate = new TokenRateData();
+            ClientPosition clientPositionRecord;
+
+            if (ClientPositions.TryGetValue(transferRequest.clientId, out clientPositionRecord) == false)
+            {
+                clientPositionRecord = new ClientPosition(transferRequest.clientId);
+                ClientPositions.TryAdd(transferRequest.clientId, clientPositionRecord);
+            }
+
+            if (clientPositionRecord == null)
+                throw new Exception("Unable to find/create client position record");
 
             if (transferRequest.transferType == TransferTypeEnum.Deposit)
             {
-                if (ClientPositions.TryGetValue(transferRequest.tokenId, out ClientPosition) == true)
+                if (clientPositionRecord.ClientPositions.TryGetValue(transferRequest.tokenId, out ClientPosition) == true)
                 {
                     ClientPosition.TokenAmount += transferRequest.tokenAmount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -342,12 +390,12 @@ namespace AbacasX.Exchange.Services
                     }
 
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
-                    ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
+                    clientPositionRecord.ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
                 }
             }
             else
             {
-                if (ClientPositions.TryGetValue(transferRequest.tokenId, out ClientPosition) == true)
+                if (clientPositionRecord.ClientPositions.TryGetValue(transferRequest.tokenId, out ClientPosition) == true)
                 {
                     ClientPosition.TokenAmount -= transferRequest.tokenAmount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -366,6 +414,8 @@ namespace AbacasX.Exchange.Services
             {
                 blockChainRecord = new BlockChainData();
 
+                blockChainRecord.clientId = order.ClientId;
+
                 blockChainRecord.Date = DateTime.Now.ToShortDateString();
                 blockChainRecord.BlockNumber = blockCount++;
                 blockChainRecord.OrderId = order.OrderId;
@@ -382,6 +432,7 @@ namespace AbacasX.Exchange.Services
 
 
                 blockChainRecord = new BlockChainData();
+                blockChainRecord.clientId = order.ClientId;
                 blockChainRecord.Date = DateTime.Now.ToShortDateString();
                 blockChainRecord.BlockNumber = blockCount++;
                 blockChainRecord.OrderId = order.OrderId;
@@ -402,7 +453,7 @@ namespace AbacasX.Exchange.Services
                 blockChainRecord = new BlockChainData();
                 blockChainRecord.Date = DateTime.Now.ToShortDateString();
 
-
+                blockChainRecord.clientId = order.ClientId;
                 blockChainRecord.BlockNumber = blockCount++;
                 blockChainRecord.OrderId = order.OrderId;
                 blockChainRecord.PayReceive = "Pay";
@@ -420,7 +471,7 @@ namespace AbacasX.Exchange.Services
                 blockChainRecord = new BlockChainData();
                 blockChainRecord.Date = DateTime.Now.ToShortDateString();
 
-
+                blockChainRecord.clientId = order.ClientId;
                 blockChainRecord.BlockNumber = blockCount++;
                 blockChainRecord.OrderId = order.OrderId;
                 blockChainRecord.PayReceive = "Receive";
@@ -443,33 +494,39 @@ namespace AbacasX.Exchange.Services
 
         public List<BlockChainData> GetClientBlockChainTransactions(int clientId)
         {
-            Console.WriteLine("TradezDigital Request for Blockchain Transactions");
-            Console.WriteLine("{0} Transactions Returned", BlockChainTransactions.Count());
-            return BlockChainTransactions.Values.ToList();
+            Console.WriteLine("Client {0} Request for Blockchain Transactions", clientId);
+            Console.WriteLine("{0} Transactions Returned", BlockChainTransactions.Values.Where(o => o.clientId == clientId).Count());
+
+            return BlockChainTransactions.Values.Where(o => o.clientId == clientId).ToList();
         }
 
         public List<ClientPositionData> GetClientPositions(int ClientId)
         {
-            Console.WriteLine("TradezDigital Request for Positions");
-            Console.WriteLine("{0} Positions Returned", ClientPositions.Count());
-            return ClientPositions.Values.ToList();
+            ClientPosition clientPositionRecord;
+
+            if (ClientPositions.TryGetValue(ClientId, out clientPositionRecord) == true)
+            {
+                Console.WriteLine("Client Id {0} /  {1} Positions Returned", ClientId, clientPositionRecord.ClientPositions.Count());
+                return clientPositionRecord.ClientPositions.Values.ToList();
+            }
+            else
+                return null;
         }
 
         public List<OrderData> GetClientOrders(int ClientId)
         {
-            Console.WriteLine("TradezDigital Request for Open Orders");
-            Console.WriteLine("Client Id {0} with {1} Orders Returned", ClientId, ClientOrders.Values.Count());
-
-            return ClientOrders.Values.ToList();
+            Console.WriteLine("Client Id {0} with {1} Orders Returned", ClientId, ClientOrders.Values.Where(o => o.ClientId == ClientId).Count());
+            
+            return ClientOrders.Values.Where(o => o.ClientId == ClientId).ToList();
         }
 
         public List<OrderData> GetClientHistoricalOrders(int ClientId)
         {
-            Console.WriteLine("TradezDigital Request for Historical Orders");
-            Console.WriteLine("{0} Historical Returned", ClientHistoricalOrders.Count());
-            return ClientHistoricalOrders.Values.ToList();
-        }
+            
+            Console.WriteLine("Client Id {0} with {1} Historical Returned", ClientId, ClientHistoricalOrders.Values.Where(o => o.ClientId == ClientId).Count());
 
+            return ClientHistoricalOrders.Values.Where(o => o.ClientId == ClientId).ToList();
+        }
 
         public OrderData GetOrder(int OrderId)
         {
@@ -523,7 +580,7 @@ namespace AbacasX.Exchange.Services
                 _exchangeBook.AddOrderToExchange(orderLegRecord);
             }
 
-            Console.WriteLine("Client {0} Trade {0} Added", orderData.ClientId, orderData.OrderId);
+            Console.WriteLine("Client Id {0} Order Id {1} Added", orderData.ClientId, orderData.OrderId);
 
             return (orderData);
         }
@@ -560,6 +617,8 @@ namespace AbacasX.Exchange.Services
 
             AssetTransferData newTransfer = new AssetTransferData();
 
+            newTransfer.clientId = depositNotification.clientId;
+
             newTransfer.referenceId = depositNotification.referenceId;
             newTransfer.assetId = depositNotification.assetId;
             newTransfer.assetAmount = depositNotification.amount;
@@ -569,11 +628,24 @@ namespace AbacasX.Exchange.Services
 
             newTransfer.tokenId = '@' + depositNotification.assetId;
             newTransfer.tokenAmount = depositNotification.amount;
-            newTransfer.forAccountOf = "TradezDigital";
+            switch(newTransfer.clientId)
+            {
+                case 1:
+                    newTransfer.forAccountOf = "TradezDigital";
+                    break;
+                case 4:
+                    newTransfer.forAccountOf = "VinceSmall";
+                    break;
+                case 5:
+                    newTransfer.forAccountOf = "MarkVanRoon";
+                    break;
+                default:
+                    newTransfer.forAccountOf = "TradezDigital";
+                    break;
+            }
 
             AssetTransfers.TryAdd(newTransfer.referenceId, newTransfer);
             Console.WriteLine("Asset Deposit Transfer Added {0}", newTransfer.referenceId);
-
 
             return depositNotification;
         }
@@ -587,6 +659,8 @@ namespace AbacasX.Exchange.Services
 
             AssetTransferData newTransfer = new AssetTransferData();
 
+            newTransfer.clientId = withdrawalRequest.clientId;
+
             newTransfer.referenceId = withdrawalRequest.referenceId;
             newTransfer.assetId = withdrawalRequest.tokenId.Substring(1);
             newTransfer.assetAmount = withdrawalRequest.amount;
@@ -596,7 +670,22 @@ namespace AbacasX.Exchange.Services
 
             newTransfer.tokenId = withdrawalRequest.tokenId;
             newTransfer.tokenAmount = withdrawalRequest.amount;
-            newTransfer.forAccountOf = "TradezDigital";
+
+            switch (newTransfer.clientId)
+            {
+                case 1:
+                    newTransfer.forAccountOf = "TradezDigital";
+                    break;
+                case 4:
+                    newTransfer.forAccountOf = "VinceSmall";
+                    break;
+                case 5:
+                    newTransfer.forAccountOf = "MarkVanRoon";
+                    break;
+                default:
+                    newTransfer.forAccountOf = "TradezDigital";
+                    break;
+            }
 
             AssetTransfers.TryAdd(newTransfer.referenceId, newTransfer);
             Console.WriteLine("Asset Withdrawal Transfer Added {0}", newTransfer.referenceId);
@@ -606,7 +695,7 @@ namespace AbacasX.Exchange.Services
 
         public List<AssetTransferData> GetClientTransferActivity(int ClientId)
         {
-            return AssetTransfers.Values.ToList();
+            return AssetTransfers.Values.Where(o => o.clientId == ClientId).ToList();
         }
     }
 }

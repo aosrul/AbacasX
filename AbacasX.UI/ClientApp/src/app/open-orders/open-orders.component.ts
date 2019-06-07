@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/data.service';
 import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum} from '../../shared/interfaces';
 import { openOrders } from './open-orders';
+import { LoginService } from '../../core/login.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class OpenOrdersComponent implements OnInit {
     OrderTypeEnum = OrderTypeEnum;
 
 
-    constructor(private dataService: DataService) { }
+    constructor(private dataService: DataService, private loginService : LoginService) { }
 
     ngOnInit(): void {
         this.title = "Open Orders";
@@ -25,7 +26,7 @@ export class OpenOrdersComponent implements OnInit {
     }
 
     getOrders() {
-        this.dataService.getOrders()
+        this.dataService.getClientOrders(this.loginService.userId)
             .subscribe((orders: IOrder[]) => {
                 this.orders = orders;
             },

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { positions } from './positions';
 import { DataService } from '../../core/data.service';
 import { IClientPosition } from '../../shared/interfaces';
+import { LoginService } from '../../core/login.service';
 
 @Component({
     selector: 'portfolio-detail',
@@ -12,7 +13,7 @@ export class PortfolioDetailComponent implements OnInit {
   public clientPositions: any[] = [];
     title: string = "";
 
-    constructor(private dataService: DataService) { }
+    constructor(private dataService: DataService, private loginService : LoginService) { }
 
 
     ngOnInit(): void {
@@ -26,7 +27,7 @@ export class PortfolioDetailComponent implements OnInit {
     }
 
     getClientPositions() {
-        this.dataService.getClientPositions()
+        this.dataService.getClientPositions(this.loginService.userId)
             .subscribe((clientPositions: IClientPosition[]) => {
                 this.clientPositions = clientPositions;
             },

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IWithdrawal } from '../../shared/interfaces';
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
+import { LoginService } from '../../core/login.service';
 
 @Component({
   selector: 'account-withdrawal',
@@ -22,7 +23,7 @@ export class AccountWithdrawalComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService, private loginService : LoginService) { }
 
 
   ngOnInit() {
@@ -44,6 +45,8 @@ export class AccountWithdrawalComponent implements OnInit {
   }
 
   submit() {
+    this.withdrawalRequest.clientId = this.loginService.userId;
+
     this.dataService.addWithdrawal(this.withdrawalRequest)
       .subscribe((withdrawal: IWithdrawal) => {
         if (withdrawal) {

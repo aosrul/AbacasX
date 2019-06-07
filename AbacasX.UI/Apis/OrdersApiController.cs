@@ -48,12 +48,12 @@ namespace AbacasX.Apis
         [Route("history")]
         [ProducesResponseType(typeof(List<OrderData>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> OrderHistory()
+        public async Task<ActionResult> OrderHistory(int clientId)
         {
             try
             {
                 //return Ok(new OrderData[] { new OrderData { OrderId = 1, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 1, OrderPriceTerms = OrderPriceTermsEnum.Token1PerToken2, OrderType = OrderTypeEnum.Standard, Token1Id = "AAPL", Token1Amount = 1000, Token2Id = "GOOG", Token2Amount = 100 } });
-                var orders = await _orderService.GetClientHistoricalOrdersAsync(0);
+                var orders = await _orderService.GetClientHistoricalOrdersAsync(clientId);
                 return Ok(orders);
             }
             catch (Exception exp)
@@ -68,11 +68,11 @@ namespace AbacasX.Apis
         [Route("clientPosition")]
         [ProducesResponseType(typeof(List<ClientPositionData>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> ClientPositions()
+        public async Task<ActionResult> ClientPositions(int clientId)
         {
             try
             {
-                var clientPositions = await _orderService.GetClientPositionsAsync(0);
+                var clientPositions = await _orderService.GetClientPositionsAsync(clientId);
                 return Ok(clientPositions);
             }
             catch (Exception exp)
@@ -87,11 +87,11 @@ namespace AbacasX.Apis
         [Route("clientBlockChainTransactions")]
         [ProducesResponseType(typeof(List<ClientPositionData>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> ClientBlockChainTransactions()
+        public async Task<ActionResult> ClientBlockChainTransactions(int clientId)
         {
             try
             {
-                var clientBlockChainTransactions = await _orderService.GetClientBlockChainTransactionsAsync(0);
+                var clientBlockChainTransactions = await _orderService.GetClientBlockChainTransactionsAsync(clientId);
                 return Ok(clientBlockChainTransactions);
             }
             catch (Exception exp)
@@ -101,6 +101,25 @@ namespace AbacasX.Apis
             }
         }
 
+        [HttpGet]
+        [NoCache]
+        [Route("clientOrders")]
+        [ProducesResponseType(typeof(List<OrderData>), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> ClientOrders(int clientId)
+        {
+            try
+            {
+                //return Ok(new OrderData[] { new OrderData { OrderId = 1, BuySellType = OrderLegBuySellEnum.Buy, ClientAccountId = 0, ClientId = 0, OrderPrice = 1, OrderPriceTerms = OrderPriceTermsEnum.Token1PerToken2, OrderType = OrderTypeEnum.Standard, Token1Id = "AAPL", Token1Amount = 1000, Token2Id = "GOOG", Token2Amount = 100 } });
+                var orders = await _orderService.GetClientOrdersAsync(clientId);
+                return Ok(orders);
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
 
         [HttpGet("{id}", Name = "GetOrderRoute")]
         [NoCache]
@@ -242,11 +261,11 @@ namespace AbacasX.Apis
         [Route("clientTransferActivity")]
         [ProducesResponseType(typeof(List<AssetTransferData>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]
-        public async Task<ActionResult> ClientTransferActivity()
+        public async Task<ActionResult> ClientTransferActivity(int clientId)
         {
             try
             {
-                var clientTransferActivity = await _orderService.GetClientTransferActivityAsync(0);
+                var clientTransferActivity = await _orderService.GetClientTransferActivityAsync(clientId);
                 return Ok(clientTransferActivity);
             }
             catch (Exception exp)

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IDeposit } from '../../shared/interfaces';
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
+import { LoginService } from '../../core/login.service';
 
 @Component({
   selector: 'account-deposit',
@@ -22,7 +23,7 @@ export class AccountDepositComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService, private loginService : LoginService) { }
 
 
   ngOnInit() {
@@ -45,6 +46,8 @@ export class AccountDepositComponent implements OnInit {
 
   
   submit() {
+    this.depositRequest.clientId = this.loginService.userId;
+
     this.dataService.addDeposit(this.depositRequest)
       .subscribe((deposit: IDeposit) => {
         if (deposit) {

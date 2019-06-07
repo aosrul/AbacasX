@@ -1,7 +1,8 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/data.service';
 import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, OrderStatusEnum } from '../../shared/interfaces';
 import { orderHistory } from './order-history'
+import { LoginService } from '../../core/login.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class OrderHistoryComponent implements OnInit {
     OrderTypeEnum = OrderTypeEnum;
     OrderStatusEnum = OrderStatusEnum;
 
-    constructor(private dataService: DataService) { }
+    constructor(private dataService: DataService, private loginService : LoginService) { }
 
     ngOnInit(): void {
         this.title = "Historical Orders";
@@ -26,7 +27,7 @@ export class OrderHistoryComponent implements OnInit {
     }
 
     getHistoricalOrders() {
-        this.dataService.getHistoricalOrders()
+      this.dataService.getHistoricalOrders(this.loginService.userId)
             .subscribe((orders: IOrder[]) => {
                 this.orders = orders;
             },

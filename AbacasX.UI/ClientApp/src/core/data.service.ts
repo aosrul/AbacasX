@@ -19,8 +19,8 @@ export class DataService {
 
   constructor(private http: Http) {
   }
-  getClientBlockChainTransactions(): Observable<IClientBlockChainTransaction[]> {
-    return this.http.get(this.baseOrdersUrl + '/' + 'clientBlockChainTransactions')
+  getClientBlockChainTransactions(clientId: number): Observable<IClientBlockChainTransaction[]> {
+    return this.http.get(this.baseOrdersUrl + '/' + 'clientBlockChainTransactions' + '?clientId=' + clientId.toString())
       .map((res: Response) => {
         let clientBlockChainTransactions = res.json();
         return clientBlockChainTransactions;
@@ -29,8 +29,8 @@ export class DataService {
   }
 
 
-  getClientPositions(): Observable<IClientPosition[]> {
-    return this.http.get(this.baseOrdersUrl + '/' + 'clientPosition')
+  getClientPositions(clientId: number): Observable<IClientPosition[]> {
+    return this.http.get(this.baseOrdersUrl + '/' + 'clientPosition' + '?clientId=' + clientId.toString())
       .map((res: Response) => {
         let clientPositions = res.json();
         return clientPositions;
@@ -48,8 +48,17 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  getHistoricalOrders(): Observable<IOrder[]> {
-    return this.http.get(this.baseOrdersUrl + '/' + 'history')
+  getClientOrders(clientId: number): Observable<IOrder[]> {
+    return this.http.get(this.baseOrdersUrl + '/' + 'clientOrders' + '?clientId=' + clientId.toString())
+      .map((res: Response) => {
+        let orders = res.json();
+        return orders;
+      })
+      .catch(this.handleError);
+  }
+
+  getHistoricalOrders(clientId: number): Observable<IOrder[]> {
+    return this.http.get(this.baseOrdersUrl + '/' + 'history' + '?clientId=' + clientId.toString())
       .map((res: Response) => {
         let orders = res.json();
         return orders;
@@ -94,8 +103,8 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  getClientTransferActivity(): Observable<IAssetTransfer[]> {
-    return this.http.get(this.baseOrdersUrl + '/' + 'clientTransferActivity')
+  getClientTransferActivity(clientId: number): Observable<IAssetTransfer[]> {
+    return this.http.get(this.baseOrdersUrl + '/' + 'clientTransferActivity' + '?clientId=' + clientId.toString())
       .map((res: Response) => {
         let transferActivity = res.json();
         return transferActivity;

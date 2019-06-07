@@ -1,8 +1,9 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { transactions } from './blockchain.transactions';
 import { DataService } from '../../core/data.service';
 import { IClientBlockChainTransaction } from '../../shared/interfaces';
+import { LoginService } from '../../core/login.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class BlockchainDetailComponent implements OnInit {
     public clientTransactions: any[] = transactions;
     title: string = "";
 
-    constructor(private dataService: DataService) { }
+    constructor(private dataService: DataService, private loginService : LoginService) { }
 
     ngOnInit(): void {
         this.title = "Blockchain Transactions";
@@ -21,7 +22,7 @@ export class BlockchainDetailComponent implements OnInit {
     }
 
     getClientBlockChainTransactions() {
-        this.dataService.getClientBlockChainTransactions()
+        this.dataService.getClientBlockChainTransactions(this.loginService.userId)
             .subscribe((clientTransactions: IClientBlockChainTransaction[]) => {
                 this.clientTransactions = clientTransactions;
             },
