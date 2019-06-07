@@ -15,6 +15,7 @@ namespace AbacasX.UI.Repository
         public RateRepository()
         {
             _rateServiceClient = new RateServiceClient();
+            _rateServiceClient.RegisterWithRateManagerAsync();
         }
 
         public async Task<string[]> GetAssetListAsync()
@@ -173,6 +174,16 @@ namespace AbacasX.UI.Repository
         public async Task<TokenRateData> GetTokenRateAsync(string Token1Id)
         {
             return await _rateServiceClient.GetTokenRateAsync(Token1Id);
+        }
+
+        public Task RegisterWithRateManagerAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UnRegisterWithRateManagerAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

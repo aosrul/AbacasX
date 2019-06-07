@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AbacasX.Model.DataContracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -54,6 +55,13 @@ namespace AbacasWebX.Rate.Contracts
 
         [OperationContract]
         TokenRateData GetTokenRate(string Token1Id);
+
+        [OperationContract]
+        void RegisterWithRateManager();
+
+        [OperationContract]
+        void UnRegisterWithRateManager();
+
     }
 
     public interface IRateServiceCallBack

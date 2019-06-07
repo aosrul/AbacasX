@@ -42,13 +42,19 @@ namespace AbacasX.UI.Apis
             if (UserDictionary.Count() == 0)
             {
                 UserClass[] users = new UserClass[] {
-                new UserClass { UserName = "TradezDigital",     Password = "Abacas123", Role = "Investor", clientId = 1 },
-                new UserClass { UserName = "DigitalBroker",     Password = "Abacas123", Role = "Broker", clientId = 2 },
-                new UserClass { UserName = "DigitalInvestor",   Password = "Abacas123", Role = "Investor", clientId = 3 },
-                new UserClass { UserName = "AbacasAdmin",       Password = "Abacas123", Role = "Admin", clientId = 0 },
+                new UserClass { UserName = "AbacasAdmin",       Password = "Abacas123", Role = "Admin",     clientId = 0 },
                 new UserClass { UserName = "KingdomTrust",      Password = "Abacas123", Role = "Custodian", clientId = 0 },
-                new UserClass { UserName = "Guest",             Password = "Guest123", Role = "Guest", clientId = 0 },
-                new UserClass { UserName = "AbacasOps",         Password = "Abacas123", Role = "Ops", clientId = 0 }};
+                new UserClass { UserName = "Guest",             Password = "Guest123", Role = "Guest",      clientId = 0 },
+                new UserClass { UserName = "AbacasOps",         Password = "Abacas123", Role = "Ops",       clientId = 0 },
+
+                new UserClass { UserName = "TradezDigital",     Password = "Abacas123", Role = "Investor",  clientId = 1 },
+                new UserClass { UserName = "DigitalBroker",     Password = "Abacas123", Role = "Broker",    clientId = 2 },
+                new UserClass { UserName = "DigitalInvestor",   Password = "Abacas123", Role = "Investor",  clientId = 3 },
+
+                new UserClass { UserName = "VinceSmall",        Password = "Abacas123", Role = "Investor",    clientId = 4 },
+                new UserClass { UserName = "MarkVanRoon",       Password = "Abacas123", Role = "Investor",    clientId = 5 },
+
+                };
 
                 foreach (UserClass userRecord in users)
                 {
@@ -79,7 +85,8 @@ namespace AbacasX.UI.Apis
                     claims: new List<Claim> {
                         new Claim(ClaimTypes.System,"AbacasXChange"),
                         new Claim(ClaimTypes.Name, user.UserName),
-                        new Claim(ClaimTypes.Role, loginAccount.Role)
+                        new Claim(ClaimTypes.Role, loginAccount.Role),
+                        new Claim(ClaimTypes.NameIdentifier, loginAccount.clientId.ToString()),
                     },
                     expires: DateTime.Now.AddMinutes(15),
                     signingCredentials: signinCredentials

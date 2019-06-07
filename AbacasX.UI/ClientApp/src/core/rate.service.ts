@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, IStreamResult } from '@aspnet/signalr'
-import signalR = require('@aspnet/signalr');
+//import signalR = require('@aspnet/signalr');
 
 @Injectable()
 export class rateSignalRService {
@@ -18,7 +18,7 @@ export class rateSignalRService {
   private createConnection() {
     this._rateHubConnection = new HubConnectionBuilder()
       .withUrl('/rate')
-      .configureLogging(signalR.LogLevel.Debug)
+      //.configureLogging(signalR.LogLevel.Debug)
       .build();
   }
 

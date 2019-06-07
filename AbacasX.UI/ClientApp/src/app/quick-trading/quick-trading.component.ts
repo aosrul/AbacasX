@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core
 import { Router } from '@angular/router';
 import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, OrderStatusEnum } from '../../shared/interfaces';
 import { DataService } from '../../core/data.service';
+import { LoginService } from '../../core/login.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   OrderDescription: string = "Buy @AAPL with @GOOG";
 
   constructor(private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService, private loginService: LoginService) { }
 
   quickOrder: IOrder = {
     clientId: 0,
@@ -76,6 +77,8 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   }
 
   submit() {
+    this.quickOrder.clientId = this.loginService.userId;
+
     this.dataService.addOrder(this.quickOrder)
       .subscribe((order: IOrder) => {
         if (order) {
@@ -164,6 +167,8 @@ export class QuickTradingComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
+
+    this.quickOrder.clientId = this.loginService.userId;
 
     if (this.quickOrder.buySellType == BuySellTypeEnum.Buy)
       this.quickOrder.orderPrice = this.TokenExchangeAsk;

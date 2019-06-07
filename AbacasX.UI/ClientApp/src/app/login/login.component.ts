@@ -9,7 +9,6 @@ import { RoleTypeEnum, LoginResults } from '../../shared/interfaces';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
   @Output() roleUpdated = new EventEmitter<RoleTypeEnum>();
@@ -18,15 +17,16 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   userRole: RoleTypeEnum = RoleTypeEnum.Investor;
+  userId: number = 0;
   
 
   constructor(private loginService: LoginService, private router: Router, private http: HttpClient)
   {
-
     loginService.loginEvent.subscribe((loginResults: LoginResults) => {
       this.validLogin = loginResults.successfulLogin;
       this.userRole = loginResults.userRole;
       this.username = loginResults.userName;
+      this.userId = loginResults.userId;
 
       console.log(`New Login for user ${this.username} with role of ${this.userRole}`);
 
@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       this.userRole = RoleTypeEnum.Guest;
       this.username = null;
       this.roleUpdated.emit(this.userRole);
+      this.userId = 0;
 
       this.router.navigate(["/"]);
       });
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
 
       this.username = null;
       this.validLogin = false;
+      this.userId = 0;
       this.userRole = this.loginService.userRole;
       this.roleUpdated.emit(this.userRole);
 

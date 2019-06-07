@@ -4,45 +4,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AbacasWebX.Rate.Contracts
+namespace AbacasX.Model.DataContracts
 {
     [DataContract]
-    public class CurrencyPairRateData
+    public class AssetRateData
     {
         [DataMember]
-        public string Currency1 { get; set; }
+        public string AssetId { get; set; }
 
         [DataMember]
-        public RateTermsEnum Currency1RateTerms { get; set; }
+        public string PriceCurrency { get; set; }
 
         [DataMember]
-        public double Currency1BidRate { get; set; }
+        public RateTermsEnum RateTerms { get; set; }
 
         [DataMember]
-        public double Currency1AskRate { get; set; }
+        public int RateProviderId { get; set; }
 
         [DataMember]
-        public string Currency2 { get; set; }
-
-        [DataMember]
-        public RateTermsEnum Currency2RateTerms { get; set; }
-
-        [DataMember]
-        public double Currency2BidRate { get; set; }
-
-        [DataMember]
-        public double Currency2AskRate { get; set; }
+        public string RateProviderCode { get; set; }
 
         [DataMember]
         public double BidRate { get; set; }
 
         [DataMember]
         public double AskRate { get; set; }
-
-        [DataMember]
-        public CurrencyPairRateTermsEnum RateTerms { get; set; }
 
         [DataMember]
         public RateChangeEnum BidRateChangeType { get; set; }

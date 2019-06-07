@@ -1,4 +1,5 @@
 ﻿using AbacasWebX.Rate.Contracts;
+using AbacasX.Model.DataContracts;
 using AbacasX.Model.Extensions;
 using AbacasX.Model.Models;
 using AbacasX.Model.ViewModels;
@@ -13,6 +14,27 @@ using System.Web;
 
 namespace AbacasWebX.Rate.Services
 {
+    #region Listeners
+
+    #region Registered Listener
+    public class RegisteredListener
+    {
+        public string SessionId;
+        public bool connected;
+
+        public void Channel_Faulted(object sender, EventArgs e)
+        {
+            Console.WriteLine("Connection Faulted for session ID {0}", SessionId);
+        }
+
+        public void Channel_Closed(object sender, EventArgs e)
+        {
+            Console.WriteLine("Channel was closed for session ID {0}", SessionId);
+        }
+    }
+
+    #endregion
+
     #region Asset Rate Listener
     // Asset Rate Listener
 
@@ -53,8 +75,8 @@ namespace AbacasWebX.Rate.Services
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Exception on Rate Update to client {0}", ex.Message);
                     connected = false;
+                    throw new Exception(string.Format("Asset Rate Update {0}", ex.Message), ex);
                 }
             }
         }
@@ -102,8 +124,8 @@ namespace AbacasWebX.Rate.Services
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Exception on Token Rate Update to client {0}", ex.Message);
                     connected = false;
+                    throw new Exception(string.Format("Exception on Token Rate Update to client {0}", ex.Message), ex);
                 }
             }
         }
@@ -151,8 +173,8 @@ namespace AbacasWebX.Rate.Services
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Exception on Currency Pair Rate Update to client {0}", ex.Message);
                     connected = false;
+                    throw new Exception(String.Format("Exception on Currency Pair Rate Update to client {0}", ex.Message), ex);
                 }
             }
         }
@@ -200,14 +222,17 @@ namespace AbacasWebX.Rate.Services
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Exception on Token Pair Rate Update to client {0}", ex.Message);
                     connected = false;
+                    throw new Exception(string.Format("Exception on Token Pair Rate Update {0}", ex.Message), ex);
                 }
             }
         }
     }
     #endregion
 
+    #endregion
+
+    #region View Models
     public class AssetRateViewModel : IDisposable
     {
         public Subject<AssetRateData> _subject;
@@ -559,7 +584,7 @@ namespace AbacasWebX.Rate.Services
 
         public void UpdateTokenRate(TokenRateData tokenRateRecord)
         {
-            Console.WriteLine("Updating Token Rate for {0} Bid/Offer {1}/{2}", tokenRateRecord.TokenId, tokenRateRecord.BidRate, tokenRateRecord.AskRate);
+            //Console.WriteLine("Updating Token Rate for {0} Bid/Offer {1}/{2}", tokenRateRecord.TokenId, tokenRateRecord.BidRate, tokenRateRecord.AskRate);
 
             if (tokenRateRecord.TokenId == tokenPairRateRecord.Token1Id)
             {
@@ -598,6 +623,10 @@ namespace AbacasWebX.Rate.Services
             disposeOfCurrencyPairSubscription.Dispose();
         }
     }
+
+    #endregion
+
+    #region Rate Managers
 
     /// <summary>
     /// Currently, the Asset Rate Manager is pre-populated with a set of pre-defined assets, but this will change such that assets are
@@ -698,24 +727,31 @@ namespace AbacasWebX.Rate.Services
             TokenPairRateViewModel tokenPairRateViewModelRecord = null;
             String TokenPairKey = token1Id.Trim() + " - " + token2Id.Trim();
 
-            lock (tokenPairRateListLock)
+            try
             {
-                if (tokenPairRateList.TryGetValue(TokenPairKey, out tokenPairRateViewModelRecord) == false)
+                lock (tokenPairRateListLock)
                 {
-                    TokenRateViewModel tokenRateRecord1;
-                    TokenRateViewModel tokenRateRecord2;
-
-                    if (_tokenRateManager.tokenRateList.TryGetValue(token1Id, out tokenRateRecord1) == true)
+                    if (tokenPairRateList.TryGetValue(TokenPairKey, out tokenPairRateViewModelRecord) == false)
                     {
-                        if (_tokenRateManager.tokenRateList.TryGetValue(token2Id, out tokenRateRecord2) == true)
+                        TokenRateViewModel tokenRateRecord1;
+                        TokenRateViewModel tokenRateRecord2;
+
+                        if (_tokenRateManager.tokenRateList.TryGetValue(token1Id, out tokenRateRecord1) == true)
                         {
-                            tokenPairRateViewModelRecord = new TokenPairRateViewModel(token1Id, token2Id, _tokenRateManager, _currencyPairRateManager);
+                            if (_tokenRateManager.tokenRateList.TryGetValue(token2Id, out tokenRateRecord2) == true)
+                            {
+                                tokenPairRateViewModelRecord = new TokenPairRateViewModel(token1Id, token2Id, _tokenRateManager, _currencyPairRateManager);
 
-                            tokenPairRateList.TryAdd(TokenPairKey, tokenPairRateViewModelRecord);
+                                tokenPairRateList.TryAdd(TokenPairKey, tokenPairRateViewModelRecord);
+                            }
                         }
-                    }
 
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Format("Error obtaining TokenPairRate {0}", ex.Message), ex);
             }
 
             return tokenPairRateViewModelRecord;
@@ -738,6 +774,16 @@ namespace AbacasWebX.Rate.Services
         }
     }
 
+    #endregion
+
+    /// <summary>
+    /// The Rate Manager Service is the primary service for subscribing to base asset rates from various rate feeds
+    /// which are then fed into various system rates including Asset Rates, Token Rates, Currency Pair Rates and Token Pair Rates
+    /// A subscribing client system can access individual rates at each level as well as a feed of rates from each
+    /// category.
+    /// This service uses the WCF infrastructure, and is a single instance, with concurrent connections running in a multi-threaded
+    /// manner.
+    /// </summary>
     [ServiceBehavior(UseSynchronizationContext = false, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class RateManager : IRateService
     {
@@ -748,6 +794,7 @@ namespace AbacasWebX.Rate.Services
         static public ConcurrentDictionary<string, TokenRateListener> tokenRateSubscriptions = new ConcurrentDictionary<string, TokenRateListener>();
         static public ConcurrentDictionary<string, CurrencyPairRateListener> currencyPairRateSubscriptions = new ConcurrentDictionary<string, CurrencyPairRateListener>();
         static public ConcurrentDictionary<string, TokenPairRateListener> tokenPairRateSubscriptions = new ConcurrentDictionary<string, TokenPairRateListener>();
+        static public ConcurrentDictionary<string, RegisteredListener> registeredListenerSubscription = new ConcurrentDictionary<string, RegisteredListener>();
 
         public AssetRateManager assetRateManager;
         public CurrencyPairRateManager currencyPairRateManager;
@@ -755,6 +802,9 @@ namespace AbacasWebX.Rate.Services
         public TokenPairRateManager tokenPairRateManager;
 
         // Listener Lists and Locks
+        static public object RegisteredListenerLock = new object();
+
+
         static public object AssetRateListenerLock = new object();
         static public object AssetListLock = new object();
 
@@ -783,16 +833,23 @@ namespace AbacasWebX.Rate.Services
             tokenRateManager = new TokenRateManager();
             tokenPairRateManager = new TokenPairRateManager(tokenRateManager, currencyPairRateManager);
 
-
-            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 179.85, AskRate = 180 });
-            baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1140, AskRate = 1141 });
-            baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 127, AskRate = 127 });
-            baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1283, AskRate = 1283 });
-            baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 8012, AskRate = 8012 });
+            /* This section will be replaced with a load of asset definitions (base assets) from the Abacas Repository
+             * and then rates subscribed from the appropriate price feed.
+             */
+            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 178.24, AskRate = 178.24 });
+            baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1119, AskRate = 1120 });
+            baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 125.06, AskRate = 125.06 });
+            baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1279, AskRate = 1279 });
+            baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 8772, AskRate = 8772 });
             baseAssetList.TryAdd("USD", new AssetRate { AssetId = "USD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1, AskRate = 1 });
-            baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 251, AskRate = 251 });
-            baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 43.655, AskRate = 43.655 });
-            baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.1188, AskRate = 1.1188 });
+            baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 283, AskRate = 283 });
+            baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 41.595, AskRate = 41.595 });
+            baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.1125, AskRate = 1.1125 });
+
+            // Asset Rates are 1:1 with the Base Asset Table
+            // Token Rates will also be loaded from a token definition table, and thus there could be more than one token
+            // per base asset.
+            // Currency pairs and Token Pairs will be loaded on-the-fly as needed and removed once there is no subscriptions to those rates.
 
             foreach (AssetRate a in baseAssetList.Values)
             {
@@ -923,10 +980,7 @@ namespace AbacasWebX.Rate.Services
 
             lock (assetRateManager.assetRateListLock)
             {
-                foreach (AssetRateViewModel a in assetRateManager.assetRateList.Values)
-                {
-                    assetRateDataList.Add(a.assetRateDataRecord);
-                }
+                assetRateDataList = assetRateManager.assetRateList.Values.ToList().Select(s => { return s.assetRateDataRecord; }).ToList();
             }
 
             return assetRateDataList;
@@ -940,14 +994,10 @@ namespace AbacasWebX.Rate.Services
         public List<TokenRateData> GetTokenRateList()
         {
             List<TokenRateData> tokenRateDataList = new List<TokenRateData>();
-            TokenRateData tokenRateDataRecord = new TokenRateData();
 
             lock (tokenRateManager.tokenRateListLock)
             {
-                foreach (TokenRateViewModel t in tokenRateManager.tokenRateList.Values)
-                {
-                    tokenRateDataList.Add(t.tokenRateRecord);
-                }
+                tokenRateDataList = tokenRateManager.tokenRateList.Values.ToList().Select(s => { return s.tokenRateRecord;}).ToList();
             }
 
             return tokenRateDataList;
@@ -1266,7 +1316,18 @@ namespace AbacasWebX.Rate.Services
         {
             TokenPairRateViewModel tokenPairRateViewModelRecord;
 
-            tokenPairRateViewModelRecord = tokenPairRateManager.GetTokenPairRateView(Token1, Token2);
+            Console.WriteLine("Requesting Token Pair Rate for {0}/{1} Connection Session Id {2}", Token1, Token2, OperationContext.Current.SessionId);
+            
+            try
+            {
+                tokenPairRateViewModelRecord = tokenPairRateManager.GetTokenPairRateView(Token1, Token2);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(String.Format("Get TokenPair Rate Exception {0}", ex.Message), ex);
+            }
+
+            Console.WriteLine("Returning Token Pair Rate for {0}/{1} Connection Session Id {2} Bid Rate {3}", Token1, Token2, OperationContext.Current.SessionId, tokenPairRateViewModelRecord.tokenPairRateRecord.BidRate);
 
             return tokenPairRateViewModelRecord.tokenPairRateRecord;
         }
@@ -1290,6 +1351,32 @@ namespace AbacasWebX.Rate.Services
             }
 
             return tokenRateDataRecord;
+        }
+
+        public void RegisterWithRateManager()
+        {
+            RegisteredListener registeredListenerRecord = new RegisteredListener();
+
+            lock (RegisteredListenerLock)
+            {
+                if (registeredListenerSubscription.TryGetValue(OperationContext.Current.SessionId, out registeredListenerRecord) != true)
+                {
+                    registeredListenerRecord = new RegisteredListener();
+                    registeredListenerRecord.SessionId = OperationContext.Current.SessionId;
+                    registeredListenerRecord.connected = true;
+
+                    OperationContext.Current.Channel.Faulted += registeredListenerRecord.Channel_Faulted;
+                    OperationContext.Current.Channel.Closed += registeredListenerRecord.Channel_Closed;
+
+                    registeredListenerSubscription.TryAdd(OperationContext.Current.SessionId, registeredListenerRecord);
+                }
+
+            }
+        }
+
+        public void UnRegisterWithRateManager()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

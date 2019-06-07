@@ -5,7 +5,7 @@
     "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
   },
   "ExtendedData": {
-    "Uri": "http://localhost:58984/OrderManagerService.svc",
+    "Uri": "http://localhost:8084",
     "Namespace": "OrderService",
     "SelectedAccessLevelForGeneratedClass": "Public",
     "GenerateMessageContract": false,

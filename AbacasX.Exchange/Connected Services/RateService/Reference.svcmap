@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="32601bf0-fcb8-493f-87dd-be322601d386" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:62716/RateManagerService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RateManagerService.xsd" MetadataType="Schema" ID="949c5d23-b312-47a8-8cf5-d27dda6be0f4" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd4" />
+    <MetadataFile FileName="RateManagerService1.xsd" MetadataType="Schema" ID="6875a8ab-5942-43b3-9563-1839b75eccd6" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd5" />
+    <MetadataFile FileName="RateManagerService2.xsd" MetadataType="Schema" ID="1fcd7578-eb20-4bff-a1f1-4b980b245519" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RateManagerService3.xsd" MetadataType="Schema" ID="e30fa70c-0375-4be9-be96-b4c3772360cd" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd3" />
+    <MetadataFile FileName="RateManagerService4.xsd" MetadataType="Schema" ID="9bd4400d-39ae-42da-9d77-335442c03581" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="RateManagerService5.xsd" MetadataType="Schema" ID="a566ee65-87e5-406e-b179-111c1691cff5" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RateManager.wsdl" MetadataType="Wsdl" ID="d972eadd-368d-40bf-b370-701a43112434" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?wsdl" />
+    <MetadataFile FileName="RateManagerService.disco" MetadataType="Disco" ID="b020c574-773b-479f-8f1e-f58281806465" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

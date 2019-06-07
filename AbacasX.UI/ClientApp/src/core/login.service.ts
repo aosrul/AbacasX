@@ -11,6 +11,7 @@ export class LoginService {
   username: string = "";
   validLogin: boolean = false;
   userRole: RoleTypeEnum = RoleTypeEnum.Guest;
+  userId: number = 0.0;
 
   loginEvent = new EventEmitter<LoginResults>();
   logoutEvent = new EventEmitter<boolean>();
@@ -22,6 +23,8 @@ export class LoginService {
   login(username: string, password: string, credentials: string) {
 
     this.username = username;
+    this.userId = 0;
+
     let loginResults = { } as LoginResults;
  
     this.http.post("/api/auth/login", credentials,
@@ -39,6 +42,7 @@ export class LoginService {
 
         this.validLogin = false;
         this.userRole = RoleTypeEnum.Guest;
+        this.userId = 0;
 
         // Extracting the Role from the JWT Token
         var tokenObj = this.jwtHelperService.decodeToken(token);
@@ -46,9 +50,10 @@ export class LoginService {
 
         for (var key in tokenObj) {
           var keyValue = tokenObj[key];
-          if (typeof key === "string") {
-            if (key.search('(claims\/role)') != -1) {
 
+          if (typeof key === "string") {
+
+            if (key.search('(claims\/role)') != -1) {
               switch (keyValue) {
                 case 'Investor': this.userRole = RoleTypeEnum.Investor;
                   this.validLogin = true;
@@ -74,9 +79,17 @@ export class LoginService {
               }
               console.log(`User Role is ${keyValue}`);
             }
+
+            if (key.search('(claims\/nameidentifier)') != -1)
+            {
+              this.userId = Number(keyValue);
+              console.log(`UserId is ${keyValue}`);
+              console.log('this.UserId is', this.userId);
+            }
           }
         }
 
+        loginResults.userId = this.userId;
         loginResults.userName = username;
         loginResults.userRole = this.userRole;
         loginResults.successfulLogin = this.validLogin;
@@ -91,10 +104,12 @@ export class LoginService {
 
         this.username = "Guest";
         this.validLogin = false;
+        this.userId = 0;
 
         loginResults.userRole = RoleTypeEnum.Guest;
         loginResults.successfulLogin = false;
         loginResults.userName = this.username;
+        loginResults.userId = 0;
 
         this.loginEvent.emit(loginResults);
       });
@@ -106,6 +121,7 @@ export class LoginService {
     this.validLogin = false;
     this.username = null;
     this.userRole = RoleTypeEnum.Guest;
+    this.userId = 0;
 
     this.logoutEvent.emit(true);
   }

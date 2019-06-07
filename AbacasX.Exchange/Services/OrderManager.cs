@@ -10,6 +10,8 @@ using System.ServiceModel;
 using System.Threading;
 using System.Collections.Concurrent;
 using System.Security.Cryptography;
+using AbacasX.Exchange.ExchangeSystem;
+using AbacasX.Model.Extensions;
 
 public class KeyPairData
 {
@@ -31,6 +33,7 @@ namespace AbacasX.Exchange.Services
         ConcurrentDictionary<string, AssetDepositData> DepositNotifications = new ConcurrentDictionary<string, AssetDepositData>();
         ConcurrentDictionary<string, AssetWithdrawalData> WithdrawalRequests = new ConcurrentDictionary<string, AssetWithdrawalData>();
         ConcurrentDictionary<string, AssetTransferData> AssetTransfers = new ConcurrentDictionary<string, AssetTransferData>();
+        ExchangeBook _exchangeBook;
 
 
 
@@ -46,6 +49,8 @@ namespace AbacasX.Exchange.Services
         public OrderManager()
         {
             Console.Title = "AbacasX Exchange Service";
+
+            _exchangeBook = new ExchangeBook();
 
 
             ClientPositionData basePosition = new ClientPositionData { TokenId = "@USD", TokenAmount = 1000000m, TokenRate = 1.0m, TokenRateIn = "USD", TokenValue = 1000000 };
@@ -216,7 +221,7 @@ namespace AbacasX.Exchange.Services
                 {
                     _fillingOpenOrders = true;
 
-                    Console.WriteLine("Filling Open Orders .. Count {0}", orderFillCount++);
+                    //Console.WriteLine("Filling Open Orders .. Count {0}", orderFillCount++);
 
                     foreach (var order in ClientOrders)
                     {
@@ -236,7 +241,7 @@ namespace AbacasX.Exchange.Services
 
                     // Add the processing of transfer requests
 
-                    Console.WriteLine("Processing Asset Transfer Requests");
+                    //Console.WriteLine("Processing Asset Transfer Requests");
 
                     foreach (var transfer in AssetTransfers)
                     {
@@ -274,7 +279,6 @@ namespace AbacasX.Exchange.Services
                 }
             }
         }
-
 
         private void addTransferToBlockChain(AssetTransferData transferRequest)
         {
@@ -454,7 +458,7 @@ namespace AbacasX.Exchange.Services
         public List<OrderData> GetClientOrders(int ClientId)
         {
             Console.WriteLine("TradezDigital Request for Open Orders");
-            Console.WriteLine("{0} Orders Returned", ClientOrders.Values.Count());
+            Console.WriteLine("Client Id {0} with {1} Orders Returned", ClientId, ClientOrders.Values.Count());
 
             return ClientOrders.Values.ToList();
         }
@@ -481,6 +485,8 @@ namespace AbacasX.Exchange.Services
 
         public OrderData AddOrder(OrderData orderData)
         {
+            OrderLeg orderLegRecord = new OrderLeg();
+            orderLegRecord.Order = new Order();
 
             Console.WriteLine("TradezDigital -- Add Order");
             Console.WriteLine("Order Details {0}", Newtonsoft.Json.JsonConvert.SerializeObject(orderData));
@@ -488,9 +494,36 @@ namespace AbacasX.Exchange.Services
 
             orderCount++;
             orderData.OrderId = orderCount;
-            ClientOrders.TryAdd(orderData.OrderId, orderData);
 
-            Console.WriteLine("Trade {0} Added", orderData.OrderId);
+            orderData.CopyPropertiesTo(orderLegRecord);
+
+            orderLegRecord.Order.ClientId = orderData.ClientId;
+            
+            orderLegRecord.OrderId = orderData.OrderId;
+            orderLegRecord.OrderLegId = orderCount;
+            orderLegRecord.OrderLegCreatedDateTime = DateTime.Now;
+            orderLegRecord.BuySellType = orderData.BuySellType;
+            orderLegRecord.OrderLegFillStatus = OrderLegFillStatusEnum.None;
+            orderLegRecord.OrderLegStatus = OrderLegStatusEnum.Active;
+            orderLegRecord.OrderPriceTerms = orderData.OrderPriceTerms;
+            orderLegRecord.OrderLegType = orderData.OrderType == OrderTypeEnum.Market ? OrderLegTypeEnum.Market : OrderLegTypeEnum.Limit;
+            orderLegRecord.Token1AccountId = 0;
+            orderLegRecord.Token2AccountId = 0;
+            orderLegRecord.Token1Id = orderData.Token1Id;
+            orderLegRecord.Token2Id = orderData.Token2Id;
+            orderLegRecord.Token1Amount = orderData.Token1Amount;
+            orderLegRecord.Token2Amount = orderData.Token2Amount;
+            orderLegRecord.OrderPrice = orderData.OrderPrice;
+            orderLegRecord.OrderPriceTerms = orderData.OrderPriceTerms;
+           
+
+            lock (OrderListLock)
+            {
+                ClientOrders.TryAdd(orderData.OrderId, orderData);
+                _exchangeBook.AddOrderToExchange(orderLegRecord);
+            }
+
+            Console.WriteLine("Client {0} Trade {0} Added", orderData.ClientId, orderData.OrderId);
 
             return (orderData);
         }

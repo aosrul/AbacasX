@@ -77,6 +77,7 @@ export class LoginResults {
   public successfulLogin: boolean;
   public userName: string;
   public userRole: RoleTypeEnum;
+  public userId: number;
 }
 
 export interface ILineData {

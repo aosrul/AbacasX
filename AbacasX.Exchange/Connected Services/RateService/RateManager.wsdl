@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RateManager" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetHttpBinding_IRateService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
+      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" />
+      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IRateService_SubscribeToAssetRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToAssetRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToAssetRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToAssetRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToAssetRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToAssetRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToAssetRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToAssetRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToCurrencyPairRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToCurrencyPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToCurrencyPairRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToCurrencyPairRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToCurrencyPairRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToCurrencyPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToCurrencyPairRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToCurrencyPairRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToTokenPairRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToTokenPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToTokenPairRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToTokenPairRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToTokenPairRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToTokenPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToTokenPairRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToTokenPairRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToTokenRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToTokenRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToTokenRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToTokenRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToTokenRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToTokenRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeToTokenRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeToTokenRateUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeAllRateUpdates_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeAllRateUpdates" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnSubscribeAllRateUpdates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnSubscribeAllRateUpdatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetAssetList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssetList" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetAssetList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssetListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenList" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetAssetRateList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssetRateList" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetAssetRateList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAssetRateListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenRateList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenRateList" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenRateList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenRateListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenPairRate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenPairRate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenPairRate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenPairRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenRate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenRate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenRate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_RegisterWithRateManager_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterWithRateManager" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_RegisterWithRateManager_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterWithRateManagerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnRegisterWithRateManager_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnRegisterWithRateManager" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_UnRegisterWithRateManager_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UnRegisterWithRateManagerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_AssetRateUpdate_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:AssetRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_CurrencyPairRateUpdate_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:CurrencyPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_TokenRateUpdate_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:TokenRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_TokenPairRateUpdate_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:TokenPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:portType msc:usingSession="true" name="IRateService">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SubscribeToAssetRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/SubscribeToAssetRateUpdate" message="tns:IRateService_SubscribeToAssetRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/SubscribeToAssetRateUpdateResponse" message="tns:IRateService_SubscribeToAssetRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnSubscribeToAssetRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToAssetRateUpdate" message="tns:IRateService_UnSubscribeToAssetRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToAssetRateUpdateResponse" message="tns:IRateService_UnSubscribeToAssetRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SubscribeToCurrencyPairRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/SubscribeToCurrencyPairRateUpdate" message="tns:IRateService_SubscribeToCurrencyPairRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/SubscribeToCurrencyPairRateUpdateResponse" message="tns:IRateService_SubscribeToCurrencyPairRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnSubscribeToCurrencyPairRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToCurrencyPairRateUpdate" message="tns:IRateService_UnSubscribeToCurrencyPairRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToCurrencyPairRateUpdateResponse" message="tns:IRateService_UnSubscribeToCurrencyPairRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SubscribeToTokenPairRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdate" message="tns:IRateService_SubscribeToTokenPairRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdateResponse" message="tns:IRateService_SubscribeToTokenPairRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnSubscribeToTokenPairRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdate" message="tns:IRateService_UnSubscribeToTokenPairRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdateResponse" message="tns:IRateService_UnSubscribeToTokenPairRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SubscribeToTokenRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/SubscribeToTokenRateUpdate" message="tns:IRateService_SubscribeToTokenRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/SubscribeToTokenRateUpdateResponse" message="tns:IRateService_SubscribeToTokenRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnSubscribeToTokenRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToTokenRateUpdate" message="tns:IRateService_UnSubscribeToTokenRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToTokenRateUpdateResponse" message="tns:IRateService_UnSubscribeToTokenRateUpdate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnSubscribeAllRateUpdates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdates" message="tns:IRateService_UnSubscribeAllRateUpdates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdatesResponse" message="tns:IRateService_UnSubscribeAllRateUpdates_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAssetList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetAssetList" message="tns:IRateService_GetAssetList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetAssetListResponse" message="tns:IRateService_GetAssetList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenList" message="tns:IRateService_GetTokenList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenListResponse" message="tns:IRateService_GetTokenList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAssetRateList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetAssetRateList" message="tns:IRateService_GetAssetRateList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetAssetRateListResponse" message="tns:IRateService_GetAssetRateList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenRateList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenRateList" message="tns:IRateService_GetTokenRateList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenRateListResponse" message="tns:IRateService_GetTokenRateList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenPairRate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenPairRate" message="tns:IRateService_GetTokenPairRate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenPairRateResponse" message="tns:IRateService_GetTokenPairRate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenRate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenRate" message="tns:IRateService_GetTokenRate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenRateResponse" message="tns:IRateService_GetTokenRate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RegisterWithRateManager">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/RegisterWithRateManager" message="tns:IRateService_RegisterWithRateManager_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/RegisterWithRateManagerResponse" message="tns:IRateService_RegisterWithRateManager_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnRegisterWithRateManager">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnRegisterWithRateManager" message="tns:IRateService_UnRegisterWithRateManager_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnRegisterWithRateManagerResponse" message="tns:IRateService_UnRegisterWithRateManager_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="AssetRateUpdate">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/AssetRateUpdate" message="tns:IRateService_AssetRateUpdate_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="CurrencyPairRateUpdate">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/CurrencyPairRateUpdate" message="tns:IRateService_CurrencyPairRateUpdate_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="TokenRateUpdate">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/TokenRateUpdate" message="tns:IRateService_TokenRateUpdate_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="TokenPairRateUpdate">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/TokenPairRateUpdate" message="tns:IRateService_TokenPairRateUpdate_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetHttpBinding_IRateService" type="tns:IRateService">
+    <wsp:PolicyReference URI="#NetHttpBinding_IRateService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/websocket" />
+    <wsdl:operation name="SubscribeToAssetRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/SubscribeToAssetRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribeToAssetRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/UnSubscribeToAssetRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeToCurrencyPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/SubscribeToCurrencyPairRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribeToCurrencyPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/UnSubscribeToCurrencyPairRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeToTokenPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribeToTokenPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubscribeToTokenRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/SubscribeToTokenRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribeToTokenRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/UnSubscribeToTokenRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnSubscribeAllRateUpdates">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/UnSubscribeAllRateUpdates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAssetList">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetAssetList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTokenList">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAssetRateList">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetAssetRateList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTokenRateList">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenRateList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTokenPairRate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenPairRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTokenRate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterWithRateManager">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/RegisterWithRateManager" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UnRegisterWithRateManager">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/UnRegisterWithRateManager" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssetRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/AssetRateUpdate" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CurrencyPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/CurrencyPairRateUpdate" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TokenRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/TokenRateUpdate" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TokenPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/TokenPairRateUpdate" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RateManager">
+    <wsdl:port name="NetHttpBinding_IRateService" binding="tns:NetHttpBinding_IRateService">
+      <soap12:address location="ws://localhost:62716/RateManagerService.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>ws://localhost:62716/RateManagerService.svc</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

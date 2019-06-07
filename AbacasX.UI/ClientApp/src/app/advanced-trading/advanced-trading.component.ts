@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core
 import { IQuickOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, TokenPairRate, OrderStatusEnum, IOrder } from '../../shared/interfaces';
 import { DataService } from '../../core/data.service';
 import { Router } from '@angular/router';
+import { LoginService } from '../../core/login.service';
 
 
 @Component({
@@ -67,7 +68,7 @@ export class AdvancedTradingComponent implements OnInit {
   };
 
   constructor(private router: Router,
-    private dataService: DataService) {
+    private dataService: DataService, private loginService: LoginService) {
     this.orderExpirationTime.setHours(17, 0, 0);
   };
 
@@ -108,6 +109,8 @@ export class AdvancedTradingComponent implements OnInit {
   }
 
   submit() {
+
+    this.quickOrder.ClientId = this.loginService.userId;
 
     this.order.token1Id = this.quickOrder.Token1Id;
     this.order.token2Id = this.quickOrder.Token2Id;
@@ -234,6 +237,8 @@ export class AdvancedTradingComponent implements OnInit {
     // Initial setup is to Buy Token 1, thus the offer on Token1, Bid on token 2
     // Buying token1 means selling currency1 and buying currency 2
     // thus the offer on currency2 - currency1.
+
+    this.quickOrder.ClientId = this.loginService.userId;
 
     this.token1Rate = this.TokenPairRate.token1AskRate;
     this.token2Rate = this.TokenPairRate.token2BidRate;
