@@ -95,7 +95,6 @@
     <Compile Include="Contracts\ClientPositionData.cs" />
     <Compile Include="Contracts\IOrderService.cs" />
     <Compile Include="Contracts\OrderData.cs" />
-    <Compile Include="Contracts\TokenRateData.cs" />
     <Compile Include="CustomHostFactory.cs" />
     <Compile Include="ExchangeSystem\ExchangeBook.cs" />
     <Compile Include="ExchangeSystem\OrderBook.cs" />

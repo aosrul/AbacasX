@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a9ad53cb-9411-472b-9fea-b01ad8545079" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6d6df301-3c59-412e-8957-94e10cf158e5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,17 +19,17 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:62716/RateManagerService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="RateManagerService.xsd" MetadataType="Schema" ID="0bb2bb40-3be8-4345-9cf5-b12efc44b8b0" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd4" />
-    <MetadataFile FileName="RateManagerService1.xsd" MetadataType="Schema" ID="5168db8a-1e5e-458b-874a-67ab26ba6dee" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd5" />
-    <MetadataFile FileName="RateManagerService2.xsd" MetadataType="Schema" ID="55385eae-5900-4189-a239-84710350a43f" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd2" />
-    <MetadataFile FileName="RateManagerService3.xsd" MetadataType="Schema" ID="db463210-64d0-4bc9-a577-15d810708edb" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd3" />
-    <MetadataFile FileName="RateManagerService4.xsd" MetadataType="Schema" ID="a09afe7d-f818-41e2-bea6-313d36c7c637" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd0" />
-    <MetadataFile FileName="RateManagerService5.xsd" MetadataType="Schema" ID="8031a8d9-8765-4a86-b177-969357cb9947" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd1" />
-    <MetadataFile FileName="RateManager.wsdl" MetadataType="Wsdl" ID="f9af14d8-3498-4a6e-94c2-25b22026855e" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?wsdl" />
-    <MetadataFile FileName="RateManagerService.disco" MetadataType="Disco" ID="7e33f314-5b47-4d60-839b-394a3022ae0b" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?disco" />
+    <MetadataFile FileName="RateManagerService.xsd" MetadataType="Schema" ID="2395c938-38a1-42f4-9d10-17677479cba2" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd4" />
+    <MetadataFile FileName="RateManager.wsdl" MetadataType="Wsdl" ID="3c21c6b4-e858-4b45-801c-d31b3bfba649" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?wsdl" />
+    <MetadataFile FileName="RateManagerService.disco" MetadataType="Disco" ID="ffebd754-b390-4280-aebd-e0473e898023" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?disco" />
+    <MetadataFile FileName="RateManagerService1.xsd" MetadataType="Schema" ID="946314cb-3986-49b8-867a-06347a09df75" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RateManagerService2.xsd" MetadataType="Schema" ID="8e69b281-3a2e-4812-b850-29c1537d4490" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd3" />
+    <MetadataFile FileName="RateManagerService3.xsd" MetadataType="Schema" ID="a991e3b8-73dc-4d13-a42e-f870fcbc0188" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="RateManagerService4.xsd" MetadataType="Schema" ID="82e68e9e-20ee-4e59-93e7-699d6a0fd427" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RateManagerService5.xsd" MetadataType="Schema" ID="51a6caec-8bda-4c8b-b30a-ecd9fcdc7ecf" SourceId="1" SourceUrl="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd5" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

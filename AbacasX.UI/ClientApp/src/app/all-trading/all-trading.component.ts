@@ -30,6 +30,17 @@ export class AllTradingComponent implements OnInit {
   TokenExchangeFXBid: number = 1.0;
   TokenExchangeFXAsk: number = 1.0;
 
+  public assetPairList: Array<string> = [
+    "@AAPL - @GOOG",
+    "@AAPL - @MSFT",
+    "@AAPL - @USD ",
+    "@AAPL - @BNP ",
+    "@BTC  - @GOLD",
+    "@BTC  - @ETH ",
+    "@BTC  - @USD ",
+    "@GOLD - @USD ",
+    "@MSFT - @BTC "];
+
   public source: Array<string> = ["@AAPL", "@GOOG", "@MSFT", "@GOLD", "@BTC", "@USD", "@ETH", "@BNP"];
   public data: Array<string>;
   public data2: Array<string>;
@@ -166,6 +177,11 @@ export class AllTradingComponent implements OnInit {
     if (this.Token1Id == this.Token2Id)
       this.Token2Id = null;
 
+    if ((this.Token1Id != null) && (this.Token2Id != null)) {
+      this.selectedAssetPair = this.Token1Id + " - " + this.Token2Id;
+      this.assetPairChange(this.selectedAssetPair);
+    }
+
   }
 
   public selectionChange(value: any): void {
@@ -182,6 +198,12 @@ export class AllTradingComponent implements OnInit {
 
     if (this.Token1Id == this.Token2Id)
       this.Token1Id = null;
+
+    if ((this.Token1Id != null) && (this.Token2Id != null)) {
+      this.selectedAssetPair = this.Token1Id + " - " + this.Token2Id;
+      this.assetPairChange(this.selectedAssetPair);
+    }
+
   }
 
   public selectionChange2(value: any): void {
@@ -203,6 +225,15 @@ export class AllTradingComponent implements OnInit {
 
     this.Token1Id = results[0];
     this.Token2Id = results[1];
+
+    this.data = this.source.filter((item) => {
+      if (item != this.Token2Id) { return item; }
+    });
+
+    this.data2 = this.source.filter((item) => {
+      if (item != this.Token1Id) { return item; }
+    });
+
 
     this.refreshTokenPairRate();
   }

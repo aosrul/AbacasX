@@ -12,6 +12,7 @@ using System.Collections.Concurrent;
 using System.Security.Cryptography;
 using AbacasX.Exchange.ExchangeSystem;
 using AbacasX.Model.Extensions;
+using AbacasX.Model.DataContracts;
 
 public class KeyPairData
 {
@@ -86,28 +87,14 @@ namespace AbacasX.Exchange.Services
             clientPositionRecord.ClientPositions.TryAdd(basePosition.TokenId, basePosition);
             clientPositionRecord.ClientPositions.TryAdd(baseEURPosition.TokenId, baseEURPosition);
 
-            
-            TokenRateData[] TokenRatesList =
-            {
-                new TokenRateData { TokenId = "@GOOG", TokenRate = 1036.06m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@MSFT", TokenRate = 103.9m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@CAT", TokenRate = 127.02M, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@ETH", TokenRate = 159m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@BTC", TokenRate = 3860.0m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@USD", TokenRate = 1.0m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@AAPL", TokenRate = 159.9m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@GOLD", TokenRate = 1292.0m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@TOYOTA", TokenRate = 58.77m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@BT", TokenRate = 15.20m, TokenRateIn = "USD"},
-                new TokenRateData { TokenId = "@BNP", TokenRate = 39.475m, TokenRateIn = "EUR"},
-                new TokenRateData { TokenId = "@EUR", TokenRate = 1.15m, TokenRateIn = "USD"},
-            };
+            var tokenRateList = _exchangeBook.rateServiceClient.GetTokenRateList();
 
-            for (int i = 0; i < TokenRatesList.Count(); i++)
+            for (int i = 0; i < tokenRateList.Count(); i++)
             {
-                TokenRates.TryAdd(TokenRatesList[i].TokenId, TokenRatesList[i]);
+                TokenRates.TryAdd(tokenRateList[i].TokenId, tokenRateList[i]);
             }
 
+            
             for (int i = 0; i < HistoricalOrderList.Count(); i++)
             {
                 HistoricalOrderList[i].Token2Amount = HistoricalOrderList[i].Token1Amount * HistoricalOrderList[i].PriceFilled;
@@ -184,8 +171,8 @@ namespace AbacasX.Exchange.Services
 
                     if (TokenRates.TryGetValue(ClientPosition.TokenId, out TokenRate) == true)
                     {
-                        ClientPosition.TokenRate = TokenRate.TokenRate;
-                        ClientPosition.TokenRateIn = TokenRate.TokenRateIn;
+                        ClientPosition.TokenRate = (decimal) TokenRate.AskRate;
+                        ClientPosition.TokenRateIn = TokenRate.PriceCurrency;
                     }
 
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -217,8 +204,8 @@ namespace AbacasX.Exchange.Services
 
                     if (TokenRates.TryGetValue(ClientPosition.TokenId, out TokenRate) == true)
                     {
-                        ClientPosition.TokenRate = TokenRate.TokenRate;
-                        ClientPosition.TokenRateIn = TokenRate.TokenRateIn;
+                        ClientPosition.TokenRate = (decimal) TokenRate.AskRate;
+                        ClientPosition.TokenRateIn = TokenRate.PriceCurrency;
                     }
 
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
@@ -385,8 +372,8 @@ namespace AbacasX.Exchange.Services
 
                     if (TokenRates.TryGetValue(ClientPosition.TokenId, out TokenRate) == true)
                     {
-                        ClientPosition.TokenRate = TokenRate.TokenRate;
-                        ClientPosition.TokenRateIn = TokenRate.TokenRateIn;
+                        ClientPosition.TokenRate = (decimal) TokenRate.AskRate;
+                        ClientPosition.TokenRateIn = TokenRate.PriceCurrency;
                     }
 
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;

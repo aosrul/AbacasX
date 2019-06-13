@@ -28,9 +28,9 @@ namespace WCFRateTestClient
             }
 
                         
-            Console.WriteLine("Testing Token Pair Rate Data for @AAPL-@BNP");
+            Console.WriteLine("Testing Token Pair Rate Data for @AAPL-@BT.A");
 
-            TokenPairRateData tokenPairRateData = client.GetTokenPairRateAsync("@AAPL", "@BNP").GetAwaiter().GetResult();
+            TokenPairRateData tokenPairRateData = client.GetTokenPairRateAsync("@AAPL", "@BT.A").GetAwaiter().GetResult();
 
 
             Console.WriteLine("Token Pair Rates");
@@ -114,13 +114,13 @@ namespace WCFRateTestClient
             Console.ReadKey();
 
             client.TokenPairRateUpdateReceived += Client_TokenPairRateUpdateReceived;
-            client.SubscribeToTokenPairRateUpdateAsync("@AAPL", "@BNP");
+            client.SubscribeToTokenPairRateUpdateAsync("@AAPL", "@BT.A");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
 
-            client.UnSubscribeToTokenPairRateUpdateAsync("@AAPL", "@BNP");
+            client.UnSubscribeToTokenPairRateUpdateAsync("@AAPL", "@BT.A");
 
-            Console.WriteLine("Unsubscribed from @AAPL/@BNP");
+            Console.WriteLine("Unsubscribed from @AAPL/@BT.A");
 
 
             Console.WriteLine("Test completed ...");

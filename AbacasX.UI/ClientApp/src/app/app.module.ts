@@ -19,6 +19,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from '../core/login.service';
+import { rateSignalRService } from '../core/rate.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TradingViewChartComponent } from './tradingView-chart/tradingView-chart.component';
 import { TradingViewCryptoComponent } from './tradingView-crypto/tradingView-crypto.component';
@@ -185,7 +186,7 @@ export function tokenGetter(){
     ])
   ],
   exports: [SafePipe, EnumAsStringPipe],
-  providers: [LoginService],
+  providers: [LoginService, rateSignalRService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

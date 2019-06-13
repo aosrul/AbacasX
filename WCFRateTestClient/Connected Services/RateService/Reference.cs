@@ -14,7 +14,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class AssetRateData : object
     {
         
@@ -198,7 +198,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TokenRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class TokenRateData : object
     {
         
@@ -382,7 +382,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TokenPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class TokenPairRateData : object
     {
         
@@ -758,7 +758,7 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CurrencyPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasWebX.Rate.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CurrencyPairRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class CurrencyPairRateData : object
     {
         
@@ -1022,6 +1022,12 @@ namespace RateService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenRate", ReplyAction="http://tempuri.org/IRateService/GetTokenRateResponse")]
         System.Threading.Tasks.Task<RateService.TokenRateData> GetTokenRateAsync(string Token1Id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/RegisterWithRateManager", ReplyAction="http://tempuri.org/IRateService/RegisterWithRateManagerResponse")]
+        System.Threading.Tasks.Task RegisterWithRateManagerAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnRegisterWithRateManager", ReplyAction="http://tempuri.org/IRateService/UnRegisterWithRateManagerResponse")]
+        System.Threading.Tasks.Task UnRegisterWithRateManagerAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -1166,6 +1172,16 @@ namespace RateService
             return base.Channel.GetTokenRateAsync(Token1Id);
         }
         
+        public System.Threading.Tasks.Task RegisterWithRateManagerAsync()
+        {
+            return base.Channel.RegisterWithRateManagerAsync();
+        }
+        
+        public System.Threading.Tasks.Task UnRegisterWithRateManagerAsync()
+        {
+            return base.Channel.UnRegisterWithRateManagerAsync();
+        }
+        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
@@ -1194,7 +1210,7 @@ namespace RateService
         {
             if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IRateService))
             {
-                return new System.ServiceModel.EndpointAddress("ws://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc");
+                return new System.ServiceModel.EndpointAddress("ws://localhost:62716/RateManagerService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

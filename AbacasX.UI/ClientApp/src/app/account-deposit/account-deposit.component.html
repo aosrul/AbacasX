@@ -8,17 +8,7 @@
                  [(ngModel)]="depositRequest.amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="DepositAmount" placeholder="Amount" autocomplete="off" value="0" required />
 
           <select [(ngModel)]="depositRequest.assetId" name="DepositAsset" class="form-control" style="width:100px">
-
-            <option>AAPL</option>
-            <option>BT</option>
-            <option>BTC</option>
-            <option>CAT</option>
-            <option>ETH</option>
-            <option>GBP</option>
-            <option>GOOG</option>
-            <option>MSFT</option>
-            <option>USD</option>
-            <option>GBP</option>
+            <option *ngFor="let assetItem of assetList" [value]="assetItem">{{assetItem}}</option>
           </select>
 
           <input class="form-control" type="text" readonly style="width:300px; margin-left:5px; margin-right:5px" placeholder="Reference Code" value="{{depositRequest.referenceId}}" />

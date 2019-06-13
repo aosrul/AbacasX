@@ -49,6 +49,10 @@ export class rateSignalRService {
     return this._rateHubConnection.invoke("getTokenList");
   }
 
+  public getAssetList(): Promise<any> {
+    return this._rateHubConnection.invoke("getAssetList");
+  }
+
   public getTokenRateList(): Promise<any> {
     return this._rateHubConnection.invoke("getTokenRateList").catch(err => {
       console.log("Error on Token Rate List {0}", err.toString);

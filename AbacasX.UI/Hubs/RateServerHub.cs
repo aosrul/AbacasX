@@ -25,6 +25,11 @@ namespace AbacasX.UI.Hubs
             return _rateServer.GetTokenList();
         }
 
+        public IEnumerable<String> getAssetList()
+        {
+            return _rateServer.GetAssetList();
+        }
+
         // Token Rate List
         public IEnumerable<TokenRateData> getTokenRateList()
         {

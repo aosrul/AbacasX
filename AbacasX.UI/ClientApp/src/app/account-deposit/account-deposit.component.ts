@@ -3,18 +3,22 @@ import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IDeposit } from '
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { LoginService } from '../../core/login.service';
+import { rateSignalRService } from '../../core/rate.service';
 
 @Component({
   selector: 'account-deposit',
   templateUrl: './account-deposit.component.html',
-  styleUrls: ['./account-deposit.component.css']
+  styleUrls: ['./account-deposit.component.css'],
+  providers: [rateSignalRService]
 })
 export class AccountDepositComponent implements OnInit {
 
   changeLog: string[] = [];
   errorMessage: string = "";
+  IsSubscribed: boolean = false;
+  public assetList: any[] = [];
 
-  depositRequest: IDeposit = {
+  public depositRequest: IDeposit = {
     assetId: "USD",
     amount: 0,
     referenceId: null,
@@ -23,8 +27,23 @@ export class AccountDepositComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private dataService: DataService, private loginService : LoginService) { }
+    private dataService: DataService,
+    private loginService: LoginService,
+    private rateService: rateSignalRService) {
 
+    rateService.connectionEstablished.subscribe(() => {
+
+    this.IsSubscribed = true;
+
+    console.log("Account Deposit Subscription Connection");
+
+    rateService.getAssetList().then((data) => {
+      console.log(data);
+      this.assetList = data;
+      }).catch((reason: any) => { console.log(reason); });
+    });
+
+  }
 
   ngOnInit() {
     this.getNewGuid();
@@ -44,7 +63,7 @@ export class AccountDepositComponent implements OnInit {
         (err: any) => console.log(err));
   }
 
-  
+
   submit() {
     this.depositRequest.clientId = this.loginService.userId;
 

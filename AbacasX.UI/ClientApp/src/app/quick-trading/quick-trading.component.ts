@@ -104,60 +104,15 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   }
 
   selectedAssetPairChanged(newAssetPair: string) {
-    if (this.selectedAssetPair == "@AAPL - @GOOG") {
-      this.quickOrder.token1Id = "@AAPL";
-      this.quickOrder.token2Id = "@GOOG";
-    }
 
-    if (this.selectedAssetPair == "@AAPL - @MSFT") {
-      this.quickOrder.token1Id = "@AAPL";
-      this.quickOrder.token2Id = "@MSFT";
-    }
-    if (this.selectedAssetPair == "@AAPL - @GOLD") {
-      this.quickOrder.token1Id = "@AAPL";
-      this.quickOrder.token2Id = "@GOLD";
-    }
+    // Locate the assets which start with an @
+    var results = newAssetPair.match(/@\S*/g);
 
-    if (this.selectedAssetPair == "@MSFT - @BTC") {
-      this.quickOrder.token1Id = "@MSFT";
-      this.quickOrder.token2Id = "@BTC";
-    }
+    console.log("Asset 1 {0}", results[0]);
+    console.log("Asset 2 {0}", results[1]);
 
-    if (this.selectedAssetPair == "@AAPL - @BTC") {
-      this.quickOrder.token1Id = "@AAPL";
-      this.quickOrder.token2Id = "@BTC";
-    }
-
-    if (this.selectedAssetPair == "@BTC - @GOLD") {
-      this.quickOrder.token1Id = "@BTC";
-      this.quickOrder.token2Id = "@GOLD";
-    }
-
-    if (this.selectedAssetPair == "@BTC - @ETH") {
-      this.quickOrder.token1Id = "@BTC";
-      this.quickOrder.token2Id = "@ETH";
-    }
-
-
-    if (this.selectedAssetPair == "@AAPL - @USD") {
-      this.quickOrder.token1Id = "@AAPL";
-      this.quickOrder.token2Id = "@USD";
-    }
-
-    if (this.selectedAssetPair == "@BTC - @USD") {
-      this.quickOrder.token1Id = "@BTC";
-      this.quickOrder.token2Id = "@USD";
-    }
-
-    if (this.selectedAssetPair == "@GOLD - @USD") {
-      this.quickOrder.token1Id = "@GOLD";
-      this.quickOrder.token2Id = "@USD";
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @BNP") {
-      this.quickOrder.token1Id = "@AAPL";
-      this.quickOrder.token2Id = "@BNP";
-    }
+    this.quickOrder.token1Id = results[0];
+    this.quickOrder.token2Id = results[1];
 
     if (this.IsBuyOrder)
       this.OrderDescription = "Buy " + this.quickOrder.token1Id + " with " + this.quickOrder.token2Id;

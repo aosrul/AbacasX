@@ -13,7 +13,7 @@ namespace AbacasX.Exchange.ExchangeSystem
     public class ExchangeBook
     {
         public Dictionary<string, OrderBook> ExchangeTokenPairBook = new Dictionary<string, OrderBook>();
-        RateServiceClient rateServiceClient;
+        public RateServiceClient rateServiceClient;
         RateServiceCallBack rateServiceCallBack = new RateServiceCallBack();
 
         public ExchangeBook ()

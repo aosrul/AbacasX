@@ -3,18 +3,22 @@ import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IWithdrawal } fro
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
 import { LoginService } from '../../core/login.service';
+import { rateSignalRService } from '../../core/rate.service';
 
 @Component({
   selector: 'account-withdrawal',
   templateUrl: './account-withdrawal.component.html',
-  styleUrls: ['./account-withdrawal.component.css']
+  styleUrls: ['./account-withdrawal.component.css'],
+  providers: [rateSignalRService]
 })
 export class AccountWithdrawalComponent implements OnInit {
 
   changeLog: string[] = [];
   errorMessage: string = "";
+  IsSubscribed: boolean = false;
+  public tokenList: any[] = [];
 
-  withdrawalRequest: IWithdrawal = {
+  public withdrawalRequest: IWithdrawal = {
     tokenId: "@USD",
     amount: 0,
     referenceId: null,
@@ -23,8 +27,20 @@ export class AccountWithdrawalComponent implements OnInit {
 
 
   constructor(private router: Router,
-    private dataService: DataService, private loginService : LoginService) { }
+    private dataService: DataService, private loginService: LoginService, private rateService: rateSignalRService) {
 
+    rateService.connectionEstablished.subscribe(() => {
+
+      this.IsSubscribed = true;
+
+      console.log("Account Withdrawal Subscription Connection");
+
+      rateService.getTokenList().then((data) => {
+        console.log(data);
+        this.tokenList = data;
+      }).catch((reason: any) => { console.log(reason); });
+    });
+  }
 
   ngOnInit() {
     this.getNewGuid();

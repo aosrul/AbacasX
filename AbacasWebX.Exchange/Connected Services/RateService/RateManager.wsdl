@@ -10,12 +10,12 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
-      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" />
-      <xsd:import schemaLocation="http://localhost:62716/RateManagerService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IRateService_SubscribeToAssetRateUpdate_InputMessage">
@@ -397,9 +397,9 @@
   </wsdl:binding>
   <wsdl:service name="RateManager">
     <wsdl:port name="NetHttpBinding_IRateService" binding="tns:NetHttpBinding_IRateService">
-      <soap12:address location="ws://localhost:62716/RateManagerService.svc" />
+      <soap12:address location="ws://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc" />
       <wsa10:EndpointReference>
-        <wsa10:Address>ws://localhost:62716/RateManagerService.svc</wsa10:Address>
+        <wsa10:Address>ws://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

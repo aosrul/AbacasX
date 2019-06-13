@@ -95,35 +95,15 @@ export class StandardTradingComponent implements OnInit {
   }
 
   selectedAssetPairChanged(newAssetPair: string) {
-    if (this.selectedAssetPair == "@AAPL - @GOOG") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@GOOG";
-    }
 
-    if (this.selectedAssetPair == "@AAPL - @GOLD") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@GOLD";
-    }
+    // Locate the assets which start with an @
+    var results = newAssetPair.match(/@\S*/g);
 
-    if (this.selectedAssetPair == "@AAPL - @MSFT") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@MSFT";
-    }
+    console.log("Asset 1 {0}", results[0]);
+    console.log("Asset 2 {0}", results[1]);
 
-    if (this.selectedAssetPair == "@AAPL - @BTC") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@BTC";
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @USD") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@USD";
-    }
-
-    if (this.selectedAssetPair == "@AAPL - @BNP") {
-      this.quickOrder.Token1Id = "@AAPL";
-      this.quickOrder.Token2Id = "@BNP";
-    }
+    this.quickOrder.Token1Id = results[0];
+    this.quickOrder.Token2Id = results[1];
 
     if (this.IsBuyOrder)
       this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " with " + this.quickOrder.Token2Id;

@@ -836,15 +836,27 @@ namespace AbacasWebX.Rate.Services
             /* This section will be replaced with a load of asset definitions (base assets) from the Abacas Repository
              * and then rates subscribed from the appropriate price feed.
              */
-            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 178.24, AskRate = 178.24 });
-            baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1119, AskRate = 1120 });
-            baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 125.06, AskRate = 125.06 });
-            baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1279, AskRate = 1279 });
-            baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 8772, AskRate = 8772 });
+            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 194.19, AskRate = 194.19 });
+            baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1077, AskRate = 1077 });
+            baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 131.49, AskRate = 131.49 });
+            baseAssetList.TryAdd("NFLX", new AssetRate { AssetId = "NFLX", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 345.56, AskRate = 345.56 });
+            baseAssetList.TryAdd("FB"  , new AssetRate { AssetId = "FB", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 175, AskRate = 175 });
+
             baseAssetList.TryAdd("USD", new AssetRate { AssetId = "USD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1, AskRate = 1 });
-            baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 283, AskRate = 283 });
-            baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 41.595, AskRate = 41.595 });
-            baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.1125, AskRate = 1.1125 });
+            baseAssetList.TryAdd("GBP", new AssetRate { AssetId = "GBP", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.26, AskRate = 1.26 });
+            baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.12, AskRate = 1.12 });
+
+            baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1337, AskRate = 1337 });
+            baseAssetList.TryAdd("SILVER", new AssetRate { AssetId = "SILVER", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 14.75, AskRate = 14.76 });
+
+
+            baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 8113, AskRate = 8113 });
+            baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 259, AskRate = 259 });
+            baseAssetList.TryAdd("XRP", new AssetRate { AssetId = "XRP", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = .403627, AskRate = .403627 });
+
+            baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 41.14, AskRate = 41.14 });
+            baseAssetList.TryAdd("BT",  new AssetRate { AssetId = "BT.A",  PriceCurrency = "GBP",   RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 208, AskRate = 208 });
+
 
             // Asset Rates are 1:1 with the Base Asset Table
             // Token Rates will also be loaded from a token definition table, and thus there could be more than one token

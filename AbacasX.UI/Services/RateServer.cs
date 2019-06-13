@@ -24,6 +24,12 @@ namespace AbacasX.UI.Services
             _rateService = rateService;
         }
 
+
+        public IEnumerable<String> GetAssetList()
+        {
+            return _rateService.GetAssetListAsync().GetAwaiter().GetResult();
+        }
+
         public IEnumerable<String> GetTokenList()
         {
             return _rateService.GetTokenListAsync().GetAwaiter().GetResult();

@@ -2,11 +2,11 @@
 <form class="form-inline">
   <div class="form-group row" style="margin-left:5px; margin-top:2em; margin-bottom:5px">
     <div class="col-auto">
-
       <div class="input-group">
-
+       
         <label class="col-form-label" for="AssetPairSelect" style="font-size:large; margin-right:10px">Token Pair</label>
         <select (change)="assetPairChange($event.target.value)" [(ngModel)]="selectedAssetPair" name="AssetPairSelect" class="form-control">
+          <!--<option *ngFor="let assetPair of assetPairList" [value]="assetPair.Value" [attr.selected]="selectedAssetPair == assetPair">{{assetPair}}</option>-->
           <option>@AAPL - @GOOG</option>
           <option>@AAPL - @MSFT</option>
           <option>@AAPL - @USD</option>
@@ -72,11 +72,11 @@
         <quick-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></quick-trading>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="Standard">
+    <!--<ngb-tab title="Standard">
       <ng-template ngbTabContent>
         <standard-trading [selectedAssetPair]="selectedAssetPair" [TokenExchangeBid]="TokenExchangeBid" [TokenExchangeAsk]="TokenExchangeAsk"></standard-trading>
       </ng-template>
-    </ngb-tab>
+    </ngb-tab>-->
     <ngb-tab title="Advanced">
       <ng-template ngbTabContent>
         <advanced-trading [selectedAssetPair]="selectedAssetPair" [TokenPairRate]="tokenPairRate"></advanced-trading>
