@@ -1,4 +1,5 @@
-﻿using AbacasX.Model.ViewModels;
+﻿using AbacasX.Model.DataContracts;
+using AbacasX.Model.ViewModels;
 using System.Collections.Generic;
 using System.ServiceModel;
 

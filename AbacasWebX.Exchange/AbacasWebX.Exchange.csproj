@@ -73,11 +73,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\RateService\RateManagerService.disco" />
+    <None Include="Connected Services\RateService\configuration91.svcinfo" />
+    <None Include="Connected Services\RateService\configuration.svcinfo" />
+    <None Include="Connected Services\RateService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\RateService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Contracts\AssetTransferData.cs" />
     <Compile Include="Contracts\BlockChainData.cs" />
     <Compile Include="Contracts\ClientPositionData.cs" />
@@ -85,11 +97,36 @@
     <Compile Include="Contracts\OrderData.cs" />
     <Compile Include="Contracts\TokenRateData.cs" />
     <Compile Include="CustomHostFactory.cs" />
+    <Compile Include="ExchangeSystem\ExchangeBook.cs" />
+    <Compile Include="ExchangeSystem\OrderBook.cs" />
+    <Compile Include="ExchangeSystem\WatchOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OrderManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\RateService\RateManager.wsdl" />
+    <None Include="Connected Services\RateService\RateManagerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RateService\RateManagerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RateService\RateManagerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RateService\RateManagerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RateService\RateManagerService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RateService\RateManagerService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.AssetRateData.datasource" />
+    <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.TokenPairRateData.datasource" />
+    <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.TokenRateData.datasource" />
     <None Include="Properties\PublishProfiles\AbacasWebXExchange20190429082147 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -103,6 +140,12 @@
       <Project>{57F16DBD-1E6A-421B-BB7B-F1B151E7FC6B}</Project>
       <Name>AbacasX.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\RateService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

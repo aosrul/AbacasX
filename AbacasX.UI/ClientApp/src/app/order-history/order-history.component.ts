@@ -6,32 +6,32 @@ import { LoginService } from '../../core/login.service';
 
 
 @Component({
-    selector: 'order-history',
-    templateUrl: './order-history.component.html'
+  selector: 'order-history',
+  templateUrl: './order-history.component.html'
 })
 export class OrderHistoryComponent implements OnInit {
 
-    title: string = "";
-    public orders: any[] = orderHistory;
+  title: string = "";
+  public orders: any[] = [];
 
-    BuySellTypeEnum = BuySellTypeEnum;
-    OrderPriceTermsEnum = OrderPriceTermsEnum;
-    OrderTypeEnum = OrderTypeEnum;
-    OrderStatusEnum = OrderStatusEnum;
+  BuySellTypeEnum = BuySellTypeEnum;
+  OrderPriceTermsEnum = OrderPriceTermsEnum;
+  OrderTypeEnum = OrderTypeEnum;
+  OrderStatusEnum = OrderStatusEnum;
 
-    constructor(private dataService: DataService, private loginService : LoginService) { }
+  constructor(private dataService: DataService, private loginService: LoginService) { }
 
-    ngOnInit(): void {
-        this.title = "Historical Orders";
-        this.getHistoricalOrders();
-    }
+  ngOnInit(): void {
+    this.title = "Historical Orders";
+    this.getHistoricalOrders();
+  }
 
-    getHistoricalOrders() {
-      this.dataService.getHistoricalOrders(this.loginService.userId)
-            .subscribe((orders: IOrder[]) => {
-                this.orders = orders;
-            },
-                (err: any) => console.log(err),
-                () => console.log('getHistoricalOrders() retrieved orders'));
-    }
+  getHistoricalOrders() {
+    this.dataService.getHistoricalOrders(this.loginService.userId)
+      .subscribe((orders: IOrder[]) => {
+        this.orders = orders;
+      },
+        (err: any) => console.log(err),
+        () => console.log('getHistoricalOrders() retrieved orders'));
+  }
 }

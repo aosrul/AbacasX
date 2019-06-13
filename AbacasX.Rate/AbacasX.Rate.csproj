@@ -60,11 +60,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\AssetRateData.cs" />
-    <Compile Include="Contracts\CurrencyPairRateData.cs" />
     <Compile Include="Contracts\IRateService.cs" />
-    <Compile Include="Contracts\TokenPairRateData.cs" />
-    <Compile Include="Contracts\TokenRateData.cs" />
     <Compile Include="CustomHostFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

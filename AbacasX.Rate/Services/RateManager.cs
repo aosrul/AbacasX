@@ -1,4 +1,5 @@
-﻿using AbacasX.Model.Extensions;
+﻿using AbacasX.Model.DataContracts;
+using AbacasX.Model.Extensions;
 using AbacasX.Model.Models;
 using AbacasX.Model.ViewModels;
 using AbacasX.Rate.Contracts;

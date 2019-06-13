@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="32601bf0-fcb8-493f-87dd-be322601d386" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8fd39aa8-e1ad-453b-b46d-87ca29082d5e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,14 +22,14 @@
     <MetadataSource Address="http://localhost:62716/RateManagerService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="RateManagerService.xsd" MetadataType="Schema" ID="949c5d23-b312-47a8-8cf5-d27dda6be0f4" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd4" />
-    <MetadataFile FileName="RateManagerService1.xsd" MetadataType="Schema" ID="6875a8ab-5942-43b3-9563-1839b75eccd6" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd5" />
-    <MetadataFile FileName="RateManagerService2.xsd" MetadataType="Schema" ID="1fcd7578-eb20-4bff-a1f1-4b980b245519" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd2" />
-    <MetadataFile FileName="RateManagerService3.xsd" MetadataType="Schema" ID="e30fa70c-0375-4be9-be96-b4c3772360cd" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd3" />
-    <MetadataFile FileName="RateManagerService4.xsd" MetadataType="Schema" ID="9bd4400d-39ae-42da-9d77-335442c03581" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd0" />
-    <MetadataFile FileName="RateManagerService5.xsd" MetadataType="Schema" ID="a566ee65-87e5-406e-b179-111c1691cff5" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd1" />
-    <MetadataFile FileName="RateManager.wsdl" MetadataType="Wsdl" ID="d972eadd-368d-40bf-b370-701a43112434" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?wsdl" />
-    <MetadataFile FileName="RateManagerService.disco" MetadataType="Disco" ID="b020c574-773b-479f-8f1e-f58281806465" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?disco" />
+    <MetadataFile FileName="RateManagerService.xsd" MetadataType="Schema" ID="58138496-6ae9-4b89-9c70-317e3f3a8820" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd4" />
+    <MetadataFile FileName="RateManagerService1.xsd" MetadataType="Schema" ID="b9d7e03a-f0ff-462c-865d-852ad2d17334" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd5" />
+    <MetadataFile FileName="RateManagerService2.xsd" MetadataType="Schema" ID="4bb88e60-d94e-42c6-9e4e-9872c070ca69" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RateManagerService3.xsd" MetadataType="Schema" ID="158d1395-7cac-4406-82d2-15248c53e6da" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd3" />
+    <MetadataFile FileName="RateManagerService4.xsd" MetadataType="Schema" ID="c3b94362-fb5a-4bef-9d16-521713cfc6cf" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="RateManagerService5.xsd" MetadataType="Schema" ID="22a0b39e-ff53-49e5-8518-8620956ad5ef" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RateManager.wsdl" MetadataType="Wsdl" ID="48f8cf09-9c4a-4fc9-ac8c-23eb3718f58c" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?wsdl" />
+    <MetadataFile FileName="RateManagerService.disco" MetadataType="Disco" ID="f4edff4e-9b50-4fdc-8872-f3f42af94f2a" SourceId="1" SourceUrl="http://localhost:62716/RateManagerService.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

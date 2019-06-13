@@ -1210,7 +1210,7 @@ namespace RateService
         {
             if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IRateService))
             {
-                return new System.ServiceModel.EndpointAddress("ws://localhost:62716/RateManagerService.svc");
+                return new System.ServiceModel.EndpointAddress("ws://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

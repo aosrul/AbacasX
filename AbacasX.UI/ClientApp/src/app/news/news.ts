@@ -1,7 +1,7 @@
 export const news = [
   {
     "articleId": 1,
-    "title": "Beyond Crypto-Currencies",
+    "title": "AbacasXchange - Beyond Crypto-Currencies",
     "date": "April 20, 2019",
     "pictureName": "cryptocoins",
     "articleContent": "The Abacas Exchange extends blockchain trading into all asset classes...",
@@ -15,17 +15,17 @@ export const news = [
   },
   {
     "articleId": 3,
-    "title": "Alchemy - Exchanging assets for precious metals",
+    "title": "Alchemy - Trading Precious Metals",
     "date": "April 25, 2019",
     "pictureName": "alchemy",
-    "articleContent": "Trading precious metals in the Abacas Exchange ...",
+    "articleContent": "Trading Precious Metals globally on the Abacas Exchange...",
   },
   {
     "articleId": 4,
-    "title": "Bartering - Water for Wine",
+    "title": "Collectibles & Non-Fungibles",
     "date": "May 3, 2019",
     "pictureName": "barter",
-    "articleContent": "Exchanging raw materials for finished products is a natural for the Abacas Exchange",
+    "articleContent": "Bartering Non-fungibles and Collectibles...",
   },
 
 

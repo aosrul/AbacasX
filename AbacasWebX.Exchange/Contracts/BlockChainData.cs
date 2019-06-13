@@ -9,6 +9,8 @@ namespace AbacasWebX.Exchange.Contracts
     [DataContract]
     public class BlockChainData
     {
+        public int clientId;
+
         [DataMember]
         public int BlockNumber;
 
