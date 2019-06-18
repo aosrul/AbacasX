@@ -185,5 +185,23 @@ namespace AbacasX.UI.Repository
         {
             throw new NotImplementedException();
         }
+
+        public async Task<TokenDetail> GetTokenDetailAsync(string TokenId)
+        {
+            checkConnectionStatus();
+
+            try
+            {
+                Console.WriteLine("Calling RateRepository GetTokenDetailAsync on {0}", TokenId);
+                var result = await _rateServiceClient.GetTokenDetailAsync(TokenId);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("GetTokenDetail Failed {0}", e.Message);
+                throw new Exception("RateRepository GetTokenDetail Failed", e);
+            }
+        }
     }
 }

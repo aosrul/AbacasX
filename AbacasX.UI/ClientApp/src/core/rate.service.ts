@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, IStreamResult } from '@aspnet/signalr'
-//import signalR = require('@aspnet/signalr');
 
 @Injectable()
 export class rateSignalRService {
@@ -49,6 +48,12 @@ export class rateSignalRService {
     return this._rateHubConnection.invoke("getTokenList");
   }
 
+  public getTokenDetail(tokenId: string): Promise<any> {
+    return this._rateHubConnection.invoke("getTokenDetail", tokenId).catch(err => {
+      console.log("Error on getTokenDetail {0}", err.toString);
+    });
+  }
+
   public getAssetList(): Promise<any> {
     return this._rateHubConnection.invoke("getAssetList");
   }
@@ -60,7 +65,9 @@ export class rateSignalRService {
   }
 
   public getTokenRate(tokenId: string): Promise<any> {
-    return this._rateHubConnection.invoke("getTokenRate",tokenId);
+    return this._rateHubConnection.invoke("getTokenRate", tokenId).catch(err => {
+      console.log("Error on getTokenRate {0}", err.toString);
+    });
   }
 
   public getTokenPairRate(token1Id: string, token2Id: string): Promise<any> {

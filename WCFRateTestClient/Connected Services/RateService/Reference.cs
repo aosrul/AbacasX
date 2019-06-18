@@ -14,6 +14,196 @@ namespace RateService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenDetail", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
+    public partial class TokenDetail : object
+    {
+        
+        private int AssetAccountIdField;
+        
+        private string AssetIdField;
+        
+        private decimal AvailableBalanceField;
+        
+        private decimal BalanceField;
+        
+        private int CustodianIdField;
+        
+        private double MultiplierField;
+        
+        private string NameField;
+        
+        private string TokenIdField;
+        
+        private RateService.TokenStatusEnum TokenStatusField;
+        
+        private string TradingViewSymbolField;
+        
+        private int TrustIdField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AssetAccountId
+        {
+            get
+            {
+                return this.AssetAccountIdField;
+            }
+            set
+            {
+                this.AssetAccountIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AssetId
+        {
+            get
+            {
+                return this.AssetIdField;
+            }
+            set
+            {
+                this.AssetIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal AvailableBalance
+        {
+            get
+            {
+                return this.AvailableBalanceField;
+            }
+            set
+            {
+                this.AvailableBalanceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Balance
+        {
+            get
+            {
+                return this.BalanceField;
+            }
+            set
+            {
+                this.BalanceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CustodianId
+        {
+            get
+            {
+                return this.CustodianIdField;
+            }
+            set
+            {
+                this.CustodianIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Multiplier
+        {
+            get
+            {
+                return this.MultiplierField;
+            }
+            set
+            {
+                this.MultiplierField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.NameField;
+            }
+            set
+            {
+                this.NameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TokenId
+        {
+            get
+            {
+                return this.TokenIdField;
+            }
+            set
+            {
+                this.TokenIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RateService.TokenStatusEnum TokenStatus
+        {
+            get
+            {
+                return this.TokenStatusField;
+            }
+            set
+            {
+                this.TokenStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TradingViewSymbol
+        {
+            get
+            {
+                return this.TradingViewSymbolField;
+            }
+            set
+            {
+                this.TradingViewSymbolField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TrustId
+        {
+            get
+            {
+                return this.TrustIdField;
+            }
+            set
+            {
+                this.TrustIdField = value;
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TokenStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models")]
+    public enum TokenStatusEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Generating = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Active = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Suspended = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Canceled = 3,
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="AssetRateData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class AssetRateData : object
     {
@@ -1005,6 +1195,9 @@ namespace RateService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdates", ReplyAction="http://tempuri.org/IRateService/UnSubscribeAllRateUpdatesResponse")]
         System.Threading.Tasks.Task UnSubscribeAllRateUpdatesAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
+        System.Threading.Tasks.Task<RateService.TokenDetail> GetTokenDetailAsync(string TokenId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetAssetList", ReplyAction="http://tempuri.org/IRateService/GetAssetListResponse")]
         System.Threading.Tasks.Task<string[]> GetAssetListAsync();
         
@@ -1022,12 +1215,6 @@ namespace RateService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenRate", ReplyAction="http://tempuri.org/IRateService/GetTokenRateResponse")]
         System.Threading.Tasks.Task<RateService.TokenRateData> GetTokenRateAsync(string Token1Id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/RegisterWithRateManager", ReplyAction="http://tempuri.org/IRateService/RegisterWithRateManagerResponse")]
-        System.Threading.Tasks.Task RegisterWithRateManagerAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnRegisterWithRateManager", ReplyAction="http://tempuri.org/IRateService/UnRegisterWithRateManagerResponse")]
-        System.Threading.Tasks.Task UnRegisterWithRateManagerAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -1142,6 +1329,11 @@ namespace RateService
             return base.Channel.UnSubscribeAllRateUpdatesAsync();
         }
         
+        public System.Threading.Tasks.Task<RateService.TokenDetail> GetTokenDetailAsync(string TokenId)
+        {
+            return base.Channel.GetTokenDetailAsync(TokenId);
+        }
+        
         public System.Threading.Tasks.Task<string[]> GetAssetListAsync()
         {
             return base.Channel.GetAssetListAsync();
@@ -1172,16 +1364,6 @@ namespace RateService
             return base.Channel.GetTokenRateAsync(Token1Id);
         }
         
-        public System.Threading.Tasks.Task RegisterWithRateManagerAsync()
-        {
-            return base.Channel.RegisterWithRateManagerAsync();
-        }
-        
-        public System.Threading.Tasks.Task UnRegisterWithRateManagerAsync()
-        {
-            return base.Channel.UnRegisterWithRateManagerAsync();
-        }
-        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
@@ -1210,7 +1392,7 @@ namespace RateService
         {
             if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IRateService))
             {
-                return new System.ServiceModel.EndpointAddress("ws://localhost:62716/RateManagerService.svc");
+                return new System.ServiceModel.EndpointAddress("ws://localhost:8088/");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

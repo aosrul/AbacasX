@@ -77,6 +77,11 @@ namespace AbacasX.UI.Services
             return _rateService.GetTokenRateAsync(TokenId).GetAwaiter().GetResult();
         }
 
+        public TokenDetail GetTokenDetail(string TokenId)
+        {
+            return _rateService.GetTokenDetailAsync(TokenId).GetAwaiter().GetResult();
+        }
+
         public async Task<TokenPairRateData> GetTokenPairRate(string Token1Id, string Token2Id)
         {
             try

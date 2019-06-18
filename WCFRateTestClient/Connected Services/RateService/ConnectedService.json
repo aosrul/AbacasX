@@ -2,7 +2,7 @@
   "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
   "Version": "15.0.20628.921",
   "ExtendedData": {
-    "Uri": "http://localhost:62716/RateManagerService.svc",
+    "Uri": "http://localhost:8088",
     "Namespace": "RateService",
     "SelectedAccessLevelForGeneratedClass": "Public",
     "GenerateMessageContract": false,

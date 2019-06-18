@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DataContracts\AssetRateData.cs" />
     <Compile Include="DataContracts\CurrencyPairRateData.cs" />
+    <Compile Include="DataContracts\TokenDetail.cs" />
     <Compile Include="DataContracts\TokenPairRateData.cs" />
     <Compile Include="DataContracts\TokenRateData.cs" />
     <Compile Include="Extensions\AbacasExtension.cs" />

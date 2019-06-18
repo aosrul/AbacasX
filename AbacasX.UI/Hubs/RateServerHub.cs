@@ -86,5 +86,19 @@ namespace AbacasX.UI.Hubs
         {
             return _rateServer.GetTokenRate(TokenId);
         }
+
+
+        public TokenDetail GetTokenDetail(string TokenId)
+        {
+            try
+            {
+                return _rateServer.GetTokenDetail(TokenId);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error calling Rate Server GetTokenDetail {0}", e.Message);
+                throw new Exception(String.Format("Error calling GetTokenDetail for {0}", TokenId));
+            }
+        }
     }
 }

@@ -189,7 +189,17 @@ namespace AbacasX.Rate.Services
                 ((ICommunicationObject)rateUpdateCallBack).State == CommunicationState.Faulted)
             {
                 connected = false;
-                throw new Exception("No Rate Callback connection found");
+
+                // Unsubscribe from all subscriptions
+                foreach(TokenPairSubscription s in tokenPairSubscriptions.Values)
+                {
+                    s.disposable.Dispose();
+                }
+
+                tokenPairSubscriptions = new ConcurrentDictionary<string, TokenPairSubscription>();
+
+                // Schedule the removal of this listerner
+                //throw new Exception("No Rate Callback connection found");
             }
 
             if ((rateUpdateCallBack != null) && connected)
@@ -615,6 +625,8 @@ namespace AbacasX.Rate.Services
     {
         public ConcurrentDictionary<string, TokenRateViewModel> tokenRateList = new ConcurrentDictionary<string, TokenRateViewModel>();
         public object tokenRateListLock = new object();
+        public ConcurrentDictionary<string, TokenDetail> tokenDetailList = new ConcurrentDictionary<string, TokenDetail>();
+        public object tokenDetailListLock = new object();
 
     }
 
@@ -755,6 +767,7 @@ namespace AbacasX.Rate.Services
         static public ConcurrentDictionary<string, TokenRateListener> tokenRateSubscriptions = new ConcurrentDictionary<string, TokenRateListener>();
         static public ConcurrentDictionary<string, CurrencyPairRateListener> currencyPairRateSubscriptions = new ConcurrentDictionary<string, CurrencyPairRateListener>();
         static public ConcurrentDictionary<string, TokenPairRateListener> tokenPairRateSubscriptions = new ConcurrentDictionary<string, TokenPairRateListener>();
+        static public ConcurrentDictionary<string, string> TradingViewSymbols = new ConcurrentDictionary<string, string>();
 
         public AssetRateManager assetRateManager;
         public CurrencyPairRateManager currencyPairRateManager;
@@ -791,26 +804,39 @@ namespace AbacasX.Rate.Services
             tokenPairRateManager = new TokenPairRateManager(tokenRateManager, currencyPairRateManager);
 
 
-            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 194.19, AskRate = 194.19 });
+            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 194.19, AskRate = 194.19});
             baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1077, AskRate = 1077 });
             baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 131.49, AskRate = 131.49 });
             baseAssetList.TryAdd("NFLX", new AssetRate { AssetId = "NFLX", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 345.56, AskRate = 345.56 });
             baseAssetList.TryAdd("FB", new AssetRate { AssetId = "FB", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 175, AskRate = 175 });
-
             baseAssetList.TryAdd("USD", new AssetRate { AssetId = "USD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1, AskRate = 1 });
             baseAssetList.TryAdd("GBP", new AssetRate { AssetId = "GBP", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.26, AskRate = 1.26 });
             baseAssetList.TryAdd("EUR", new AssetRate { AssetId = "EUR", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1.12, AskRate = 1.12 });
-
             baseAssetList.TryAdd("GOLD", new AssetRate { AssetId = "GOLD", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1337, AskRate = 1337 });
             baseAssetList.TryAdd("SILVER", new AssetRate { AssetId = "SILVER", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 14.75, AskRate = 14.76 });
-
-
             baseAssetList.TryAdd("BTC", new AssetRate { AssetId = "BTC", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 8113, AskRate = 8113 });
             baseAssetList.TryAdd("ETH", new AssetRate { AssetId = "ETH", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 259, AskRate = 259 });
             baseAssetList.TryAdd("XRP", new AssetRate { AssetId = "XRP", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = .403627, AskRate = .403627 });
-
             baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 41.14, AskRate = 41.14 });
             baseAssetList.TryAdd("BT", new AssetRate { AssetId = "BT.A", PriceCurrency = "GBP", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 208, AskRate = 208 });
+
+            // Establish TradingView Symbols
+            
+            TradingViewSymbols.TryAdd("@AAPL", "NASDAQ:AAPL");
+            TradingViewSymbols.TryAdd("@GOOG", "NASDAQ:GOOG");
+            TradingViewSymbols.TryAdd("@MSFT", "NASDAQ:MSFT");
+            TradingViewSymbols.TryAdd("@NFLX", "NASDAQ:NFLX");
+            TradingViewSymbols.TryAdd("@FB", "NASDAQ:FB");
+            TradingViewSymbols.TryAdd("@USD", "FX:USDUSD");
+            TradingViewSymbols.TryAdd("@GBP", "FX:GBPUSD");
+            TradingViewSymbols.TryAdd("@EUR", "FX:EURUSD");
+            TradingViewSymbols.TryAdd("@GOLD", "TVC:GOLD");
+            TradingViewSymbols.TryAdd("@SILVER", "TVC:SILVER");
+            TradingViewSymbols.TryAdd("@BTC", "COINBASE:BTCUSD");
+            TradingViewSymbols.TryAdd("@ETH", "BITFINEX:ETHUSD");
+            TradingViewSymbols.TryAdd("@XRP", "BITFINEX:XRPUSD");
+            TradingViewSymbols.TryAdd("@BNP", "MIL:BNP");
+            TradingViewSymbols.TryAdd("@BT", "LSE:BT.A");
 
             foreach (AssetRate a in baseAssetList.Values)
             {
@@ -827,8 +853,24 @@ namespace AbacasX.Rate.Services
                 // Create the Token Rate List
                 if (tokenRateManager.tokenRateList.TryGetValue(tokenId, out TokenRateViewModel tokenRateRecord) == false)
                 {
+                    TokenDetail tokenDetailRecord = new TokenDetail();
+                    string TradingViewSymbol = "";
+
                     tokenRateRecord = new TokenRateViewModel(tokenId, a, _subject);
                     tokenRateManager.tokenRateList.TryAdd(tokenId, tokenRateRecord);
+
+                    a.CopyPropertiesTo(tokenDetailRecord);
+                    tokenRateRecord.tokenRateRecord.CopyPropertiesTo(tokenDetailRecord);
+
+                    tokenDetailRecord.TokenStatus = TokenStatusEnum.Active;
+                    tokenDetailRecord.TokenId = tokenRateRecord.tokenRateRecord.TokenId;
+
+                    if (TradingViewSymbols.TryGetValue(tokenDetailRecord.TokenId, out TradingViewSymbol) == true)
+                        tokenDetailRecord.TradingViewSymbol = TradingViewSymbol;
+                    else
+                        tokenDetailRecord.TradingViewSymbol = null;
+
+                    tokenRateManager.tokenDetailList.TryAdd(tokenDetailRecord.TokenId, tokenDetailRecord);
                 }
             }
 
@@ -1319,6 +1361,23 @@ namespace AbacasX.Rate.Services
             }
 
             return tokenRateDataRecord;
+        }
+
+        public TokenDetail GetTokenDetail(string TokenId)
+        {
+            TokenDetail tokenDetailRecord;
+            
+
+            lock(tokenRateManager.tokenDetailListLock)
+            {
+                if (tokenRateManager.tokenDetailList.TryGetValue(TokenId, out tokenDetailRecord) == false)
+                {
+                    tokenDetailRecord = new TokenDetail();
+                    tokenDetailRecord.TokenId = TokenId;
+                }
+            }
+
+            return tokenDetailRecord;
         }
 
         #endregion

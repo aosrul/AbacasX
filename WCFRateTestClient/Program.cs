@@ -48,6 +48,16 @@ namespace WCFRateTestClient
             Console.WriteLine("Press Any Key");
             Console.ReadKey();
 
+            Console.WriteLine();
+            Console.WriteLine("GetTokenDetail Test @AAPL");
+
+            TokenDetail tokenDetailRecord = client.GetTokenDetailAsync("@AAPL").GetAwaiter().GetResult();
+            Console.WriteLine("Token Detail for {0}  TradingView Symbol {1}", tokenDetailRecord.TokenId, tokenDetailRecord.TradingViewSymbol);
+            Console.WriteLine("Press Any Key");
+            Console.ReadKey();
+
+
+
 
             //Console.WriteLine("Test the Get List Methods");
 

@@ -44,6 +44,9 @@ namespace AbacasWebX.Rate.Contracts
         [OperationContract]
         List<string> GetTokenList();
 
+        [OperationContract(IsOneWay = false)]
+        TokenDetail GetTokenDetail(string TokenId);
+
         [OperationContract]
         List<AssetRateData> GetAssetRateList();
 

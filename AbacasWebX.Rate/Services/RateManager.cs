@@ -211,7 +211,6 @@ namespace AbacasWebX.Rate.Services
                 ((ICommunicationObject)rateUpdateCallBack).State == CommunicationState.Faulted)
             {
                 connected = false;
-                throw new Exception("No Rate Callback connection found");
             }
 
             if ((rateUpdateCallBack != null) && connected)
@@ -644,6 +643,8 @@ namespace AbacasWebX.Rate.Services
     {
         public ConcurrentDictionary<string, TokenRateViewModel> tokenRateList = new ConcurrentDictionary<string, TokenRateViewModel>();
         public object tokenRateListLock = new object();
+        public ConcurrentDictionary<string, TokenDetail> tokenDetailList = new ConcurrentDictionary<string, TokenDetail>();
+        public object tokenDetailListLock = new object();
 
     }
 
@@ -795,6 +796,7 @@ namespace AbacasWebX.Rate.Services
         static public ConcurrentDictionary<string, CurrencyPairRateListener> currencyPairRateSubscriptions = new ConcurrentDictionary<string, CurrencyPairRateListener>();
         static public ConcurrentDictionary<string, TokenPairRateListener> tokenPairRateSubscriptions = new ConcurrentDictionary<string, TokenPairRateListener>();
         static public ConcurrentDictionary<string, RegisteredListener> registeredListenerSubscription = new ConcurrentDictionary<string, RegisteredListener>();
+        static public ConcurrentDictionary<string, string> TradingViewSymbols = new ConcurrentDictionary<string, string>();
 
         public AssetRateManager assetRateManager;
         public CurrencyPairRateManager currencyPairRateManager;
@@ -857,6 +859,24 @@ namespace AbacasWebX.Rate.Services
             baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 41.14, AskRate = 41.14 });
             baseAssetList.TryAdd("BT",  new AssetRate { AssetId = "BT.A",  PriceCurrency = "GBP",   RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 208, AskRate = 208 });
 
+            // Establish TradingView Symbols
+
+            TradingViewSymbols.TryAdd("@AAPL", "NASDAQ:AAPL");
+            TradingViewSymbols.TryAdd("@GOOG", "NASDAQ:GOOG");
+            TradingViewSymbols.TryAdd("@MSFT", "NASDAQ:MSFT");
+            TradingViewSymbols.TryAdd("@NFLX", "NASDAQ:NFLX");
+            TradingViewSymbols.TryAdd("@FB", "NASDAQ:FB");
+            TradingViewSymbols.TryAdd("@USD", "FX:USDUSD");
+            TradingViewSymbols.TryAdd("@GBP", "FX:GBPUSD");
+            TradingViewSymbols.TryAdd("@EUR", "FX:EURUSD");
+            TradingViewSymbols.TryAdd("@GOLD", "TVC:GOLD");
+            TradingViewSymbols.TryAdd("@SILVER", "TVC:SILVER");
+            TradingViewSymbols.TryAdd("@BTC", "COINBASE:BTCUSD");
+            TradingViewSymbols.TryAdd("@ETH", "BITFINEX:ETHUSD");
+            TradingViewSymbols.TryAdd("@XRP", "BITFINEX:XRPUSD");
+            TradingViewSymbols.TryAdd("@BNP", "MIL:BNP");
+            TradingViewSymbols.TryAdd("@BT", "LSE:BT.A");
+
 
             // Asset Rates are 1:1 with the Base Asset Table
             // Token Rates will also be loaded from a token definition table, and thus there could be more than one token
@@ -878,8 +898,24 @@ namespace AbacasWebX.Rate.Services
                 // Create the Token Rate List
                 if (tokenRateManager.tokenRateList.TryGetValue(tokenId, out TokenRateViewModel tokenRateRecord) == false)
                 {
+                    TokenDetail tokenDetailRecord = new TokenDetail();
+                    string TradingViewSymbol = "";
+
                     tokenRateRecord = new TokenRateViewModel(tokenId, a, _subject);
                     tokenRateManager.tokenRateList.TryAdd(tokenId, tokenRateRecord);
+
+                    a.CopyPropertiesTo(tokenDetailRecord);
+                    tokenRateRecord.tokenRateRecord.CopyPropertiesTo(tokenDetailRecord);
+
+                    tokenDetailRecord.TokenStatus = TokenStatusEnum.Active;
+                    tokenDetailRecord.TokenId = tokenRateRecord.tokenRateRecord.TokenId;
+
+                    if (TradingViewSymbols.TryGetValue(tokenDetailRecord.TokenId, out TradingViewSymbol) == true)
+                        tokenDetailRecord.TradingViewSymbol = TradingViewSymbol;
+                    else
+                        tokenDetailRecord.TradingViewSymbol = null;
+
+                    tokenRateManager.tokenDetailList.TryAdd(tokenDetailRecord.TokenId, tokenDetailRecord);
                 }
             }
 
@@ -1389,6 +1425,23 @@ namespace AbacasWebX.Rate.Services
         public void UnRegisterWithRateManager()
         {
             throw new NotImplementedException();
+        }
+
+        public TokenDetail GetTokenDetail(string TokenId)
+        {
+            TokenDetail tokenDetailRecord;
+
+
+            lock (tokenRateManager.tokenDetailListLock)
+            {
+                if (tokenRateManager.tokenDetailList.TryGetValue(TokenId, out tokenDetailRecord) == false)
+                {
+                    tokenDetailRecord = new TokenDetail();
+                    tokenDetailRecord.TokenId = TokenId;
+                }
+            }
+
+            return tokenDetailRecord;
         }
 
         #endregion

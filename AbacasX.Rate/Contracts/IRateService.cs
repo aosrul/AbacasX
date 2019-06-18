@@ -36,6 +36,9 @@ namespace AbacasX.Rate.Contracts
         [OperationContract(IsOneWay = false)]
         void UnSubscribeAllRateUpdates();
 
+        [OperationContract(IsOneWay = false)]
+        TokenDetail GetTokenDetail(string TokenId);
+
         [OperationContract]
         List<string> GetAssetList();
 
