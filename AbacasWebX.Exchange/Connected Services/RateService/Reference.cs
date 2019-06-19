@@ -81,6 +81,12 @@ namespace AbacasWebX.Exchange.RateService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenList", ReplyAction="http://tempuri.org/IRateService/GetTokenListResponse")]
         System.Threading.Tasks.Task<string[]> GetTokenListAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
+        AbacasX.Model.DataContracts.TokenDetail GetTokenDetail(string TokenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
+        System.Threading.Tasks.Task<AbacasX.Model.DataContracts.TokenDetail> GetTokenDetailAsync(string TokenId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetAssetRateList", ReplyAction="http://tempuri.org/IRateService/GetAssetRateListResponse")]
         AbacasX.Model.DataContracts.AssetRateData[] GetAssetRateList();
         
@@ -248,6 +254,14 @@ namespace AbacasWebX.Exchange.RateService {
         
         public System.Threading.Tasks.Task<string[]> GetTokenListAsync() {
             return base.Channel.GetTokenListAsync();
+        }
+        
+        public AbacasX.Model.DataContracts.TokenDetail GetTokenDetail(string TokenId) {
+            return base.Channel.GetTokenDetail(TokenId);
+        }
+        
+        public System.Threading.Tasks.Task<AbacasX.Model.DataContracts.TokenDetail> GetTokenDetailAsync(string TokenId) {
+            return base.Channel.GetTokenDetailAsync(TokenId);
         }
         
         public AbacasX.Model.DataContracts.AssetRateData[] GetAssetRateList() {

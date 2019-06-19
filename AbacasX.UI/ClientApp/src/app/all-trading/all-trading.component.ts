@@ -60,10 +60,18 @@ export class AllTradingComponent implements OnInit {
 
       rateService.getTokenList().then((data) => {
         console.log(data);
+
         this.tokens = data;
+
         this.source = data;
+        this.source.sort();
+
+
         this.data = data.slice();
         this.data2 = data.slice();
+
+        this.data.sort();
+        this.data2.sort();
 
       }).catch((reason: any) => { console.log(reason); });
 

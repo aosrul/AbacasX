@@ -13,6 +13,25 @@ using System.Threading;
 
 namespace AbacasX.Rate.Services
 {
+    #region Registered Listener
+    public class RegisteredListener
+    {
+        public string SessionId;
+        public bool connected;
+
+        public void Channel_Faulted(object sender, EventArgs e)
+        {
+            Console.WriteLine("Connection Faulted for session ID {0}", SessionId);
+        }
+
+        public void Channel_Closed(object sender, EventArgs e)
+        {
+            Console.WriteLine("Channel was closed for session ID {0}", SessionId);
+        }
+    }
+
+    #endregion
+
     #region Asset Rate Listener
     // Asset Rate Listener
 
@@ -768,6 +787,7 @@ namespace AbacasX.Rate.Services
         static public ConcurrentDictionary<string, CurrencyPairRateListener> currencyPairRateSubscriptions = new ConcurrentDictionary<string, CurrencyPairRateListener>();
         static public ConcurrentDictionary<string, TokenPairRateListener> tokenPairRateSubscriptions = new ConcurrentDictionary<string, TokenPairRateListener>();
         static public ConcurrentDictionary<string, string> TradingViewSymbols = new ConcurrentDictionary<string, string>();
+        static public ConcurrentDictionary<string, RegisteredListener> registeredListenerSubscription = new ConcurrentDictionary<string, RegisteredListener>();
 
         public AssetRateManager assetRateManager;
         public CurrencyPairRateManager currencyPairRateManager;
@@ -787,6 +807,7 @@ namespace AbacasX.Rate.Services
         static public object TokenPairRateListenerLock = new object();
         static public object TokenPairListLock = new object();
 
+        static public object RegisteredListenerLock = new object();
 
         private readonly Random _updateOrNotRandom = new Random();
         private readonly Random random = new Random();
@@ -1380,6 +1401,34 @@ namespace AbacasX.Rate.Services
             return tokenDetailRecord;
         }
 
+        #endregion
+
+        #region Registration Section
+        public void RegisterWithRateManager()
+        {
+            RegisteredListener registeredListenerRecord = new RegisteredListener();
+
+            lock (RegisteredListenerLock)
+            {
+                if (registeredListenerSubscription.TryGetValue(OperationContext.Current.SessionId, out registeredListenerRecord) != true)
+                {
+                    registeredListenerRecord = new RegisteredListener();
+                    registeredListenerRecord.SessionId = OperationContext.Current.SessionId;
+                    registeredListenerRecord.connected = true;
+
+                    OperationContext.Current.Channel.Faulted += registeredListenerRecord.Channel_Faulted;
+                    OperationContext.Current.Channel.Closed += registeredListenerRecord.Channel_Closed;
+
+                    registeredListenerSubscription.TryAdd(OperationContext.Current.SessionId, registeredListenerRecord);
+                }
+
+            }
+        }
+
+        public void UnRegisterWithRateManager()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

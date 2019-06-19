@@ -20,6 +20,27 @@ export enum CurrencyPairRateTermsEnum {
   Currency2PerCurrency1
 }
 
+export class TokenDetail {
+  tokenId: string;
+  assetId: string;
+  assetAccountId: number;
+  custodianId: number;
+  trustId: number;
+  name: string;
+  multiplier: number;
+  tokenStatus: TokenStatusEnum;
+  balance: number;
+  availableBalance: number;
+  tradingViewSymbol: string;
+}
+
+export enum TokenStatusEnum {
+  Generating,
+  Active,
+  Suspended,
+  Canceled
+}
+
 export class TokenPairRate {
   token1Id: string;
   token2Id: string;

@@ -136,6 +136,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetTokenDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TokenId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTokenDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenDetailResult" nillable="true" type="q3:TokenDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetAssetRateList">
     <xs:complexType>
       <xs:sequence />
@@ -144,7 +158,7 @@
   <xs:element name="GetAssetRateListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetAssetRateListResult" nillable="true" type="q3:ArrayOfAssetRateData" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetAssetRateListResult" nillable="true" type="q4:ArrayOfAssetRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -156,7 +170,7 @@
   <xs:element name="GetTokenRateListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenRateListResult" nillable="true" type="q4:ArrayOfTokenRateData" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenRateListResult" nillable="true" type="q5:ArrayOfTokenRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -171,7 +185,7 @@
   <xs:element name="GetTokenPairRateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenPairRateResult" nillable="true" type="q5:TokenPairRateData" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenPairRateResult" nillable="true" type="q6:TokenPairRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -185,7 +199,7 @@
   <xs:element name="GetTokenRateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenRateResult" nillable="true" type="q6:TokenRateData" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenRateResult" nillable="true" type="q7:TokenRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -212,28 +226,28 @@
   <xs:element name="AssetRateUpdate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="AssetRateRecord" nillable="true" type="q7:AssetRateData" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="AssetRateRecord" nillable="true" type="q8:AssetRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CurrencyPairRateUpdate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="CurrencyPairRateRecord" nillable="true" type="q8:CurrencyPairRateData" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="CurrencyPairRateRecord" nillable="true" type="q9:CurrencyPairRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="TokenRateUpdate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="TokenRateRecord" nillable="true" type="q9:TokenRateData" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="TokenRateRecord" nillable="true" type="q10:TokenRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="TokenPairRateUpdate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="TokenPairRateRecord" nillable="true" type="q10:TokenPairRateData" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="TokenPairRateRecord" nillable="true" type="q11:TokenPairRateData" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

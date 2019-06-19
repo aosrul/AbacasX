@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:simpleType name="RateTermsEnum">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="RateChangeEnum">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="AssetPerCurrency" />
-      <xs:enumeration value="CurrencyPerAsset" />
+      <xs:enumeration value="Up" />
+      <xs:enumeration value="Down" />
+      <xs:enumeration value="NoChange" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:element name="RateTermsEnum" nillable="true" type="tns:RateTermsEnum" />
+  <xs:element name="RateChangeEnum" nillable="true" type="tns:RateChangeEnum" />
+  <xs:simpleType name="TokenRateTermsEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TokenPerCurrency" />
+      <xs:enumeration value="CurrencyPerToken" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TokenRateTermsEnum" nillable="true" type="tns:TokenRateTermsEnum" />
+  <xs:simpleType name="CurrencyPairRateTermsEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Currency1PerCurrency2" />
+      <xs:enumeration value="Currency2PerCurrency1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CurrencyPairRateTermsEnum" nillable="true" type="tns:CurrencyPairRateTermsEnum" />
+  <xs:simpleType name="TokenPairRateTermsEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Token1PerToken2" />
+      <xs:enumeration value="Token2PerToken1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TokenPairRateTermsEnum" nillable="true" type="tns:TokenPairRateTermsEnum" />
 </xs:schema>

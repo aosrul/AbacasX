@@ -126,6 +126,7 @@
     <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.AssetRateData.datasource" />
     <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.TokenPairRateData.datasource" />
     <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.TokenRateData.datasource" />
+    <Content Include="Properties\DataSources\AbacasX.Model.DataContracts.TokenDetail.datasource" />
     <None Include="Properties\PublishProfiles\AbacasWebXExchange20190429082147 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -52,60 +52,63 @@ export class LineChartComponent implements OnInit, OnChanges {
     console.log("Asset 2 {0}", results[1]);
     this.token1Id = results[0];
     this.token2Id = results[1];
+    this.selectedAsset1 = this.token1Id;
+    this.selectedAsset2 = this.token2Id;
 
-    switch (results[0]) {
-      case "@AAPL":
-        this.selectedAsset1 = "AAPL";
-        break;
-      case "@GOOG":
-        this.selectedAsset1 = "GOOG";
-        break;
-      case "@MSFT":
-        this.selectedAsset1 = "MSFT";
-        break;
-      case "@GOLD":
-        this.selectedAsset1 = "GOLD";
-        break;
-      case "@BTC":
-        this.selectedAsset1 = "BTC";
-        break;
-      case "@ETH":
-        this.selectedAsset1 = "ETH";
-        break;
-      case "@BNP":
-        this.selectedAsset1 = "BNP";
-        break;
-      default:
-        this.selectedAsset1 = "AAPL";
-        break;
-    }
 
-    switch (results[1]) {
-      case "@AAPL":
-        this.selectedAsset2 = "AAPL";
-        break;
-      case "@GOOG":
-        this.selectedAsset2 = "GOOG";
-        break;
-      case "@MSFT":
-        this.selectedAsset2 = "MSFT";
-        break;
-      case "@GOLD":
-        this.selectedAsset2 = "GOLD";
-        break;
-      case "@BTC":
-        this.selectedAsset2 = "BTC";
-        break;
-      case "@ETH":
-        this.selectedAsset2 = "ETH";
-        break;
-      case "@BNP":
-        this.selectedAsset2 = "BNP";
-        break;
-      default:
-        this.selectedAsset2 = "AAPL";
-        break;
-    }
+    //switch (results[0]) {
+    //  case "@AAPL":
+    //    this.selectedAsset1 = "AAPL";
+    //    break;
+    //  case "@GOOG":
+    //    this.selectedAsset1 = "GOOG";
+    //    break;
+    //  case "@MSFT":
+    //    this.selectedAsset1 = "MSFT";
+    //    break;
+    //  case "@GOLD":
+    //    this.selectedAsset1 = "GOLD";
+    //    break;
+    //  case "@BTC":
+    //    this.selectedAsset1 = "BTC";
+    //    break;
+    //  case "@ETH":
+    //    this.selectedAsset1 = "ETH";
+    //    break;
+    //  case "@BNP":
+    //    this.selectedAsset1 = "BNP";
+    //    break;
+    //  default:
+    //    this.selectedAsset1 = "AAPL";
+    //    break;
+    //}
+
+    //switch (results[1]) {
+    //  case "@AAPL":
+    //    this.selectedAsset2 = "AAPL";
+    //    break;
+    //  case "@GOOG":
+    //    this.selectedAsset2 = "GOOG";
+    //    break;
+    //  case "@MSFT":
+    //    this.selectedAsset2 = "MSFT";
+    //    break;
+    //  case "@GOLD":
+    //    this.selectedAsset2 = "GOLD";
+    //    break;
+    //  case "@BTC":
+    //    this.selectedAsset2 = "BTC";
+    //    break;
+    //  case "@ETH":
+    //    this.selectedAsset2 = "ETH";
+    //    break;
+    //  case "@BNP":
+    //    this.selectedAsset2 = "BNP";
+    //    break;
+    //  default:
+    //    this.selectedAsset2 = "AAPL";
+    //    break;
+    //}
 
 
 

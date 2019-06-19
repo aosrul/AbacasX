@@ -54,6 +54,10 @@ namespace AbacasX.UI.Apis
                 new UserClass { UserName = "VinceSmall",        Password = "Abacas123", Role = "Investor",    clientId = 4 },
                 new UserClass { UserName = "MarkVanRoon",       Password = "Abacas123", Role = "Investor",    clientId = 5 },
 
+                new UserClass { UserName = "TradezDigital05",     Password = "Abacas123", Role = "Investor",  clientId = 6 },
+                new UserClass { UserName = "TradezDigital15",     Password = "Abacas123", Role = "Investor",  clientId = 7 },
+                new UserClass { UserName = "TradezDigital25",     Password = "Abacas123", Role = "Investor",  clientId = 8 },
+
                 };
 
                 foreach (UserClass userRecord in users)
