@@ -25,7 +25,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
 
   errorMessage: string = "";
 
-  OrderDescription: string = "Buy @AAPL with @GOOG";
+  OrderDescription: string = "Buy @AAPL for @GOOG";
 
   constructor(private router: Router,
     private dataService: DataService, private loginService: LoginService) { }
@@ -115,9 +115,9 @@ export class QuickTradingComponent implements OnInit, OnChanges {
     this.quickOrder.token2Id = results[1];
 
     if (this.IsBuyOrder)
-      this.OrderDescription = "Buy " + this.quickOrder.token1Id + " with " + this.quickOrder.token2Id;
+      this.OrderDescription = "Buy " + this.quickOrder.token1Id + " for " + this.quickOrder.token2Id;
     else
-      this.OrderDescription = "Sell " + this.quickOrder.token1Id + " with " + this.quickOrder.token2Id;
+      this.OrderDescription = "Sell " + this.quickOrder.token1Id + " for " + this.quickOrder.token2Id;
   }
 
 
@@ -146,7 +146,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   BuyToken1Clicked() {
     this.quickOrder.buySellType = BuySellTypeEnum.Buy;
     this.IsBuyOrder = true;
-    this.OrderDescription = "Buy " + this.quickOrder.token1Id + " with " + this.quickOrder.token2Id;
+    this.OrderDescription = "Buy " + this.quickOrder.token1Id + " for " + this.quickOrder.token2Id;
     this.quickOrder.orderPrice = this.TokenExchangeAsk;
     this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
   }
@@ -154,7 +154,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   SellToken1Clicked() {
     this.quickOrder.buySellType = BuySellTypeEnum.Sell;
     this.IsBuyOrder = false;
-    this.OrderDescription = "Sell " + this.quickOrder.token1Id + " with " + this.quickOrder.token2Id;
+    this.OrderDescription = "Sell " + this.quickOrder.token1Id + " for " + this.quickOrder.token2Id;
     this.quickOrder.orderPrice = this.TokenExchangeBid;
     this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
   }

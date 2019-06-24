@@ -46,7 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\AssetRateData.cs" />
+    <Compile Include="DataContracts\AssetTransferData.cs" />
+    <Compile Include="DataContracts\BlockChainData.cs" />
+    <Compile Include="DataContracts\ClientPositionData.cs" />
     <Compile Include="DataContracts\CurrencyPairRateData.cs" />
+    <Compile Include="DataContracts\OrderData.cs" />
     <Compile Include="DataContracts\TokenDetail.cs" />
     <Compile Include="DataContracts\TokenPairRateData.cs" />
     <Compile Include="DataContracts\TokenRateData.cs" />

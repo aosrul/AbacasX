@@ -31,7 +31,7 @@ export class AdvancedTradingComponent implements OnInit {
   IsMarketOrder: boolean = true;
   changeLog: string[] = [];
 
-  OrderDescription: string = "Buy @AAPL with @GOOG";
+  OrderDescription: string = "Buy @AAPL for @GOOG";
   ExchangeDescription: string = "@AAPL for @GOOG";
   errorMessage: string = "";
 

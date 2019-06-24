@@ -14,7 +14,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BlockChainData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BlockChainData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class BlockChainData : object
     {
         
@@ -141,7 +141,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ClientPositionData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ClientPositionData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class ClientPositionData : object
     {
         
@@ -223,7 +223,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="OrderData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class OrderData : object
     {
         
@@ -233,7 +233,11 @@ namespace OrderService
         
         private int ClientIdField;
         
+        private OrderService.OrderLegFillStatusEnum OrderFillStatusField;
+        
         private int OrderIdField;
+        
+        private int OrderLegIdField;
         
         private decimal OrderPriceField;
         
@@ -246,6 +250,8 @@ namespace OrderService
         private decimal PriceFilledField;
         
         private decimal Token1AmountField;
+        
+        private decimal Token1AmountFilledField;
         
         private string Token1IdField;
         
@@ -293,6 +299,19 @@ namespace OrderService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public OrderService.OrderLegFillStatusEnum OrderFillStatus
+        {
+            get
+            {
+                return this.OrderFillStatusField;
+            }
+            set
+            {
+                this.OrderFillStatusField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int OrderId
         {
             get
@@ -302,6 +321,19 @@ namespace OrderService
             set
             {
                 this.OrderIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrderLegId
+        {
+            get
+            {
+                return this.OrderLegIdField;
+            }
+            set
+            {
+                this.OrderLegIdField = value;
             }
         }
         
@@ -384,6 +416,19 @@ namespace OrderService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Token1AmountFilled
+        {
+            get
+            {
+                return this.Token1AmountFilledField;
+            }
+            set
+            {
+                this.Token1AmountFilledField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Token1Id
         {
             get
@@ -433,6 +478,21 @@ namespace OrderService
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Sell = 1,
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OrderLegFillStatusEnum", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models")]
+    public enum OrderLegFillStatusEnum : int
+    {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        None = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Partial = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Full = 2,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -497,7 +557,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetTransferData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetTransferData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class AssetTransferData : object
     {
         
@@ -672,7 +732,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetDepositData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetDepositData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class AssetDepositData : object
     {
         
@@ -739,7 +799,7 @@ namespace OrderService
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AssetWithdrawalData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Exchange.Contracts")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AssetWithdrawalData", Namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts")]
     public partial class AssetWithdrawalData : object
     {
         

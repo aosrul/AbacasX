@@ -90,11 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Contracts\AssetTransferData.cs" />
-    <Compile Include="Contracts\BlockChainData.cs" />
-    <Compile Include="Contracts\ClientPositionData.cs" />
     <Compile Include="Contracts\IOrderService.cs" />
-    <Compile Include="Contracts\OrderData.cs" />
     <Compile Include="CustomHostFactory.cs" />
     <Compile Include="ExchangeSystem\ExchangeBook.cs" />
     <Compile Include="ExchangeSystem\OrderBook.cs" />

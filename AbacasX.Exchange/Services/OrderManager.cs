@@ -32,8 +32,6 @@ public class ClientPosition
     }
 }
 
-
-
 namespace AbacasX.Exchange.Services
 {
     [ServiceBehavior(UseSynchronizationContext = false, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
@@ -118,6 +116,7 @@ namespace AbacasX.Exchange.Services
             KeyPairs.TryAdd(1, KeyPair);
 
             _timer = new Timer(FillOpenOrders, null, _updateInterval, _updateInterval);
+
         }
 
         public static Tuple<string, string> CreateKeyPair()
@@ -539,12 +538,13 @@ namespace AbacasX.Exchange.Services
             orderCount++;
             orderData.OrderId = orderCount;
 
-            orderData.CopyPropertiesTo(orderLegRecord);
-
             orderLegRecord.Order.ClientId = orderData.ClientId;
             
+            // The OrderId and OrderLegId will be created by the database
             orderLegRecord.OrderId = orderData.OrderId;
-            orderLegRecord.OrderLegId = orderCount;
+            orderLegRecord.OrderLegId = orderData.OrderId;
+
+
             orderLegRecord.OrderLegCreatedDateTime = DateTime.Now;
             orderLegRecord.BuySellType = orderData.BuySellType;
             orderLegRecord.OrderLegFillStatus = OrderLegFillStatusEnum.None;
