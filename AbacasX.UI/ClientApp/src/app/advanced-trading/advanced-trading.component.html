@@ -62,21 +62,21 @@
 
 
       <div class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="MarketRateBid"  style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 1 Market Price" autocomplete="off"  value="{{token1Rate}}"/>
+        <input class="form-control" name="MarketRateBid" readonly  style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 1 Market Price" autocomplete="off"  value="{{token1Rate}}"/>
         <button style="width:12em" class="btn token-label">
           {{Token1PriceCurrency}} / {{quickOrder.Token1Id}}
         </button>
       </div>
 
       <div *ngIf="IsCrossCurrency" class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="FXToken2" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="FX Rate" autocomplete="off" value="{{tokenFXRate}}" />
+        <input class="form-control" name="FXToken2" readonly select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="FX Rate" autocomplete="off" value="{{tokenFXRate}}" />
         <button style="width:12em" class="btn token-label">
           {{Token2PriceCurrency}} / {{Token1PriceCurrency}}
         </button>
       </div>
 
       <div class="d-inline-flex" style="margin-top:3px;">
-        <input class="form-control" name="Token2MarketRate" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 2 Price" autocomplete="off" value="{{token2Rate}}" />
+        <input class="form-control" name="Token2MarketRate" readonly select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" placeholder="Token 2 Price" autocomplete="off" value="{{token2Rate}}" />
         <button style="width:12em" class="btn token-label">
           {{Token2PriceCurrency}} / {{quickOrder.Token2Id}}
         </button>
@@ -97,7 +97,7 @@
       <div class="d-inline-flex" style="margin-top:5px">
         &nbsp;
       </div>
-      <div class="d-inline-flex" style="margin-top:5px">
+      <div *ngIf="IsMarketOrder == false" class="d-inline-flex" style="margin-top:5px">
         <label>Expiration</label>
       </div>
 
@@ -111,20 +111,18 @@
         &nbsp;
       </div>
 
-      <div class="d-inline-flex" style="margin-top:5px">
+
+      <div *ngIf="IsMarketOrder == false"  class="d-inline-flex" style="margin-top:5px">
 
         <select (change)="orderTypeChange($event.target.value)" [(ngModel)]="selectedOrderType" name="OrderType" class="form-control">
           <option>GTC</option>
-          <option>EOD</option>
-          <option>EOW</option>
-          <option>Good Till</option>
         </select>
       </div>
 
-      <div hidden class="d-inline-flex" style="margin-top:5px; margin-left:0px">
-        <kendo-datepicker name="orderExpiration" [(ngModel)]="orderExpiration"></kendo-datepicker>
-        <kendo-timepicker style="margin-left:2px" name="orderExpirationTime" [(ngModel)]="orderExpirationTime"></kendo-timepicker>
-      </div>
+      <!--<div *ngIf="IsMarketOrder == false" hidden class="d-inline-flex" style="margin-top:5px; margin-left:0px">
+        <kendo-datepicker  name="orderExpiration" [(ngModel)]="orderExpiration"></kendo-datepicker>
+        <kendo-timepicker  style="margin-left:2px" name="orderExpirationTime" [(ngModel)]="orderExpirationTime"></kendo-timepicker>
+      </div>-->
 
       <div class="d-inline-flex" style="margin-top:5px">
         <label>&nbsp;</label>

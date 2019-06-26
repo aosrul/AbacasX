@@ -12,6 +12,15 @@ namespace AbacasX.Exchange.ExchangeSystem
 {
     public class ExchangeBook
     {
+        public delegate void NotifyOrderAddedDel(OrderLeg orderLegRecord);
+        public delegate void NotifyOrderLegMatchDel(OrderLeg orderLegRecord, OrderFilledData orderFilledDataRecord);
+        public delegate void NotifyOrderLegFilledDel(OrderLeg orderLegRecord);
+
+        // Instance pointers must be initialized by method creating the Exchange Book
+        public NotifyOrderAddedDel NotifyOrderAdded;
+        public NotifyOrderLegMatchDel NotifyOrderLegMatched;
+        public NotifyOrderLegFilledDel NotifyOrderLegFilled;
+
         public Dictionary<string, OrderBook> ExchangeTokenPairBook = new Dictionary<string, OrderBook>();
         public RateServiceClient rateServiceClient;
         RateServiceCallBack rateServiceCallBack = new RateServiceCallBack();
@@ -28,7 +37,7 @@ namespace AbacasX.Exchange.ExchangeSystem
 
             if (ExchangeTokenPairBook.TryGetValue(TokenPairKey, out orderBook) == false)
             {
-                orderBook = new OrderBook(TokenPairKey, Token1Id, Token2Id, rateServiceClient);
+                orderBook = new OrderBook(this, TokenPairKey, Token1Id, Token2Id, rateServiceClient);
 
                 // Order book should subscribe to token pair rate updates here !
 
@@ -52,13 +61,12 @@ namespace AbacasX.Exchange.ExchangeSystem
             {
                 // Order book exists, so add the order to the order book
                 orderBook.AddToOrderBook(orderLegRecord);
-                Console.WriteLine("Added Order {0}, Client {1} Token Pair {2} type {3} at Price {4}", orderLegRecord.Order.ClientId, orderLegRecord.OrderLegId, TokenPairKey, orderLegRecord.OrderLegType.ToString(), orderLegRecord.OrderPrice);
             }
             // If no order book exists for the asset pair, then create a new order book, add the order, and add the order book to the exchange asset pair list
             else
             {
                 Console.WriteLine("Order Book created for Token Pair {0}-{1} with Key {2}", Token1Id, Token2Id, TokenPairKey);
-                orderBook = new OrderBook(TokenPairKey, Token1Id, Token2Id, rateServiceClient);
+                orderBook = new OrderBook(this, TokenPairKey, Token1Id, Token2Id, rateServiceClient);
 
                 //// Link the order to the rate feed updates.
                 //TokenPairRecord.bidRateChanged += orderBook.TokenPairBidRateChanged;
@@ -66,8 +74,6 @@ namespace AbacasX.Exchange.ExchangeSystem
 
                 orderBook.AddToOrderBook(orderLegRecord);
                 ExchangeTokenPairBook.Add(TokenPairKey, orderBook);
-                Console.WriteLine("Added Order {0}, Client {1} Token Pair {2} type {3} at Price {4}", orderLegRecord.Order.ClientId, orderLegRecord.OrderLegId, TokenPairKey, orderLegRecord.OrderLegType.ToString(), orderLegRecord.OrderPrice);
-
             }
         }
     }

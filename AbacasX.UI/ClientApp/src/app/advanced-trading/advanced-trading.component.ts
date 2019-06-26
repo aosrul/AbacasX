@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { IQuickOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, TokenPairRate, OrderStatusEnum, IOrder } from '../../shared/interfaces';
+import { IQuickOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, TokenPairRate, OrderStatusEnum, IOrder, OrderLegFillStatusEnum } from '../../shared/interfaces';
 import { DataService } from '../../core/data.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../core/login.service';
@@ -58,12 +58,14 @@ export class AdvancedTradingComponent implements OnInit {
     buySellType: BuySellTypeEnum.Buy,
     token1Id: '',
     token1Amount: 0,
+    token1AmountFilled:0,
     token2Id: '',
     orderPrice: 0,
     orderPriceTerms: OrderPriceTermsEnum.Token2PerToken1,
     orderType: OrderTypeEnum.Market,
     token2Amount: 0,
     orderStatus: OrderStatusEnum.Active,
+    orderFillStatus: OrderLegFillStatusEnum.None,
     priceFilled: 0
   };
 

@@ -1,6 +1,5 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../core/data.service';
-import { IOrder, BuySellTypeEnum } from '../../shared/interfaces';
+import { Component, OnInit } from '@angular/core';
+
 
 
 @Component({
@@ -9,22 +8,11 @@ import { IOrder, BuySellTypeEnum } from '../../shared/interfaces';
 })
 export class OrdersComponent implements OnInit {
 
-    title: string = "";
-    orders: IOrder[] = [];
+    title: string = "Orders";
    
-    constructor (private dataService: DataService) { }
+    constructor () { }
 
     ngOnInit(): void {
         this.title = "Orders";
-        this.getOrders();
-    }
-
-    getOrders() {
-        this.dataService.getOrders()
-            .subscribe((orders: IOrder[]) => {
-                this.orders = orders;
-            },
-                (err: any) => console.log(err),
-                () => console.log('getOrders() retrieved orders'));
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { Router } from '@angular/router';
-import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, OrderStatusEnum } from '../../shared/interfaces';
+import { IOrder, BuySellTypeEnum, OrderPriceTermsEnum, OrderTypeEnum, OrderStatusEnum, OrderLegFillStatusEnum } from '../../shared/interfaces';
 import { DataService } from '../../core/data.service';
 import { LoginService } from '../../core/login.service';
 
@@ -36,12 +36,14 @@ export class QuickTradingComponent implements OnInit, OnChanges {
     buySellType: BuySellTypeEnum.Buy,
     token1Id: '',
     token1Amount: 0,
+    token1AmountFilled: 0,
     token2Id: '',
     orderPrice: 0,
     orderPriceTerms: OrderPriceTermsEnum.Token2PerToken1,
     orderType: OrderTypeEnum.Market,
     token2Amount: 0,
     orderStatus: OrderStatusEnum.Active,
+    orderFillStatus: OrderLegFillStatusEnum.None,
     priceFilled: 0
   };
 

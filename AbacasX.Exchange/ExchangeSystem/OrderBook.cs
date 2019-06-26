@@ -12,6 +12,7 @@ namespace AbacasX.Exchange.ExchangeSystem
 {
     public class OrderBook
     {
+        private ExchangeBook _exchangeBook;
         RateServiceClient _rateServiceClient;
 
         LinkedList<WatchOrder> LimitBuyOrders =     new LinkedList<WatchOrder>();
@@ -39,16 +40,18 @@ namespace AbacasX.Exchange.ExchangeSystem
         private object LimitBuyLock = new object();
         private object LimitSellLock = new object();
 
-        public OrderBook(string tokenPairKey, string token1Id, string token2Id, RateServiceClient rateServiceClient)
+        public OrderBook(ExchangeBook exchangeBook, string tokenPairKey, string token1Id, string token2Id, RateServiceClient rateServiceClient)
         {
             TokenPairKey = tokenPairKey;
             Token1Id = token1Id;
             Token2Id = token2Id;
             _rateServiceClient = rateServiceClient;
+            _exchangeBook = exchangeBook;
         }
 
         public void AddToOrderBook(OrderLeg orderLeg)
         {
+            _exchangeBook.NotifyOrderAdded(orderLeg);
             WatchOrder watchOrder = new WatchOrder(orderLeg);
             AddOrderToWatchList(watchOrder);
         }
@@ -378,8 +381,9 @@ namespace AbacasX.Exchange.ExchangeSystem
         {
             // This will ultimately be replaced with logic calling into the repository 
             //
-            Console.WriteLine("Order ID {0} Leg ID {1} is filled", watchOrder.orderLegRecord.OrderId, watchOrder.orderLegRecord.OrderLegId);
+            //Console.WriteLine("Order ID {0} Leg ID {1} is filled", watchOrder.orderLegRecord.OrderId, watchOrder.orderLegRecord.OrderLegId);
             watchOrder.orderLegRecord.OrderLegFillStatus = OrderLegFillStatusEnum.Full;
+            _exchangeBook.NotifyOrderLegFilled(watchOrder.orderLegRecord);
         }
 
         public TokenPairRateData GetTokenPairRate(string token1Id, string token2Id)
@@ -642,7 +646,21 @@ namespace AbacasX.Exchange.ExchangeSystem
 
         public void SaveFilledOrders(WatchOrder buyOrder, WatchOrder sellOrder, decimal AmountOffset, decimal OrderPrice)
         {
-            Console.WriteLine("Updating Order Book for Order {0}/{1} offset amount {2} at price {3}", buyOrder.orderLegRecord.OrderId, sellOrder.orderLegRecord.OrderId, AmountOffset, OrderPrice);
+            OrderFilledData orderFilledDataRecord = new OrderFilledData();
+
+            orderFilledDataRecord.OrderLegId = buyOrder.orderLegRecord.OrderLegId;
+            orderFilledDataRecord.Token1Amount = AmountOffset;
+            orderFilledDataRecord.Token1Id = buyOrder.orderLegRecord.Token1Id;
+            orderFilledDataRecord.Token2Id = buyOrder.orderLegRecord.Token2Id;
+            orderFilledDataRecord.Token2Amount = AmountOffset * (buyOrder.orderLegRecord.OrderPriceTerms == OrderPriceTermsEnum.Token2PerToken1 ?
+                OrderPrice : 1.0M / OrderPrice);
+            orderFilledDataRecord.OrderPriceTerms = buyOrder.orderLegRecord.OrderPriceTerms;
+            orderFilledDataRecord.FilledDateTime = System.DateTime.Now;
+
+            _exchangeBook.NotifyOrderLegMatched(buyOrder.orderLegRecord,  orderFilledDataRecord);
+            _exchangeBook.NotifyOrderLegMatched(sellOrder.orderLegRecord, orderFilledDataRecord);
+
+            //Console.WriteLine("Updating Order Book for Order {0}/{1} offset amount {2} at price {3}", buyOrder.orderLegRecord.OrderId, sellOrder.orderLegRecord.OrderId, AmountOffset, OrderPrice);
         }
 
         public void UpdateOrderBookBid(WatchOrder OrderWatchRecord)

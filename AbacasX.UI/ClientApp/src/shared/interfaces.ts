@@ -146,6 +146,18 @@ export interface IOrderRates {
   Token2PriceCurrencyAsk: number;
 }
 
+export interface IOrderFilled {
+  orderLegId?: number;
+  transactionId?: number;
+  fillDateTime: Date;
+  token1Id: string;
+  token1Amount: number;
+  token2Id: string;
+  token2Amount: number;
+  priceFilled: number;
+  orderPriceTerms: OrderPriceTerms;
+}
+
 export interface IQuickOrder {
   OrderId?: number;
 
@@ -180,6 +192,7 @@ export interface IWithdrawal {
 
 export interface IOrder {
   orderId?: number;
+  orderLegId?: number;
 
   clientId: number;
   clientAccountId: number;
@@ -187,6 +200,7 @@ export interface IOrder {
   buySellType: BuySellTypeEnum;
   token1Id: string;
   token1Amount: number;
+  token1AmountFilled: number;
 
   token2Id: string;
   token2Amount: number;
@@ -195,6 +209,8 @@ export interface IOrder {
 
   orderType: OrderTypeEnum;
   orderStatus: OrderStatusEnum;
+  orderFillStatus: OrderLegFillStatusEnum;
+
   priceFilled: number;
 }
 
@@ -268,4 +284,10 @@ export enum RoleTypeEnum {
   Admin,
   Guest,
   Custodian
+}
+
+export enum OrderLegFillStatusEnum {
+  None,
+  Partial,
+  Full
 }
