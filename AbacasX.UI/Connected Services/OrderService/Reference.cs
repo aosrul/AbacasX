@@ -875,6 +875,9 @@ namespace OrderService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientPositions", ReplyAction="http://tempuri.org/IOrderService/GetClientPositionsResponse")]
         System.Threading.Tasks.Task<OrderService.ClientPositionData[]> GetClientPositionsAsync(int ClientId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientTokenBalance", ReplyAction="http://tempuri.org/IOrderService/GetClientTokenBalanceResponse")]
+        System.Threading.Tasks.Task<decimal> GetClientTokenBalanceAsync(int ClientId, string TokenId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetClientOrders", ReplyAction="http://tempuri.org/IOrderService/GetClientOrdersResponse")]
         System.Threading.Tasks.Task<OrderService.OrderData[]> GetClientOrdersAsync(int ClientId);
         
@@ -981,6 +984,11 @@ namespace OrderService
         public System.Threading.Tasks.Task<OrderService.ClientPositionData[]> GetClientPositionsAsync(int ClientId)
         {
             return base.Channel.GetClientPositionsAsync(ClientId);
+        }
+        
+        public System.Threading.Tasks.Task<decimal> GetClientTokenBalanceAsync(int ClientId, string TokenId)
+        {
+            return base.Channel.GetClientTokenBalanceAsync(ClientId, TokenId);
         }
         
         public System.Threading.Tasks.Task<OrderService.OrderData[]> GetClientOrdersAsync(int ClientId)

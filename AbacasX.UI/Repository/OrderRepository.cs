@@ -104,5 +104,10 @@ namespace AbacasX.Repository
         {
             return _orderServiceClient.GetClientTransferActivityAsync(ClientId);
         }
+
+        public Task<decimal> GetClientTokenBalanceAsync(int ClientId, string TokenId)
+        {
+            return _orderServiceClient.GetClientTokenBalanceAsync(ClientId, TokenId);
+        }
     }
 }

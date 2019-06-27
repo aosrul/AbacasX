@@ -15,5 +15,6 @@ namespace AbacasX.models
         public AssetWithdrawalData Withdrawal { get; set; }
         public ModelStateDictionary ModelState { get; set; }
         public string Guid { get; set; }
+        public decimal TokenBalance { get; set; }
     }
 }

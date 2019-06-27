@@ -22,6 +22,9 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   IsBuyOrder: boolean = true;
   IsMarketOrder: boolean = true;
   changeLog: string[] = [];
+  TokenBalanceAvailable: number = 0;
+  IsTokenBalanceExceeded: boolean = false;
+
 
   errorMessage: string = "";
 
@@ -98,11 +101,13 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   updateOrderPrice(orderPrice: string) {
     this.quickOrder.orderPrice = Number(orderPrice);
     this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
+    this.CheckTokenBalance();
   }
 
   updateToken1Amount(token1Amount: string) {
     this.quickOrder.token1Amount = Number(token1Amount);
     this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
+    this.CheckTokenBalance();
   }
 
   selectedAssetPairChanged(newAssetPair: string) {
@@ -145,12 +150,47 @@ export class QuickTradingComponent implements OnInit, OnChanges {
     this.IsMarketOrder = false;
   }
 
+  CheckTokenBalance() {
+    console.log("Checking token balance for {0}", (this.IsBuyOrder == true ? this.quickOrder.token2Id : this.quickOrder.token1Id));
+
+
+    this.dataService.getClientTokenBalance(this.quickOrder.clientId, (this.IsBuyOrder == true ? this.quickOrder.token2Id : this.quickOrder.token1Id))
+      .subscribe((tokenBalance: number) => {
+        if (tokenBalance) {
+
+          this.TokenBalanceAvailable = tokenBalance;
+
+          if (this.IsBuyOrder == true) {
+            if (this.quickOrder.token2Amount > this.TokenBalanceAvailable)
+              this.IsTokenBalanceExceeded = true;
+            else
+              this.IsTokenBalanceExceeded = false;
+          }
+          else {
+            if (this.quickOrder.token1Amount > this.TokenBalanceAvailable)
+              this.IsTokenBalanceExceeded = true;
+            else
+              this.IsTokenBalanceExceeded = false;
+          }
+
+          console.log("Token Balance is {0}", this.TokenBalanceAvailable);
+
+        }
+        else {
+          this.errorMessage = 'Unable to get client token balance';
+          this.IsTokenBalanceExceeded = true;
+        }
+      },
+        (err: any) => console.log(err));
+  }
+
   BuyToken1Clicked() {
     this.quickOrder.buySellType = BuySellTypeEnum.Buy;
     this.IsBuyOrder = true;
     this.OrderDescription = "Buy " + this.quickOrder.token1Id + " for " + this.quickOrder.token2Id;
     this.quickOrder.orderPrice = this.TokenExchangeAsk;
     this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
+    this.CheckTokenBalance();
   }
 
   SellToken1Clicked() {
@@ -159,6 +199,7 @@ export class QuickTradingComponent implements OnInit, OnChanges {
     this.OrderDescription = "Sell " + this.quickOrder.token1Id + " for " + this.quickOrder.token2Id;
     this.quickOrder.orderPrice = this.TokenExchangeBid;
     this.quickOrder.token2Amount = this.quickOrder.token1Amount * this.quickOrder.orderPrice;
+    this.CheckTokenBalance();
   }
 }
 

@@ -513,6 +513,24 @@ namespace AbacasX.Exchange.Services
             return (0);
         }
 
+        public decimal GetClientTokenBalance(int ClientId, string TokenId)
+        {
+            decimal tokenBalance = 0m;
+            ClientPosition clientPositionsRecord;
+            ClientPositionData clientPositionRecord;
+
+
+            if (ClientPositions.TryGetValue(ClientId, out clientPositionsRecord) == true)
+            {
+                if (clientPositionsRecord.ClientPositions.TryGetValue(TokenId, out clientPositionRecord) == true)
+                {
+                    tokenBalance = clientPositionRecord.TokenAmount;
+                }
+            }
+
+            return tokenBalance;
+        }
+
         public List<BlockChainData> GetClientBlockChainTransactions(int clientId)
         {
             //Console.WriteLine("Client {0} Request for Blockchain Transactions", clientId);
@@ -782,7 +800,7 @@ namespace AbacasX.Exchange.Services
             orderFilledDataRecord.TransactionId = orderFilledCount++;
             OrderData orderData;
             ClientFilledOrder clientFilledOrderRecord;
-            
+
 
             Console.WriteLine("Order Matched:  Order Id {0} , Client {1}  Transaction Id {2} Token Pair {3}-{4} type {5} Amount filled {6} at Price {7}",
                 orderLegRecord.OrderLegId, orderLegRecord.Order.ClientId, orderFilledDataRecord.TransactionId,

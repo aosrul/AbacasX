@@ -131,7 +131,7 @@
         <label>&nbsp;</label>
       </div>
       <div class="d-inline-flex" style="margin-top:5px">
-        <button type="submit" [disabled]="(quickOrder.Token1Amount == 0)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+        <button type="submit" [disabled]="(quickOrder.Token1Amount == 0) || (IsTokenBalanceExceeded == true)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
         <!--<button type="button" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>-->
         <button type="button" name="CancelOrder" class="btn btn-danger " style="margin-left:5px">Cancel</button>
       </div>

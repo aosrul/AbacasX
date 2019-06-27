@@ -38,6 +38,15 @@ export class DataService {
       .catch(this.handleError);
   }
 
+  getClientTokenBalance(clientId: number, tokenId: string) : Observable<number> {
+    return this.http.get(this.baseOrdersUrl + '/' + 'clientTokenBalance' + '?clientId=' + clientId.toString() + '&tokenId=' + tokenId.toString())
+      .map((res: Response) => {
+        const data = res.json();
+        return data.tokenBalance;
+      })
+      .catch(this.handleError);
+  }
+
 
   getOrders(): Observable<IOrder[]> {
     return this.http.get(this.baseOrdersUrl)

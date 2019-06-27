@@ -84,6 +84,25 @@ namespace AbacasX.Apis
 
         [HttpGet]
         [NoCache]
+        [Route("clientTokenBalance")]
+        [ProducesResponseType(typeof(decimal), 200)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> GetClientTokenBalance(int clientId, string tokenId)
+        {
+            try
+            {
+                decimal tokenBalance = await _orderService.GetClientTokenBalanceAsync(clientId, tokenId);
+                return Ok(new ApiResponse { Status = true, TokenBalance = tokenBalance });
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+        [HttpGet]
+        [NoCache]
         [Route("clientBlockChainTransactions")]
         [ProducesResponseType(typeof(List<ClientPositionData>), 200)]
         [ProducesResponseType(typeof(ApiResponse), 400)]

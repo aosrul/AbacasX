@@ -43,7 +43,7 @@
       </div>
 
       <div class="form-group-row" style="margin-top:2em;">
-        <button type="submit" [disabled]="quickTradeForm.invalid || (quickOrder.token1Amount == 0)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
+        <button type="submit" [disabled]="quickTradeForm.invalid || (quickOrder.token1Amount == 0) || (IsTokenBalanceExceeded == true)" name="RequestOrder" class="btn button-selected">{{OrderDescription}}</button>
         <button type="button" name="CancelOrder" class="btn btn-danger ">Cancel</button>
       </div>
     </div>

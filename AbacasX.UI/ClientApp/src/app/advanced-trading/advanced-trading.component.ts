@@ -29,6 +29,8 @@ export class AdvancedTradingComponent implements OnInit {
   IsCrossCurrency: boolean = false;
   IsBuyOrder: boolean = true;
   IsMarketOrder: boolean = true;
+  TokenBalanceAvailable: number = 0;
+  IsTokenBalanceExceeded = false;
   changeLog: string[] = [];
 
   OrderDescription: string = "Buy @AAPL for @GOOG";
@@ -172,6 +174,8 @@ export class AdvancedTradingComponent implements OnInit {
 
     this.ExchangeDescription = this.quickOrder.Token1Id + " - " + this.quickOrder.Token2Id;
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
+
+    this.CheckTokenBalance();
   }
 
 
@@ -181,11 +185,13 @@ export class AdvancedTradingComponent implements OnInit {
   updateOrderPrice(orderPrice: string) {
     this.quickOrder.OrderPrice = Number(orderPrice);
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
+    this.CheckTokenBalance();
   }
 
   updateToken1Amount(token1Amount: string) {
     this.quickOrder.Token1Amount = Number(token1Amount);
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
+    this.CheckTokenBalance();
   }
 
   selectedAssetPairChanged(newAssetPair: string) {
@@ -266,13 +272,46 @@ export class AdvancedTradingComponent implements OnInit {
     this.IsMarketOrder = true;
   }
 
+  CheckTokenBalance() {
+    console.log("Checking token balance for {0}", (this.IsBuyOrder == true ? this.quickOrder.Token2Id : this.quickOrder.Token1Id));
+
+
+    this.dataService.getClientTokenBalance(this.quickOrder.ClientId, (this.IsBuyOrder == true ? this.quickOrder.Token2Id : this.quickOrder.Token1Id))
+      .subscribe((tokenBalance: number) => {
+        if (tokenBalance) {
+
+          this.TokenBalanceAvailable = tokenBalance;
+
+          if (this.IsBuyOrder == true) {
+            if (this.quickOrder.Token2Amount > this.TokenBalanceAvailable)
+              this.IsTokenBalanceExceeded = true;
+            else
+              this.IsTokenBalanceExceeded = false;
+          }
+          else {
+            if (this.quickOrder.Token1Amount > this.TokenBalanceAvailable)
+              this.IsTokenBalanceExceeded = true;
+            else
+              this.IsTokenBalanceExceeded = false;
+          }
+
+          console.log("Token Balance is {0}", this.TokenBalanceAvailable);
+
+        }
+        else {
+          this.errorMessage = 'Unable to get client token balance';
+          this.IsTokenBalanceExceeded = true;
+        }
+      },
+        (err: any) => console.log(err));
+  }
+
   LimitOrderClicked() {
     this.quickOrder.OrderType = OrderTypeEnum.Limit;
     this.IsMarketOrder = false;
   }
 
   BuyToken1Clicked() {
-
 
     this.token1Rate = this.TokenPairRate.token1AskRate;
     this.token2Rate = this.TokenPairRate.token2BidRate;
@@ -290,7 +329,7 @@ export class AdvancedTradingComponent implements OnInit {
     else
       this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
 
-
+    this.CheckTokenBalance();
   }
 
   SellToken1Clicked() {
@@ -312,6 +351,6 @@ export class AdvancedTradingComponent implements OnInit {
     else
       this.OrderDescription = "Sell " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
 
-
+    this.CheckTokenBalance();
   }
 }
