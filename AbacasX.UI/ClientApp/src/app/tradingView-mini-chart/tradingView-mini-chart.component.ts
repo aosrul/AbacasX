@@ -66,22 +66,24 @@ export class TradingViewMiniChartComponent implements OnInit, AfterViewInit, OnC
     if (this.s != null)
       this.renderer.removeChild(this.elementRef.nativeElement, this.p);
 
-    this.p = this.renderer.createElement('div');
-    this.s = this.renderer.createElement("script");
+    if (this.tokenDetail.tradingViewSymbol != "None") {
 
-    this.s.id = "MiniChart";
-    this.s.type = 'text/javascript';
-    this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
+      this.p = this.renderer.createElement('div');
+      this.s = this.renderer.createElement("script");
+
+      this.s.id = "MiniChart";
+      this.s.type = 'text/javascript';
+      this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
 
 
-    //this.s.text = `{  "symbol": "NASDAQ:${this.selectedAsset}",
+      //this.s.text = `{  "symbol": "NASDAQ:${this.selectedAsset}",
 
-    if (this.IsSubscribed == true)
-      this.assetSymbol = this.tokenDetail.tradingViewSymbol;
-    else
-      this.assetSymbol = "NASDAQ:AAPL";
+      if (this.IsSubscribed == true)
+        this.assetSymbol = this.tokenDetail.tradingViewSymbol;
+      else
+        this.assetSymbol = "NASDAQ:AAPL";
 
-    this.s.text = `{  "symbol": "${this.assetSymbol}",
+      this.s.text = `{  "symbol": "${this.assetSymbol}",
                         "width": "100\%",
                         "height": "300",
                         "locale": "en",
@@ -94,8 +96,9 @@ export class TradingViewMiniChartComponent implements OnInit, AfterViewInit, OnC
                         "largeChartUrl": ""
                     }`;
 
-    this.renderer.appendChild(this.p, this.s);
-    this.renderer.appendChild(this.elementRef.nativeElement, this.p);
+      this.renderer.appendChild(this.p, this.s);
+      this.renderer.appendChild(this.elementRef.nativeElement, this.p);
+    }
   }
 
   refreshTokenDetail() {

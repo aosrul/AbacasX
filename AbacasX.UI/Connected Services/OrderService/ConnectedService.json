@@ -2,7 +2,7 @@
   "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
   "Version": "15.0.20628.921",
   "ExtendedData": {
-    "Uri": "http://localhost:8084",
+    "Uri": "http://abacaswebxexchange20190429082147.azurewebsites.net/OrderManagerService.svc",
     "Namespace": "OrderService",
     "SelectedAccessLevelForGeneratedClass": "Public",
     "GenerateMessageContract": false,

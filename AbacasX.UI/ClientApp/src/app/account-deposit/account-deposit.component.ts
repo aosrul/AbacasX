@@ -16,6 +16,7 @@ export class AccountDepositComponent implements OnInit {
   changeLog: string[] = [];
   errorMessage: string = "";
   IsSubscribed: boolean = false;
+  IsDepositAmountInvalid = true;
   public assetList: any[] = [];
 
   public depositRequest: IDeposit = {
@@ -40,10 +41,23 @@ export class AccountDepositComponent implements OnInit {
     rateService.getAssetList().then((data) => {
       console.log(data);
       this.assetList = data;
+      this.assetList.sort();
       }).catch((reason: any) => { console.log(reason); });
     });
 
   }
+
+
+  updateDepositAmount(assetAmount: string) {
+    this.depositRequest.amount = Number(assetAmount);
+
+    if (this.depositRequest.amount <= 0)
+      this.IsDepositAmountInvalid = true;
+    else
+      this.IsDepositAmountInvalid = false;
+  }
+
+
 
   ngOnInit() {
     this.getNewGuid();

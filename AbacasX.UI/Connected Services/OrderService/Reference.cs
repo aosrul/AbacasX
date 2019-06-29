@@ -1074,7 +1074,7 @@ namespace OrderService
         {
             if ((endpointConfiguration == EndpointConfiguration.NetHttpBinding_IOrderService))
             {
-                return new System.ServiceModel.EndpointAddress("ws://localhost:8084/");
+                return new System.ServiceModel.EndpointAddress("ws://abacaswebxexchange20190429082147.azurewebsites.net/OrderManagerService.svc");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

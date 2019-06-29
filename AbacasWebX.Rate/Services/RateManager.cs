@@ -858,6 +858,11 @@ namespace AbacasWebX.Rate.Services
 
             baseAssetList.TryAdd("BNP", new AssetRate { AssetId = "BNP", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 41.14, AskRate = 41.14 });
             baseAssetList.TryAdd("BT",  new AssetRate { AssetId = "BT.A",  PriceCurrency = "GBP",   RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 208, AskRate = 208 });
+            //baseAssetList.TryAdd("WINE:LR2005", new AssetRate { AssetId = "WINE:LR2005", PriceCurrency = "GBP", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 90000, AskRate = 90000 });
+            //baseAssetList.TryAdd("WHISKEY:MCW", new AssetRate { AssetId = "WHISKEY:MCW", PriceCurrency = "EUR", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 3495, AskRate = 3495 });
+            //baseAssetList.TryAdd("CARD:BobbyOrr1966", new AssetRate { AssetId = "CARD:BobbyOrr1966", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 9000, AskRate = 9000 });
+            //baseAssetList.TryAdd("WATCH:1903Gold", new AssetRate { AssetId = "WATCH:1903Gold", PriceCurrency = "GBP", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 260000, AskRate = 260000 });
+
 
             // Establish TradingView Symbols
 
@@ -866,7 +871,7 @@ namespace AbacasWebX.Rate.Services
             TradingViewSymbols.TryAdd("@MSFT", "NASDAQ:MSFT");
             TradingViewSymbols.TryAdd("@NFLX", "NASDAQ:NFLX");
             TradingViewSymbols.TryAdd("@FB", "NASDAQ:FB");
-            TradingViewSymbols.TryAdd("@USD", "FX:USDUSD");
+            TradingViewSymbols.TryAdd("@USD", "NONE");
             TradingViewSymbols.TryAdd("@GBP", "FX:GBPUSD");
             TradingViewSymbols.TryAdd("@EUR", "FX:EURUSD");
             TradingViewSymbols.TryAdd("@GOLD", "TVC:GOLD");
@@ -875,7 +880,11 @@ namespace AbacasWebX.Rate.Services
             TradingViewSymbols.TryAdd("@ETH", "BITFINEX:ETHUSD");
             TradingViewSymbols.TryAdd("@XRP", "BITFINEX:XRPUSD");
             TradingViewSymbols.TryAdd("@BNP", "MIL:BNP");
-            TradingViewSymbols.TryAdd("@BT", "LSE:BT.A");
+            TradingViewSymbols.TryAdd("@BT",   "LSE:BT.A");
+            //TradingViewSymbols.TryAdd("@WINE:LR2005", "NONE");
+            //TradingViewSymbols.TryAdd("@WHISKEY:MCW", "NONE");
+            //TradingViewSymbols.TryAdd("@CARD:BobbyOrr1966", "NONE");
+            //TradingViewSymbols.TryAdd("@WATCH:1903Gold", "NONE");
 
 
             // Asset Rates are 1:1 with the Base Asset Table

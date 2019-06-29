@@ -42,5 +42,8 @@ public enum AssetTypeEnum
     Currency,
     CryptoCurrency,
     PreciousMetal,
-    Stock
+    Stock,
+    Bond,
+    NonFungible,
+    Other
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange, OnChanges } from '@angular/core';
 import { IAssetTransfer, TransferStatusEnum, TransferTypeEnum, IWithdrawal } from '../../shared/interfaces';
 import { Router } from '@angular/router';
 import { DataService } from '../../core/data.service';
@@ -17,6 +17,8 @@ export class AccountWithdrawalComponent implements OnInit {
   errorMessage: string = "";
   IsSubscribed: boolean = false;
   public tokenList: any[] = [];
+  TokenBalanceAvailable: number = 0;
+  public IsTokenBalanceExceeded: boolean = false;
 
   public withdrawalRequest: IWithdrawal = {
     tokenId: "@USD",
@@ -29,6 +31,8 @@ export class AccountWithdrawalComponent implements OnInit {
   constructor(private router: Router,
     private dataService: DataService, private loginService: LoginService, private rateService: rateSignalRService) {
 
+    this.withdrawalRequest.clientId = this.loginService.userId;
+
     rateService.connectionEstablished.subscribe(() => {
 
       this.IsSubscribed = true;
@@ -37,13 +41,62 @@ export class AccountWithdrawalComponent implements OnInit {
 
       rateService.getTokenList().then((data) => {
         console.log(data);
+        
         this.tokenList = data;
+        this.tokenList.sort();
+        
       }).catch((reason: any) => { console.log(reason); });
     });
   }
 
   ngOnInit() {
     this.getNewGuid();
+    this.CheckTokenBalance(this.withdrawalRequest.tokenId);
+    this.IsTokenBalanceExceeded = true;
+  }
+
+  
+  tokenChange(selectedTokenId: string) {
+    this.withdrawalRequest.tokenId = selectedTokenId;
+    this.CheckTokenBalance(selectedTokenId);
+  }
+
+  updateTokenAmount(tokenAmount: string) {
+    this.withdrawalRequest.amount = Number(tokenAmount);
+    this.CheckTokenBalance(this.withdrawalRequest.tokenId);
+  }
+
+  
+  CheckTokenBalance(tokenId: string) {
+
+    console.log("Checking token balance for {0}", tokenId);
+
+    this.dataService.getClientTokenBalance(this.withdrawalRequest.clientId, tokenId)
+      .subscribe((tokenBalance: number) => {
+
+        if (tokenBalance)
+        {
+          this.TokenBalanceAvailable = tokenBalance;
+
+          if (this.withdrawalRequest.amount > this.TokenBalanceAvailable)
+            this.IsTokenBalanceExceeded = true;
+          else if (this.withdrawalRequest.amount == 0)
+            this.IsTokenBalanceExceeded = true;
+          else
+            this.IsTokenBalanceExceeded = false;
+
+          console.log("Token Balance is", this.TokenBalanceAvailable);
+
+        }
+        else {
+          this.errorMessage = 'Unable to get client token balance';
+          this.IsTokenBalanceExceeded = true;
+        }
+      },
+      (err: any) => console.log(err));
+
+    if (this.withdrawalRequest.amount == 0)
+      this.IsTokenBalanceExceeded = true;
   }
 
   getNewGuid() {

@@ -4,18 +4,16 @@
       <div class="form-group row">
         <div class="input-group">
 
-          <input class="form-control"
-                 [(ngModel)]="withdrawalRequest.amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="WithdrawalAmount" placeholder="Amount" autocomplete="off" value="0" required />
+          <input class="form-control" (ngModelChange)="updateTokenAmount($event)"
+                 [ngModel]="withdrawalRequest.amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="WithdrawalAmount" placeholder="Amount" autocomplete="off" value="0" required />
 
-          <select [(ngModel)]="withdrawalRequest.tokenId" name="WithdrawalAsset" class="form-control" style="width:150px">
+          <select (ngModelChange)="tokenChange($event)"  [ngModel]="withdrawalRequest.tokenId" name="WithdrawalAsset" class="form-control" style="width:150px">
             <option *ngFor="let tokenItem of tokenList" [value]="tokenItem">{{tokenItem}}</option>
           </select>
 
-          <input class="form-control" type="text" readonly style="width:300px; margin-left:5px; margin-right:5px" placeholder="Reference Code" value="{{withdrawalRequest.referenceId}}" />
+          <input class="form-control" type="text" readonly style="width:400px; margin-left:5px; margin-right:5px" placeholder="Reference Code" value="{{withdrawalRequest.referenceId}}" />
+          <button type="submit" [disabled]="IsTokenBalanceExceeded" class="btn button-selected">Withdrawal</button>
 
-          <div class="btn-group">
-            <button type="submit" class="form-control button-selected">Withdrawal</button>
-          </div>
         </div>
       </div>
     </div>

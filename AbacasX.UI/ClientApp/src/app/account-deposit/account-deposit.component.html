@@ -5,17 +5,16 @@
         <div class="input-group">
 
           <input class="form-control"
-                 [(ngModel)]="depositRequest.amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="DepositAmount" placeholder="Amount" autocomplete="off" value="0" required />
+                 (ngModelChange)="updateDepositAmount($event)" [ngModel]="depositRequest.amount" select style="text-align:right; width:15em; margin-left:5px; margin-right:5px" type="number" name="DepositAmount" placeholder="Amount" autocomplete="off" value="0" required />
 
           <select [(ngModel)]="depositRequest.assetId" name="DepositAsset" class="form-control" style="width:100px">
             <option *ngFor="let assetItem of assetList" [value]="assetItem">{{assetItem}}</option>
           </select>
 
-          <input class="form-control" type="text" readonly style="width:300px; margin-left:5px; margin-right:5px" placeholder="Reference Code" value="{{depositRequest.referenceId}}" />
+          <input class="form-control" type="text" readonly style="width:400px; margin-left:5px; margin-right:5px" placeholder="Reference Code" value="{{depositRequest.referenceId}}" />
+          <button type="submit" [disabled]="IsDepositAmountInvalid" class="btn button-selected">Deposit</button>
 
-          <div class="btn-group">
-            <button type="submit" class="form-control button-selected">Deposit</button>
-          </div>
+
         </div>
       </div>
     </div>

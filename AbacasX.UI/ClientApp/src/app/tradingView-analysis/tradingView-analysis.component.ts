@@ -68,27 +68,30 @@ export class TradingViewAnalysisComponent implements OnInit, AfterViewInit, OnCh
     if (this.s != null)
       this.renderer.removeChild(this.elementRef.nativeElement, this.p);
 
-    this.p = this.renderer.createElement('div');
-    this.s = this.renderer.createElement("script");
+    if (this.tokenDetail.tradingViewSymbol != "None") {
 
-    this.s.id = "TechAnalysis";
-    this.s.type = 'text/javascript';
-    this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+      this.p = this.renderer.createElement('div');
+      this.s = this.renderer.createElement("script");
 
-    if (this.IsSubscribed == true)
-      this.assetSymbol = this.tokenDetail.tradingViewSymbol;
-    else
-      this.assetSymbol = "NASDAQ:AAPL";
+      this.s.id = "TechAnalysis";
+      this.s.type = 'text/javascript';
+      this.s.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
 
-    this.s.text = `{
+      if (this.IsSubscribed == true)
+        this.assetSymbol = this.tokenDetail.tradingViewSymbol;
+      else
+        this.assetSymbol = "NASDAQ:AAPL";
+
+      this.s.text = `{
       "width": "100\%",
       "height": "300",
       "symbol": "${this.assetSymbol}",
       "locale": "en",
       "interval": "1D"}`;
 
-    this.renderer.appendChild(this.p, this.s);
-    this.renderer.appendChild(this.elementRef.nativeElement, this.p);
+      this.renderer.appendChild(this.p, this.s);
+      this.renderer.appendChild(this.elementRef.nativeElement, this.p);
+    }
   }
 
 

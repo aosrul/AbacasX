@@ -18,6 +18,9 @@ namespace AbacasWebX.Exchange.Contracts
         List<ClientPositionData> GetClientPositions(int ClientId);
 
         [OperationContract]
+        decimal GetClientTokenBalance(int ClientId, string TokenId);
+
+        [OperationContract]
         List<OrderData> GetClientOrders(int ClientId);
 
         [OperationContract]
