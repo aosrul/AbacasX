@@ -14,43 +14,90 @@ using AbacasX.Exchange.ExchangeSystem;
 using AbacasX.Model.Extensions;
 using AbacasX.Model.DataContracts;
 
-public class KeyPairData
-{
-    public string publicKey;
-    public string privateKey;
-}
 
-public class ClientPosition
-{
-    public int ClientId;
-    public ConcurrentDictionary<string, ClientPositionData> ClientPositions;
-
-    public ClientPosition(int clientId)
-    {
-        ClientId = clientId;
-        ClientPositions = new ConcurrentDictionary<string, ClientPositionData>();
-    }
-}
-
-public class ClientFilledOrder
-{
-    public int ClientId;
-    public ConcurrentDictionary<int, OrderFilledData> ClientTransactions;
-
-    public ClientFilledOrder(int clientId)
-    {
-        ClientId = clientId;
-        ClientTransactions = new ConcurrentDictionary<int, OrderFilledData>();
-    }
-}
 
 namespace AbacasX.Exchange.Services
 {
+
+    #region Registered Listener
+    public class RegisteredListener
+    {
+        public string SessionId;
+        public bool connected;
+
+        public void Channel_Faulted(object sender, EventArgs e)
+        {
+            Console.WriteLine("Connection Faulted for session ID {0}", SessionId);
+        }
+
+        public void Channel_Closed(object sender, EventArgs e)
+        {
+            Console.WriteLine("Channel was closed for session ID {0}", SessionId);
+        }
+    }
+    #endregion
+
+    public class KeyPairData
+    {
+        public string publicKey;
+        public string privateKey;
+    }
+
+    public class ClientPosition
+    {
+        public int ClientId;
+        public ConcurrentDictionary<string, ClientPositionData> ClientPositions;
+
+        public ClientPosition(int clientId)
+        {
+            ClientId = clientId;
+            ClientPositions = new ConcurrentDictionary<string, ClientPositionData>();
+        }
+    }
+
+    public class ClientOrder
+    {
+        public int ClientId;
+        public ConcurrentDictionary<int, OrderData> ClientOrders;
+
+        public ClientOrder(int clientId)
+        {
+            ClientId = clientId;
+            ClientOrders = new ConcurrentDictionary<int, OrderData>();
+        }
+    }
+
+    public class ClientHistoricalOrder
+    {
+        public int ClientId;
+        public ConcurrentDictionary<int, OrderData> ClientHistoricalOrders;
+
+        public ClientHistoricalOrder(int clientId)
+        {
+            ClientId = clientId;
+            ClientHistoricalOrders = new ConcurrentDictionary<int, OrderData>();
+        }
+    }
+
+    public class ClientFilledOrder
+    {
+        public int ClientId;
+        public ConcurrentDictionary<int, OrderFilledData> ClientTransactions;
+
+        public ClientFilledOrder(int clientId)
+        {
+            ClientId = clientId;
+            ClientTransactions = new ConcurrentDictionary<int, OrderFilledData>();
+        }
+    }
+
+
+
     [ServiceBehavior(UseSynchronizationContext = false, InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Multiple)]
     class OrderManager : IOrderService
     {
-        ConcurrentDictionary<int, OrderData> ClientOrders = new ConcurrentDictionary<int, OrderData>();
-        ConcurrentDictionary<int, OrderData> ClientHistoricalOrders = new ConcurrentDictionary<int, OrderData>();
+        ConcurrentDictionary<int, ClientOrder> ClientOrders = new ConcurrentDictionary<int, ClientOrder>();
+        ConcurrentDictionary<int, ClientHistoricalOrder> ClientHistoricalOrders = new ConcurrentDictionary<int, ClientHistoricalOrder>();
         ConcurrentDictionary<int, ClientFilledOrder> ClientFilledOrders = new ConcurrentDictionary<int, ClientFilledOrder>();
 
         // Positions for each client
@@ -68,6 +115,8 @@ namespace AbacasX.Exchange.Services
         static int orderCount = 20150;
         static int blockCount = 10015;
         static int orderFilledCount = 1;
+
+        static bool brokerLiquidityOn = false;
 
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(5000);
 
@@ -207,6 +256,25 @@ namespace AbacasX.Exchange.Services
                     ClientPosition.TokenAmount -= orderFilledDataRecord.Token2Amount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
                 }
+                else
+                {
+                    ClientPosition = new ClientPositionData();
+
+                    ClientPosition.TokenId = orderFilledDataRecord.Token2Id;
+                    ClientPosition.TokenAmount -= orderFilledDataRecord.Token2Amount;
+
+                    ClientPosition.TokenRate = 0.0m;
+                    ClientPosition.TokenRateIn = "USD";
+
+                    if (TokenRates.TryGetValue(ClientPosition.TokenId, out TokenRate) == true)
+                    {
+                        ClientPosition.TokenRate = (decimal)TokenRate.AskRate;
+                        ClientPosition.TokenRateIn = TokenRate.PriceCurrency;
+                    }
+
+                    ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
+                    clientPositionRecord.ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
+                }
             }
             else
             {
@@ -238,6 +306,24 @@ namespace AbacasX.Exchange.Services
                 {
                     ClientPosition.TokenAmount -= orderFilledDataRecord.Token1Amount;
                     ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
+                }
+                else
+                {
+                    ClientPosition = new ClientPositionData();
+                    ClientPosition.TokenId = orderFilledDataRecord.Token1Id;
+                    ClientPosition.TokenAmount -= orderFilledDataRecord.Token1Amount;
+
+                    ClientPosition.TokenRate = 0.0m;
+                    ClientPosition.TokenRateIn = "USD";
+
+                    if (TokenRates.TryGetValue(ClientPosition.TokenId, out TokenRate) == true)
+                    {
+                        ClientPosition.TokenRate = (decimal)TokenRate.AskRate;
+                        ClientPosition.TokenRateIn = TokenRate.PriceCurrency;
+                    }
+
+                    ClientPosition.TokenValue = ClientPosition.TokenAmount * ClientPosition.TokenRate;
+                    clientPositionRecord.ClientPositions.TryAdd(ClientPosition.TokenId, ClientPosition);
                 }
             }
         }
@@ -566,17 +652,31 @@ namespace AbacasX.Exchange.Services
 
         public List<OrderData> GetClientOrders(int ClientId)
         {
-            //Console.WriteLine("Client Id {0} with {1} Orders Returned", ClientId, ClientOrders.Values.Where(o => o.ClientId == ClientId).Count());
+            ClientOrder clientOrderRecord;
 
-            return ClientOrders.Values.Where(o => o.ClientId == ClientId).ToList();
+            if (ClientOrders.TryGetValue(ClientId, out clientOrderRecord) == true)
+            {
+                return clientOrderRecord.ClientOrders.Values.ToList();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public List<OrderData> GetClientHistoricalOrders(int ClientId)
         {
 
-            //Console.WriteLine("Client Id {0} with {1} Historical Returned", ClientId, ClientHistoricalOrders.Values.Where(o => o.ClientId == ClientId).Count());
+            ClientHistoricalOrder clientHistoricalOrderRecord;
 
-            return ClientHistoricalOrders.Values.Where(o => o.ClientId == ClientId).ToList();
+            if (ClientHistoricalOrders.TryGetValue(ClientId, out clientHistoricalOrderRecord) == true)
+            {
+                return clientHistoricalOrderRecord.ClientHistoricalOrders.Values.ToList();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public OrderData GetOrder(int OrderId)
@@ -595,8 +695,6 @@ namespace AbacasX.Exchange.Services
         {
             OrderLeg orderLegRecord = new OrderLeg();
             orderLegRecord.Order = new Order();
-
-
 
             orderCount++;
             orderData.OrderId = orderCount;
@@ -634,11 +732,50 @@ namespace AbacasX.Exchange.Services
             // Needs to support expiration types like EOD, Good Till
             orderLegRecord.Order.OrderExpirationType = OrderExpirationTypeEnum.GoodTillCancel;
 
+            _exchangeBook.AddOrderToExchange(orderLegRecord);
 
-            lock (OrderListLock)
+            // Automatic Offset via Broker who's clientID is 2
+            if (brokerLiquidityOn)
             {
-                ClientOrders.TryAdd(orderData.OrderId, orderData);
-                _exchangeBook.AddOrderToExchange(orderLegRecord);
+                if (orderLegRecord.Order.ClientId != 2)
+                {
+                    orderLegRecord = new OrderLeg();
+                    orderLegRecord.Order = new Order();
+
+                    orderCount++;
+
+                    orderLegRecord.Order.ClientId = 2;
+
+                    orderLegRecord.OrderId = orderCount;
+                    orderLegRecord.OrderLegId = orderCount;
+                    orderLegRecord.Order.OrderId = orderCount;
+
+                    Console.WriteLine("Add Order Offset using Broker {0} for Order Id {1} ", orderLegRecord.Order.ClientId, orderLegRecord.OrderId);
+
+                    orderLegRecord.OrderLegCreatedDateTime = DateTime.Now;
+                    orderLegRecord.BuySellType = orderData.BuySellType == OrderLegBuySellEnum.Buy ? OrderLegBuySellEnum.Sell : OrderLegBuySellEnum.Buy;
+                    orderLegRecord.OrderLegFillStatus = OrderLegFillStatusEnum.None;
+                    orderLegRecord.OrderLegStatus = OrderLegStatusEnum.Active;
+                    orderLegRecord.OrderPriceTerms = orderData.OrderPriceTerms;
+                    orderLegRecord.OrderLegType = orderData.OrderType == OrderTypeEnum.Market ? OrderLegTypeEnum.Market : OrderLegTypeEnum.Limit;
+                    orderLegRecord.Token1AccountId = 0;
+                    orderLegRecord.Token2AccountId = 0;
+                    orderLegRecord.Token1Id = orderData.Token1Id;
+                    orderLegRecord.Token2Id = orderData.Token2Id;
+                    orderLegRecord.Token1Amount = orderData.Token1Amount;
+                    orderLegRecord.Token2Amount = orderData.Token2Amount;
+                    orderLegRecord.OrderPrice = orderData.OrderPrice;
+                    orderLegRecord.OrderPriceTerms = orderData.OrderPriceTerms;
+
+                    orderLegRecord.Order.OrderStatus = OrderStatusEnum.Active;
+                    orderLegRecord.Order.OrderType = orderData.OrderType;
+                    orderLegRecord.Order.OrderPriceTerms = orderData.OrderPriceTerms;
+
+                    // Needs to support expiration types like EOD, Good Till
+                    orderLegRecord.Order.OrderExpirationType = OrderExpirationTypeEnum.GoodTillCancel;
+
+                    _exchangeBook.AddOrderToExchange(orderLegRecord);
+                }
             }
 
             return (orderData);
@@ -766,6 +903,7 @@ namespace AbacasX.Exchange.Services
         public void NotifyOrderLegAdded(OrderLeg orderLegRecord)
         {
             OrderData orderData = new OrderData();
+            ClientOrder clientOrderRecord;
 
             orderLegRecord.CopyPropertiesTo(orderData);
 
@@ -789,7 +927,13 @@ namespace AbacasX.Exchange.Services
 
             lock (ClientOrderLock)
             {
-                ClientOrders.TryAdd(orderData.OrderLegId, orderData);
+                if (ClientOrders.TryGetValue(orderData.ClientId, out clientOrderRecord) == false)
+                {
+                    clientOrderRecord = new ClientOrder(orderData.ClientId);
+                    ClientOrders.TryAdd(orderData.ClientId, clientOrderRecord);
+                }
+
+                clientOrderRecord.ClientOrders.TryAdd(orderData.OrderId, orderData);
             }
 
             Console.WriteLine("Order Added: Order Id {0}, Client {1} Token Pair {2}-{3} type {4} at Price {5}", orderLegRecord.OrderLegId, orderLegRecord.Order.ClientId, orderLegRecord.Token1Id, orderLegRecord.Token2Id, orderLegRecord.OrderLegType.ToString(), orderLegRecord.OrderPrice);
@@ -800,6 +944,7 @@ namespace AbacasX.Exchange.Services
             orderFilledDataRecord.TransactionId = orderFilledCount++;
             OrderData orderData;
             ClientFilledOrder clientFilledOrderRecord;
+            ClientOrder clientOrderRecord;
 
 
             Console.WriteLine("Order Matched:  Order Id {0} , Client {1}  Transaction Id {2} Token Pair {3}-{4} type {5} Amount filled {6} at Price {7}",
@@ -813,52 +958,99 @@ namespace AbacasX.Exchange.Services
             lock (ClientOrderLock)
             {
                 // This should always be true
-                if (ClientOrders.TryGetValue(orderLegRecord.OrderLegId, out orderData) == true)
+                if (ClientOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientOrderRecord) == true)
                 {
-                    orderData.OrderFillStatus = OrderLegFillStatusEnum.Partial;
-                    orderData.Token1AmountFilled += orderFilledDataRecord.Token1Amount;
-                    UpdateBlockChain(orderLegRecord, orderFilledDataRecord);
-                }
-
-                lock (ClientFilledOrderLock)
-                {
-                    if (ClientFilledOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientFilledOrderRecord) == false)
+                    if (clientOrderRecord.ClientOrders.TryGetValue(orderLegRecord.OrderLegId, out orderData) == true)
                     {
-                        clientFilledOrderRecord = new ClientFilledOrder(orderLegRecord.Order.ClientId);
-                        clientFilledOrderRecord.ClientTransactions.TryAdd(orderFilledDataRecord.TransactionId, orderFilledDataRecord);
+                        orderData.OrderFillStatus = OrderLegFillStatusEnum.Partial;
+                        orderData.Token1AmountFilled += orderFilledDataRecord.Token1Amount;
+                        UpdateBlockChain(orderLegRecord, orderFilledDataRecord);
 
-                        ClientFilledOrders.TryAdd(orderLegRecord.Order.ClientId, clientFilledOrderRecord);
+
+                        lock (ClientFilledOrderLock)
+                        {
+                            if (ClientFilledOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientFilledOrderRecord) == false)
+                            {
+                                clientFilledOrderRecord = new ClientFilledOrder(orderLegRecord.Order.ClientId);
+                                clientFilledOrderRecord.ClientTransactions.TryAdd(orderFilledDataRecord.TransactionId, orderFilledDataRecord);
+
+                                ClientFilledOrders.TryAdd(orderLegRecord.Order.ClientId, clientFilledOrderRecord);
+                            }
+                            else
+                            {
+                                clientFilledOrderRecord.ClientTransactions.TryAdd(orderFilledDataRecord.TransactionId, orderFilledDataRecord);
+                            }
+                        }
                     }
                     else
                     {
-                        clientFilledOrderRecord.ClientTransactions.TryAdd(orderFilledDataRecord.TransactionId, orderFilledDataRecord);
+                        throw new Exception(String.Format("Error:  Unable to  locate client order {0} in NotifyOrderLegMatched", orderLegRecord.OrderLegId));
                     }
                 }
+                else
+                {
+                    throw new Exception(String.Format("Error: Unable to locate client orders for clientId {0}", orderLegRecord.Order.ClientId));
+                }
+
             }
         }
 
         public void NotifyOrderLegFilled(OrderLeg orderLegRecord)
         {
             OrderData orderData;
+            ClientOrder clientOrderRecord;
+            ClientHistoricalOrder clientHistoricalOrderRecord;
 
-            lock (OrderListLock)
+            lock (ClientOrderLock)
             {
-                if (ClientOrders.TryGetValue(orderLegRecord.OrderLegId, out orderData) == true)
+                if (ClientOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientOrderRecord) == true)
                 {
-                    orderData.OrderFillStatus = OrderLegFillStatusEnum.Full;
-                    orderData.OrderStatus = OrderStatusEnum.Filled;
-
-                    lock (ClientHistoricalOrderLock)
+                    if (clientOrderRecord.ClientOrders.TryGetValue(orderLegRecord.OrderLegId, out orderData) == true)
                     {
-                        ClientHistoricalOrders.TryAdd(orderLegRecord.OrderLegId, orderData);
+                        orderData.OrderFillStatus = OrderLegFillStatusEnum.Full;
+                        orderData.OrderStatus = OrderStatusEnum.Filled;
+
+                        lock (ClientHistoricalOrderLock)
+                        {
+                            if (ClientHistoricalOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientHistoricalOrderRecord) == false)
+                            {
+                                clientHistoricalOrderRecord = new ClientHistoricalOrder(orderLegRecord.Order.ClientId);
+                                ClientHistoricalOrders.TryAdd(orderLegRecord.Order.ClientId, clientHistoricalOrderRecord);
+                            }
+
+                            clientHistoricalOrderRecord.ClientHistoricalOrders.TryAdd(orderLegRecord.OrderLegId, orderData);
+                        }
+
+                        clientOrderRecord.ClientOrders.TryRemove(orderLegRecord.OrderLegId, out orderData);
                     }
 
-                    ClientOrders.TryRemove(orderLegRecord.OrderLegId, out orderData);
+                    else
+                    {
+                        throw new Exception(String.Format("Error: Unable to locate client order id {0}", orderLegRecord.OrderLegId));
+                    }
+                }
+                else
+                {
+                    throw new Exception(String.Format("Error: Unable to locate client orders for {0}", orderLegRecord.Order.ClientId));
                 }
             }
 
             Console.WriteLine("Order Filled: Order Id {0}, Client {1} Status Change to Filled",
                 orderLegRecord.OrderLegId, orderLegRecord.Order.ClientId);
+        }
+
+        public bool IsBrokerLiquidityOn()
+        {
+            return (brokerLiquidityOn);
+        }
+
+        public bool ToggleBrokerLiquidity()
+        {
+            brokerLiquidityOn = brokerLiquidityOn == true ? false : true;
+
+            Console.WriteLine("Broker Liquidity Toggled to {0}", brokerLiquidityOn.ToString());
+
+            return brokerLiquidityOn;
         }
     }
 }

@@ -16,5 +16,6 @@ namespace AbacasX.models
         public ModelStateDictionary ModelState { get; set; }
         public string Guid { get; set; }
         public decimal TokenBalance { get; set; }
+        public bool IsBrokerLiquidityOn { get; set; }
     }
 }

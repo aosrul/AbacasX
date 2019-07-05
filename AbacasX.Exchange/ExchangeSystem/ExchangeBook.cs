@@ -27,6 +27,21 @@ namespace AbacasX.Exchange.ExchangeSystem
 
         public ExchangeBook ()
         {
+            try
+            {
+                rateServiceClient = new RateServiceClient(new InstanceContext(rateServiceCallBack));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Exception accessing the rate service {0}", ex.Message);
+                throw new Exception("Unable to connect to rate service");
+            }
+
+            rateServiceClient.InnerChannel.Faulted += InnerChannel_Faulted;
+        }
+
+        private void InnerChannel_Faulted(object sender, EventArgs e)
+        {
             rateServiceClient = new RateServiceClient(new InstanceContext(rateServiceCallBack));
         }
 

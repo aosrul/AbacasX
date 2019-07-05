@@ -273,6 +273,11 @@ export class AdvancedTradingComponent implements OnInit {
   }
 
   CheckTokenBalance() {
+
+    // No need to check of the amounts are zero.
+    if ((this.IsBuyOrder == true ? this.quickOrder.Token2Amount : this.quickOrder.Token1Amount) == 0)
+      return;
+
     console.log("Checking token balance for {0}", (this.IsBuyOrder == true ? this.quickOrder.Token2Id : this.quickOrder.Token1Id));
 
 

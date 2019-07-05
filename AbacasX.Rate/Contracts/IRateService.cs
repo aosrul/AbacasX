@@ -25,6 +25,9 @@ namespace AbacasX.Rate.Contracts
         void SubscribeToTokenPairRateUpdate(string Token1, string Token2);
 
         [OperationContract(IsOneWay = false)]
+        void SubscribeToOneTokenPairRateUpdate(string Token1, string Token2);
+
+        [OperationContract(IsOneWay = false)]
         void UnSubscribeToTokenPairRateUpdate(string Token, string Token2);
 
         [OperationContract(IsOneWay = false)]
@@ -62,6 +65,12 @@ namespace AbacasX.Rate.Contracts
 
         [OperationContract]
         void UnRegisterWithRateManager();
+
+        [OperationContract]
+        bool IsRateFeedOn();
+
+        [OperationContract]
+        bool ToggleRateFeed();
     }
 
     public interface IRateServiceCallBack

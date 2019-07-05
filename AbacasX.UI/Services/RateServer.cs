@@ -62,14 +62,26 @@ namespace AbacasX.UI.Services
             _rateService.UnSubscribeToTokenRateUpdateAsync(TokenId);
         }
 
+        // This requires an override to the RateRepository so that we can access the overloaded
+        // function that can receive the Observable Subject which is then streamed to the clients.
         public void SubscribeToTokenPairRates(string Token1Id, string Token2Id)
         {
-            _rateService.SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id);
+            ((RateRepository) _rateService).SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id, _tokenPairRateSubject);
+        }
+
+        public void SubscribeToOneTokenPairRate(string Token1Id, string Token2Id)
+        {
+            ((RateRepository)_rateService).SubscribeToOneTokenPairRateUpdateAsync(Token1Id, Token2Id, _tokenPairRateSubject);
         }
 
         public void UnSubscribeToTokenPairRates(string Token1Id, string Token2Id)
         {
             _rateService.UnSubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id);
+        }
+
+        public void UnSubscribeToAllRateUpdates()
+        {
+            _rateService.UnSubscribeAllRateUpdatesAsync();
         }
 
         public TokenRateData GetTokenRate(string TokenId)
@@ -93,6 +105,16 @@ namespace AbacasX.UI.Services
             {
                 throw new Exception("RateServer GetTokenPairRate Failed", e);
             }
+        }
+
+        public bool IsRateFeedOn()
+        {
+            return _rateService.IsRateFeedOnAsync().GetAwaiter().GetResult();
+        }
+
+        public bool ToggleRateFeed()
+        {
+            return _rateService.ToggleRateFeedAsync().GetAwaiter().GetResult();
         }
     }
 }

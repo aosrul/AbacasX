@@ -129,6 +129,25 @@ export class DataService {
       })
       .catch(this.handleError);
   }
+
+  toggleBrokerLiquidity(): Observable<any> {
+    return this.http.get(this.baseOrdersUrl + '/toggleBrokerLiquidity')
+      .map((res: Response) => {
+        const data = res.json();
+        return data.isBrokerLiquidityOn;
+      })
+      .catch(this.handleError);
+  }
+
+  isBrokerLiquidityOn(): Observable<any> {
+    return this.http.get(this.baseOrdersUrl + '/isBrokerLiquidityOn')
+      .map((res: Response) => {
+        const data = res.json();
+        return data.isBrokerLiquidityOn;
+      })
+      .catch(this.handleError);
+  }
+
   
   private handleError(error: any) {
     console.error('server error:', error);

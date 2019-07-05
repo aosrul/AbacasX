@@ -62,12 +62,22 @@ namespace AbacasX.UI.Hubs
             _rateServer.SubscribeToTokenPairRates(token1Id, token2Id);
         }
 
+        public void SubscribeToOneTokenPairRate(string token1Id, string token2Id)
+        {
+            _rateServer.SubscribeToOneTokenPairRate(token1Id, token2Id);
+        }
+
         public void UnSubscribeToTokenPairRates(string token1Id, string token2Id)
         {
             _rateServer.UnSubscribeToTokenPairRates(token1Id, token2Id);
         }
 
-        public async Task <TokenPairRateData> GetTokenPairRate(string Token1Id, string Token2Id)
+        public void UnSubscribeToAllRateUpdates()
+        {
+            _rateServer.UnSubscribeToAllRateUpdates();
+        }
+
+        public async Task<TokenPairRateData> GetTokenPairRate(string Token1Id, string Token2Id)
         {
             try
             {
@@ -75,7 +85,7 @@ namespace AbacasX.UI.Hubs
                 var result = await _rateServer.GetTokenPairRate(Token1Id, Token2Id);
                 return result;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error calling Rate Server GetTokenPairRate {0}", e.Message);
                 throw new Exception("Error calling Rate Server GetTokenPairRate", e);
@@ -100,5 +110,34 @@ namespace AbacasX.UI.Hubs
                 throw new Exception(String.Format("Error calling GetTokenDetail for {0}", TokenId));
             }
         }
+
+        public bool IsRateFeedOn()
+        {
+            try
+            {
+                return _rateServer.IsRateFeedOn();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error determining the Rate Feed Status {0}", e.Message);
+                throw new Exception("Error determining the rate feed status", e);
+
+            }
+        }
+
+        public bool ToggleRateFeed()
+        {
+            try
+            {
+                return _rateServer.ToggleRateFeed();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error toggling the Rate Feed Status {0}", e.Message);
+                throw new Exception("Error toggling the rate feed status", e);
+
+            }
+        }
+
     }
 }

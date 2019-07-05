@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
+  <xs:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
+  <xs:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="SubscribeToAssetRateUpdate">
     <xs:complexType>
       <xs:sequence>
@@ -65,6 +65,19 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SubscribeToOneTokenPairRateUpdate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Token1" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Token2" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeToOneTokenPairRateUpdateResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UnSubscribeToTokenPairRateUpdate">
     <xs:complexType>
       <xs:sequence>
@@ -112,6 +125,20 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetTokenDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TokenId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTokenDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenDetailResult" nillable="true" type="q1:TokenDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetAssetList">
     <xs:complexType>
       <xs:sequence />
@@ -120,7 +147,7 @@
   <xs:element name="GetAssetListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAssetListResult" nillable="true" type="q1:ArrayOfstring" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAssetListResult" nillable="true" type="q2:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -132,21 +159,7 @@
   <xs:element name="GetTokenListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetTokenListResult" nillable="true" type="q2:ArrayOfstring" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetTokenDetail">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="TokenId" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetTokenDetailResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" minOccurs="0" name="GetTokenDetailResult" nillable="true" type="q3:TokenDetail" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetTokenListResult" nillable="true" type="q3:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -221,6 +234,30 @@
   <xs:element name="UnRegisterWithRateManagerResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsRateFeedOn">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsRateFeedOnResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IsRateFeedOnResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ToggleRateFeed">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ToggleRateFeedResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ToggleRateFeedResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AssetRateUpdate">

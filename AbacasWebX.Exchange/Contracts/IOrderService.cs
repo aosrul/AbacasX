@@ -52,6 +52,12 @@ namespace AbacasWebX.Exchange.Contracts
 
         [OperationContract]
         AssetWithdrawalData AddWithdrawal(AssetWithdrawalData withdrawalRequest);
+
+        [OperationContract]
+        bool IsBrokerLiquidityOn();
+
+        [OperationContract]
+        bool ToggleBrokerLiquidity();
     }
 
     public interface IOrderServiceCallBack

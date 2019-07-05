@@ -7,6 +7,26 @@ using System.Threading.Tasks;
 
 namespace AbacasX.Repository
 {
+
+    [CallbackBehavior(UseSynchronizationContext = false)]
+    public class OrderServiceCallBack : IOrderServiceCallback
+    {
+        public void DepositAdded(AssetDepositData depositData)
+        {
+            Console.WriteLine("Deposit of {0} {1} with Reference {2} Added", depositData.assetId, depositData.amount, depositData.referenceId);
+        }
+
+        public void OrderAdded(OrderData orderData)
+        {
+            Console.WriteLine("Order {0} Added", orderData.OrderId);
+        }
+
+        public void WithdrawalAdded(AssetWithdrawalData withdrawalData)
+        {
+            Console.WriteLine("Withdrawal of {0} {1} with Reference {2} Added", withdrawalData.tokenId, withdrawalData.amount, withdrawalData.referenceId);
+        }
+    }
+
     public class OrderRepository : IOrderService
     {
         OrderServiceClient _orderServiceClient;
@@ -15,26 +35,6 @@ namespace AbacasX.Repository
         {
             _orderServiceClient = new OrderServiceClient();
         }
-
-        [CallbackBehavior(UseSynchronizationContext = false)]
-        public class OrderServiceCallBack : IOrderServiceCallback
-        {
-            public void DepositAdded(AssetDepositData depositData)
-            {
-                Console.WriteLine("Deposit of {0} {1} with Reference {2} Added", depositData.assetId, depositData.amount, depositData.referenceId);
-            }
-
-            public void OrderAdded(OrderData orderData)
-            {
-                Console.WriteLine("Order {0} Added", orderData.OrderId);
-            }
-
-            public void WithdrawalAdded(AssetWithdrawalData withdrawalData)
-            {
-                Console.WriteLine("Withdrawal of {0} {1} with Reference {2} Added", withdrawalData.tokenId, withdrawalData.amount, withdrawalData.referenceId);
-            }
-        }
-
        
         public Task<int> ActivateOrderAsync(int OrderID)
         {
@@ -108,6 +108,16 @@ namespace AbacasX.Repository
         public Task<decimal> GetClientTokenBalanceAsync(int ClientId, string TokenId)
         {
             return _orderServiceClient.GetClientTokenBalanceAsync(ClientId, TokenId);
+        }
+
+        public Task<bool> IsBrokerLiquidityOnAsync()
+        {
+            return _orderServiceClient.IsBrokerLiquidityOnAsync();
+        }
+
+        public Task<bool> ToggleBrokerLiquidityAsync()
+        {
+            return _orderServiceClient.ToggleBrokerLiquidityAsync();
         }
     }
 }

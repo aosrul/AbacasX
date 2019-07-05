@@ -910,6 +910,12 @@ namespace OrderService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/AddWithdrawal", ReplyAction="http://tempuri.org/IOrderService/AddWithdrawalResponse")]
         System.Threading.Tasks.Task<OrderService.AssetWithdrawalData> AddWithdrawalAsync(OrderService.AssetWithdrawalData withdrawalRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/IsBrokerLiquidityOn", ReplyAction="http://tempuri.org/IOrderService/IsBrokerLiquidityOnResponse")]
+        System.Threading.Tasks.Task<bool> IsBrokerLiquidityOnAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/ToggleBrokerLiquidity", ReplyAction="http://tempuri.org/IOrderService/ToggleBrokerLiquidityResponse")]
+        System.Threading.Tasks.Task<bool> ToggleBrokerLiquidityAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -1044,6 +1050,16 @@ namespace OrderService
         public System.Threading.Tasks.Task<OrderService.AssetWithdrawalData> AddWithdrawalAsync(OrderService.AssetWithdrawalData withdrawalRequest)
         {
             return base.Channel.AddWithdrawalAsync(withdrawalRequest);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsBrokerLiquidityOnAsync()
+        {
+            return base.Channel.IsBrokerLiquidityOnAsync();
+        }
+        
+        public System.Threading.Tasks.Task<bool> ToggleBrokerLiquidityAsync()
+        {
+            return base.Channel.ToggleBrokerLiquidityAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

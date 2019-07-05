@@ -45,6 +45,12 @@ namespace AbacasX.Exchange.RateService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdateResponse")]
         System.Threading.Tasks.Task SubscribeToTokenPairRateUpdateAsync(string Token1, string Token2);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdateResponse")]
+        void SubscribeToOneTokenPairRateUpdate(string Token1, string Token2);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdateResponse")]
+        System.Threading.Tasks.Task SubscribeToOneTokenPairRateUpdateAsync(string Token1, string Token2);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdateResponse")]
         void UnSubscribeToTokenPairRateUpdate(string Token, string Token2);
         
@@ -68,6 +74,12 @@ namespace AbacasX.Exchange.RateService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdates", ReplyAction="http://tempuri.org/IRateService/UnSubscribeAllRateUpdatesResponse")]
         System.Threading.Tasks.Task UnSubscribeAllRateUpdatesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
+        AbacasX.Model.DataContracts.TokenDetail GetTokenDetail(string TokenId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
+        System.Threading.Tasks.Task<AbacasX.Model.DataContracts.TokenDetail> GetTokenDetailAsync(string TokenId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetAssetList", ReplyAction="http://tempuri.org/IRateService/GetAssetListResponse")]
         string[] GetAssetList();
@@ -116,6 +128,18 @@ namespace AbacasX.Exchange.RateService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnRegisterWithRateManager", ReplyAction="http://tempuri.org/IRateService/UnRegisterWithRateManagerResponse")]
         System.Threading.Tasks.Task UnRegisterWithRateManagerAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/IsRateFeedOn", ReplyAction="http://tempuri.org/IRateService/IsRateFeedOnResponse")]
+        bool IsRateFeedOn();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/IsRateFeedOn", ReplyAction="http://tempuri.org/IRateService/IsRateFeedOnResponse")]
+        System.Threading.Tasks.Task<bool> IsRateFeedOnAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/ToggleRateFeed", ReplyAction="http://tempuri.org/IRateService/ToggleRateFeedResponse")]
+        bool ToggleRateFeed();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/ToggleRateFeed", ReplyAction="http://tempuri.org/IRateService/ToggleRateFeedResponse")]
+        System.Threading.Tasks.Task<bool> ToggleRateFeedAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -202,6 +226,14 @@ namespace AbacasX.Exchange.RateService {
             return base.Channel.SubscribeToTokenPairRateUpdateAsync(Token1, Token2);
         }
         
+        public void SubscribeToOneTokenPairRateUpdate(string Token1, string Token2) {
+            base.Channel.SubscribeToOneTokenPairRateUpdate(Token1, Token2);
+        }
+        
+        public System.Threading.Tasks.Task SubscribeToOneTokenPairRateUpdateAsync(string Token1, string Token2) {
+            return base.Channel.SubscribeToOneTokenPairRateUpdateAsync(Token1, Token2);
+        }
+        
         public void UnSubscribeToTokenPairRateUpdate(string Token, string Token2) {
             base.Channel.UnSubscribeToTokenPairRateUpdate(Token, Token2);
         }
@@ -232,6 +264,14 @@ namespace AbacasX.Exchange.RateService {
         
         public System.Threading.Tasks.Task UnSubscribeAllRateUpdatesAsync() {
             return base.Channel.UnSubscribeAllRateUpdatesAsync();
+        }
+        
+        public AbacasX.Model.DataContracts.TokenDetail GetTokenDetail(string TokenId) {
+            return base.Channel.GetTokenDetail(TokenId);
+        }
+        
+        public System.Threading.Tasks.Task<AbacasX.Model.DataContracts.TokenDetail> GetTokenDetailAsync(string TokenId) {
+            return base.Channel.GetTokenDetailAsync(TokenId);
         }
         
         public string[] GetAssetList() {
@@ -296,6 +336,22 @@ namespace AbacasX.Exchange.RateService {
         
         public System.Threading.Tasks.Task UnRegisterWithRateManagerAsync() {
             return base.Channel.UnRegisterWithRateManagerAsync();
+        }
+        
+        public bool IsRateFeedOn() {
+            return base.Channel.IsRateFeedOn();
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsRateFeedOnAsync() {
+            return base.Channel.IsRateFeedOnAsync();
+        }
+        
+        public bool ToggleRateFeed() {
+            return base.Channel.ToggleRateFeed();
+        }
+        
+        public System.Threading.Tasks.Task<bool> ToggleRateFeedAsync() {
+            return base.Channel.ToggleRateFeedAsync();
         }
     }
 }

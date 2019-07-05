@@ -151,6 +151,11 @@ export class QuickTradingComponent implements OnInit, OnChanges {
   }
 
   CheckTokenBalance() {
+
+    // No need to check of the amounts are zero.
+    if ((this.IsBuyOrder == true ? this.quickOrder.token2Amount : this.quickOrder.token1Amount) == 0)
+      return;
+
     console.log("Checking token balance for {0}", (this.IsBuyOrder == true ? this.quickOrder.token2Id : this.quickOrder.token1Id));
 
 

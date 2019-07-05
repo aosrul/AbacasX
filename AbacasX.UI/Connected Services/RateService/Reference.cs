@@ -1183,6 +1183,9 @@ namespace RateService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdateResponse")]
         System.Threading.Tasks.Task SubscribeToTokenPairRateUpdateAsync(string Token1, string Token2);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdateResponse")]
+        System.Threading.Tasks.Task SubscribeToOneTokenPairRateUpdateAsync(string Token1, string Token2);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdate", ReplyAction="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdateResponse")]
         System.Threading.Tasks.Task UnSubscribeToTokenPairRateUpdateAsync(string Token, string Token2);
         
@@ -1195,14 +1198,14 @@ namespace RateService
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdates", ReplyAction="http://tempuri.org/IRateService/UnSubscribeAllRateUpdatesResponse")]
         System.Threading.Tasks.Task UnSubscribeAllRateUpdatesAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
+        System.Threading.Tasks.Task<RateService.TokenDetail> GetTokenDetailAsync(string TokenId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetAssetList", ReplyAction="http://tempuri.org/IRateService/GetAssetListResponse")]
         System.Threading.Tasks.Task<string[]> GetAssetListAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenList", ReplyAction="http://tempuri.org/IRateService/GetTokenListResponse")]
         System.Threading.Tasks.Task<string[]> GetTokenListAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetTokenDetail", ReplyAction="http://tempuri.org/IRateService/GetTokenDetailResponse")]
-        System.Threading.Tasks.Task<RateService.TokenDetail> GetTokenDetailAsync(string TokenId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/GetAssetRateList", ReplyAction="http://tempuri.org/IRateService/GetAssetRateListResponse")]
         System.Threading.Tasks.Task<RateService.AssetRateData[]> GetAssetRateListAsync();
@@ -1221,6 +1224,12 @@ namespace RateService
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/UnRegisterWithRateManager", ReplyAction="http://tempuri.org/IRateService/UnRegisterWithRateManagerResponse")]
         System.Threading.Tasks.Task UnRegisterWithRateManagerAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/IsRateFeedOn", ReplyAction="http://tempuri.org/IRateService/IsRateFeedOnResponse")]
+        System.Threading.Tasks.Task<bool> IsRateFeedOnAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateService/ToggleRateFeed", ReplyAction="http://tempuri.org/IRateService/ToggleRateFeedResponse")]
+        System.Threading.Tasks.Task<bool> ToggleRateFeedAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
@@ -1315,6 +1324,11 @@ namespace RateService
             return base.Channel.SubscribeToTokenPairRateUpdateAsync(Token1, Token2);
         }
         
+        public System.Threading.Tasks.Task SubscribeToOneTokenPairRateUpdateAsync(string Token1, string Token2)
+        {
+            return base.Channel.SubscribeToOneTokenPairRateUpdateAsync(Token1, Token2);
+        }
+        
         public System.Threading.Tasks.Task UnSubscribeToTokenPairRateUpdateAsync(string Token, string Token2)
         {
             return base.Channel.UnSubscribeToTokenPairRateUpdateAsync(Token, Token2);
@@ -1335,6 +1349,11 @@ namespace RateService
             return base.Channel.UnSubscribeAllRateUpdatesAsync();
         }
         
+        public System.Threading.Tasks.Task<RateService.TokenDetail> GetTokenDetailAsync(string TokenId)
+        {
+            return base.Channel.GetTokenDetailAsync(TokenId);
+        }
+        
         public System.Threading.Tasks.Task<string[]> GetAssetListAsync()
         {
             return base.Channel.GetAssetListAsync();
@@ -1343,11 +1362,6 @@ namespace RateService
         public System.Threading.Tasks.Task<string[]> GetTokenListAsync()
         {
             return base.Channel.GetTokenListAsync();
-        }
-        
-        public System.Threading.Tasks.Task<RateService.TokenDetail> GetTokenDetailAsync(string TokenId)
-        {
-            return base.Channel.GetTokenDetailAsync(TokenId);
         }
         
         public System.Threading.Tasks.Task<RateService.AssetRateData[]> GetAssetRateListAsync()
@@ -1378,6 +1392,16 @@ namespace RateService
         public System.Threading.Tasks.Task UnRegisterWithRateManagerAsync()
         {
             return base.Channel.UnRegisterWithRateManagerAsync();
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsRateFeedOnAsync()
+        {
+            return base.Channel.IsRateFeedOnAsync();
+        }
+        
+        public System.Threading.Tasks.Task<bool> ToggleRateFeedAsync()
+        {
+            return base.Channel.ToggleRateFeedAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

@@ -1,111 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" />
-  <xs:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" />
-  <xs:complexType name="TokenDetail">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AssetAccountId" type="xs:int" />
-      <xs:element minOccurs="0" name="AssetId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="AvailableBalance" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Balance" type="xs:decimal" />
-      <xs:element minOccurs="0" name="CustodianId" type="xs:int" />
-      <xs:element minOccurs="0" name="Multiplier" type="xs:double" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TokenId" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" minOccurs="0" name="TokenStatus" type="q1:TokenStatusEnum" />
-      <xs:element minOccurs="0" name="TradingViewSymbol" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TrustId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TokenDetail" nillable="true" type="tns:TokenDetail" />
-  <xs:complexType name="ArrayOfAssetRateData">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetRateData" nillable="true" type="tns:AssetRateData" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfAssetRateData" nillable="true" type="tns:ArrayOfAssetRateData" />
-  <xs:complexType name="AssetRateData">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AskRate" type="xs:double" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="AskRateChangeType" type="q2:RateChangeEnum" />
-      <xs:element minOccurs="0" name="AssetId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="BidRate" type="xs:double" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="BidRateChangeType" type="q3:RateChangeEnum" />
-      <xs:element minOccurs="0" name="LastUpdate" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="PriceCurrency" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RateProviderCode" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RateProviderId" type="xs:int" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" minOccurs="0" name="RateTerms" type="q4:RateTermsEnum" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="AssetRateData" nillable="true" type="tns:AssetRateData" />
-  <xs:complexType name="ArrayOfTokenRateData">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TokenRateData" nillable="true" type="tns:TokenRateData" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTokenRateData" nillable="true" type="tns:ArrayOfTokenRateData" />
-  <xs:complexType name="TokenRateData">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AskRate" type="xs:double" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="AskRateChangeType" type="q5:RateChangeEnum" />
-      <xs:element minOccurs="0" name="AssetAskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="AssetBidRate" type="xs:double" />
-      <xs:element minOccurs="0" name="BidRate" type="xs:double" />
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="BidRateChangeType" type="q6:RateChangeEnum" />
-      <xs:element minOccurs="0" name="LastUpdate" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Multiplier" type="xs:double" />
-      <xs:element minOccurs="0" name="PriceCurrency" nillable="true" type="xs:string" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="RateTerms" type="q7:TokenRateTermsEnum" />
-      <xs:element minOccurs="0" name="TokenId" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TokenRateData" nillable="true" type="tns:TokenRateData" />
-  <xs:complexType name="TokenPairRateData">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="BidRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Currency1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Currency1AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Currency1BidRate" type="xs:double" />
-      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" minOccurs="0" name="Currency1RateTerms" type="q8:RateTermsEnum" />
-      <xs:element minOccurs="0" name="Currency2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Currency2AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Currency2BidRate" type="xs:double" />
-      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" minOccurs="0" name="Currency2RateTerms" type="q9:RateTermsEnum" />
-      <xs:element minOccurs="0" name="CurrencyPairAskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="CurrencyPairBidRate" type="xs:double" />
-      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="CurrencyPairRateTerms" type="q10:CurrencyPairRateTermsEnum" />
-      <xs:element minOccurs="0" name="LastUpdate" type="xs:dateTime" />
-      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="RateTerms" type="q11:TokenPairRateTermsEnum" />
-      <xs:element minOccurs="0" name="Token1AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Token1BidRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Token1Id" nillable="true" type="xs:string" />
-      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="Token1RateTerms" type="q12:TokenRateTermsEnum" />
-      <xs:element minOccurs="0" name="Token2AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Token2BidRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Token2Id" nillable="true" type="xs:string" />
-      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="Token2RateTerms" type="q13:TokenRateTermsEnum" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TokenPairRateData" nillable="true" type="tns:TokenPairRateData" />
-  <xs:complexType name="CurrencyPairRateData">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AskRate" type="xs:double" />
-      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="AskRateChangeType" type="q14:RateChangeEnum" />
-      <xs:element minOccurs="0" name="BidRate" type="xs:double" />
-      <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="BidRateChangeType" type="q15:RateChangeEnum" />
-      <xs:element minOccurs="0" name="Currency1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Currency1AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Currency1BidRate" type="xs:double" />
-      <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" minOccurs="0" name="Currency1RateTerms" type="q16:RateTermsEnum" />
-      <xs:element minOccurs="0" name="Currency2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Currency2AskRate" type="xs:double" />
-      <xs:element minOccurs="0" name="Currency2BidRate" type="xs:double" />
-      <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" minOccurs="0" name="Currency2RateTerms" type="q17:RateTermsEnum" />
-      <xs:element minOccurs="0" name="LastUpdate" type="xs:dateTime" />
-      <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" minOccurs="0" name="RateTerms" type="q18:CurrencyPairRateTermsEnum" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="CurrencyPairRateData" nillable="true" type="tns:CurrencyPairRateData" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="TokenStatusEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Generating" />
+      <xs:enumeration value="Active" />
+      <xs:enumeration value="Suspended" />
+      <xs:enumeration value="Canceled" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TokenStatusEnum" nillable="true" type="tns:TokenStatusEnum" />
+  <xs:simpleType name="RateTermsEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AssetPerCurrency" />
+      <xs:enumeration value="CurrencyPerAsset" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RateTermsEnum" nillable="true" type="tns:RateTermsEnum" />
 </xs:schema>

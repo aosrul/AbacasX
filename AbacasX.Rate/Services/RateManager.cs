@@ -78,6 +78,31 @@ namespace AbacasX.Rate.Services
             }
         }
 
+        public void UnSubscribeToAllUpdates()
+        {
+            Console.WriteLine("Unsubscribing to all asset rates for connection {0}", SessionId);
+
+            foreach (AssetSubscription s in assetSubscriptions.Values)
+            {
+                if (s.disposable != null)
+                {
+                    try
+                    {
+                        s.disposable.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error disposing of asset subscription for {0}", s.AssetId);
+                        throw new Exception("Error disposing of token subscription", e);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Null disposable for asset {0} on session {1}", s.AssetId, SessionId);
+                }
+            }
+        }
+
     }
     #endregion
 
@@ -126,6 +151,32 @@ namespace AbacasX.Rate.Services
                 }
             }
         }
+
+
+        public void UnSubscribeToAllUpdates()
+        {
+            Console.WriteLine("Unsubscribing to all token rates for connection {0}", SessionId);
+
+            foreach (TokenSubscription s in tokenSubscriptions.Values)
+            {
+                if (s.disposable != null)
+                {
+                    try
+                    {
+                        s.disposable.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error disposing of token subscription for {0}", s.TokenId);
+                        throw new Exception("Error disposing of token subscription", e);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Null disposable for token{0} on session {1}", s.TokenId, SessionId);
+                }
+            }
+        }
     }
 
     #endregion
@@ -171,7 +222,32 @@ namespace AbacasX.Rate.Services
                 catch (Exception ex)
                 {
                     connected = false;
-                    throw new Exception(String.Format("Exception on Currency Pair Rate Update to client {0}", ex.Message),ex);
+                    throw new Exception(String.Format("Exception on Currency Pair Rate Update to client {0}", ex.Message), ex);
+                }
+            }
+        }
+
+        public void UnSubscribeToAllUpdates()
+        {
+            Console.WriteLine("Unsubscribing to all currency pair rates for connection {0}", SessionId);
+
+            foreach (CurrencyPairSubscription s in currencyPairSubscriptions.Values)
+            {
+                if (s.disposable != null)
+                {
+                    try
+                    {
+                        s.disposable.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error disposing of currency pair subscription for {0}", s.CurrencyPair);
+                        throw new Exception("Error disposing of currency pair subscription", e);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Null disposable for currency pair {0} on session {1}", s.CurrencyPair, SessionId);
                 }
             }
         }
@@ -194,6 +270,7 @@ namespace AbacasX.Rate.Services
         public IRateServiceCallBack rateUpdateCallBack;
         public bool connected;
         public IDisposable disposable;
+        int publishCount;
 
         public TokenPairRateListener(IRateServiceCallBack callBack, string sessionId)
         {
@@ -210,7 +287,7 @@ namespace AbacasX.Rate.Services
                 connected = false;
 
                 // Unsubscribe from all subscriptions
-                foreach(TokenPairSubscription s in tokenPairSubscriptions.Values)
+                foreach (TokenPairSubscription s in tokenPairSubscriptions.Values)
                 {
                     s.disposable.Dispose();
                 }
@@ -225,12 +302,40 @@ namespace AbacasX.Rate.Services
             {
                 try
                 {
+                    //Console.WriteLine("Publishing Connection {0} Token Pair {1}/{2} - {3}",
+                    //    SessionId, tokenPairRateRecord.Token1Id, tokenPairRateRecord.Token2Id, publishCount++);
+
                     rateUpdateCallBack.TokenPairRateUpdate(tokenPairRateRecord);
                 }
                 catch (Exception ex)
                 {
                     connected = false;
                     throw new Exception(string.Format("Exception on Token Pair Rate Update {0}", ex.Message), ex);
+                }
+            }
+        }
+
+        public void UnSubscribeToAllUpdates()
+        {
+            Console.WriteLine("Unsubscribing to all token pair rates for connection {0}", SessionId);
+
+            foreach(TokenPairSubscription s in tokenPairSubscriptions.Values)
+            {
+                if (s.disposable != null)
+                {
+                    try
+                    {
+                        s.disposable.Dispose();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error disposing of subscription for {0}", s.TokenPair);
+                        throw new Exception("Error disposing of token pair subscription", e);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Null disposable for token pair {0} on session {1}", s.TokenPair, SessionId);
                 }
             }
         }
@@ -751,7 +856,7 @@ namespace AbacasX.Rate.Services
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(String.Format("Error obtaining TokenPairRate {0}", ex.Message), ex);
             }
@@ -813,6 +918,7 @@ namespace AbacasX.Rate.Services
         private readonly Random random = new Random();
         private readonly TimeSpan _updateInterval = TimeSpan.FromMilliseconds(150);
         private readonly Timer _timer;
+        private bool rateFeedOn = false;
 
         private Subject<AssetRate> _subject = new Subject<AssetRate>();
         private volatile bool _updatingAssetPrices = false;
@@ -825,7 +931,7 @@ namespace AbacasX.Rate.Services
             tokenPairRateManager = new TokenPairRateManager(tokenRateManager, currencyPairRateManager);
 
 
-            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 194.19, AskRate = 194.19});
+            baseAssetList.TryAdd("AAPL", new AssetRate { AssetId = "AAPL", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 194.19, AskRate = 194.19 });
             baseAssetList.TryAdd("GOOG", new AssetRate { AssetId = "GOOG", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 1077, AskRate = 1077 });
             baseAssetList.TryAdd("MSFT", new AssetRate { AssetId = "MSFT", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 131.49, AskRate = 131.49 });
             baseAssetList.TryAdd("NFLX", new AssetRate { AssetId = "NFLX", PriceCurrency = "USD", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 345.56, AskRate = 345.56 });
@@ -842,7 +948,7 @@ namespace AbacasX.Rate.Services
             baseAssetList.TryAdd("BT", new AssetRate { AssetId = "BT.A", PriceCurrency = "GBP", RateTerms = AbacasX.Model.Models.RateTermsEnum.CurrencyPerAsset, BidRate = 208, AskRate = 208 });
 
             // Establish TradingView Symbols
-            
+
             TradingViewSymbols.TryAdd("@AAPL", "NASDAQ:AAPL");
             TradingViewSymbols.TryAdd("@GOOG", "NASDAQ:GOOG");
             TradingViewSymbols.TryAdd("@MSFT", "NASDAQ:MSFT");
@@ -895,11 +1001,17 @@ namespace AbacasX.Rate.Services
                 }
             }
 
+            rateFeedOn = true;
+
             _timer = new Timer(UpdateAssetPrices, null, _updateInterval, _updateInterval);
         }
 
         private void UpdateAssetPrices(object state)
         {
+
+            if (rateFeedOn == false)
+                return;
+
             lock (AssetListLock)
             {
                 if (!_updatingAssetPrices)
@@ -910,9 +1022,11 @@ namespace AbacasX.Rate.Services
                     {
                         if (assetRateRecord.AssetId != "USD")
                         {
-                            TryUpdateAssetPrice(assetRateRecord);
-                            _subject.OnNext(assetRateRecord);
-                            //Console.WriteLine("Update Asset Price for {0} to {1}/{2}", assetRateRecord.AssetId, assetRateRecord.BidRate, assetRateRecord.AskRate);
+                            if (TryUpdateAssetPrice(assetRateRecord))
+                            {
+                                _subject.OnNext(assetRateRecord);
+                                //Console.WriteLine("Update Asset Price for {0} to {1}/{2}", assetRateRecord.AssetId, assetRateRecord.BidRate, assetRateRecord.AskRate);
+                            }
                         }
                     }
 
@@ -923,6 +1037,10 @@ namespace AbacasX.Rate.Services
 
         private bool TryUpdateAssetPrice(AssetRate assetRateRecord)
         {
+            double currentBid = assetRateRecord.BidRate;
+            double currentAsk = assetRateRecord.AskRate;
+
+
             // Randomly choose whether to update this stock or not
             var r = _updateOrNotRandom.NextDouble();
 
@@ -1244,9 +1362,103 @@ namespace AbacasX.Rate.Services
             }
         }
 
+        public void SubscribeToOneTokenPairRateUpdate(string Token1, string Token2)
+        {
+            string TokenPairKey = Token1.Trim() + " - " + Token2.Trim();
+
+            TokenPairRateListener tokenPairRateListenerRecord;
+            TokenPairRateViewModel tokenPairRateViewModelRecord;
+            TokenPairSubscription tokenPairSubscription;
+
+            lock (TokenPairRateListenerLock)
+            {
+                if ((tokenPairRateViewModelRecord = tokenPairRateManager.GetTokenPairRateView(Token1, Token2)) != null)
+                {
+                    // First subscription for this session
+                    if (tokenPairRateSubscriptions.TryGetValue(OperationContext.Current.SessionId, out tokenPairRateListenerRecord) == false)
+                    {
+                        
+                        IRateServiceCallBack callBack = OperationContext.Current.GetCallbackChannel<IRateServiceCallBack>();
+                        tokenPairRateListenerRecord = new TokenPairRateListener(OperationContext.Current.GetCallbackChannel<IRateServiceCallBack>(), OperationContext.Current.SessionId);
+
+                        // Add a currency pair subscription to the listener
+                        tokenPairSubscription = new TokenPairSubscription();
+                        tokenPairSubscription.TokenPair = TokenPairKey;
+                        tokenPairSubscription.disposable = tokenPairRateViewModelRecord._subject.Subscribe(tokenPairRateListenerRecord.PublishUpdate);
+
+                        tokenPairRateListenerRecord.tokenPairSubscriptions.TryAdd(TokenPairKey, tokenPairSubscription);
+
+                        // Add the new listener to the listof currency pair subscriptions
+                        tokenPairRateSubscriptions.TryAdd(OperationContext.Current.SessionId, tokenPairRateListenerRecord);
+
+                        
+                    }
+                    else
+                    {
+                        
+                        foreach (TokenPairSubscription subscription in tokenPairRateListenerRecord.tokenPairSubscriptions.Values)
+                        {
+                            if (subscription.disposable != null)
+                            {
+                                subscription.disposable.Dispose(); // Unsubscribe from that subscription
+                            }
+                        }
+
+                        // Empty the List
+                        tokenPairRateListenerRecord.tokenPairSubscriptions.Clear();
+
+                        // Subscribe to the Token Pair of Interest
+                        if (tokenPairRateListenerRecord.tokenPairSubscriptions.TryGetValue(TokenPairKey, out tokenPairSubscription) == false)
+                        {
+                            tokenPairSubscription = new TokenPairSubscription();
+                            tokenPairSubscription.TokenPair = TokenPairKey;
+                            tokenPairSubscription.disposable = tokenPairRateViewModelRecord._subject.Subscribe(tokenPairRateListenerRecord.PublishUpdate);
+
+                            tokenPairRateListenerRecord.tokenPairSubscriptions.TryAdd(TokenPairKey, tokenPairSubscription);
+                        }
+                        else
+                        {
+                            // Nothing to do as it is already in the list
+                        }
+                    }
+
+                    Console.WriteLine("Only One Subscription for connection {0} Token Pair {1}", OperationContext.Current.SessionId, TokenPairKey);
+                }
+                else
+                {
+                    throw new Exception("Unable to create token pair view model");
+                }
+            }
+        }
+
         public void UnSubscribeAllRateUpdates()
         {
-            throw new NotImplementedException();
+            TokenPairRateListener tokenPairRateListenerRecord;
+            TokenRateListener tokenRateListenerRecord;
+            CurrencyPairRateListener currencyPairRateListenerRecord;
+            AssetRateListener assetRateListenerRecord;
+
+            Console.WriteLine("Unsubscribing to all rate subscriptions for session  {0}", OperationContext.Current.SessionId);
+
+            if (tokenPairRateSubscriptions.TryGetValue(OperationContext.Current.SessionId, out tokenPairRateListenerRecord) == true)
+            {
+                tokenPairRateListenerRecord.UnSubscribeToAllUpdates();
+            }
+
+            if (tokenRateSubscriptions.TryGetValue(OperationContext.Current.SessionId, out tokenRateListenerRecord) == true)
+            {
+                tokenRateListenerRecord.UnSubscribeToAllUpdates();
+            }
+
+            if (currencyPairRateSubscriptions.TryGetValue(OperationContext.Current.SessionId, out currencyPairRateListenerRecord) == true)
+            {
+                currencyPairRateListenerRecord.UnSubscribeToAllUpdates();
+            }
+
+            if (assetRateSubscriptions.TryGetValue(OperationContext.Current.SessionId, out assetRateListenerRecord) == true)
+            {
+                assetRateListenerRecord.UnSubscribeToAllUpdates();
+            }
         }
 
         public void UnSubscribeToAssetRateUpdate(string AssetId)
@@ -1387,9 +1599,9 @@ namespace AbacasX.Rate.Services
         public TokenDetail GetTokenDetail(string TokenId)
         {
             TokenDetail tokenDetailRecord;
-            
 
-            lock(tokenRateManager.tokenDetailListLock)
+
+            lock (tokenRateManager.tokenDetailListLock)
             {
                 if (tokenRateManager.tokenDetailList.TryGetValue(TokenId, out tokenDetailRecord) == false)
                 {
@@ -1429,6 +1641,23 @@ namespace AbacasX.Rate.Services
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Rate Feed Toggle
+
+        public bool IsRateFeedOn()
+        {
+            return rateFeedOn;
+        }
+
+        public bool ToggleRateFeed()
+        {
+            rateFeedOn = (rateFeedOn == true ? false : true);
+            Console.WriteLine("Rate Feed Toggle to {0}", rateFeedOn);
+            return (rateFeedOn);
+        }
+        
+
         #endregion
     }
 }

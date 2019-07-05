@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.ServiceModel;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace AbacasX.UI.Repository
     public class RateRepository : IRateService
     {
         RateServiceClient _rateServiceClient;
+        private Subject<TokenPairRateData> _tokenPairRateSubject = null;
 
         public RateRepository()
         {
@@ -70,7 +72,7 @@ namespace AbacasX.UI.Repository
                     _rateServiceClient = new RateServiceClient();
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw new Exception(String.Format("Error Re-connecting to Rate Service {0}", e.Message));
                 }
@@ -103,18 +105,37 @@ namespace AbacasX.UI.Repository
 
         public Task SubscribeToTokenPairRateUpdateAsync(string Token1, string Token2)
         {
-            _rateServiceClient.TokenPairRateUpdateReceived += _rateServiceClient_TokenPairRateUpdateReceived1;
+
+            _rateServiceClient.TokenPairRateUpdateReceived += _rateServiceClient_TokenPairRateUpdateReceived;
             return _rateServiceClient.SubscribeToTokenPairRateUpdateAsync(Token1, Token2);
         }
 
-        private void _rateServiceClient_TokenPairRateUpdateReceived1(object sender, TokenPairRateUpdateReceivedEventArgs e)
+        public Task SubscribeToTokenPairRateUpdateAsync(string Token1, string Token2, Subject<TokenPairRateData> tokenPairRateSubject)
         {
-            throw new NotImplementedException();
+            _tokenPairRateSubject = tokenPairRateSubject;
+
+            _rateServiceClient.TokenPairRateUpdateReceived += _rateServiceClient_TokenPairRateUpdateReceived;
+            return _rateServiceClient.SubscribeToTokenPairRateUpdateAsync(Token1, Token2);
         }
 
         private void _rateServiceClient_TokenPairRateUpdateReceived(object sender, TokenPairRateUpdateReceivedEventArgs e)
         {
-            throw new NotImplementedException();
+            TokenPairRateData tokenPairRateRecord = e.TokenPairRateRecord;
+
+            if (tokenPairRateRecord != null)
+            {
+                if (_tokenPairRateSubject != null)
+                {
+                    _tokenPairRateSubject.OnNext(tokenPairRateRecord);
+                }
+
+                Console.WriteLine("Token Pair Update for {0}/{1}  Bid/Offer {2}/{3}", tokenPairRateRecord.Token1Id, tokenPairRateRecord.Token2Id,
+                    tokenPairRateRecord.BidRate, tokenPairRateRecord.AskRate);
+            }
+            else
+            {
+                Console.WriteLine("Token Pair Update with unknown content");
+            }
         }
 
         public Task SubscribeToTokenRateUpdateAsync(string TokenId)
@@ -145,6 +166,8 @@ namespace AbacasX.UI.Repository
 
         public Task UnSubscribeToTokenPairRateUpdateAsync(string Token, string Token2)
         {
+            _tokenPairRateSubject = null;
+
             return _rateServiceClient.UnSubscribeToTokenPairRateUpdateAsync(Token, Token2);
         }
 
@@ -156,7 +179,7 @@ namespace AbacasX.UI.Repository
         public async Task<TokenPairRateData> GetTokenPairRateAsync(string Token1Id, string Token2Id)
         {
             checkConnectionStatus();
-            
+
             try
             {
                 Console.WriteLine("Calling RateRepository GetTokenPairRateAsync on {0}/{1}", Token1Id, Token2Id);
@@ -164,7 +187,7 @@ namespace AbacasX.UI.Repository
                 var result = await _rateServiceClient.GetTokenPairRateAsync(Token1Id, Token2Id);
                 return result;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("GetTokenPairRate Failed {0}", e.Message);
                 throw new Exception("RateRepository GetTokenPairRate Failed", e);
@@ -202,6 +225,30 @@ namespace AbacasX.UI.Repository
                 Console.WriteLine("GetTokenDetail Failed {0}", e.Message);
                 throw new Exception("RateRepository GetTokenDetail Failed", e);
             }
+        }
+
+        public Task SubscribeToOneTokenPairRateUpdateAsync(string Token1, string Token2)
+        {
+            _rateServiceClient.TokenPairRateUpdateReceived += _rateServiceClient_TokenPairRateUpdateReceived;
+            return _rateServiceClient.SubscribeToOneTokenPairRateUpdateAsync(Token1, Token2);
+        }
+
+        public Task SubscribeToOneTokenPairRateUpdateAsync(string Token1, string Token2, Subject<TokenPairRateData> tokenPairRateSubject)
+        {
+            _tokenPairRateSubject = tokenPairRateSubject;
+
+            _rateServiceClient.TokenPairRateUpdateReceived += _rateServiceClient_TokenPairRateUpdateReceived;
+            return _rateServiceClient.SubscribeToOneTokenPairRateUpdateAsync(Token1, Token2);
+        }
+
+        public Task<bool> IsRateFeedOnAsync()
+        {
+            return _rateServiceClient.IsRateFeedOnAsync();
+        }
+
+        public Task<bool> ToggleRateFeedAsync()
+        {
+            return _rateServiceClient.ToggleRateFeedAsync();
         }
     }
 }

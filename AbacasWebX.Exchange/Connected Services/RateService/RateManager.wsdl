@@ -12,9 +12,9 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
-      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.DataContracts" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.Models" />
+      <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://abacaswebxrate20190515102616.azurewebsites.net/RateManagerService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/AbacasX.Model.ViewModels" />
     </xsd:schema>
   </wsdl:types>
@@ -48,6 +48,12 @@
   <wsdl:message name="IRateService_SubscribeToTokenPairRateUpdate_OutputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeToTokenPairRateUpdateResponse" />
   </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToOneTokenPairRateUpdate_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToOneTokenPairRateUpdate" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_SubscribeToOneTokenPairRateUpdate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToOneTokenPairRateUpdateResponse" />
+  </wsdl:message>
   <wsdl:message name="IRateService_UnSubscribeToTokenPairRateUpdate_InputMessage">
     <wsdl:part name="parameters" element="tns:UnSubscribeToTokenPairRateUpdate" />
   </wsdl:message>
@@ -72,6 +78,12 @@
   <wsdl:message name="IRateService_UnSubscribeAllRateUpdates_OutputMessage">
     <wsdl:part name="parameters" element="tns:UnSubscribeAllRateUpdatesResponse" />
   </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenDetail" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_GetTokenDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenDetailResponse" />
+  </wsdl:message>
   <wsdl:message name="IRateService_GetAssetList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAssetList" />
   </wsdl:message>
@@ -83,12 +95,6 @@
   </wsdl:message>
   <wsdl:message name="IRateService_GetTokenList_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTokenListResponse" />
-  </wsdl:message>
-  <wsdl:message name="IRateService_GetTokenDetail_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTokenDetail" />
-  </wsdl:message>
-  <wsdl:message name="IRateService_GetTokenDetail_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTokenDetailResponse" />
   </wsdl:message>
   <wsdl:message name="IRateService_GetAssetRateList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAssetRateList" />
@@ -126,6 +132,18 @@
   <wsdl:message name="IRateService_UnRegisterWithRateManager_OutputMessage">
     <wsdl:part name="parameters" element="tns:UnRegisterWithRateManagerResponse" />
   </wsdl:message>
+  <wsdl:message name="IRateService_IsRateFeedOn_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsRateFeedOn" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_IsRateFeedOn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsRateFeedOnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_ToggleRateFeed_InputMessage">
+    <wsdl:part name="parameters" element="tns:ToggleRateFeed" />
+  </wsdl:message>
+  <wsdl:message name="IRateService_ToggleRateFeed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ToggleRateFeedResponse" />
+  </wsdl:message>
   <wsdl:message name="IRateService_AssetRateUpdate_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:AssetRateUpdate" />
   </wsdl:message>
@@ -159,6 +177,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdate" message="tns:IRateService_SubscribeToTokenPairRateUpdate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/SubscribeToTokenPairRateUpdateResponse" message="tns:IRateService_SubscribeToTokenPairRateUpdate_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SubscribeToOneTokenPairRateUpdate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdate" message="tns:IRateService_SubscribeToOneTokenPairRateUpdate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdateResponse" message="tns:IRateService_SubscribeToOneTokenPairRateUpdate_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnSubscribeToTokenPairRateUpdate">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdate" message="tns:IRateService_UnSubscribeToTokenPairRateUpdate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdateResponse" message="tns:IRateService_UnSubscribeToTokenPairRateUpdate_OutputMessage" />
@@ -175,6 +197,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdates" message="tns:IRateService_UnSubscribeAllRateUpdates_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnSubscribeAllRateUpdatesResponse" message="tns:IRateService_UnSubscribeAllRateUpdates_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenDetail" message="tns:IRateService_GetTokenDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenDetailResponse" message="tns:IRateService_GetTokenDetail_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAssetList">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetAssetList" message="tns:IRateService_GetAssetList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetAssetListResponse" message="tns:IRateService_GetAssetList_OutputMessage" />
@@ -182,10 +208,6 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenList">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenList" message="tns:IRateService_GetTokenList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenListResponse" message="tns:IRateService_GetTokenList_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetTokenDetail">
-      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetTokenDetail" message="tns:IRateService_GetTokenDetail_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/GetTokenDetailResponse" message="tns:IRateService_GetTokenDetail_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetAssetRateList">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/GetAssetRateList" message="tns:IRateService_GetAssetRateList_InputMessage" />
@@ -210,6 +232,14 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnRegisterWithRateManager">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateService/UnRegisterWithRateManager" message="tns:IRateService_UnRegisterWithRateManager_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/UnRegisterWithRateManagerResponse" message="tns:IRateService_UnRegisterWithRateManager_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="IsRateFeedOn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/IsRateFeedOn" message="tns:IRateService_IsRateFeedOn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/IsRateFeedOnResponse" message="tns:IRateService_IsRateFeedOn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ToggleRateFeed">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRateService/ToggleRateFeed" message="tns:IRateService_ToggleRateFeed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRateService/ToggleRateFeedResponse" message="tns:IRateService_ToggleRateFeed_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="AssetRateUpdate">
       <wsdl:output wsaw:Action="http://tempuri.org/IRateService/AssetRateUpdate" message="tns:IRateService_AssetRateUpdate_OutputCallbackMessage" />
@@ -272,6 +302,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SubscribeToOneTokenPairRateUpdate">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/SubscribeToOneTokenPairRateUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UnSubscribeToTokenPairRateUpdate">
       <soap12:operation soapAction="http://tempuri.org/IRateService/UnSubscribeToTokenPairRateUpdate" style="document" />
       <wsdl:input>
@@ -308,6 +347,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTokenDetail">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAssetList">
       <soap12:operation soapAction="http://tempuri.org/IRateService/GetAssetList" style="document" />
       <wsdl:input>
@@ -319,15 +367,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTokenList">
       <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenList" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTokenDetail">
-      <soap12:operation soapAction="http://tempuri.org/IRateService/GetTokenDetail" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -382,6 +421,24 @@
     </wsdl:operation>
     <wsdl:operation name="UnRegisterWithRateManager">
       <soap12:operation soapAction="http://tempuri.org/IRateService/UnRegisterWithRateManager" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRateFeedOn">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/IsRateFeedOn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ToggleRateFeed">
+      <soap12:operation soapAction="http://tempuri.org/IRateService/ToggleRateFeed" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

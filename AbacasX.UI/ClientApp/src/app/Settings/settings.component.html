@@ -1,1 +1,28 @@
-﻿<h1>Settings</h1>
+
+<form class="form-control-sm" style="margin-top:5%; margin-bottom:10px; margin-left:5%" novalidate>
+  <div class="d-inline-flex" style="margin-top:5px; margin-bottom:3em">
+    <div class="d-flex flex-column" style="margin-top:5px; align-items:flex-end; font-size:18px;font-weight:bold; color:#00337e">
+      <div class="d-inline-flex" style="margin-top:5px">
+        <label>Broker Liquidity</label>
+      </div>
+      <div class="d-inline-flex" style="margin-top:5px">
+        <label>Rate Feed</label>
+      </div>
+      <div class="d-inline-flex" style="margin-top:5px">
+        <label>Indirect Liquidity</label>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column" style="margin-left:30px; align-items:flex-start">
+      <div class="d-inline-flex" style="margin-top:5px;padding-left:5px">
+        <button (click)="toggleLiquidity()" style="width:7em" type="button" name="BrokerLiquidityOnOff" [ngClass]="{'btn':true,  'button-selected': brokerLiquidityIsOn == true, 'button-not-selected': brokerLiquidityIsOn == false}">{{brokerLiquiditySetting}}</button>
+      </div>
+      <div class="d-inline-flex" style="margin-top:5px;padding-left:5px">
+        <button (click)="toggleRateFeed()" style="width:7em" type="button" name="RateFeedOnOff" [ngClass]="{'btn':true,  'button-selected': rateFeedIsOn == true, 'button-not-selected': rateFeedIsOn == false}">{{rateFeedSetting}}</button>
+      </div>
+      <div class="d-inline-flex" style="margin-top:5px;padding-left:5px">
+        <button (click)="toggleIndirectLiquidity()" style="width:7em" type="button" name="IndirectLiquidityOnOff" [ngClass]="{'btn':true,  'button-selected': indirectLiquidityIsOn == true, 'button-not-selected': indirectLiquidityIsOn == false}">{{indirectLiquiditySetting}}</button>
+      </div>
+    </div>
+  </div>
+</form>

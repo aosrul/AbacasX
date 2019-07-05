@@ -189,8 +189,51 @@ namespace AbacasX.Apis
                 _logger.LogError(exp.Message);
                 return BadRequest(new ApiResponse { Status = false });
             }
-
         }
+
+
+        [HttpGet]
+        [NoCache]
+        [Route("toggleBrokerLiquidity")]
+        [ProducesResponseType(typeof(bool), 201)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> ToggleBrokerLiquidity()
+        {
+            try
+            {
+                bool response = await _orderService.ToggleBrokerLiquidityAsync();
+                return Ok(new ApiResponse { Status = true, IsBrokerLiquidityOn = response });
+                
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+
+        [HttpGet]
+        [NoCache]
+        [Route("isBrokerLiquidityOn")]
+        [ProducesResponseType(typeof(bool), 201)]
+        [ProducesResponseType(typeof(ApiResponse), 400)]
+        public async Task<ActionResult> IsBrokerLiquidityOn()
+        {
+            try
+            {
+                bool response = await _orderService.IsBrokerLiquidityOnAsync();
+                return Ok(new ApiResponse { Status = true, IsBrokerLiquidityOn = response });
+
+            }
+            catch (Exception exp)
+            {
+                _logger.LogError(exp.Message);
+                return BadRequest(new ApiResponse { Status = false });
+            }
+        }
+
+
 
         [HttpPost]
         [NoCache]

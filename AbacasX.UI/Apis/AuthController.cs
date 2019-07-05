@@ -48,7 +48,7 @@ namespace AbacasX.UI.Apis
                 new UserClass { UserName = "AbacasOps",         Password = "Abacas123", Role = "Ops",       clientId = 0 },
 
                 new UserClass { UserName = "TradezDigital",     Password = "Abacas123", Role = "Investor",  clientId = 1 },
-                new UserClass { UserName = "DigitalBroker",     Password = "Abacas123", Role = "Broker",    clientId = 2 },
+                new UserClass { UserName = "DigitalBroker",     Password = "Abacas123", Role = "Investor",  clientId = 2 },
                 new UserClass { UserName = "DigitalInvestor",   Password = "Abacas123", Role = "Investor",  clientId = 3 },
 
                 new UserClass { UserName = "VinceSmall",        Password = "Abacas123", Role = "Investor",    clientId = 4 },

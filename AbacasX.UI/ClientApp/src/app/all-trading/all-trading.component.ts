@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TradingRates, TokenPairRate } from '../../shared/interfaces';
 import { indexDebugNode } from '@angular/core/src/debug/debug_node';
 import { rateSignalRService } from '../../core/rate.service';
 import { either, last } from '@progress/kendo-angular-dateinputs/dist/es2015/util';
+import { IStreamResult } from '@aspnet/signalr';
 
 @Component({
   selector: 'all-trading',
   templateUrl: './all-trading.component.html',
   providers: [rateSignalRService]
 })
-export class AllTradingComponent implements OnInit {
+export class AllTradingComponent implements OnInit, OnDestroy {
+    
 
   selectedAssetPair: string = "@AAPL - @GOOG";
   public Token1Id: string = "";
@@ -49,6 +51,7 @@ export class AllTradingComponent implements OnInit {
   public tokens: string[] = [];
   public tokenRates: any[] = [];
   public tokenPairRate: TokenPairRate;
+  public tokenPairRateSubscription: any;
 
   constructor(private rateService: rateSignalRService) {
 
@@ -87,8 +90,36 @@ export class AllTradingComponent implements OnInit {
         this.updateTokenRate();
       }).catch((reason: any) => { console.log(reason); });
 
+      rateService.subscribeToOneTokenPairRateUpdate("@AAPL", "@GOOG");
+
+      this.startStreaming();
+
     });
   }
+
+  ngOnDestroy(): void {
+    if (this.tokenPairRateSubscription != null)
+      this.tokenPairRateSubscription.dispose();
+
+    this.rateService.unsubscribeAllRates();
+  }
+
+  startStreaming() {
+
+    this.tokenPairRateSubscription = this.rateService.startStreamingTokenPairRates().subscribe({
+      next: (data) => {
+        this.tokenPairRate = data;
+        this.updateTokenRate();
+      },
+      error: function (err) {
+        console.log('Error:' + err);
+      },
+      complete: function () {
+        console.log('completed');
+      }
+    });
+  }
+
 
   ngOnInit() {
 
@@ -110,16 +141,21 @@ export class AllTradingComponent implements OnInit {
 
     this.TokenExchangeFXBid = 1.0;
     this.TokenExchangeFXAsk = 1.0;
-
   }
 
   public refreshTokenPairRate(): void {
+
     if (this.IsSubscribed == true) {
       this.rateService.getTokenPairRate(this.Token1Id, this.Token2Id).then((data) => {
         console.log(data);
         this.tokenPairRate = data;
         this.updateTokenRate();
       }).catch((reason: any) => { console.log(reason); });
+
+      if (this.IsSubscribed == true)
+        this.rateService.subscribeToOneTokenPairRateUpdate(this.Token1Id, this.Token2Id);
+      else
+        console.log("Error: Connection lost prior to subscribing to new token pair");
     }
     else {
       this.initTokenRate();

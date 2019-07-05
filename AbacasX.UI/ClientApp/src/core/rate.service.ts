@@ -34,7 +34,13 @@ export class rateSignalRService {
       });
   }
 
-
+  public unsubscribeAllRates(): void {
+    this._rateHubConnection.invoke("unsubscribeToAllRateUpdates").then(
+      () => {
+        console.log("All Rates have been unsubscribed");
+      });
+  }
+  
   private registerOnServerEvents(): void
   {
     this._rateHubConnection.onclose(async () => {
@@ -46,6 +52,17 @@ export class rateSignalRService {
 
   public getTokenList(): Promise<any> {
     return this._rateHubConnection.invoke("getTokenList");
+  }
+
+  public subscribeToOneTokenPairRateUpdate(token1Id : string, token2Id : string): void {
+    this._rateHubConnection.invoke("SubscribeToOneTokenPairRate", token1Id, token2Id)
+      .catch(err => {
+        console.log("Error subscribing to token pair rates {0}", err.toString);
+      });
+  }
+
+  public startStreamingTokenPairRates(): IStreamResult<any> {
+    return this._rateHubConnection.stream("StreamTokenPairRates");
   }
 
   public getTokenDetail(tokenId: string): Promise<any> {
@@ -78,6 +95,25 @@ export class rateSignalRService {
     catch (err) {
       console.log("Error on getTokenPairRate {0}", err);
     }
-
   }
+
+  public isRateFeedOn(): Promise<any> {
+    try {
+      return this._rateHubConnection.invoke("isRateFeedOn");
+    }
+    catch (err) {
+      console.log("Error determining rate feed On/Off status {0}", err);
+    }
+  }
+
+  public toggleRateFeed(): Promise<any> {
+    try {
+      return this._rateHubConnection.invoke("toggleRateFeed");
+    }
+    catch (err) {
+      console.log("Error toggling rate feed On/Off {0}", err);
+    }
+  }
+
+
 }
