@@ -18,7 +18,6 @@ using AbacasX.Model.DataContracts;
 
 namespace AbacasX.Exchange.Services
 {
-
     #region Registered Listener
     public class RegisteredListener
     {
@@ -699,7 +698,14 @@ namespace AbacasX.Exchange.Services
             orderCount++;
             orderData.OrderId = orderCount;
 
-            Console.WriteLine("Add Order for Client {0} Details {1} ", orderData.ClientId, Newtonsoft.Json.JsonConvert.SerializeObject(orderData));
+            try
+            {
+                Console.WriteLine("Add Order for Client {0} Details {1} ", orderData.ClientId, Newtonsoft.Json.JsonConvert.SerializeObject(orderData));
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Problem Serializing Data in Add Order in debug write", ex.Message);
+            }
 
             orderLegRecord.Order.ClientId = orderData.ClientId;
 
@@ -1003,36 +1009,47 @@ namespace AbacasX.Exchange.Services
 
             lock (ClientOrderLock)
             {
-                if (ClientOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientOrderRecord) == true)
+                try
                 {
-                    if (clientOrderRecord.ClientOrders.TryGetValue(orderLegRecord.OrderLegId, out orderData) == true)
+                    if (ClientOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientOrderRecord) == true)
                     {
-                        orderData.OrderFillStatus = OrderLegFillStatusEnum.Full;
-                        orderData.OrderStatus = OrderStatusEnum.Filled;
-
-                        lock (ClientHistoricalOrderLock)
+                        if (clientOrderRecord.ClientOrders.TryGetValue(orderLegRecord.OrderLegId, out orderData) == true)
                         {
-                            if (ClientHistoricalOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientHistoricalOrderRecord) == false)
+                            orderData.OrderFillStatus = OrderLegFillStatusEnum.Full;
+                            orderData.OrderStatus = OrderStatusEnum.Filled;
+
+                            lock (ClientHistoricalOrderLock)
                             {
-                                clientHistoricalOrderRecord = new ClientHistoricalOrder(orderLegRecord.Order.ClientId);
-                                ClientHistoricalOrders.TryAdd(orderLegRecord.Order.ClientId, clientHistoricalOrderRecord);
+                                if (ClientHistoricalOrders.TryGetValue(orderLegRecord.Order.ClientId, out clientHistoricalOrderRecord) == false)
+                                {
+                                    clientHistoricalOrderRecord = new ClientHistoricalOrder(orderLegRecord.Order.ClientId);
+                                    ClientHistoricalOrders.TryAdd(orderLegRecord.Order.ClientId, clientHistoricalOrderRecord);
+                                }
+
+                                clientHistoricalOrderRecord.ClientHistoricalOrders.TryAdd(orderLegRecord.OrderLegId, orderData);
                             }
 
-                            clientHistoricalOrderRecord.ClientHistoricalOrders.TryAdd(orderLegRecord.OrderLegId, orderData);
+                            clientOrderRecord.ClientOrders.TryRemove(orderLegRecord.OrderLegId, out orderData);
                         }
 
-                        clientOrderRecord.ClientOrders.TryRemove(orderLegRecord.OrderLegId, out orderData);
+                        else
+                        {
+                            //throw new Exception(String.Format("Error: Unable to locate client order id {0}", orderLegRecord.OrderLegId));
+                            Console.WriteLine("Error: Unable to locate client order id {0}", orderLegRecord.OrderLegId);
+                        }
                     }
-
                     else
                     {
-                        throw new Exception(String.Format("Error: Unable to locate client order id {0}", orderLegRecord.OrderLegId));
+                        //throw new Exception(String.Format("Error: Unable to locate client orders for {0}", orderLegRecord.Order.ClientId));
+                        Console.WriteLine("Error: Unable to locate client orders for client", orderLegRecord.Order.ClientId);
                     }
+                
                 }
-                else
+                catch(Exception ex)
                 {
-                    throw new Exception(String.Format("Error: Unable to locate client orders for {0}", orderLegRecord.Order.ClientId));
+                    Console.WriteLine("Filed to update position for client {0} error {1}", orderLegRecord.Order.ClientId, ex.Message);
                 }
+                
             }
 
             Console.WriteLine("Order Filled: Order Id {0}, Client {1} Status Change to Filled",
@@ -1053,4 +1070,5 @@ namespace AbacasX.Exchange.Services
             return brokerLiquidityOn;
         }
     }
+
 }

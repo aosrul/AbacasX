@@ -15,6 +15,9 @@ namespace AbacasWebX.Exchange.ExchangeSystem
         private ExchangeBook _exchangeBook;
         RateServiceClient _rateServiceClient;
 
+        private delegate Boolean CheckConnectionStatusDel();
+        private CheckConnectionStatusDel CheckConnectionStatus;
+
         LinkedList<WatchOrder> LimitBuyOrders = new LinkedList<WatchOrder>();
         LinkedList<WatchOrder> LimitSellOrders = new LinkedList<WatchOrder>();
         LinkedList<WatchOrder> MarketBuyOrders = new LinkedList<WatchOrder>();
@@ -47,6 +50,7 @@ namespace AbacasWebX.Exchange.ExchangeSystem
             Token2Id = token2Id;
             _rateServiceClient = rateServiceClient;
             _exchangeBook = exchangeBook;
+            CheckConnectionStatus = _exchangeBook.checkConnectionStatus;
         }
 
         public void AddToOrderBook(OrderLeg orderLeg)
@@ -229,10 +233,18 @@ namespace AbacasWebX.Exchange.ExchangeSystem
                                     // Sell Orders are removed from the list if they are filled
                                     marketSellOrder = MarketSellOrders.First();
 
-                                    tokenPairRateRecord = GetTokenPairRate(buyOrder.orderLegRecord.Token1Id, buyOrder.orderLegRecord.Token2Id);
+                                     try
+                                    {
+                                        tokenPairRateRecord = GetTokenPairRate(buyOrder.orderLegRecord.Token1Id, buyOrder.orderLegRecord.Token2Id);
 
-                                    // Two market orders offsetting will be matched at the mid-price of the market
-                                    buyOrder.OrderPrice = (Decimal)(tokenPairRateRecord.BidRate + tokenPairRateRecord.AskRate) / 2M;
+                                        // Two market orders offsetting will be matched at the mid-price of the market
+                                        buyOrder.OrderPrice = (Decimal)(tokenPairRateRecord.BidRate + tokenPairRateRecord.AskRate) / 2M;
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        Console.WriteLine("Exception {0} - Unable to assign market rate matching market buy/sell, defaulting to buy order leg rate", e.Message);
+                                    }
+                                   
                                     marketSellOrder.OrderPrice = buyOrder.OrderPrice;
 
                                     marketSellOrderUtilized = true;
@@ -395,11 +407,15 @@ namespace AbacasWebX.Exchange.ExchangeSystem
             // Todo: Replace this with a subscription to a service reference that is listening to the rates rather than
             // asking for the rate and waiting.
 
-            tokenPairRateData = _rateServiceClient.GetTokenPairRate(token1Id, token2Id);
-
-            if (tokenPairRateData == null)
+            try
             {
-                throw new Exception(string.Format("Error: Token Pair Rate Unavailable {0}/{1}", token1Id, token2Id));
+                CheckConnectionStatus();
+
+                tokenPairRateData = _rateServiceClient.GetTokenPairRate(token1Id, token2Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(string.Format("Error: Token Pair Rate Unavailable {0}/{1}", token1Id, token2Id), ex);
             }
 
             return tokenPairRateData;
@@ -434,9 +450,19 @@ namespace AbacasWebX.Exchange.ExchangeSystem
                                 {
                                     // Sell Orders are removed from the list if they are filled
                                     marketBuyOrder = MarketBuyOrders.First();
+                                    
+                                    try
+                                    {
+                                        tokenPairRateRecord = GetTokenPairRate(sellOrder.orderLegRecord.Token1Id, sellOrder.orderLegRecord.Token2Id);
+                                        sellOrder.OrderPrice = (Decimal)(tokenPairRateRecord.BidRate + tokenPairRateRecord.AskRate) / 2M;
 
-                                    tokenPairRateRecord = GetTokenPairRate(sellOrder.orderLegRecord.Token1Id, sellOrder.orderLegRecord.Token2Id);
-                                    sellOrder.OrderPrice = (Decimal)(tokenPairRateRecord.BidRate + tokenPairRateRecord.AskRate) / 2M;
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Console.WriteLine("Exception {0} - Unable to assign market rate matching market buy/sell, defaulting to buy order leg rate", e.Message);
+                                    }
+
+
                                     marketBuyOrder.OrderPrice = sellOrder.OrderPrice;
 
                                     // Try to offset with Market Sell Orders

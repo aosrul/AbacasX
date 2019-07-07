@@ -72,4 +72,5 @@ namespace AbacasX.Exchange.Contracts
         void WithdrawalAdded(AssetWithdrawalData withdrawalData);
 
     }
+
 }

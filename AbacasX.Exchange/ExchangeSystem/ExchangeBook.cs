@@ -16,6 +16,7 @@ namespace AbacasX.Exchange.ExchangeSystem
         public delegate void NotifyOrderLegMatchDel(OrderLeg orderLegRecord, OrderFilledData orderFilledDataRecord);
         public delegate void NotifyOrderLegFilledDel(OrderLeg orderLegRecord);
 
+
         // Instance pointers must be initialized by method creating the Exchange Book
         public NotifyOrderAddedDel NotifyOrderAdded;
         public NotifyOrderLegMatchDel NotifyOrderLegMatched;
@@ -25,19 +26,39 @@ namespace AbacasX.Exchange.ExchangeSystem
         public RateServiceClient rateServiceClient;
         RateServiceCallBack rateServiceCallBack = new RateServiceCallBack();
 
-        public ExchangeBook ()
+        public ExchangeBook()
         {
             try
             {
                 rateServiceClient = new RateServiceClient(new InstanceContext(rateServiceCallBack));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Exception accessing the rate service {0}", ex.Message);
                 throw new Exception("Unable to connect to rate service");
             }
 
             rateServiceClient.InnerChannel.Faulted += InnerChannel_Faulted;
+        }
+
+        public Boolean checkConnectionStatus()
+        {
+            if (rateServiceClient.State != CommunicationState.Opened)
+            {
+                try
+                {
+                    Console.WriteLine("Re-Connecting to Rate Service");
+                    rateServiceClient = new RateServiceClient(new InstanceContext(rateServiceCallBack));
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception re-connecting to the rate service {0}", ex.Message);
+                    throw new Exception("Unable to connect to rate service", ex);
+                }
+            }
+
+            return true;
         }
 
         private void InnerChannel_Faulted(object sender, EventArgs e)
@@ -115,4 +136,6 @@ namespace AbacasX.Exchange.ExchangeSystem
             throw new NotImplementedException();
         }
     }
+
+
 }
