@@ -129,8 +129,8 @@ namespace AbacasX.UI.Repository
                     _tokenPairRateSubject.OnNext(tokenPairRateRecord);
                 }
 
-                Console.WriteLine("Token Pair Update for {0}/{1}  Bid/Offer {2}/{3}", tokenPairRateRecord.Token1Id, tokenPairRateRecord.Token2Id,
-                    tokenPairRateRecord.BidRate, tokenPairRateRecord.AskRate);
+                //Console.WriteLine("Token Pair Update for {0}/{1}  Bid/Offer {2}/{3}", tokenPairRateRecord.Token1Id, tokenPairRateRecord.Token2Id,
+                //    tokenPairRateRecord.BidRate, tokenPairRateRecord.AskRate);
             }
             else
             {

@@ -619,7 +619,15 @@ namespace AbacasWebX.Exchange.Services
             //Console.WriteLine("Client {0} Request for Blockchain Transactions", clientId);
             //Console.WriteLine("{0} Transactions Returned", BlockChainTransactions.Values.Where(o => o.clientId == clientId).Count());
 
-            return BlockChainTransactions.Values.Where(o => o.clientId == clientId).ToList();
+            var results = BlockChainTransactions.Values.Where(o => o.clientId == clientId).ToList();
+
+            results.Sort((a, b) =>
+            {
+                return (a.BlockNumber >= b.BlockNumber ? 1 : -1);
+
+            });
+
+            return results;
         }
 
         public List<ClientPositionData> GetClientPositions(int ClientId)
@@ -629,7 +637,15 @@ namespace AbacasWebX.Exchange.Services
             if (ClientPositions.TryGetValue(ClientId, out clientPositionRecord) == true)
             {
                 //Console.WriteLine("Client Id {0} /  {1} Positions Returned", ClientId, clientPositionRecord.ClientPositions.Count());
-                return clientPositionRecord.ClientPositions.Values.ToList();
+                var results = clientPositionRecord.ClientPositions.Values.ToList();
+
+                results.Sort((a, b) =>
+                {
+                    return (a.TokenId.CompareTo(b.TokenId));
+                });
+
+                return results;
+
             }
             else
                 return null;
@@ -641,7 +657,15 @@ namespace AbacasWebX.Exchange.Services
 
             if (ClientFilledOrders.TryGetValue(ClientId, out clientFilledOrderRecord) == true)
             {
-                return clientFilledOrderRecord.ClientTransactions.Values.ToList();
+                var results = clientFilledOrderRecord.ClientTransactions.Values.ToList();
+
+                results.Sort((a, b) =>
+                {
+                    return (a.OrderLegId >= b.OrderLegId ? 1 : -1);
+
+                });
+
+                return results;
             }
             else
                 return null;
@@ -653,7 +677,15 @@ namespace AbacasWebX.Exchange.Services
 
             if (ClientOrders.TryGetValue(ClientId, out clientOrderRecord) == true)
             {
-                return clientOrderRecord.ClientOrders.Values.ToList();
+                var results = clientOrderRecord.ClientOrders.Values.ToList();
+
+                results.Sort((a, b) =>
+                {
+
+                    return (a.OrderId >= b.OrderId ? 1 : -1);
+                });
+
+                return results;
             }
             else
             {
@@ -668,7 +700,15 @@ namespace AbacasWebX.Exchange.Services
 
             if (ClientHistoricalOrders.TryGetValue(ClientId, out clientHistoricalOrderRecord) == true)
             {
-                return clientHistoricalOrderRecord.ClientHistoricalOrders.Values.ToList();
+                var results =  clientHistoricalOrderRecord.ClientHistoricalOrders.Values.ToList();
+
+                results.Sort((a, b) =>
+                {
+                    return (a.OrderId >= b.OrderId ? 1 : -1);
+
+                });
+
+                return results;
             }
             else
             {

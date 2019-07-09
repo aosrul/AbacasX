@@ -36,7 +36,6 @@ namespace AbacasX.UI.Hubs
             return _rateServer.GetTokenRateList();
         }
 
-        // Streaming Token Rates
         public ChannelReader<TokenRateData> StreamTokenRates()
         {
             return _rateServer.StreamTokenRates().AsChannelReader(10);
@@ -44,7 +43,7 @@ namespace AbacasX.UI.Hubs
 
         public ChannelReader<TokenPairRateData> StreamTokenPairRates()
         {
-            return _rateServer.StreamTokenPairRates().AsChannelReader(10);
+            return _rateServer.StreamTokenPairRates(Context.ConnectionId).AsChannelReader(10);
         }
 
         public void SubscribeToTokenRates(string tokenId)
@@ -64,7 +63,7 @@ namespace AbacasX.UI.Hubs
 
         public void SubscribeToOneTokenPairRate(string token1Id, string token2Id)
         {
-            _rateServer.SubscribeToOneTokenPairRate(token1Id, token2Id);
+            _rateServer.SubscribeToOneTokenPairRate(Context.ConnectionId, token1Id, token2Id);
         }
 
         public void UnSubscribeToTokenPairRates(string token1Id, string token2Id)
@@ -74,7 +73,7 @@ namespace AbacasX.UI.Hubs
 
         public void UnSubscribeToAllRateUpdates()
         {
-            _rateServer.UnSubscribeToAllRateUpdates();
+            _rateServer.UnSubscribeToAllRateUpdates(Context.ConnectionId);
         }
 
         public async Task<TokenPairRateData> GetTokenPairRate(string Token1Id, string Token2Id)
