@@ -67,16 +67,21 @@ export class QuickTradingComponent implements OnInit, OnChanges {
       if (propName === "selectedAssetPair")
         this.selectedAssetPairChanged(changedProp.currentValue);
 
-      if (propName === "TokenExchangeAsk") {
-        if (this.IsBuyOrder)
-          this.updateOrderPrice(changedProp.currentValue);
-      }
+      // Don't change the price if the user is entering a limit price
+      if (this.IsMarketOrder == true) {
 
-      if (propName === "TokenExchangeBid") {
-        if (this.IsBuyOrder == false) {
-          this.updateOrderPrice(changedProp.currentValue);
+        if (propName === "TokenExchangeAsk") {
+          if (this.IsBuyOrder)
+            this.updateOrderPrice(changedProp.currentValue);
+        }
+
+        if (propName === "TokenExchangeBid") {
+          if (this.IsBuyOrder == false) {
+            this.updateOrderPrice(changedProp.currentValue);
+          }
         }
       }
+
     }
     this.changeLog.push(log.join(', '));
   }

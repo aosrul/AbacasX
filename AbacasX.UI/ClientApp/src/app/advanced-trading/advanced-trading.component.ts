@@ -93,14 +93,17 @@ export class AdvancedTradingComponent implements OnInit {
       if (propName === "selectedAssetPair")
         this.selectedAssetPairChanged(changedProp.currentValue);
 
-      if (propName === "TokenExchangeAsk") {
-        if (this.IsBuyOrder)
-          this.updateOrderPrice(changedProp.currentValue);
-      }
+      if (this.IsMarketOrder == true) {
 
-      if (propName === "TokenExchangeBid") {
-        if (this.IsBuyOrder == false) {
-          this.updateOrderPrice(changedProp.currentValue);
+        if (propName === "TokenExchangeAsk") {
+          if (this.IsBuyOrder)
+            this.updateOrderPrice(changedProp.currentValue);
+        }
+
+        if (propName === "TokenExchangeBid") {
+          if (this.IsBuyOrder == false) {
+            this.updateOrderPrice(changedProp.currentValue);
+          }
         }
       }
 
@@ -162,10 +165,12 @@ export class AdvancedTradingComponent implements OnInit {
     else
       this.IsCrossCurrency = true;
 
-    if (this.quickOrder.BuySellType == BuySellTypeEnum.Buy)
-      this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
-    else
-      this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
+    if (this.IsMarketOrder == true) {
+      if (this.quickOrder.BuySellType == BuySellTypeEnum.Buy)
+        this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
+      else
+        this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
+    }
 
     if (this.IsBuyOrder)
       this.OrderDescription = "Buy " + this.quickOrder.Token1Id + " for " + this.quickOrder.Token2Id;
@@ -325,8 +330,10 @@ export class AdvancedTradingComponent implements OnInit {
 
     this.quickOrder.BuySellType = BuySellTypeEnum.Buy;
     this.IsBuyOrder = true;
-    
-    this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
+
+    if (this.IsMarketOrder == true) {
+      this.quickOrder.OrderPrice = this.TokenPairRate.askRate;
+    }
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
 
     if (this.IsBuyOrder)
@@ -348,7 +355,10 @@ export class AdvancedTradingComponent implements OnInit {
 
     this.quickOrder.BuySellType = BuySellTypeEnum.Sell;
     this.IsBuyOrder = false;
-    this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
+    if (this.IsMarketOrder == true) {
+      this.quickOrder.OrderPrice = this.TokenPairRate.bidRate;
+    }
+
     this.quickOrder.Token2Amount = this.quickOrder.Token1Amount * this.quickOrder.OrderPrice;
 
     if (this.IsBuyOrder)

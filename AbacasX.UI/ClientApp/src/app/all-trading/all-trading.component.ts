@@ -90,7 +90,7 @@ export class AllTradingComponent implements OnInit, OnDestroy {
         this.updateTokenRate();
       }).catch((reason: any) => { console.log(reason); });
 
-      rateService.subscribeToOneTokenPairRateUpdate("@AAPL", "@GOOG");
+      rateService.clientSubscribeTokenPairRate("@AAPL", "@GOOG");
 
       this.startStreaming();
 
@@ -98,26 +98,34 @@ export class AllTradingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.rateService.clientUnsubscribeAllRates();
+
     if (this.tokenPairRateSubscription != null)
       this.tokenPairRateSubscription.dispose();
 
-    this.rateService.unsubscribeAllRates();
   }
 
   startStreaming() {
 
-    this.tokenPairRateSubscription = this.rateService.startStreamingTokenPairRates().subscribe({
-      next: (data) => {
-        this.tokenPairRate = data;
+    this.rateService.tokenPairRateUpdated.subscribe({
+      next: (event: TokenPairRate) => {
+        this.tokenPairRate = event;
         this.updateTokenRate();
-      },
-      error: function (err) {
-        console.log('Error:' + err);
-      },
-      complete: function () {
-        console.log('completed');
       }
     });
+
+    //this.tokenPairRateSubscription = this.rateService.startStreamingTokenPairRates().subscribe({
+    //  next: (data) => {
+    //    this.tokenPairRate = data;
+    //    this.updateTokenRate();
+    //  },
+    //  error: function (err) {
+    //    console.log('Error:' + err);
+    //  },
+    //  complete: function () {
+    //    console.log('completed');
+    //  }
+    //});
   }
 
 
@@ -153,7 +161,10 @@ export class AllTradingComponent implements OnInit, OnDestroy {
       }).catch((reason: any) => { console.log(reason); });
 
       if (this.IsSubscribed == true)
-        this.rateService.subscribeToOneTokenPairRateUpdate(this.Token1Id, this.Token2Id);
+      {
+        this.rateService.clientUnsubscribeAllRates();
+        this.rateService.clientSubscribeTokenPairRate(this.Token1Id, this.Token2Id);
+      }
       else
         console.log("Error: Connection lost prior to subscribing to new token pair");
     }

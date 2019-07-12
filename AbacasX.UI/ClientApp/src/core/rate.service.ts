@@ -1,5 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, IStreamResult } from '@aspnet/signalr'
+import { Observable } from 'rxjs/Observable';
+import { TokenPairRate } from '../shared/interfaces';
 
 @Injectable()
 export class rateSignalRService {
@@ -7,6 +9,7 @@ export class rateSignalRService {
   connectionEstablished = new EventEmitter<Boolean>();
   private connectionIsEstablished = false;
   private _rateHubConnection: HubConnection;
+  public  tokenPairRateUpdated = new EventEmitter<TokenPairRate>();
 
   constructor() {
     this.createConnection();
@@ -40,14 +43,28 @@ export class rateSignalRService {
         console.log("All Rates have been unsubscribed");
       });
   }
+
+  public clientUnsubscribeAllRates(): void {
+    this._rateHubConnection.invoke("clientUnsubscribeAllRateUpdates").then(
+      () => {
+        console.log("All Client Rates have been unsubscribed");
+      });
+  }
   
   private registerOnServerEvents(): void
   {
+
+    this._rateHubConnection.on("broadcastTokenPairRateUpdate", (rateUpdate) => {
+      this.tokenPairRateUpdated.emit(rateUpdate);
+    });
+
+
     this._rateHubConnection.onclose(async () => {
 
       console.log("Connection closed... restarting");
       await this.startConnection();
     });
+
   }
 
   public getTokenList(): Promise<any> {
@@ -56,6 +73,13 @@ export class rateSignalRService {
 
   public subscribeToOneTokenPairRateUpdate(token1Id : string, token2Id : string): void {
     this._rateHubConnection.invoke("SubscribeToOneTokenPairRate", token1Id, token2Id)
+      .catch(err => {
+        console.log("Error subscribing to token pair rates {0}", err.toString);
+      });
+  }
+
+  public clientSubscribeTokenPairRate(token1Id: string, token2Id: string): void {
+    this._rateHubConnection.invoke("ClientSubscribeTokenPairRate", token1Id, token2Id)
       .catch(err => {
         console.log("Error subscribing to token pair rates {0}", err.toString);
       });

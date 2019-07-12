@@ -81,6 +81,11 @@ namespace AbacasX.UI.Repository
             return true;
         }
 
+        public void setTokenPairSubject(Subject<TokenPairRateData> tokenPairRateSubject)
+        {
+            _tokenPairRateSubject = tokenPairRateSubject;
+        }
+
         public Task SubscribeToAssetRateUpdateAsync(string AssetId)
         {
             _rateServiceClient.AssetRateUpdateReceived += _rateServiceClient_AssetRateUpdateReceived;
@@ -110,15 +115,7 @@ namespace AbacasX.UI.Repository
             return _rateServiceClient.SubscribeToTokenPairRateUpdateAsync(Token1, Token2);
         }
 
-        public Task SubscribeToTokenPairRateUpdateAsync(string Token1, string Token2, Subject<TokenPairRateData> tokenPairRateSubject)
-        {
-            _tokenPairRateSubject = tokenPairRateSubject;
-
-            _rateServiceClient.TokenPairRateUpdateReceived += _rateServiceClient_TokenPairRateUpdateReceived;
-            return _rateServiceClient.SubscribeToTokenPairRateUpdateAsync(Token1, Token2);
-        }
-
-        private void _rateServiceClient_TokenPairRateUpdateReceived(object sender, TokenPairRateUpdateReceivedEventArgs e)
+         private void _rateServiceClient_TokenPairRateUpdateReceived(object sender, TokenPairRateUpdateReceivedEventArgs e)
         {
             TokenPairRateData tokenPairRateRecord = e.TokenPairRateRecord;
 

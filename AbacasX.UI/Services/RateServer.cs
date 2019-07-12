@@ -15,12 +15,13 @@ namespace AbacasX.UI.Services
     #region Token Pair Subscription Management
 
     // This is a subscription to a particular token pair.  There may be more than one listener to this token pair
-    public class TokenPairSubscription
+    public class TokenPairSubscription : IDisposable
     {
         public string Token1Id { get; set; }
         public string Token2Id { get; set; }
         public string TokenPairKey { get; set; }
         public Subject<TokenPairRateData> tokenPairSubject;
+        public IDisposable dispose;
 
         public TokenPairSubscription(string token1Id, string token2Id, string tokenPairKey)
         {
@@ -30,9 +31,19 @@ namespace AbacasX.UI.Services
             tokenPairSubject = new Subject<TokenPairRateData>();
         }
 
+        // This is receiving all rate updates, so it must filter for the appropriate token pair updates
         public void UpdateTokenPairRate(TokenPairRateData tokenPairRateData)
         {
-            tokenPairSubject.OnNext(tokenPairRateData);
+            if (tokenPairRateData.Token1Id.Equals(Token1Id) && tokenPairRateData.Token2Id.Equals(Token2Id))
+                tokenPairSubject.OnNext(tokenPairRateData);
+        }
+
+        public void Dispose()
+        {
+            if (dispose != null)
+                dispose.Dispose();
+
+            tokenPairSubject.OnCompleted();
         }
     }
 
@@ -42,12 +53,13 @@ namespace AbacasX.UI.Services
         public IDisposable disposable;
         public Subject<TokenPairRateData> subject;
         public string tokenPairKey;
+        private IHubContext<RateServerHub> _hub { get; set; }
 
-        public TokenPairRateListener(string sessionId)
+        public TokenPairRateListener(string sessionId, IHubContext<RateServerHub> Hub)
         {
             SessionId = sessionId;
-            subject = new Subject<TokenPairRateData>();
             disposable = null;
+            _hub = Hub;
         }
 
         public void SubscribeToTokenPair(string Token1Id, string Token2Id, Subject<TokenPairRateData> tokenPairSubject)
@@ -70,15 +82,14 @@ namespace AbacasX.UI.Services
         {
             Console.WriteLine("Sending Rate Update to {0} for {1} Bid/Offer {2}/{3}",
                 SessionId, tokenPairKey, tokenPairRateData.BidRate, tokenPairRateData.AskRate);
-            subject.OnNext(tokenPairRateData);
+
+            _hub.Clients.Client(SessionId).SendAsync("broadcastTokenPairRateUpdate", tokenPairRateData);
         }
 
         public void Dispose()
         {
             if (disposable != null)
                 disposable.Dispose();
-
-            subject.OnCompleted();
         }
     }
     #endregion
@@ -98,8 +109,9 @@ namespace AbacasX.UI.Services
         {
             Hub = hub;
             _rateService = rateService;
-        }
 
+            ((RateRepository)_rateService).setTokenPairSubject(_tokenPairRateSubject);
+        }
 
         public IEnumerable<String> GetAssetList()
         {
@@ -113,7 +125,7 @@ namespace AbacasX.UI.Services
 
         public IEnumerable<TokenRateData> GetTokenRateList()
         {
-            var results =  _rateService.GetTokenRateListAsync().GetAwaiter().GetResult();
+            var results = _rateService.GetTokenRateListAsync().GetAwaiter().GetResult();
 
             return results;
         }
@@ -152,57 +164,96 @@ namespace AbacasX.UI.Services
         // function that can receive the Observable Subject which is then streamed to the clients.
         public void SubscribeToTokenPairRates(string Token1Id, string Token2Id)
         {
-            ((RateRepository) _rateService).SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id, _tokenPairRateSubject);
+            ((RateRepository)_rateService).SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id);
         }
 
-        public void SubscribeToOneTokenPairRate(string ConnectionId, string Token1Id, string Token2Id)
+       
+        public void ClientSubscribeTokenPairRate(string ConnectionId, string Token1Id, string Token2Id)
         {
-            //string tokenPairKey = Token1Id.Trim() + " - " + Token2Id.Trim();
-            //TokenPairSubscription tokenPairSubscriptionRecord;
-            //TokenPairRateListener tokenPairListenerRecord;
+            string tokenPairKey = Token1Id.Trim() + " - " + Token2Id.Trim();
+            TokenPairSubscription tokenPairSubscriptionRecord;
+            TokenPairRateListener tokenPairListenerRecord;
 
-            //try
-            //{
-            //    if (tokenPairSubscriptions.TryGetValue(tokenPairKey, out tokenPairSubscriptionRecord) == false)
-            //    {
-            //        // New Token Pair Subscription
-            //        tokenPairSubscriptionRecord = new TokenPairSubscription(Token1Id, Token2Id, tokenPairKey);
-            //        tokenPairSubscriptions.TryAdd(tokenPairKey, tokenPairSubscriptionRecord);
+            try
+            {
+                if (tokenPairSubscriptions.TryGetValue(tokenPairKey, out tokenPairSubscriptionRecord) == false)
+                {
+                    // New Token Pair Subscription
+                    tokenPairSubscriptionRecord = new TokenPairSubscription(Token1Id, Token2Id, tokenPairKey);
+                    tokenPairSubscriptions.TryAdd(tokenPairKey, tokenPairSubscriptionRecord);
 
-            //        ((RateRepository)_rateService).SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id, tokenPairSubscriptionRecord.tokenPairSubject);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("Error: Unable to locate/create a token pair subscription for {0}/{1} with error {2}", Token1Id, Token2Id, ex.Message);
-            //    return;
-            //}
+                    // Subscribe to the rate updates received
+                    tokenPairSubscriptionRecord.dispose = _tokenPairRateSubject.Subscribe(tokenPairSubscriptionRecord.UpdateTokenPairRate);
+
+                    // Subscribe to the token pair on the rate server
+                    ((RateRepository)_rateService).SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id);
+                }
+                else
+                {
+                    // Re-subscribe to the server as the last subscriber for the token key pair will have unsubscribed.
+                    if (tokenPairSubscriptionRecord.tokenPairSubject.HasObservers == false)
+                    {
+                        ((RateRepository)_rateService).SubscribeToTokenPairRateUpdateAsync(Token1Id, Token2Id);
+                        tokenPairSubscriptionRecord.dispose = _tokenPairRateSubject.Subscribe(tokenPairSubscriptionRecord.UpdateTokenPairRate);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: Unable to locate/create a token pair subscription for {0}/{1} with error {2}", Token1Id, Token2Id, ex.Message);
+                return;
+            }
 
 
-            //// Find the connection listener
-            //try
-            //{
-            //    if (tokenPairListeners.TryGetValue(ConnectionId, out tokenPairListenerRecord) == false)
-            //    {
-            //        tokenPairListenerRecord = new TokenPairRateListener(ConnectionId);
-            //        tokenPairListeners.TryAdd(ConnectionId, tokenPairListenerRecord);
-            //    }
-            //    else
-            //    {
-            //        // Unsubscribe from current subscription
-            //        if (tokenPairListenerRecord.disposable != null)
-            //            tokenPairListenerRecord.disposable.Dispose();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine("Error: Unable to locate/create a token pair listener for connection id{0} with error {1}", ConnectionId, ex.Message);
-            //    return;
-            //}
+            // Find the connection listener
+            try
+            {
+                if (tokenPairListeners.TryGetValue(ConnectionId, out tokenPairListenerRecord) == false)
+                {
+                    tokenPairListenerRecord = new TokenPairRateListener(ConnectionId, Hub);
+                    tokenPairListeners.TryAdd(ConnectionId, tokenPairListenerRecord);
+                }
+                else
+                {
+                    // Unsubscribe from current subscription
+                    if (tokenPairListenerRecord.disposable != null)
+                        tokenPairListenerRecord.disposable.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: Unable to locate/create a token pair listener for connection id{0} with error {1}", ConnectionId, ex.Message);
+                return;
+            }
 
-            //tokenPairListenerRecord.SubscribeToTokenPair(Token1Id, Token2Id, tokenPairSubscriptionRecord.tokenPairSubject);
+            tokenPairListenerRecord.SubscribeToTokenPair(Token1Id, Token2Id, tokenPairSubscriptionRecord.tokenPairSubject);
+        }
 
-            ((RateRepository)_rateService).SubscribeToOneTokenPairRateUpdateAsync(Token1Id, Token2Id, _tokenPairRateSubject);
+        public void ClientUnSubscribeAllRateUpdates(string ConnectionId)
+        {
+            TokenPairSubscription tokenPairSubscriptionRecord;
+            TokenPairRateListener tokenPairListenerRecord;
+            string tokenPairKey;
+
+            if (tokenPairListeners.TryGetValue(ConnectionId, out tokenPairListenerRecord) == true)
+            {
+                tokenPairKey = tokenPairListenerRecord.tokenPairKey;
+
+                // Unsubscribe for this connection
+                tokenPairListenerRecord.Dispose();
+
+                // Unsubscribe at the source if there are no additional listeners.
+                if (tokenPairSubscriptions.TryGetValue(tokenPairKey, out tokenPairSubscriptionRecord) == true)
+                {
+                    // If there are no more observers, then unsubscribe to the token pair at the rate server level.
+                    if (tokenPairSubscriptionRecord.tokenPairSubject.HasObservers == false)
+                    {
+                        tokenPairSubscriptionRecord.dispose.Dispose();
+                        //_rateService.UnSubscribeToTokenPairRateUpdateAsync(tokenPairSubscriptionRecord.Token1Id, tokenPairSubscriptionRecord.Token2Id);
+                    }
+                }
+            }
         }
 
         public void UnSubscribeToTokenPairRates(string Token1Id, string Token2Id)
@@ -212,27 +263,7 @@ namespace AbacasX.UI.Services
 
         public void UnSubscribeToAllRateUpdates(string ConnectionId)
         {
-            _rateService.UnSubscribeAllRateUpdatesAsync();
-
-            //TokenPairSubscription tokenPairSubscriptionRecord;
-            //TokenPairRateListener tokenPairListenerRecord;
-            //string tokenPairKey;
-
-            //if (tokenPairListeners.TryGetValue(ConnectionId, out tokenPairListenerRecord) == true)
-            //{
-            //    tokenPairKey = tokenPairListenerRecord.tokenPairKey;
-
-            //    // Unsubscribe for this connection
-            //    tokenPairListenerRecord.Dispose();
-
-            //    // Unsubscribe at the source if there are no additional listeners.
-            //    if (tokenPairSubscriptions.TryGetValue(tokenPairKey, out tokenPairSubscriptionRecord) == true)
-            //    {
-            //        //// If there are no more observers, then unsubscribe to the token pair at the rate server level.
-            //        //if (tokenPairSubscriptionRecord.tokenPairSubject.HasObservers == false)
-            //        //    _rateService.UnSubscribeToTokenPairRateUpdateAsync(tokenPairSubscriptionRecord.Token1Id, tokenPairSubscriptionRecord.Token2Id);
-            //    }
-            //}
+            //_rateService.UnSubscribeAllRateUpdatesAsync();
         }
 
         public TokenRateData GetTokenRate(string TokenId)

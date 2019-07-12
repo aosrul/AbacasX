@@ -19,6 +19,14 @@ namespace AbacasX.UI.Hubs
             _rateServer = rateServer;
         }
 
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+
+            _rateServer.ClientUnSubscribeAllRateUpdates(Context.ConnectionId);
+
+            await base.OnDisconnectedAsync(exception);
+        }
+
         // Token List
         public IEnumerable<String> getTokenList()
         {
@@ -61,9 +69,15 @@ namespace AbacasX.UI.Hubs
             _rateServer.SubscribeToTokenPairRates(token1Id, token2Id);
         }
 
-        public void SubscribeToOneTokenPairRate(string token1Id, string token2Id)
+       
+        public void ClientSubscribeTokenPairRate(string token1Id, string token2Id)
         {
-            _rateServer.SubscribeToOneTokenPairRate(Context.ConnectionId, token1Id, token2Id);
+            _rateServer.ClientSubscribeTokenPairRate(Context.ConnectionId, token1Id, token2Id);
+        }
+
+        public void ClientUnSubscribeAllRateUpdates()
+        {
+            _rateServer.ClientUnSubscribeAllRateUpdates(Context.ConnectionId);
         }
 
         public void UnSubscribeToTokenPairRates(string token1Id, string token2Id)
